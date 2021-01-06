@@ -1,0 +1,149 @@
+{
+  "EntitlementDetails": {
+    "owner": "The Administrator",
+    "displayName": "ACCOUNTING_ent_000",
+    "logiplex_app_name": null,
+    "approval_levels": null,
+    "ObjecttInheritance": [],
+    "description": "Test Description",
+    "birthright": null,
+    "type": "group",
+    "approver_level3": null,
+    "approver_level2": null,
+    "lastrefresh": "10-07-2020",
+    "users": "5",
+    "ObjectProperties": {
+      "Report Date": "20140811",
+      "Description": "Accounting Group for PAM",
+      "Database Name": "TEST01",
+      "Permission Group": null,
+      "Permission Rights": [
+        "ACCTSYSTEM"
+      ]
+    },
+    "privileged": null,
+    "application": "PAM",
+    "piilevel": null,
+    "target_app": null,
+    "modified": "10-07-2020",
+    "id": "8a40e5277503d9f6017503f39478013d",
+    "attribute": "Permission Group",
+    "requestable": "true",
+    "certifiable": null,
+    "value": "ACCOUNTING"
+  },
+  "ExtentedAttributeProperties": [
+    {
+      "APIName": null,
+      "allowedValues": null,
+      "displayName": "Target Application",
+      "extendedAttrName": "target_app",
+      "name": "target_app",
+      "named": "true",
+      "type": "string"
+    },
+    {
+      "APIName": null,
+      "allowedValues": null,
+      "displayName": "Logiplex Application Name",
+      "extendedAttrName": "logiplex_app_name",
+      "name": "logiplex_app_name",
+      "named": "true",
+      "type": "string"
+    },
+    {
+      "APIName": null,
+      "allowedValues": [
+        "Yes",
+        "No"
+      ],
+      "displayName": "Certifiable",
+      "extendedAttrName": "certifiable",
+      "name": "certifiable",
+      "named": "true",
+      "type": "string"
+    },
+    {
+      "APIName": null,
+      "allowedValues": [
+        "Yes",
+        "No"
+      ],
+      "displayName": "Birth Right",
+      "extendedAttrName": "birthright",
+      "name": "birthright",
+      "named": "true",
+      "type": "string"
+    },
+    {
+      "APIName": null,
+      "allowedValues": [
+        "Yes",
+        "No"
+      ],
+      "displayName": "Privileged",
+      "extendedAttrName": "privileged",
+      "name": "privileged",
+      "named": "true",
+      "type": "string"
+    },
+    {
+      "APIName": null,
+      "allowedValues": [
+        "1",
+        "2",
+        "3"
+      ],
+      "displayName": "Approver Levels",
+      "extendedAttrName": "approval_levels",
+      "name": "approval_levels",
+      "named": "true",
+      "type": "string"
+    },
+    {
+      "APIName": "/EntitlementManagement/identities",
+      "allowedValues": null,
+      "displayName": "Approver Level 2",
+      "extendedAttrName": "approver_level2",
+      "name": "approver_level2",
+      "named": "true",
+      "type": "sailpoint.object.Identity"
+    },
+    {
+      "APIName": "/EntitlementManagement/identities",
+      "allowedValues": null,
+      "displayName": "Approver Level 3",
+      "extendedAttrName": "approver_level3",
+      "name": "approver_level3",
+      "named": "true",
+      "type": "sailpoint.object.Identity"
+    },
+    {
+      "APIName": null,
+      "allowedValues": null,
+      "displayName": "PII Level",
+      "extendedAttrName": "extended1",
+      "name": "piilevel",
+      "named": "false",
+      "type": "string"
+    }
+  ],
+  "Members": [
+    {
+      "total": "1",
+      "MemberDetails": [
+        {
+          "certificationactiondate": null,
+          "firstname": "Mary",
+          "manager": "James.Smith",
+          "name": "Mary.Johnson",
+          "source": "Aggregation",
+          "certificationaction": "Not Certified",
+          "email": "Mary.Johnson@demoexample.com",
+          "lastname": "Johnson",
+          "status": "Active"
+        }
+      ]
+    }
+  ]
+}

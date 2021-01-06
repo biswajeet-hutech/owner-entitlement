@@ -1,0 +1,28 @@
+
+[
+  {
+    "statDescription": "Total Entitlements",
+    "statName": "total",
+    "statVal": "9"
+  },
+  {
+    "statDescription": "Total Requestable",
+    "statName": "requestable",
+    "statVal": "8"
+  },
+  {
+    "statDescription": "Entitlements without Description",
+    "statName": "description",
+    "statVal": "1"
+  },
+  {
+    "statDescription": "Total Certifiable",
+    "statName": "CERTIFIABLE",
+    "statVal": "2"
+  },
+  {
+    "statDescription": "Total Privileged",
+    "statName": "PRIVILEGED",
+    "statVal": "0"
+  }
+]

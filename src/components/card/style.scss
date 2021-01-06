@@ -1,0 +1,35 @@
+.oe-card {
+  width: 20%;
+  min-width: 220px;
+  height: 110px;
+  padding: 16px 32px 10px;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 1px rgba(0, 0, 0, 0.18);
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-right: 24px;
+  & .oe-card-value {
+    font-size: 35px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #037da1;
+    margin: 4px 0;
+  }
+  & .oe-card-desc {
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #202020;
+  }
+  &:last-child {
+    margin: 0;
+  }
+}

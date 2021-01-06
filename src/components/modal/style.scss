@@ -1,0 +1,54 @@
+.oe-modal {
+  font-family: 'Roboto-Regular';
+
+  & .ant-modal-content {
+    border-radius: 10px;
+  }
+  & .ant-modal-header {
+    padding: 20px 32px;
+    border-radius: 10px 10px 0 0;
+    border-bottom: solid 1px #d9d9d9;
+  }
+  & .ant-modal-title {
+    font-family: 'Roboto-Medium';
+    font-size: 22px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #191919;
+  }
+  & .ant-modal-body {
+    font-family: 'Roboto-Regular';
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #6a6a6a;
+    padding: 28px 32px;
+    & .oe-modal-content {
+      height: 70vh;
+      overflow-y: auto;
+    }
+  }
+  & .ant-modal-footer {
+    display: none;
+  }
+  & .ant-modal-close {
+    top: 12px;
+    right: 24px;
+  }
+  & .ant-modal-close-x {
+    border-radius: 50%;
+    width: 42px;
+    height: 42px;
+    line-height: 52px;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    &:hover {
+      background-color: #ededed;
+    }
+  }
+}

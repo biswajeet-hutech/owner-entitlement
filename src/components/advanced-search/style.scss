@@ -1,0 +1,45 @@
+.oe-adv-search {
+  & .adv-btn-wrapper {
+    margin-left: 12px;
+  }
+}
+
+.oe-adv-search-content {
+  padding: 8px;
+  width: 600px;
+  min-height: max-content;
+
+  & .divider {
+    width: 100%;
+    height: 1px;
+    margin: 23px 0 1px;
+    border: solid 1px #e8e8e8;
+  }
+}
+
+.oe-overlay {
+  left: 60px !important; //Not able to override this style by normal way
+
+  & .ant-popover-arrow {
+    display: none;
+  }
+  & .oe-overlay-footer {
+    padding-top: 20px;
+  }
+  & .oe-overlay-header {
+    padding: 8px 0 20px;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .oe-adv-search {
+    & .adv-btn-wrapper {
+      margin: 12px 0;
+    }
+  }
+  .oe-adv-search-content {
+    padding: 12px;
+    width: 100%;
+    min-height: 100%;
+  }
+}

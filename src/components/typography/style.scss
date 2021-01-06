@@ -1,0 +1,46 @@
+.oe-typography {
+  color: #202020;
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: normal;
+  letter-spacing: normal;
+  &.heading1 {
+    font-size: 35px;
+    font-weight: 500;
+    font-family: 'Roboto-Medium';
+  }
+  &.heading2 {
+    font-size: 32px;
+    font-weight: 500;
+    font-family: 'Roboto-Medium';
+  }
+  &.heading3 {
+    font-size: 26px;
+    font-weight: 500;
+    font-family: 'Roboto-Medium';
+  }
+  &.heading4 {
+    font-size: 22px;
+    font-weight: 500;
+    font-family: 'Roboto-Medium';
+  }
+  &.title1 {
+    font-size: 16px;
+  }
+  &.title2 {
+    font-size: 14px;
+    font-weight: 500;
+    font-family: 'Roboto-Medium';
+  }
+  &.body1 {
+    font-size: 14px;
+  }
+  &.body2 {
+    font-size: 12px;
+  }
+  &.gutter-bottom {
+    margin-bottom: 8px;
+  }
+}

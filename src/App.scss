@@ -1,0 +1,23 @@
+.oe-app {
+  padding: 40px;
+  background-color: #f3f2ef;
+  font-family: 'Roboto-Regular';
+  min-height: 120vh;
+}
+
+.oe-section {
+  padding: 24px 0;  
+}
+
+.oe-page-margin {
+  margin: 0px;
+}
+
+@media screen and (max-width: 600px) {
+  .App {
+    padding: 0;
+  }
+  .oe-page-margin {
+    margin: 0 12px;
+  }
+}

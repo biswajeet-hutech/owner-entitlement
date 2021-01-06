@@ -1,0 +1,26 @@
+.form-section {
+  padding: 32px 24px 50px;
+  border-bottom: solid 1px #e2dfdf;
+  width: 100%;
+  &:last-child {
+    border-bottom: none;
+  }
+  &.form-section-writable {
+    background-color: #f6fdff;
+  }
+  & .extended-property-label {
+    font-family: "Roboto-Medium";
+    font-size: 18px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #191919;
+    margin-bottom: 24px;
+  }
+}
+
+.oe-ed-wrapper {
+  margin-top: 24px;
+}

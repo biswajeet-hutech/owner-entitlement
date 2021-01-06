@@ -1,23 +1,25 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+
+import './App.scss';
+import Tabs from './components/tab';
+import Typography from './components/typography';
+
+import 'antd/dist/antd.css';
+import OwnerEntitlement from './containers/owner-entitlement-list';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="oe-app">
+      <Typography type="heading3" className="oe-section oe-page-margin">Owner Entitlement</Typography>
+      <Tabs tabs={[{
+        name: 'Owner Entitlement',
+        content: <OwnerEntitlement />
+      },
+      {
+        name: 'Other Tab',
+        content: 'Hello 2',
+        disabled: true
+      }]} />
     </div>
   );
 }

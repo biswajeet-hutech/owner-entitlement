@@ -1,0 +1,29 @@
+.oe-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+  & .oe-label {
+    font-family: 'MyriadPro-Regular';
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.83;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.85);
+  }
+
+  & .oe-dropdown {
+    margin: 4px 0;
+    width: 100%;
+  }
+  & .ant-select:not(.ant-select-customize-input) .ant-select-selector {
+    padding: 5px 12px;
+    height: 42px;
+    background: #f1f7ff;
+    border-color: #f1f7ff;
+    font-size: 16px;
+    font-family: 'Roboto-Regular';
+    color: #7d86a9;
+  }
+}

@@ -1,0 +1,37 @@
+.oe-form-wrapper {
+  display: flex;
+  // align-items: center;
+  margin-bottom: 24px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  & .oe-form-error {
+    color: red;
+    font-size: 1em;
+    margin: 4px 0;
+  }
+  & .oe-form-label {
+    font-family: "Roboto-Medium";
+    font-size: 16px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #191919;
+    width: 150px;
+    min-width: 150px;
+    margin-right: 20px;
+  }
+  & .oe-form-value {
+    font-family: "Roboto-Regular";
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #6a6a6a;
+    width: 100%;
+  }
+}

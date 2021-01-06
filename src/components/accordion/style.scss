@@ -1,0 +1,65 @@
+.oe-accordion {
+  &.ant-collapse {
+    border: none;
+  }
+  &.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
+    padding: 9px 35px 13px 26px;
+    background-color: #f7f7f7;
+    margin: 0 0 3px;
+    min-height: 78px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  & .oe-accordion-title {
+    font-family: 'Roboto-Medium';
+    font-size: 32px;
+    font-weight: 500;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #191919;
+  }
+  & .oe-accordion-subtitle {
+    font-family: 'Roboto-Regular';
+    font-size: 14px;
+    line-height: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #191919;
+    margin: 2px 4px 0;
+  }
+  & .ant-collapse-content {
+    border-top: 1px solid #e2dfdf;
+  }
+  &.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
+    padding: 12px 144px;
+    background-color: #ffffff;
+  }
+}
+
+.Chevron{
+  position:relative;
+  display:block;
+  height:32px;/*height should be double border*/
+}
+.Chevron:before,
+.Chevron:after{
+  position:absolute;
+  display:block;
+  content:"";
+  border:16px solid transparent;/*adjust size*/
+}
+/*Change four 'top' values below to rotate (top/right/bottom/left)*/
+.Chevron:before{
+  top:0;
+  border-top-color:#202020;/*Chevron Color*/
+}
+.Chevron:after{
+  top:-4px;/*adjust thickness*/
+  border-top-color:#000;/*Match background colour*/
+}
