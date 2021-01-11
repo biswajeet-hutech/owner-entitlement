@@ -7,7 +7,6 @@
     color: #676768;
     background: #d9e7f6;
     height: 56px;
-    overflow: hidden;
     font-size: 16px;
   }
   & .ant-checkbox-inner {
@@ -37,8 +36,8 @@
     font-size: 12px;
   }
   & .oe-icon-btn {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     padding: 4px 10px;
     border: 1px solid #aaa;
     border-radius: 2px;
@@ -58,6 +57,7 @@
   }
   & .oe-icon-btn-wrapper {
     display: flex;
+    justify-content: center;
   }
 }
 

@@ -5,11 +5,13 @@ import "./style.scss";
 
 const Search = ({
   placeHolder="Search entitlements",
-  onSearch=() => {}
+  onSearch=() => {},
+  onChange=() => {},
 }) => {
   const [searchText, onSearchTextChange] = React.useState('');
   const handleSearchTextUpdate = (e) => {
     onSearchTextChange(e.target.value);
+    onChange(e.target.value);
   }
   const handleSearch = (e) => {
     if (e.keyCode === 13) {

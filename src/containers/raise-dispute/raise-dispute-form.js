@@ -23,20 +23,6 @@ const RaiseDisputeForm = ({
       readOnly: true
     },
     {
-      key: 'type',
-      label: 'Type',
-      value: entitlementData.type,
-      type: 'input',
-      readOnly: true
-    },
-    {
-      key: 'attribute',
-      label: 'Attribute',
-      value: entitlementData.attribute,
-      type: 'input',
-      readOnly: true
-    },
-    {
       key: 'value',
       label: 'Value',
       value: entitlementData.value,
@@ -85,7 +71,7 @@ const RaiseDisputeForm = ({
       key: 'disputeStatement',
       label: 'Dispute Statement *',
       value: '',
-      type: 'description',
+      type: 'textarea',
       maxLength: 250
     }
   ]

@@ -1,6 +1,7 @@
 .oe-adv-search {
   & .adv-btn-wrapper {
     margin-left: 12px;
+    margin-right: 0;
   }
 }
 
@@ -15,6 +16,26 @@
     margin: 23px 0 1px;
     border: solid 1px #e8e8e8;
   }
+
+  & .oe-adv-search-input, & .oe-adv-search-datepicker {
+    line-height: 34px;
+    width: 96%;
+    background: #f1f7ff;
+    font-size: 16px;
+    font-family: "Roboto-Regular";
+    color: #7d86a9;
+  }
+
+  & .ant-form-item-label>label {
+    font-family: "MyriadPro-Regular";
+    font-size: 12px;
+    font-weight: 400;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.83;
+    letter-spacing: normal;
+    color: rgba(0,0,0,.85);
+  }
 }
 
 .oe-overlay {
@@ -28,6 +49,14 @@
   }
   & .oe-overlay-header {
     padding: 8px 0 20px;
+  }
+  & .oe-overlay-subheader {
+    font-family: "MyriadPro-Semibold";
+    line-height: 1.83;
+    margin: 12px 0;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.85);
   }
 }
 

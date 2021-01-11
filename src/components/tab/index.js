@@ -6,7 +6,7 @@ import './style.scss';
 const { TabPane } = AntTabs;
 
 function callback(key) {
-  console.log(key);
+  // console.log(key);
 }
 
 const Tabs = ({

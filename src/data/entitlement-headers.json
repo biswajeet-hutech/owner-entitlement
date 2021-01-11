@@ -1,0 +1,30 @@
+[
+  {
+    "displayName": "Entitlement Value",
+    "name": "value"
+  },
+  {
+    "displayName": "Application Name",
+    "name": "application"
+  },
+  {
+    "displayName": "Display Name",
+    "name": "displayName"
+  },
+  {
+    "displayName": "Description",
+    "name": "description"
+  },
+  {
+    "displayName": "Requestable",
+    "name": "requestable"
+  },
+  {
+    "displayName": "Member",
+    "name": "users"
+  },
+  {
+    "displayName": "Privileged",
+    "name": "privileged"
+  }
+]

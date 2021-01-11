@@ -9,9 +9,12 @@ const Dropdown = ({
   options = [],
   placeholder="Select a value",
   selectedValue,
-  onChange
+  onChange,
+  overrideClass="",
+  disabled,
+  value
 }) => (
-  <div className="oe-dropdown-container">
+  <div className={`oe-dropdown-container ${overrideClass}`}>
     <label className="oe-label">{label}</label>
     <Select
       suffixIcon={<CaretDownFilled
@@ -20,6 +23,8 @@ const Dropdown = ({
       className="oe-dropdown"
       placeholder={placeholder}
       onChange={onChange}
+      disabled={!!disabled}
+      value={value}
     >
       {
         options.map(option => (

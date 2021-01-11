@@ -4,14 +4,16 @@ import './style.scss';
 import Tabs from "../../components/tab";
 import EntitlementDetails from "../entitlement-details";
 import EntitlementMembers from "../entitlement-members";
-import { API2 as API } from "../../api";
+import { API, localMode } from "../../api";
 import { message, Spin } from "antd";
 import dummyData from "../../data/entitlement-details-dummy.json";
 
 const EntitlementDetailsWrapper = ({
   entitlementId,
   defaultActiveKey="1",
-  editMode
+  editMode,
+  onClose = ()=> {},
+  onSuccess = ()=> {}
 }) => {
 
   const defaultEntitlementList = {
@@ -30,7 +32,7 @@ const EntitlementDetailsWrapper = ({
 
   const getEntitlementList = ({ totalRecordsToFetch, start, attrVal, id }) => {
     setLoadingEntitlement(true);
-    const url = '/EntitlementManagement/members';
+    const url = 'EntitlementManagement/members';
     API.post(url, {
       PagingInfo: {
         totalRecordsToFetch: totalRecordsToFetch+'',
@@ -44,11 +46,9 @@ const EntitlementDetailsWrapper = ({
       }
     }).catch(err => {
       message.error("Failed to load entitlement data");
-      // setEntitlementData({
-      //   // total: entitlementList.total,
-      //   // EntitlementDetails: []
-      //   // ...data
-      // })
+      if(localMode) {
+        setEntitlementData({ ...dummyData });
+      }
     }).then(res => {
       setLoadingEntitlement(false);
     });
@@ -84,12 +84,18 @@ const EntitlementDetailsWrapper = ({
     name: 'Entitlement Details',
     content: (
       <Spin spinning={loadingEntitlement}>
-        <EntitlementDetails data={entitlementData} editMode={!!editMode} />
+        <EntitlementDetails
+          data={entitlementData}
+          editMode={!!editMode}
+          onSuccess={onSuccess}
+          onClose={onClose}
+        />
       </Spin>
     )
   }]
+
   return (
-    <Tabs tabs={tabsData} filled defaultActiveKey={defaultActiveKey} />
+    <Tabs tabs={tabsData.filter((tab, index) => index+1 === +defaultActiveKey)} filled defaultActiveKey={defaultActiveKey} />
   );
 }
 

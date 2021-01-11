@@ -1,0 +1,43 @@
+.oe-rte {
+  & .DraftEditor-root {
+    font-family: "Roboto-Regular";
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: rgba(0, 0, 0, 0.85);
+    width: 100%;
+    line-height: 1.5;
+  }
+
+  & .test-root {
+    border-radius: 3px;
+    border: solid 1px rgba(25, 25, 25, 0.59);
+
+    & .test-toolbar {
+      background-color: #f1f1f1;
+      margin: 0;
+      padding: 8px 16px 8px;
+    }
+    & .ButtonGroup__root___3lEAn {
+      margin: 0 5px 0px 0;
+      white-space: nowrap;
+      border-right: 1px solid #ccc;
+      &:last-child {
+        border-right: none;
+      }
+
+      &>div>button {
+        margin-right: 12px;
+        border: none;
+        background: transparent;
+        &.IconButton__isActive___2Ey8p {
+          background: none #d8d8d8;
+        }
+      }
+      
+    }
+  }
+}

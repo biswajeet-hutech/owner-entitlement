@@ -6,7 +6,7 @@ import './style.scss';
 import Accordion from "../../components/accordion";
 import Tabs from "../../components/tab";
 import RaiseDisputeForm from "./raise-dispute-form";
-import { API2 as API } from "../../api";
+import API from "../../api";
 
 const RaiseDispute = ({
   onHide,
@@ -17,14 +17,14 @@ const RaiseDispute = ({
   const [disputeComment, setDisputeComment] = React.useState('');
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState({});
-  const handleUpdate = (e) => {
+  const handleUpdate = (value) => {
     setError({});
-    setDisputeComment(e.target.value);
+    setDisputeComment(value);
   }
 
   const raiseDisputeAPI = ({ entID, disputeComment }) => {
     setLoading(true);
-    const baseURL = '/EntitlementManagement/EntitlmentDetails/dispute';
+    const baseURL = 'EntitlementManagement/dispute';
     API.post(baseURL, {
       message: disputeComment,
       id: entID
@@ -46,7 +46,6 @@ const RaiseDispute = ({
         comment: 'Please provide some comment.'
       })
     } else {
-      console.log('Form Success');
       raiseDisputeAPI({
         entID: entitlementData.id,
         disputeComment
@@ -55,8 +54,8 @@ const RaiseDispute = ({
   }
 
   const panelData = [{
-    title: 'Base Properties',
-    subTitle: 'View and edit standard properties',
+    title: 'Entitlement Properties',
+    subTitle: 'Provide a dispute comment to raise dispute',
     content: <RaiseDisputeForm entitlementData={entitlementData} onChange={handleUpdate} comment={disputeComment} onHide={onHide} onSubmit={handleSubmit} error={error} />
   }];
 

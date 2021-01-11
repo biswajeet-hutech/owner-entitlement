@@ -9,7 +9,10 @@ import RaiseDispute from "../raise-dispute";
 
 const { useBreakpoint } = Grid;
 
-const ResponsiveActionIcons = ({ data={} }) => {
+const ResponsiveActionIcons = ({
+  data={},
+  onAction=()=> {}
+}) => {
   const [openModal, setOpenModal] = React.useState({show: false, edit: false });
   const [openDisputeModal, setOpenDisputeModal] = React.useState(false);
   const [actionModalConfig, setActionModalConfig] = React.useState({
@@ -48,7 +51,7 @@ const ResponsiveActionIcons = ({ data={} }) => {
       </Tooltip>
       <Tooltip title="Export" placement="bottom">
         <div className="oe-icon-btn">
-          <ExportOutlined style={{ transform: 'rotate(-45deg)', fontSize: 12 }} />
+          <ExportOutlined style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>
@@ -56,14 +59,20 @@ const ResponsiveActionIcons = ({ data={} }) => {
           <SwapOutlined />
         </div>
       </Tooltip>
-      <Modal open={openModal.show} onHide={() => setOpenModal({show: false, edit: false })} title={`${data.displayName || data.value} - Actions`}>
-        <EntitlementDetailsWrapper defaultActiveKey="2" entitlementId={data.id} editMode={openModal.edit} />
+      <Modal open={openModal.show} onHide={() => setOpenModal({show: false, edit: false })} title={`${data.displayName || data.value} - ${openModal.edit ? 'Edit' : 'View'} Details`}>
+        <EntitlementDetailsWrapper
+          defaultActiveKey="2"
+          entitlementId={data.id}
+          editMode={openModal.edit}
+          onClose={() => {setOpenModal({show: false, edit: false })}}
+          onSuccess={() => {setOpenModal({show: false, edit: false }); onAction('edit_success')}}
+        />
       </Modal>
       <Modal open={openDisputeModal} onHide={() => setOpenDisputeModal(false)} title={`${data.displayName || data.value} - Raise Dispute`}>
         <RaiseDispute
           entitlementData={data}
           onHide={() => setOpenDisputeModal(false)}
-          onSuccess={() => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'success', origin: 'dispute' })}}
+          onSuccess={() => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'success', origin: 'dispute' }); onAction('dispute')}}
           onError={() => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'error', origin: 'dispute' })}}
         />
       </Modal>

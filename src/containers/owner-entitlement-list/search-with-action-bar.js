@@ -5,19 +5,34 @@ import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
 import InfoContent from './info-content';
-import AdvancedSearch from '../../components/advanced-search';
+import AdvancedSearch from '../advanced-search';
 import "./style.scss";
 import ScheduleCertification from "../scheduled-certification";
 
 const SearchWithActionBar = ({
-  onSearch
+  onSearch = () => {},
+  onExport = () => {},
+  onSearchTextChange = () => {}
 }) => {
   const [openSecduledCertModal, setOpenSecduledCertModal] = React.useState(false);
+  const [searchText, setSearchTextChange] = React.useState('');
+  const [searchProps, setSearchProps] = React.useState({});
   const [popVisible, setPopVisible] = React.useState({
     import: false,
     export: false,
     scheduledCert: false
   });
+
+  const handleSearch = (data) => {
+    const payload = {};
+    for (const key in data) {
+      if (data[key]) {
+        payload[key] = data[key];
+      }
+    };
+    onSearch(payload);
+    setSearchProps(payload);
+  }
 
   return (
     <>
@@ -25,29 +40,35 @@ const SearchWithActionBar = ({
         <Col xs={24} md={12}>
           <Row className="adv-search-wrapper">
             <Col xs={24} md={17}>
-              <Search onSearch={onSearch} />
+              <Search
+                onSearch={(searchVal) => handleSearch({searchVal})}
+                onChange={(val) => setSearchTextChange(val)}
+                placeHolder="Search by Application, Display Name, Entitlement value"
+              />
             </Col>
             <Col xs={24} md={6}>
-              <AdvancedSearch />
+              <AdvancedSearch
+                onSearch={(searchProps) => handleSearch({ searchVal: searchText, ...searchProps })}
+              />
             </Col>
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button type="primary" leftIcon={<ImportOutlined />} rightIcon={(
-            <InfoContent
-              type="import"
-              visible={popVisible.import}
-              onVisibleChange={(v) => setPopVisible({ ...popVisible, import: v })}
-              onHide={() => setPopVisible({ ...popVisible, import: false })} />
-          )}>Import</Button>
-          <Button type="secondary" leftIcon={<ExportOutlined />} rightIcon={(
+          <Button onClick={() => onExport(searchProps)} type="secondary" leftIcon={<ExportOutlined />} rightIcon={(
             <InfoContent
               type="export"
               visible={popVisible.export}
               onVisibleChange={(v) => setPopVisible({ ...popVisible, export: v })}
               onHide={() => setPopVisible({ ...popVisible, export: false })} />
           )}>Export</Button>
-          <Button type="secondary" leftIcon={<FileDoneOutlined />} rightIcon={(
+          <Button disabled type="primary" leftIcon={<ImportOutlined />} rightIcon={(
+            <InfoContent
+              type="import"
+              visible={popVisible.import}
+              onVisibleChange={(v) => setPopVisible({ ...popVisible, import: v })}
+              onHide={() => setPopVisible({ ...popVisible, import: false })} />
+          )}>Import</Button>
+          <Button disabled type="secondary" leftIcon={<FileDoneOutlined />} rightIcon={(
             <InfoContent
               type="scheduledCert"
               visible={popVisible.scheduledCert}

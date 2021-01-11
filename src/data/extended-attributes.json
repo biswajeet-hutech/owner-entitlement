@@ -1,0 +1,65 @@
+[{
+	"APIName": null,
+	"allowedValues": null,
+	"displayName": "Target Application",
+	"extendedAttrName": "target_app",
+	"name": "target_app",
+	"named": "true",
+	"type": "string"
+}, {
+	"APIName": null,
+	"allowedValues": null,
+	"displayName": "Logiplex Application Name",
+	"extendedAttrName": "logiplex_app_name",
+	"name": "logiplex_app_name",
+	"named": "true",
+	"type": "string"
+}, {
+	"APIName": null,
+	"allowedValues": ["Yes", "No"],
+	"displayName": "Certifiable",
+	"extendedAttrName": "certifiable",
+	"name": "certifiable",
+	"named": "true",
+	"type": "string"
+}, {
+	"APIName": null,
+	"allowedValues": ["Yes", "No"],
+	"displayName": "Birth Right",
+	"extendedAttrName": "birthright",
+	"name": "birthright",
+	"named": "true",
+	"type": "string"
+}, {
+	"APIName": null,
+	"allowedValues": ["Yes", "No"],
+	"displayName": "Privileged",
+	"extendedAttrName": "privileged",
+	"name": "privileged",
+	"named": "true",
+	"type": "string"
+}, {
+	"APIName": null,
+	"allowedValues": ["1", "2", "3"],
+	"displayName": "Approver Levels",
+	"extendedAttrName": "approval_levels",
+	"name": "approval_levels",
+	"named": "true",
+	"type": "string"
+}, {
+	"APIName": "/EntitlementManagement/identities",
+	"allowedValues": null,
+	"displayName": "Approver Level 2",
+	"extendedAttrName": "approver_level2",
+	"name": "approver_level2",
+	"named": "true",
+	"type": "sailpoint.object.Identity"
+}, {
+	"APIName": "/EntitlementManagement/identities",
+	"allowedValues": null,
+	"displayName": "Approver Level 3",
+	"extendedAttrName": "approver_level3",
+	"name": "approver_level3",
+	"named": "true",
+	"type": "sailpoint.object.Identity"
+}]

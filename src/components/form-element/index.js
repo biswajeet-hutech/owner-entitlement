@@ -2,15 +2,22 @@ import React from "react";
 import { CheckCircleFilled, StopOutlined } from '@ant-design/icons';
 import { Input, Checkbox } from 'antd';
 import "./style.scss";
+import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
 const { TextArea } = Input;
 
-const InputForm = ({value, readOnly}) => {
+const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
   return (
     <>
       {
         readOnly ? <span>{ value }</span> : (
-          <Input defaultValue={value} />
+          <Input
+            defaultValue={value}
+            value={value}
+            className="oe-form-input"
+            onChange={(e) => onChange(e.target.value)}
+            {...otherProps}
+          />
         )
       }
     </>
@@ -21,9 +28,9 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
   return (
     <>
       {
-        readOnly ? <span>{ value }</span> : (
+        readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
           <>
-          <TextArea showCount maxLength={2000} value={value} rows={10} onChange={onChange} {...otherProps} />
+          <MyStatefulEditor value={value || ''} onChange={onChange} {...otherProps} />
           { otherProps.error && <div className="oe-form-error">{otherProps.error}</div> }
           </>
         )
@@ -32,23 +39,71 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
   )
 }
 
-const CheckboxForm = ({value, readOnly}) => {
+const TextAreaForm = ({value, readOnly, onChange, ...otherProps }) => {
   return (
     <>
       {
-        readOnly ? (value ? <CheckCircleFilled style={{ fontSize: 16, color: '#37ae22' }} /> : <StopOutlined style={{ fontSize: 16, color: '#c1c1c1' }} />) : (
-          <Checkbox checked={!!value} />
+        readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
+          <>
+          <TextArea
+            showCount
+            maxLength={2000}
+            value={value}
+            rows={10}
+            onChange={(e) => onChange(e.target.value)}
+            {...otherProps}
+          />
+          { otherProps.error && <div className="oe-form-error">{otherProps.error}</div> }
+          </>
         )
       }
     </>
   )
 }
 
-const DropdownForm = ({value, readOnly}) => {
+const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
   return (
     <>
       {
-        <Dropdown options={value} onChange={(v, e) => console.log(v, e)} />
+        readOnly ? (value ? (
+        <CheckCircleFilled
+          style={{
+            fontSize: 16,
+            color: '#37ae22'
+          }}
+        />
+        ) : (
+        <StopOutlined
+          style={{
+            fontSize: 16,
+            color: '#c1c1c1'
+          }}
+        />
+        )) : (
+          <Checkbox
+            checked={!!value}
+            onChange={(e) => onChange(e.target.checked)}
+            {...otherProps}
+          />
+        )
+      }
+    </>
+  )
+}
+
+const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
+  return (
+    <>
+      {
+        readOnly ? <span>{ value }</span> : (
+        <Dropdown
+          options={options}
+          value={value}
+          onChange={onChange}
+          overrideClass="oe-form-dropdown"
+          {...otherProps}
+        />
+        )
       }
     </>
   )
@@ -65,6 +120,8 @@ const FormElement = ({
     switch(type) {
       case 'input':
         return <InputForm {...otherProps} />;
+      case 'textarea':
+        return <TextAreaForm {...otherProps} />;
       case 'description':
         return <DescriptionForm {...otherProps} />;
       case 'checkbox':

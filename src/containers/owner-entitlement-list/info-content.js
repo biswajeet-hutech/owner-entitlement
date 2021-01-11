@@ -10,7 +10,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
       case 'import':
         return <div>Import Info</div>
       case 'export':
-        return <div>Export Info</div>
+        return <div>You can search and download the selected entitlement or apply advance filter and download.</div>
       case 'scheduledCert':
         return <div>Scheduled Certification Info</div>;
       default:
@@ -20,8 +20,8 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
 
   return (
     <Popover
-      content={<a onClick={onHide}>{getInfoContent()}</a>}
-      trigger="click"
+      content={<div onClick={onHide} style={{ maxWidth: 200 }}>{getInfoContent()}</div>}
+      trigger="hover"
       visible={visible}
       onVisibleChange={onVisibleChange}
       onClick={(e) => e.stopPropagation()}
