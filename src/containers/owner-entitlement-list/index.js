@@ -9,6 +9,8 @@ import ResponsiveActionIcons from './responsive-action-icons';
 import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
 import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
+import {ReactComponent as CheckTrue} from './../../assets/icons/requestable-true.svg';
+import {ReactComponent as CheckFalse} from './../../assets/icons/requestable-false.svg';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
@@ -193,7 +195,7 @@ const OwnerEntitlement = () => {
     },
     requestable: {
       align: 'center',
-      render: (text) => text === "true" ? <CheckCircleFilled style={{ fontSize: 16, color: '#37ae22' }} /> : <StopOutlined style={{ fontSize: 16, color: '#c1c1c1' }} />
+      render: (text) => text === "true" ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />
     },
     users: {
       render: (text, record) => <a onClick={() => setShowMembersModal({show: true, data: {...record} })}>{`${text} Member${text > 1 ? 's' : ''}`}</a>
@@ -219,11 +221,14 @@ const OwnerEntitlement = () => {
     ...entitlementHeaders.map(item => ({
       title: item.displayName,
       dataIndex: item.name,
+      className:item.className?item.className:'',
+      width:item.width?item.width:'200px',
       ...(headerConfig[item.name] || {})
     })),
     {
       title: 'Action',
       dataIndex: 'action',
+      width:'161px',
       align: 'center',
       fixed: 'right',
       render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction}  />

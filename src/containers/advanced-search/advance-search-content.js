@@ -44,6 +44,7 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
   const [applicationData, setApplicationData] = React.useState([]);
   const [attributeData, setAttributeData] = React.useState([]);
   const [valueData, setValueData] = React.useState([]);
+  const [typeData, setTypeData] = React.useState([]);
 
   const [extendedAttributes, setExtendedAttributes] = React.useState([]);
   const [loadingExtendedAttr, setLoadingExtendedAttr] = React.useState(false);
@@ -65,6 +66,9 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
         break;
       case 'value':
         setValueData(formValue);
+        break;
+      case 'type':
+        setTypeData(formValue);
         break;
       default:
         break;
@@ -172,18 +176,36 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
       <div className="oe-adv-search-content">
         <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
         <Row>
-          <Col md={12} style={{ margin: '4px 0' }}>
+          <Col md={6} style={{ margin: '4px 0' }}>
             <Dropdown
               options={applicationData}
               value={formData.application}
               onChange={(v, e) => updateFormData('application', v)}
               label="Application" />
           </Col>
-          <Col md={12} style={{ margin: '4px 0' }}>
-            <Dropdown options={attributeData} value={formData.attribute} onChange={(v, e) => updateFormData('attribute', v)} label="Attribute" disabled={!formData.application} />
+          <Col md={6} style={{ margin: '4px 0' }}>
+            <Dropdown 
+            options={attributeData} 
+            value={formData.attribute} 
+            onChange={(v, e) => updateFormData('attribute', v)} 
+            label="Attribute" 
+            disabled={!formData.application} />
           </Col>
-          <Col md={12} style={{ margin: '4px 0' }}>
-            <Dropdown options={valueData} value={formData.value} onChange={(v, e) => updateFormData('value', v)} label="Value" disabled={!formData.attribute} />
+          <Col md={6} style={{ margin: '4px 0' }}>
+            <Dropdown 
+            options={valueData} 
+            value={formData.value}
+             onChange={(v, e) => updateFormData('value', v)} 
+             label="Value" 
+             disabled={!formData.attribute} />
+          </Col>
+          <Col md={6} style={{ margin: '4px 0' }}>
+            <Dropdown 
+            options={typeData} 
+            value={formData.value}
+             onChange={(v, e) => updateFormData('type', v)} 
+             label="Type" 
+             disabled={!formData.application} />
           </Col>
         </Row>
         <div className="divider"></div>

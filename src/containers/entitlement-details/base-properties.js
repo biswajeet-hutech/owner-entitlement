@@ -11,6 +11,7 @@ const BaseProperties = ({
     ExtentedAttributeProperties: []
   },
   readOnly,
+  setActions=(ele)=>{},
   onSave=()=>{},
   onCancel=()=>{}
 }) => {
@@ -98,6 +99,18 @@ const BaseProperties = ({
   React.useEffect(() => {
     // console.log("data updated", data.EntitlementDetails);
     setEntitlementData(data.EntitlementDetails || {});
+    if(!readOnly){
+      setActions(
+        (
+          <>
+        <Row justify="end" className="accordion_footer">
+          <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
+          <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+        </Row>
+        </>
+        )
+      )
+    }
   }, [data]);
 
   return (
@@ -112,21 +125,12 @@ const BaseProperties = ({
         writableFormConfig.map(formElement => <FormElement {...formElement} />)
       }
       </div>
-
       <ExtendedProperties
         entitlementData={entitlementData}
         extendedProps={data.ExtentedAttributeProperties}
         readOnly={readOnly}
         onChange={handleUpdate}
-      />
-      {
-        !readOnly && (
-        <Row justify="end" style={{ paddingTop: 16 }}>
-          <Button type="secondary" size="large" onClick={onCancel}>Cancel</Button>
-          <Button type="primary" size="large" onClick={handleSaveData}>Save</Button>
-        </Row>
-        )
-      }
+      />  
     </>
   );
 }

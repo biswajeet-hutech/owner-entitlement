@@ -1,6 +1,6 @@
 import React from "react";
 import { Popover, Badge } from 'antd';
-import { SettingOutlined } from '@ant-design/icons';
+import {ReactComponent as SettingIcon} from './../../assets/icons/search-setting-line.svg'
 import Button from '../../components/button';
 import "./style.scss";
 import AdvancedSearchContent from "./advance-search-content";
@@ -57,15 +57,15 @@ const AdvancedSearch = ({ onSearch }) => {
         onVisibleChange={handleVisibleChange}
         className="oe-popover"
         placement="bottomRight"
-        autoAdjustOverflow={true}
+        autoAdjustOverflow={false}
+        style={{top:"300px",left:"40px"}}
         arrowPointAtCenter={true}
         overlayClassName="oe-overlay"
-        overlayStyle={{ left: '40px' }}
         arrowContent={null}
         destroyTooltipOnHide
       >
         <Badge count={filterCount()} style={{ backgroundColor: '#d42511' }}>
-          <Button type="hybrid" leftIcon={<SettingOutlined />} className="adv-btn-wrapper">Advanced Search</Button>
+          <Button type="hybrid" leftIcon={<SettingIcon />} className="adv-btn-wrapper">Advanced Search</Button>
         </Badge>
       </Popover>
     </div>

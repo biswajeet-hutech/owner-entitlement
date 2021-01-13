@@ -14,6 +14,7 @@ const EntitlementDetails = ({
   onSuccess = ()=> {}
 }) => {
   const [loading, setLoading] = React.useState(false);
+  const [actions,setActions] = React.useState(null);
   const updateEntitlementAPI = (payload) => {
     const url = 'EntitlementManagement/update';
     setLoading(true);
@@ -41,7 +42,7 @@ const EntitlementDetails = ({
     {
       title: 'Entitlement Properties',
       subTitle: `${editMode ? 'Edit' : 'View'} entitlement properties`,
-      content: <BaseProperties data={data} readOnly={!editMode} onSave={handleSave} onCancel={onClose} />
+      content: <BaseProperties data={data} readOnly={!editMode} onSave={handleSave} onCancel={onClose} setActions={(ele)=>{setActions(ele)}}/>
     },
     // {
     //   title: 'Object Attribute',
@@ -55,11 +56,14 @@ const EntitlementDetails = ({
   ];
 
   return (
+    <>
     <Spin spinning={loading}>
       <div className="oe-ed-wrapper">
         <Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} />
       </div>
     </Spin>
+    {actions}
+    </>
   );
 }
 

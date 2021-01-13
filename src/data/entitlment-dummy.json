@@ -20,7 +20,7 @@
       "modified": "",
       "id": "8a405b8a75ae475f0175ae5b236312f5",
       "attribute": "entitlement",
-      "requestable": "true",
+      "requestable": "false",
       "certifiable": "Yes",
       "value": "ent_0000004080"
     },

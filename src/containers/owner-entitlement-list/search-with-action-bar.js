@@ -43,7 +43,7 @@ const SearchWithActionBar = ({
               <Search
                 onSearch={(searchVal) => handleSearch({searchVal})}
                 onChange={(val) => setSearchTextChange(val)}
-                placeHolder="Search by Application, Display Name, Entitlement value"
+                placeHolder="Search by application name"
               />
             </Col>
             <Col xs={24} md={6}>
@@ -61,7 +61,7 @@ const SearchWithActionBar = ({
               onVisibleChange={(v) => setPopVisible({ ...popVisible, export: v })}
               onHide={() => setPopVisible({ ...popVisible, export: false })} />
           )}>Export</Button>
-          <Button disabled type="primary" leftIcon={<ImportOutlined />} rightIcon={(
+          {/* <Button disabled type="primary" leftIcon={<ImportOutlined />} rightIcon={(
             <InfoContent
               type="import"
               visible={popVisible.import}
@@ -75,7 +75,7 @@ const SearchWithActionBar = ({
               onVisibleChange={(v) => setPopVisible({ ...popVisible, scheduledCert: v })}
               onHide={() => setPopVisible({ ...popVisible, scheduledCert: false })} />
           )}
-          onClick={() => setOpenSecduledCertModal(true)}>Schedule Certification</Button>
+          onClick={() => setOpenSecduledCertModal(true)}>Schedule Certification</Button> */}
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

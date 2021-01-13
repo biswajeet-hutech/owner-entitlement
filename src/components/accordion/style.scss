@@ -2,7 +2,7 @@
   &.ant-collapse {
     border: none;
   }
-  &.ant-collapse-borderless>.ant-collapse-item {
+  &.ant-collapse-borderless > .ant-collapse-item {
     border: none;
   }
   &.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
@@ -14,10 +14,13 @@
     flex-direction: column;
     justify-content: center;
     border-bottom: 1px solid #d9d9d9;
+    position: sticky;
+    top: 0;
+    z-index: 99;
   }
   & .oe-accordion-title {
-    font-family: 'Roboto-Medium';
-    font-size: 32px;
+    font-family: "Roboto-Medium";
+    font-size: 22px;
     font-weight: 500;
     font-stretch: normal;
     font-style: normal;
@@ -26,7 +29,7 @@
     color: #191919;
   }
   & .oe-accordion-subtitle {
-    font-family: 'Roboto-Regular';
+    font-family: "Roboto-Regular";
     font-size: 14px;
     line-height: 14px;
     font-weight: normal;
@@ -35,7 +38,7 @@
     line-height: normal;
     letter-spacing: normal;
     color: #191919;
-    margin: 2px 4px 0;
+    margin: 2px 0px 0;
   }
   & .ant-collapse-content {
     border-top: 1px solid #e2dfdf;
@@ -43,31 +46,37 @@
   &.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
     padding: 12px 144px;
     background-color: #ffffff;
+    & .form-section {
+      &:hover {
+        background-color: #f6fdff;
+        cursor: pointer;
+      }
+    }
   }
 
   &.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {
-    padding: 0
+    padding: 0;
   }
 }
 
-.Chevron{
-  position:relative;
-  display:block;
-  height:32px;/*height should be double border*/
+.Chevron {
+  position: relative;
+  display: block;
+  height: 32px; /*height should be double border*/
 }
 .Chevron:before,
-.Chevron:after{
-  position:absolute;
-  display:block;
-  content:"";
-  border:16px solid transparent;/*adjust size*/
+.Chevron:after {
+  position: absolute;
+  display: block;
+  content: "";
+  border: 16px solid transparent; /*adjust size*/
 }
 /*Change four 'top' values below to rotate (top/right/bottom/left)*/
-.Chevron:before{
-  top:0;
-  border-top-color:#202020;/*Chevron Color*/
+.Chevron:before {
+  top: 0;
+  border-top-color: #202020; /*Chevron Color*/
 }
-.Chevron:after{
-  top:-4px;/*adjust thickness*/
-  border-top-color:#000;/*Match background colour*/
+.Chevron:after {
+  top: -4px; /*adjust thickness*/
+  border-top-color: #000; /*Match background colour*/
 }

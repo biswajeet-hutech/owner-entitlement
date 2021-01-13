@@ -9,7 +9,9 @@ function App() {
   return (
     <div className="oe-app">
       {/* <Typography type="heading3" className="oe-section oe-page-margin">Owner Entitlement</Typography> */}
-      <Tabs tabs={[{
+      <Tabs 
+        className="home_tab"
+      tabs={[{
         name: 'Owner Entitlement',
         content: <OwnerEntitlement />
       }]} />

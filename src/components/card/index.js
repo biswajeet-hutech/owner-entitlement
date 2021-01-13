@@ -8,7 +8,7 @@ const Card = ({
   return (
    <div className="oe-card">
      <div className="oe-card-value">{value}</div>
-  <div className="oe-card-desc">{description}</div>
+  <div className="oe-card-desc">{description.split(" ")[0]}<br/>{description.split(" ").slice(1).join(" ")}</div>
    </div>
   );
 }

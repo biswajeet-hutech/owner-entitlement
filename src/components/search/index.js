@@ -1,6 +1,7 @@
 import React from "react";
-import { Input, Tooltip } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { Button, Input, Tooltip } from 'antd';
+// import { SearchOutlined } from '@ant-design/icons';
+import {ReactComponent as SearchIcon} from './../../assets/icons/magnifying-glass-icon.svg';
 import "./style.scss";
 
 const Search = ({
@@ -29,7 +30,7 @@ const Search = ({
       onKeyUp={handleSearch}
       suffix={
         <Tooltip title="Click to search">
-          <SearchOutlined onClick={() => onSearch(searchText)} />
+          <Button icon={<SearchIcon/>} type="text" onClick={() => onSearch(searchText)}/>
         </Tooltip>
       }
     />

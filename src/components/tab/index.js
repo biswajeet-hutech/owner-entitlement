@@ -12,9 +12,10 @@ function callback(key) {
 const Tabs = ({
   tabs = [],
   filled,
+  className,
   defaultActiveKey = "1"
 }) => (
-  <AntTabs defaultActiveKey={defaultActiveKey} onChange={callback} className={`oe-tabs ${filled ? 'filled-tab' : ''}`}>
+  <AntTabs defaultActiveKey={defaultActiveKey} onChange={callback} className={`oe-tabs ${filled ? 'filled-tab' : ''} ${className?className:''}`}>
     {
       Array.isArray(tabs) && tabs.map((tab, index) => (
         <TabPane tab={tab.name} key={index+1} className="oe-tab-content" disabled={tab.disabled}>

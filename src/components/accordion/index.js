@@ -33,7 +33,8 @@ const Accordion = ({
       defaultActiveKey={defaultActiveKey}
       expandIconPosition="right"
       className="oe-accordion"
-      expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} style={{ fontSize: 32, right: 60, top: 24 }} />}
+      collapsible="disabled"
+      expandIcon={({ isActive }) => null}
     >
       {
         panelData.map((panel, index) => renderAccordionPanel({

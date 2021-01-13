@@ -3,26 +3,71 @@
     font-size: 13px;
     color: #202020;
   }
-  & .ant-table-thead > tr > th {
-    color: #676768;
-    background: #d9e7f6;
-    height: 56px;
-    font-size: 16px;
+  & .ant-table-thead {
+    &::after {
+      position: absolute;
+      content: "";
+      height: 2px;
+      width: 100%;
+      border-radius: 10px;
+      z-index: 9;
+      background-color: #dfe1e6;
+    }
+
+    & > tr > th {
+      color: #676768;
+      background: #d9e7f6;
+      height: 56px;
+      font-size: 16px;
+    }
   }
   & .ant-checkbox-inner {
-    border: 1px solid #bdc9d3;
+    border: 1px solid #979797;
+    opacity: 0.38;
   }
-  & .ant-table-tbody > tr.ant-table-row-selected > td {
-    background: #e9faff;
+  .ant-checkbox-indeterminate {
+    .ant-checkbox-inner {
+      opacity: 1;
+    }
+    .ant-checkbox-inner::after {
+      background-color: #3aadcf;
+    }
+  }
+  & .ant-checkbox-checked {
+    & .ant-checkbox-inner {
+      opacity: 1;
+      background-color: #3aadcf;
+    }
+  }
+  & .ant-table-tbody {
+    & > tr.ant-table-row-selected > td {
+      background: #e9faff;
+    }
+    & > .ant-table-row:hover > td {
+      // background-color: unset;
+      .oe-td-description {
+        // color: #0a66c2;
+      }
+    }
+    & > tr > td {
+      & > a {
+        color: #00a2d1;
+        &:hover {
+          color: #037da1;
+          cursor: pointer;
+        }
+      }
+    }
   }
   & .ant-pagination-item-active {
-    background: #406fdb;
-    border-color: #406fdb;
+    background: #0894bd;
+    border-color: #0894bd;
   }
   & .ant-pagination-item-active a {
     color: #fff;
   }
-  & .ant-pagination.mini .ant-pagination-prev, .ant-pagination.mini .ant-pagination-next {
+  & .ant-pagination.mini .ant-pagination-prev,
+  .ant-pagination.mini .ant-pagination-next {
     margin: 0 16px;
   }
   & .ant-table-pagination.ant-pagination {
@@ -46,7 +91,7 @@
     align-items: center;
     cursor: pointer;
     justify-content: center;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     &:last-child {
       margin-right: 0;
     }

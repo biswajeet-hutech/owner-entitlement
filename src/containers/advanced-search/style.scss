@@ -1,13 +1,33 @@
 .oe-adv-search {
   & .adv-btn-wrapper {
     margin-left: 12px;
-    margin-right: 0;
+    // margin-right: 0;
+    width: 147px;
+    height: fit-content;
+    padding: 0px;
+    border-radius: 4px;
+    & > span {
+      margin: 10px 10px 8px 5px;
+      display: inline;
+      line-height: 14px;
+      vertical-align: middle;
+      float: left;
+    }
+    & > svg{
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      margin: 8px 0px 9px 11px;
+      vertical-align: middle;
+      display: inline;
+      float: left;
+    }
   }
 }
 
 .oe-adv-search-content {
   padding: 8px;
-  width: 600px;
+  width: 900px;
   min-height: max-content;
 
   & .divider {
@@ -17,8 +37,16 @@
     border: solid 1px #e8e8e8;
   }
 
-  & .oe-adv-search-input, & .oe-adv-search-datepicker {
+  .ant-input{
+    &:hover{
+    }
+    &:focus{
+    }
+  }
+  & .oe-adv-search-input,
+  & .oe-adv-search-datepicker {
     line-height: 34px;
+    height: 35px;
     width: 96%;
     background: #f1f7ff;
     font-size: 16px;
@@ -26,7 +54,7 @@
     color: #7d86a9;
   }
 
-  & .ant-form-item-label>label {
+  & .ant-form-item-label > label {
     font-family: "MyriadPro-Regular";
     font-size: 12px;
     font-weight: 400;
@@ -34,7 +62,7 @@
     font-style: normal;
     line-height: 1.83;
     letter-spacing: normal;
-    color: rgba(0,0,0,.85);
+    color: rgba(0, 0, 0, 0.85);
   }
 }
 
