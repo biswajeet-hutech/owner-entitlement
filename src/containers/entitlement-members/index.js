@@ -51,7 +51,7 @@ const columns = [
   },
   {
     title: 'Certification Action',
-    width:"130px",
+    width:"100px",
     dataIndex: 'certificationaction',
     render: (text, record) => <CertificationStatus status={record.certificationaction}/>
   },
@@ -86,7 +86,7 @@ const EntitlementMembers = ({
           <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
         </Col>
         <Col>
-          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoIcon/>} className="exportBtn" disabled>Export</Button>
+          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoIcon/>} className="exportBtn">Export</Button>
         </Col>
       </Row>
       <Row className="oe-sc-row-padding">
@@ -94,7 +94,7 @@ const EntitlementMembers = ({
           dataSource={data.MemberDetails || []}
           columns={columns}
           config={{
-            scroll:{ y: 240, x: "max-content" },
+            scroll:{ y: 360, x: "1200" },
             tableLayout:"auto",
             pagination: {
               total: data.total,

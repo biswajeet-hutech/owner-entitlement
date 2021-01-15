@@ -58,7 +58,7 @@ const EntitlementDetails = ({
   return (
     <>
     <Spin spinning={loading}>
-      <div className="oe-ed-wrapper">
+      <div className={`oe-ed-wrapper ${editMode?'edit':'readOnly'}`}>
         <Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} />
       </div>
     </Spin>

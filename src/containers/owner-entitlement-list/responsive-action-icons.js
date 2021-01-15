@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Tooltip } from 'antd';
 import { ExportOutlined, EyeOutlined, EditOutlined, SwapOutlined, EllipsisOutlined } from '@ant-design/icons';
-import {ExportsIcon} from './../../assets'
+import {ExportsIcon,ViewIcon,EditIcon,DisputeIcon,ExportCertIcon} from './../../assets'
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";
@@ -42,22 +42,22 @@ const ResponsiveActionIcons = ({
     <div className="oe-icon-btn-wrapper">
       <Tooltip title="View" placement="bottom">
         <div className="oe-icon-btn" onClick={() => setOpenModal({show: true, edit: false })}>
-          <EyeOutlined />
+          <ViewIcon />
         </div>
       </Tooltip>
       <Tooltip title="Edit" placement="bottom">
         <div className="oe-icon-btn" onClick={() => setOpenModal({show: true, edit: true })}>
-          <EditOutlined />
+          <EditIcon />
         </div>
       </Tooltip>
       <Tooltip title="Export" placement="bottom">
         <div className="oe-icon-btn">
-          <ExportsIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
+          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>
         <div className="oe-icon-btn">
-          <SwapOutlined />
+          <DisputeIcon />
         </div>
       </Tooltip>
       <Modal open={openModal.show} onHide={() => setOpenModal({show: false, edit: false })} title={`${data.displayName || data.value} - ${openModal.edit ? 'Edit' : 'View'} Details`}>

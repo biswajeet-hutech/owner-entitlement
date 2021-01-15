@@ -1,5 +1,5 @@
 .oe-modal {
-  font-family: 'Roboto-Regular';
+  font-family: "Roboto-Regular";
 
   & .ant-modal-content {
     border-radius: 10px;
@@ -10,7 +10,7 @@
     border-bottom: solid 1px #d9d9d9;
   }
   & .ant-modal-title {
-    font-family: 'Roboto-Medium';
+    font-family: "Roboto-Medium";
     font-size: 22px;
     font-weight: 500;
     font-stretch: normal;
@@ -20,7 +20,7 @@
     color: #191919;
   }
   & .ant-modal-body {
-    font-family: 'Roboto-Regular';
+    font-family: "Roboto-Regular";
     font-size: 14px;
     font-weight: normal;
     font-stretch: normal;
@@ -28,14 +28,48 @@
     line-height: normal;
     letter-spacing: normal;
     color: #6a6a6a;
-    padding: 28px 32px;
+    padding: 0px 0px 0px 0px;
     max-height: 76vh;
     min-height: 75vh;
     overflow-y: auto;
     & .oe-modal-content {
-
-      height: fit-content;
-      overflow-y: hidden;
+      height: 65vh;
+      .oe-table {
+        .ant-table-thead {
+          &::after {
+            height: 4px;
+            border-top: 2px solid #ffffff;
+            width: calc(100% - 70px);
+            left: 32px;
+          }
+          tr {
+            border-bottom: 1px solid black;
+          }
+        }
+      }
+      .ant-row-space-between {
+        padding: 0px 32px;
+      }
+      .ant-table {
+        padding: 0px 32px;
+      }
+      & .ant-pagination {
+        margin: 0px;
+        position: absolute;
+        bottom: -80px;
+        align-content: center;
+        width: 100%;
+        right: 0px;
+        padding-top: 20px;
+        &::before {
+          content: "";
+          position: absolute;
+          height: 1px;
+          width: 100%;
+          margin-top: -20px;
+          background-color: #d9d9d9;
+        }
+      }
     }
   }
   & .ant-modal-footer {
@@ -50,7 +84,7 @@
     width: 42px;
     height: 42px;
     line-height: 52px;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     &:hover {
       background-color: #ededed;
     }

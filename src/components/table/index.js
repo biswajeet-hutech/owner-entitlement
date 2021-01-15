@@ -14,7 +14,7 @@ const rowSelection = {
 };
 
 const Table = ({ dataSource=[], columns=[], rowKey, config }) => {
-  // console.log(getResponsiveIcon());
+  console.log(columns);
   return (
     <AntTable
       columns={columns}

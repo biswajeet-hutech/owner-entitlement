@@ -14,7 +14,7 @@
 
   & .test-root {
     border-radius: 3px;
-    border: solid 1px rgba(25, 25, 25, 0.59);
+    border: solid 1px #ccc;
 
     & .test-toolbar {
       background-color: #f1f1f1;
@@ -38,6 +38,10 @@
         }
       }
       
+    }
+    &:focus,&:hover,&:active {
+      box-shadow: none;
+      border: solid 1px #037da1;
     }
   }
 }

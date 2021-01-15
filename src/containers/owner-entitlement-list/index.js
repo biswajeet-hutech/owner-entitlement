@@ -31,6 +31,7 @@ const OwnerEntitlement = () => {
 
   const { saveAsCsv } = useJsonToCsv();
   const [showMembersModal, setShowMembersModal] = React.useState({show: false, data: {}});
+  const [showDescrptionModal, setShowDescrptionModal] = React.useState({show: false, data: {}});
   const [entitlementList, setEntitlementList] = React.useState({...defaultEntitlementList});
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
@@ -191,7 +192,7 @@ const OwnerEntitlement = () => {
 
   const headerConfig = {
     description: {
-      render: (text) => (<div dangerouslySetInnerHTML={{__html: text}} className="oe-td-description" />)
+      render: (text) => (<div dangerouslySetInnerHTML={{__html: text}} className={(text||'').length>59?"oe-td-description-link":"oe-td-description"} onClick={(text||'').length>59?()=>setShowDescrptionModal({show:true,data:{descrption:text}}):()=>{}}/>)
     },
     requestable: {
       align: 'center',
@@ -228,11 +229,11 @@ const OwnerEntitlement = () => {
     {
       title: 'Action',
       dataIndex: 'action',
-      width:'161px',
+      width:'120px',
       align: 'center',
       fixed: 'right',
       render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction}  />
-    },
+    }
   ];
 
   const handlePageChange = (page, pageSize) => {
@@ -257,7 +258,7 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll:{ y: 240, x: "max-content" },
+              scroll:{ y: "300px", x: "100%" },
               tableLayout:"auto",
               pagination: {
                 total: entitlementList.total,
@@ -282,6 +283,9 @@ const OwnerEntitlement = () => {
             }
           }
         />
+      </Modal>
+      <Modal open={showDescrptionModal.show} onHide={() => setShowDescrptionModal({ show: false, data: {}})} title={`Entitlement Description`}>
+      <div dangerouslySetInnerHTML={{__html: showDescrptionModal.data.descrption}} className="description_modal_text"></div>
       </Modal>
     </>
   );

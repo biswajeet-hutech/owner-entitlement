@@ -1,19 +1,24 @@
 .oe-sc-row-padding {
   padding: 10px 0;
-  & .exportBtn {
-    height: 33px;
-    width: 107px;
-    background-color: #ffffff;
-    border: 1px solid #c8caca;
-    color: #037da1;
-    padding: 7px 8px 9px;
-    & span {
-      padding: 0px 9px 0px 12px;
-    }
-    &:hover {
-      border: 1px solid #037da1;
+  & .ant-col{
+    & .exportBtn {
+      height: 33px;
+      width: 107px;
+      background-color: #ffffff;
+      border: 1px solid #c8caca;
+      color: #037da1;
+      padding: 7px 8px 9px;
+      & span {
+        padding: 0px 9px 0px 12px;
+      }
+      &:hover {
+        border: 1px solid #037da1;
+        color: #025c77;
+        background-color: unset;
+      }
     }
   }
+  
 }
 
 .oe-sc-search-label {

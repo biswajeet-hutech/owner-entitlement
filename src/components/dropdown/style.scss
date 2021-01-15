@@ -12,11 +12,17 @@
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.85);
     text-align: left;
+    padding: 5px 0px 1px 0px;
   }
 
   & .oe-dropdown {
     margin: 4px 0;
     width: 100%;
+    border: 1px solid #ccc;
+    &:hover,&:active,&:focus{
+      border: 1px solid #037da1;
+      box-shadow: unset;
+    }
   }
   & .ant-select-focused .ant-select-selector,
   .ant-select-selector:focus,
@@ -25,8 +31,8 @@
     border-color: #037da1 !important;
   }
   & .ant-select:not(.ant-select-customize-input) .ant-select-selector {
-    padding: 3px 8px;
-    height: 35px;
+    padding: 1px 8px;
+    height: 33px;
     background: #f1f7ff;
     border-color: #f1f7ff;
     font-size: 14px;

@@ -15,7 +15,7 @@ function Test() {
       <Button type="primary" icon={<PoweroffOutlined />}>Import</Button>
       <Button type="secondary" icon={<PoweroffOutlined />}>Export</Button>
       <Tabs tabs={[{
-        name: 'Owner Entitlement',
+        name: 'Entitlement Owner Self-service',
         content: <h1>Hello</h1>
       },
       {

@@ -1,8 +1,6 @@
 import React from "react";
-import { CheckCircleFilled, StopOutlined } from '@ant-design/icons';
-import {CheckTrue} from './../../assets';
-import {checkFalse} from './../../assets';
-import { Input, Checkbox } from 'antd';
+import {CheckTrue,CheckFalse} from './../../assets';
+import { Input } from 'antd';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
@@ -69,20 +67,23 @@ const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
       {
         readOnly ? (value ? (
         <CheckTrue
+          className="checkIcon"
           style={{
             fontSize: 16,
             color: '#37ae22'
           }}
         />
         ) : (
-        <checkFalse
+        <CheckFalse
+          className="checkIcon"
           style={{
             fontSize: 16,
             color: '#c1c1c1'
           }}
         />
         )) : (
-          <CheckTrue
+          <CheckFalse
+            className="checkIcon"
             style={{
               fontSize: 16,
               color: '#37ae22'

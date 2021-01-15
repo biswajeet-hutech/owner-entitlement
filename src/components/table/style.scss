@@ -12,13 +12,22 @@
       border-radius: 10px;
       z-index: 9;
       background-color: #dfe1e6;
+      height: 4px;
+      border-top: 2px solid #ffffff;
+      width: calc(100% - 0px);
     }
 
-    & > tr > th {
-      color: #676768;
-      background: #d9e7f6;
-      height: 56px;
-      font-size: 16px;
+    & > tr {
+      &>th {
+        color: #676768;
+        background: #d9e7f6;
+        height: 56px;
+        font-size: 16px;
+        &:last-child{
+          // display: none;
+        }
+      }
+      
     }
   }
   & .ant-checkbox-inner {
@@ -84,7 +93,7 @@
     width: 24px;
     height: 24px;
     padding: 4px 10px;
-    border: 1px solid #aaa;
+    // border: 1px solid #aaa;
     border-radius: 2px;
     margin-right: 10px;
     display: flex;

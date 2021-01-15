@@ -17,7 +17,7 @@ const Accordion = ({
     <Panel header={(
       <>
         <div className="oe-accordion-title">{title}</div>
-        {subTitle && <div className="oe-accordion-subtitle">{subTitle}</div>}
+        {/* {subTitle && <div className="oe-accordion-subtitle">{subTitle}</div>} */}
       </>
       )}
       key={key}>

@@ -2,7 +2,15 @@
   height: auto;
   width: 100%;
   .ant-table-container {
-    .ant-table-thead,
+    scroll-behavior: smooth;
+    overflow: hidden;
+    .ant-table-thead{
+      tr {
+        .ant-table-cell {
+          padding: 5px 15px;
+        }
+      }
+    }
     .ant-table-body {
       tr {
         .ant-table-cell {
@@ -14,5 +22,5 @@
 }
 
 .oe-sc-row-padding {
-  padding: 20px 0;
+  // padding: 20px 0;
 }
