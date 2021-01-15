@@ -66,7 +66,8 @@ const RaiseDispute = ({
 
   return (
     <Spin spinning={loading}>
-      <Tabs tabs={tabsData} filled defaultActiveKey="2" />
+      {/* <Tabs tabs={tabsData} filled defaultActiveKey="2" /> */}
+      {tabsData[0].content}
     </Spin>
   );
 }

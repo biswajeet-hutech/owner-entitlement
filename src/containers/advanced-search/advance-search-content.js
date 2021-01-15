@@ -175,7 +175,8 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
     <Spin spinning={loading}>
       <div className="oe-adv-search-content">
         <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
-        <Row>
+          <div className="oe-adv-search-content_form">
+          <Row>
           <Col md={6} style={{ margin: '4px 0' }}>
             <Dropdown
               options={applicationData}
@@ -217,6 +218,8 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
             ))}
           </Row>
         </Spin>
+        
+          </div>
         <Row justify="end" className="oe-overlay-footer">
           <Button onClick={onClose}>Cancel</Button>
           <Button onClick={onClear}>Reset</Button>

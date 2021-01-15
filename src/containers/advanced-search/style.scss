@@ -13,7 +13,7 @@
       vertical-align: middle;
       float: left;
     }
-    & > svg{
+    & > svg {
       width: 16px;
       height: 16px;
       line-height: 16px;
@@ -28,8 +28,12 @@
 .oe-adv-search-content {
   padding: 8px;
   width: 900px;
-  min-height: max-content;
-
+  min-height: 420px;
+  max-height: 420px;
+  .oe-adv-search-content_form {
+    max-height: 320px;
+    overflow-y: auto;
+  }
   & .divider {
     width: 100%;
     height: 1px;
@@ -37,10 +41,10 @@
     border: solid 1px #e8e8e8;
   }
 
-  .ant-input{
-    &:hover{
+  .ant-input {
+    &:hover {
     }
-    &:focus{
+    &:focus {
     }
   }
   & .oe-adv-search-input,
@@ -73,10 +77,15 @@
     display: none;
   }
   & .oe-overlay-footer {
-    padding-top: 20px;
+    padding: 20px 0px;
   }
   & .oe-overlay-header {
     padding: 8px 0 20px;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: white;
+    position: sticky;
+    top: 0;
   }
   & .oe-overlay-subheader {
     font-family: "MyriadPro-Semibold";
