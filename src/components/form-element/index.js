@@ -4,6 +4,7 @@ import { Input } from 'antd';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
+import Checkbox from "antd/lib/checkbox/Checkbox";
 const { TextArea } = Input;
 
 const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
@@ -82,13 +83,7 @@ const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
           }}
         />
         )) : (
-          <CheckFalse
-            className="checkIcon"
-            style={{
-              fontSize: 16,
-              color: '#37ae22'
-            }}
-          />
+          <Checkbox onChange={onChange} defaultChecked={value?true:false} />
           )
       }
     </>

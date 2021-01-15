@@ -284,7 +284,7 @@ const OwnerEntitlement = () => {
           }
         />
       </Modal>
-      <Modal open={showDescrptionModal.show} onHide={() => setShowDescrptionModal({ show: false, data: {}})} title={`Entitlement Description`}>
+      <Modal open={showDescrptionModal.show} className="description_modal" onHide={() => setShowDescrptionModal({ show: false, data: {}})} title={`Entitlement Description`}>
       <div dangerouslySetInnerHTML={{__html: showDescrptionModal.data.descrption}} className="description_modal_text"></div>
       </Modal>
     </>

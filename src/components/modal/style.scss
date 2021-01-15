@@ -90,3 +90,16 @@
     }
   }
 }
+
+.description_modal {
+  .ant-modal-content {
+    .ant-modal-body {
+      max-height: 45vh;
+      height: fit-content;
+      min-height: 5vh;
+      .oe-modal-content{
+        height: fit-content;
+      }
+    }
+  }
+}

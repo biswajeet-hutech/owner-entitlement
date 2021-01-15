@@ -17,7 +17,6 @@ const Accordion = ({
     <Panel header={(
       <>
         <div className="oe-accordion-title">{title}</div>
-        {/* {subTitle && <div className="oe-accordion-subtitle">{subTitle}</div>} */}
       </>
       )}
       key={key}>
@@ -32,7 +31,7 @@ const Accordion = ({
       bordered={false}
       defaultActiveKey={defaultActiveKey}
       expandIconPosition="right"
-      className="oe-accordion"
+      className={`oe-accordion`}
       collapsible="disabled"
       expandIcon={({ isActive }) => null}
     >
