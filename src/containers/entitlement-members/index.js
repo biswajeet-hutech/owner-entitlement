@@ -6,6 +6,7 @@ import './style.scss';
 import { Col, Row, Popover } from "antd";
 import Typography from "../../components/typography";
 import Search from "../../components/search";
+import InfoContent from "../owner-entitlement-list/info-content";
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -51,7 +52,7 @@ const columns = [
   },
   {
     title: 'Certification Action',
-    width:"100px",
+    width:"110px",
     dataIndex: 'certificationaction',
     render: (text, record) => <CertificationStatus status={record.certificationaction}/>
   },
@@ -59,7 +60,16 @@ const columns = [
     title: 'Certification Action Date',
     width:"90px",
     dataIndex: 'certificationactiondate',
-  },
+  }
+  // ,
+  // {
+  //   title: 'Actions',
+  //   width:"90px",
+  //   render: (text,record) => <></>,
+  //   fixed:"right",
+  //   dataIndex: 'action',
+  //   align: 'center'
+  // }
 ];
 
 const EntitlementMembers = ({
@@ -96,7 +106,7 @@ const EntitlementMembers = ({
           <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
         </Col>
         <Col>
-          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoIcon/>} className="exportBtn">Export</Button>
+          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoContent showTooltip toolTipData=""/>} className="exportBtn">Export</Button>
         </Col>
       </Row>
       <Row className="oe-sc-row-padding">
@@ -104,7 +114,7 @@ const EntitlementMembers = ({
           dataSource={data.MemberDetails || []}
           columns={columns}
           config={{
-            scroll:{ y: 360, x: "1200" },
+            scroll:{ y: 360, x: "max-content" },
             tableLayout:"auto",
             pagination: {
               total: data.total,

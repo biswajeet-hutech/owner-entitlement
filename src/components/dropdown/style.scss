@@ -19,6 +19,7 @@
     margin: 4px 0;
     width: 100%;
     border: 1px solid #ccc;
+    border-radius: 3px;
     &:hover,&:active,&:focus{
       border: 1px solid #037da1;
       box-shadow: unset;
@@ -29,7 +30,7 @@
   .ant-select-selector:active,
   .ant-select-open .ant-select-selector {
     border: unset;
-    // border-color: #037da1 !important;
+    border-color: #037da1 !important;
   }
   & .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     padding: 1px 8px;
