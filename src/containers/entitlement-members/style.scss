@@ -10,6 +10,9 @@
       padding: 7px 8px 9px;
       & span {
         padding: 0px 9px 0px 12px;
+        &.oe-info-content-span {
+          padding: 0;
+        }
       }
       &:hover {
         border: 1px solid #037da1;
