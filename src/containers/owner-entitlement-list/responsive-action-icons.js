@@ -1,6 +1,7 @@
 import React from "react";
 import { Grid, Tooltip } from 'antd';
 import { ExportOutlined, EyeOutlined, EditOutlined, SwapOutlined, EllipsisOutlined } from '@ant-design/icons';
+import {ExportsIcon} from './../../assets'
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";
@@ -51,7 +52,7 @@ const ResponsiveActionIcons = ({
       </Tooltip>
       <Tooltip title="Export" placement="bottom">
         <div className="oe-icon-btn">
-          <ExportOutlined style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
+          <ExportsIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>

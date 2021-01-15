@@ -1,9 +1,11 @@
 @import "~antd/dist/antd.css";
 @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import "./assets/images.scss";
+
 .oe-app {
   padding: 20px 40px;
   background-color: #f3f2ef;
-  background-image: url("./assets/background/pagebackground.svg");
+  background-image: $background-image;
   background-repeat: no-repeat;
   background-size: 100%;
   font-family: "Roboto-Regular", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;

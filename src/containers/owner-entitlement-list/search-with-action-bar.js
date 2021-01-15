@@ -1,6 +1,7 @@
 import React from "react";
 import { Row, Col } from 'antd';
 import { ImportOutlined, ExportOutlined, FileDoneOutlined } from '@ant-design/icons';
+import {ExportsIcon} from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
@@ -54,7 +55,7 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button onClick={() => onExport(searchProps)} type="secondary" leftIcon={<ExportOutlined />} rightIcon={(
+          <Button className="exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={<ExportsIcon />} rightIcon={(
             <InfoContent
               type="export"
               visible={popVisible.export}

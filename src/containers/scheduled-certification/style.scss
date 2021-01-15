@@ -1,6 +1,16 @@
 .oe-scheduled-cert-table {
   height: auto;
   width: 100%;
+  .ant-table-container {
+    .ant-table-thead,
+    .ant-table-body {
+      tr {
+        .ant-table-cell {
+          padding: 15px;
+        }
+      }
+    }
+  }
 }
 
 .oe-sc-row-padding {

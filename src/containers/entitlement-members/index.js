@@ -1,5 +1,5 @@
 import React from "react";
-import { ExportOutlined } from '@ant-design/icons';
+import {ExportsIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon} from './../../assets'
 import Button from "../../components/button";
 import Table from '../../components/table';
 import './style.scss';
@@ -7,34 +7,57 @@ import { Col, Row } from "antd";
 import Typography from "../../components/typography";
 import Search from "../../components/search";
 
+const UserStatus = ({status}) =>{
+ let isActive = status.toLowerCase()==='active'
+ return <div className={`userStatus_${isActive?'active':'disable'}`}><div>{`${status}`}</div></div>
+}
+
+const CertificationStatus = ({status}) =>{
+  switch(status.toLowerCase()){
+    case 'approved':return(<div className={`certificationStatus ${status.toLowerCase()}`}><ApprovedIcon alt={status}/> <span>{status}</span></div>)
+    case 'revoked':return(<div className={`certificationStatus ${status.toLowerCase()}`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
+    case 'open':return(<div className={`certificationStatus ${status.toLowerCase()}`}><OpenIcon alt={status}/> <span>{status}</span></div>)
+    case 'pending':return(<div className={`certificationStatus ${status.toLowerCase()}`}><PendingIcon alt={status}/> <span>{status}</span></div>)
+    default:return(<div className={`certificationStatus pending`}><PendingIcon alt={status}/> <span>Pending</span></div>)
+  }
+}
 const columns = [
   {
     title: 'Name',
     dataIndex: 'firstName',
+    width:"100px",
     render: (text, record) => <span>{`${record.firstname || '--'} ${record.lastname || '--'}`}</span>
   },
   {
     title: 'Email',
+    width:"180px",
     dataIndex: 'email',
   },
   {
     title: 'User Status',
     dataIndex: 'status',
+    width:"100px",
+    render: (text, record) => <UserStatus status={record.status}/>
   },
   {
     title: 'Manager',
+    width:"130px",
     dataIndex: 'manager',
   },
   {
     title: 'Source',
+    width:"100px",
     dataIndex: 'source',
   },
   {
     title: 'Certification Action',
+    width:"130px",
     dataIndex: 'certificationaction',
+    render: (text, record) => <CertificationStatus status={record.certificationaction}/>
   },
   {
     title: 'Certification Action Date',
+    width:"90px",
     dataIndex: 'certificationactiondate',
   },
 ];
@@ -63,7 +86,7 @@ const EntitlementMembers = ({
           <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
         </Col>
         <Col>
-          <Button type="secondary" leftIcon={<ExportOutlined />} disabled>Export</Button>
+          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoIcon/>} className="exportBtn" disabled>Export</Button>
         </Col>
       </Row>
       <Row className="oe-sc-row-padding">
@@ -71,6 +94,8 @@ const EntitlementMembers = ({
           dataSource={data.MemberDetails || []}
           columns={columns}
           config={{
+            scroll:{ y: 240, x: "max-content" },
+            tableLayout:"auto",
             pagination: {
               total: data.total,
               onChange: (p, ps) => handleUpdateSearchResult({page: p, pageSize: ps}),

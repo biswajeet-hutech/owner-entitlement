@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Popover } from 'antd';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import {InfoIcon} from './../../assets'
 import "./style.scss";
 
 const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
@@ -26,7 +26,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
       onVisibleChange={onVisibleChange}
       onClick={(e) => e.stopPropagation()}
     >
-      <InfoCircleOutlined />
+      <InfoIcon />
     </Popover>
   )
 }

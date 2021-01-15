@@ -1,6 +1,6 @@
 import React from "react";
 import "./style.scss";
-
+import {cards} from './../../assets/base64Images.json'
 const Card = ({
   value,
   description

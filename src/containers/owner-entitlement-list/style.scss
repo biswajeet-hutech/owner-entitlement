@@ -1,3 +1,5 @@
+@import "./../../assets/images.scss";
+
 .action-wrapper {
   padding: 20px;
   box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.18);
@@ -13,6 +15,20 @@
     text-align: right;
     & .btn.ant-btn:last-child {
       margin-right: 0;
+    }
+    & .exportBtn {
+      height: 33px;
+      width: 107px;
+      background-color: #ffffff;
+      border: 1px solid #c8caca;
+      color: #037da1;
+      padding: 7px 8px 9px;
+      & span {
+        padding: 0px 9px 0px 12px;
+      }
+      &:hover {
+        border: 1px solid #037da1;
+      }
     }
   }
 }
@@ -37,21 +53,21 @@
     background-position: top 2px right 2px;
     background-repeat: no-repeat;
     &:nth-child(1) {
-      background-image: url("./../../assets/background/1.svg");
+      background-image: $card-one;
     }
     &:nth-child(2) {
-      background-image: url("./../../assets/background/2.svg");
+      background-image: $card-two;
     }
     &:nth-child(3) {
       background-position: bottom 2px left 2px;
-      background-image: url("./../../assets/background/3.svg");
+      background-image: $card-three;
     }
     &:nth-child(4) {
       background-position: top 19px right 2px;
-      background-image: url("./../../assets/background/4.svg");
+      background-image: $card-four;
     }
     &:nth-child(5) {
-      background-image: url("./../../assets/background/5.svg");
+      background-image: $card-five;
     }
   }
 }
@@ -68,7 +84,7 @@
   & .ant-modal-body {
     & .oe-modal-content {
       height: auto;
-      max-height: 70vh;
+      max-height: 76vh;
     }
   }
 }

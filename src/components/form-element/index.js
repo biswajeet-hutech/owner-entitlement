@@ -1,7 +1,7 @@
 import React from "react";
 import { CheckCircleFilled, StopOutlined } from '@ant-design/icons';
-import {ReactComponent as CheckTrue} from './../../assets/icons/requestable-true.svg';
-import {ReactComponent as checkFalse} from './../../assets/icons/requestable-false.svg';
+import {CheckTrue} from './../../assets';
+import {checkFalse} from './../../assets';
 import { Input, Checkbox } from 'antd';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Input, Tooltip } from 'antd';
 // import { SearchOutlined } from '@ant-design/icons';
-import {ReactComponent as SearchIcon} from './../../assets/icons/magnifying-glass-icon.svg';
+import {SearchIcon} from './../../assets';
 import "./style.scss";
 
 const Search = ({

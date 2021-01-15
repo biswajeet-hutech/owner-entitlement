@@ -1,6 +1,6 @@
 import React from "react";
 import { Popover, Badge } from 'antd';
-import {ReactComponent as SettingIcon} from './../../assets/icons/search-setting-line.svg'
+import {SettingIcon} from './../../assets'
 import Button from '../../components/button';
 import "./style.scss";
 import AdvancedSearchContent from "./advance-search-content";

@@ -9,8 +9,8 @@ import ResponsiveActionIcons from './responsive-action-icons';
 import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
 import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
-import {ReactComponent as CheckTrue} from './../../assets/icons/requestable-true.svg';
-import {ReactComponent as CheckFalse} from './../../assets/icons/requestable-false.svg';
+import {CheckTrue} from './../../assets';
+import {CheckFalse} from './../../assets';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
@@ -257,14 +257,14 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
+              scroll:{ y: 240, x: "max-content" },
+              tableLayout:"auto",
               pagination: {
                 total: entitlementList.total,
                 onChange: handlePageChange,
                 position: ['none', 'bottomCenter'], pageSizeOptions: tablePaginationConfig.pageSizeOptions, defaultPageSize: tablePaginationConfig.defaultPageSize, showSizeChanger: true },
               className: "oe-table oe-entitlement-list-table",
               rowKey: 'id',
-              tableLayout: "fixed",
-              scroll: { x: 1500 },
               rowSelection: {
                 ...rowSelection,
               }
