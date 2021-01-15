@@ -1,7 +1,8 @@
 import React from "react";
 
 import { Popover } from 'antd';
-import {InfoIcon} from './../../assets'
+
+import { InfoIcon } from './../../assets';
 import "./style.scss";
 
 const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
@@ -9,6 +10,8 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
     switch(type) {
       case 'import':
         return <div>Import Info</div>
+      case 'member':
+        return <div>Add the info icon and show search First Name, Last Name, Email Address , Status and Manager</div>
       case 'export':
         return <div>You can search and download the selected entitlement or apply advance filter and download.</div>
       case 'scheduledCert':
@@ -26,7 +29,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
       onVisibleChange={onVisibleChange}
       onClick={(e) => e.stopPropagation()}
     >
-      <InfoIcon />
+      <span className="oe-info-content-span"><InfoIcon /></span>
     </Popover>
   )
 }

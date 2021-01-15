@@ -3,11 +3,11 @@ import ImageUrls from './base64Images.json';
 
 const Icon = ({dataUrl,width,height,alt}) =>{
     return <img 
-    src={dataUrl} 
-    alt={alt?alt:dataUrl} 
-    width={width?width:'22'}
-    height={height?height:'22'}
-/>
+        src={dataUrl} 
+        alt={alt?alt:dataUrl} 
+        width={width?width:'22'}
+        height={height?height:'22'}
+    />
 }
 
 const CheckTrue = ({width,height,alt}) => <Icon dataUrl={ImageUrls.requestable.true} width={width} height={height} alt={alt?alt:"True"}/>

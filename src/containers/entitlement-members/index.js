@@ -1,9 +1,9 @@
 import React from "react";
-import {ExportsIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon} from './../../assets'
+import {ExportsIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon} from './../../assets';
 import Button from "../../components/button";
 import Table from '../../components/table';
 import './style.scss';
-import { Col, Row } from "antd";
+import { Col, Row, Popover } from "antd";
 import Typography from "../../components/typography";
 import Search from "../../components/search";
 
@@ -18,7 +18,7 @@ const CertificationStatus = ({status}) =>{
     case 'revoked':return(<div className={`certificationStatus ${status.toLowerCase()}`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
     case 'open':return(<div className={`certificationStatus ${status.toLowerCase()}`}><OpenIcon alt={status}/> <span>{status}</span></div>)
     case 'pending':return(<div className={`certificationStatus ${status.toLowerCase()}`}><PendingIcon alt={status}/> <span>{status}</span></div>)
-    default:return(<div className={`certificationStatus pending`}><PendingIcon alt={status}/> <span>Pending</span></div>)
+    default:return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>Revoked</span></div>)
   }
 }
 const columns = [
@@ -79,7 +79,17 @@ const EntitlementMembers = ({
   return (
     <div className="oe-sc-wrapper">
       <Row justify="space-between" className="oe-sc-search-label">
-        <Typography type="title2">Search by name or email</Typography>
+        <Typography type="title2">
+          <span>Search by name or email</span>
+          <Popover
+            content={<div style={{ maxWidth: 200 }}>Search First Name, Last Name, Email Address , Status and Manager</div>}
+            trigger="hover"
+            placement="bottom"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span style={{ margin: '0 5px' }}><InfoIcon width={14} height={14} /></span>
+          </Popover>
+        </Typography>
       </Row>
       <Row justify="space-between" className="oe-sc-row-padding">
         <Col md={8}>

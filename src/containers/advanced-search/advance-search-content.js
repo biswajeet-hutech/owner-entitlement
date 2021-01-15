@@ -200,14 +200,14 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
              label="Value" 
              disabled={!formData.attribute} />
           </Col>
-          <Col md={6} style={{ margin: '4px 0' }}>
+          {/* <Col md={6} style={{ margin: '4px 0' }}>
             <Dropdown 
             options={typeData} 
             value={formData.value}
              onChange={(v, e) => updateFormData('type', v)} 
              label="Type" 
              disabled={!formData.application} />
-          </Col>
+          </Col> */}
         </Row>
         <div className="divider"></div>
         <Typography type="body2" className="oe-overlay-subheader">Searchable Attributes</Typography>

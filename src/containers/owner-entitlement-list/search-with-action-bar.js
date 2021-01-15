@@ -1,14 +1,14 @@
 import React from "react";
 import { Row, Col } from 'antd';
-import { ImportOutlined, ExportOutlined, FileDoneOutlined } from '@ant-design/icons';
-import {ExportsIcon} from './../../assets'
+
+import { ExportsIcon } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
 import InfoContent from './info-content';
 import AdvancedSearch from '../advanced-search';
-import "./style.scss";
 import ScheduleCertification from "../scheduled-certification";
+import "./style.scss";
 
 const SearchWithActionBar = ({
   onSearch = () => {},

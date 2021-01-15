@@ -1,10 +1,9 @@
 import React from "react";
 import {CheckTrue,CheckFalse} from './../../assets';
-import { Input } from 'antd';
+import { Input, Checkbox } from 'antd';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
-import Checkbox from "antd/lib/checkbox/Checkbox";
 const { TextArea } = Input;
 
 const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
@@ -83,7 +82,11 @@ const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
           }}
         />
         )) : (
-          <Checkbox onChange={onChange} defaultChecked={value?true:false} />
+          <Checkbox
+            checked={!!value}
+            onChange={(e) => onChange(e.target.checked)}
+            {...otherProps}
+          />
           )
       }
     </>

@@ -87,6 +87,7 @@ const BaseProperties = ({
 
   const handleSaveData = () => {
     const payload = {};
+    // console.log(formData);
     for (const key in formData) {
       if(!readOnlyProperties.includes(key)) {
         payload[key] = formData[key];
@@ -99,15 +100,15 @@ const BaseProperties = ({
   React.useEffect(() => {
     // console.log("data updated", data.EntitlementDetails);
     setEntitlementData(data.EntitlementDetails || {});
-    if(!readOnly){
+    if(!readOnly) {
       setActions(
         (
           <>
-        <Row justify="end" className="accordion_footer">
-          <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
-          <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
-        </Row>
-        </>
+            <Row justify="end" className="accordion_footer">
+              <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
+              <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+            </Row>
+          </>
         )
       )
     }
@@ -130,7 +131,18 @@ const BaseProperties = ({
         extendedProps={data.ExtentedAttributeProperties}
         readOnly={readOnly}
         onChange={handleUpdate}
-      />  
+      />
+      {
+        !readOnly && (
+        <>
+          <Row justify="end" className="accordion_footer">
+            <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
+            <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+          </Row>
+        </>
+        )
+      }
+      
     </>
   );
 }

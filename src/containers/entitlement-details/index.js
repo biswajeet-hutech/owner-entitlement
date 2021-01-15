@@ -1,10 +1,9 @@
 import React from "react";
-import { message, Spin } from "antd";
+import { message, Spin, Row } from "antd";
+import Button from "../../components/button";
 import './style.scss';
 import Accordion from "../../components/accordion";
 import BaseProperties from "./base-properties";
-// import ObjectAttributes from "./object-attributes";
-// import MembersPanel from "./members-panel";
 import { API, localMode } from "../../api";
 
 const EntitlementDetails = ({
@@ -14,7 +13,6 @@ const EntitlementDetails = ({
   onSuccess = ()=> {}
 }) => {
   const [loading, setLoading] = React.useState(false);
-  const [actions,setActions] = React.useState(null);
   const updateEntitlementAPI = (payload) => {
     const url = 'EntitlementManagement/update';
     setLoading(true);
@@ -42,7 +40,7 @@ const EntitlementDetails = ({
     {
       title: 'Entitlement Properties',
       subTitle: `${editMode ? 'Edit' : 'View'} entitlement properties`,
-      content: <BaseProperties data={data} readOnly={!editMode} onSave={handleSave} onCancel={onClose} setActions={(ele)=>{setActions(ele)}}/>
+      content: <BaseProperties data={data} readOnly={!editMode} onSave={handleSave} onCancel={onClose} />
     },
     // {
     //   title: 'Object Attribute',
@@ -62,7 +60,6 @@ const EntitlementDetails = ({
         <Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} />
       </div>
     </Spin>
-    {actions}
     </>
   );
 }
