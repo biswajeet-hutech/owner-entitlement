@@ -40,7 +40,8 @@ const ExtendedProperties = ({
       type: formType,
       maxLength: formType === 'input' ? 100 : null,
       options: formType === "dropdown" ? (Array.isArray(props.allowedValues) && props.allowedValues.map(item => ({ label: item, value: item }))) : null,
-      onChange: (value) => onChange(props.name, value)
+      onChange: (value) => onChange(props.name, value),
+      readOnly: readOnly || props.name === 'approval_levels'
     }
   }) : [];
 
@@ -49,7 +50,7 @@ const ExtendedProperties = ({
     <div className="form-section extended-property-section">
       {/* <div className="extended-property-label">Extended Properties</div> */}
       {
-        formGroupData.map(formElement => <FormElement {...formElement} readOnly={readOnly} />)
+        formGroupData.map(formElement => <FormElement {...formElement} />)
       }
     </div>
     </>

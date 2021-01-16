@@ -1,5 +1,4 @@
 @import "~antd/dist/antd.css";
-@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 @import "./assets/images.scss";
 
 .oe-app {
@@ -12,9 +11,9 @@
   min-height: 100vh;
   overflow-y: hidden;
   scrollbar-width: thin;
-  .home_tab {
-    // margin: 8px 43px 8px 57px;
-  }
+  // .home_tab {
+  //   // margin: 8px 43px 8px 57px;
+  // }
 }
 
 .oe-section {

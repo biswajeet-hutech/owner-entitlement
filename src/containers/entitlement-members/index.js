@@ -25,9 +25,9 @@ const CertificationStatus = ({status}) =>{
 const columns = [
   {
     title: 'Name',
-    dataIndex: 'firstName',
+    dataIndex: 'name',
     width:"100px",
-    render: (text, record) => <span>{`${record.firstname || '--'} ${record.lastname || '--'}`}</span>
+    render: (text, record) => <span>{record.name}</span>
   },
   {
     title: 'Email',
@@ -76,8 +76,17 @@ const EntitlementMembers = ({
   data={},
   onUpdate
 }) => {
+  const [paginationConfig, setPaginationConfig] = React.useState({
+    totalRecordsToFetch: 25,
+    start: 1
+  });
   const handleUpdateSearchResult = ({ page, pageSize, attrVal }) => {
     // console.log(page, pageSize);
+    setPaginationConfig({
+      totalRecordsToFetch: pageSize || 25,
+      start: page || 1
+    });
+
     const totalRecordsToFetch = pageSize || 25;
     const start = page ? page - 1 : 0;
     onUpdate({
@@ -118,6 +127,7 @@ const EntitlementMembers = ({
             tableLayout:"auto",
             pagination: {
               total: data.total,
+              current: paginationConfig.start,
               onChange: (p, ps) => handleUpdateSearchResult({page: p, pageSize: ps}),
               position: ['none', 'bottomCenter'], pageSizeOptions: [25, 50, 100], defaultPageSize: 25, showSizeChanger: true },
             className: "oe-table oe-scheduled-cert-table",

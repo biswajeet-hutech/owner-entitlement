@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import RichTextEditor from 'react-rte';
 
 import './style.scss';
@@ -6,11 +6,9 @@ import './style.scss';
 const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultValue="" }) => {
   const textValue = RichTextEditor.createValueFromString(defaultValue || "", "html");
   const [editorValue, setValue] = React.useState(textValue);
-  // const editorState = editorValue.getEditorState();
-  // const contentState = editorState.getCurrentContent();
-  // const editorTextLength = contentState.getPlainText().length;
-
-  // console.log("text Length", editorTextLength);
+  const editorState = editorValue.getEditorState();
+  const contentState = editorState.getCurrentContent();
+  const editorTextLength = contentState.getPlainText().length;
  
   const handleChange = (newValue) => {
     let editorState = newValue.getEditorState();
@@ -19,16 +17,17 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultVa
     // const oldContent = oldEditorState.getCurrentContent();
     // console.log("dasdasdas", contentState.getPlainText());
     if (contentState.getPlainText().length > maxLength) {
-      setValue(RichTextEditor.createValueFromString(value || "", "html"));
+      setValue(RichTextEditor.createValueFromString(editorValue.toString('html') || "", "html"));
+      return;
     }
-    
+    if (!contentState.getPlainText().length) {
+      // setValue(RichTextEditor.createEmptyValue());
+      onChange(null);
+    } else {
+      onChange(newValue.toString('html'));
+    }
+    // console.log(newValue);
     setValue(newValue);
-    // const newText = newValue.toString('html');
-    onChange(newValue.toString('html'));
-
-    if (contentState.getPlainText().length > maxLength) {
-      console.log("errrrrrr");
-    }
   };
 
   React.useEffect(() => {
@@ -70,6 +69,7 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultVa
         editorClassName="test-editor"
         className="test-root"
       />
+      <p className="oe-rte-text-count">{`${+(maxLength - editorTextLength)} characters remaining of ${maxLength} characters`}</p>
     </div>
   );
 }
