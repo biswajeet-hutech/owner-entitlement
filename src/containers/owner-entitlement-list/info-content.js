@@ -5,7 +5,7 @@ import { Popover } from 'antd';
 import { InfoIcon } from './../../assets';
 import "./style.scss";
 
-const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
+const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
   const getInfoContent = () => {
     switch(type) {
       case 'import':
@@ -17,7 +17,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange }) => {
       case 'scheduledCert':
         return <div>Scheduled Certification Info</div>;
       default:
-        return null;
+        return <div>{text}</div>;
     }
   }
 

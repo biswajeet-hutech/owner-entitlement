@@ -55,7 +55,7 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button className="exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={<ExportsIcon />} rightIcon={(
+          <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={<ExportsIcon />} rightIcon={(
             <InfoContent
               type="export"
               visible={popVisible.export}
