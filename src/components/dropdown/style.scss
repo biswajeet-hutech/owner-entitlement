@@ -8,9 +8,9 @@
   & .oe-form-label {
     font-family: "MyriadPro-Regular";
     font-size: $font-size-12;
-    font-weight: $font-weight-400;
+    font-weight: $font-weight-normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: 1.83;
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.85);
@@ -41,7 +41,7 @@
     height: 33px;
     border: unset;
     background: #f1f7ff;
-    font-size: 14px;
+    font-size: $font-size-14;
     font-family: "Roboto-Regular";
     color: #7d86a9;
   }

@@ -20,7 +20,7 @@
     border: solid 1px $input-border;
 
     & .test-toolbar {
-      background-color: #f1f1f1;
+      background-color: $background-color;
       margin: 0;
       padding: 8px 16px 8px;
     }

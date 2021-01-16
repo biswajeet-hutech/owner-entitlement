@@ -8,7 +8,7 @@
   padding: 8px 10px;
   border-radius: 4px;
   font-size: $font-size-14;
-  font-weight: $font-weight-500;
+  font-weight: $font-weight-normal;
   font-stretch: normal;
   font-style: $font-style-normal;
   line-height: normal;
@@ -78,7 +78,7 @@
 
 @media screen and (max-width: 600px) {
   .oe-btn.ant-btn {
-    font-size: 11px;
+    font-size: $font-size-11;
     margin-right: 12px;
     font-weight: normal;
     padding: 8px;

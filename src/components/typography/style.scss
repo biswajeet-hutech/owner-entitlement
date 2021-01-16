@@ -1,3 +1,6 @@
+@import './../../assets/fonts.scss';
+@import './../../assets/colors.scss';
+
 .oe-typography {
   color: #202020;
   font-size: 13px;
@@ -22,7 +25,7 @@
     font-family: 'Roboto-Medium';
   }
   &.heading4 {
-    font-size: 22px;
+    font-size: $font-size-22;
     font-weight: 500;
     font-family: 'Roboto-Medium';
   }
