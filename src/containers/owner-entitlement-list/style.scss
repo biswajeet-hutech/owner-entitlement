@@ -6,42 +6,11 @@
   padding: 20px;
   box-shadow: 0 1px 1px 0 $shadow-variant-1;
   background-color: $background-color;
-  // margin-bottom: 20px;
-  // flex-wrap: wrap;
-
-  // & .adv-btn-wrapper {
-  //   // margin-left: 12px;
-  // }
 
   & .action-wrapper-btn-group {
     text-align: right;
     & .btn.ant-btn:last-child {
       margin-right: 0;
-    }
-    & .oe-exportBtn {
-      height: 33px;
-      border: 1px solid $button-border;
-      & span {
-        padding: 0px 9px 0px 12px;
-        &.oe-info-content-span {
-          padding: 0;
-          font-size: 13px;
-          font-family: "MyriadPro-Regular";
-        }
-      }
-      & .hover{
-        display: none;
-      }
-      &:hover {
-        border: 1px solid $theme-primary;
-        color: $theme-primary-font-color;
-        & .hover{
-          display: inline;
-        }
-        & .normal{
-          display: none;
-        }
-      }
     }
   }
 }
@@ -103,15 +72,6 @@
   margin: 20px;
 }
 
-.oe-sceduled-cert-modal {
-  & .ant-modal-body {
-    & .oe-modal-content {
-      height: auto;
-      max-height: 76vh;
-    }
-  }
-}
-
 .description_modal_text {
   font-size: $font-size-14;
   font-weight: normal;
@@ -119,14 +79,14 @@
   font-style: normal;
   line-height: 1.85;
   letter-spacing: normal;
-  color: $subtitle-color;
+  color: $typo-text-1;
   padding: 32px;
   justify-content: center;
   text-align: justify;
 }
 
 .oe-table-tooltip {
-  font-size: 12px;
+  font-size: $font-size-12;
   height: auto;
 }
 

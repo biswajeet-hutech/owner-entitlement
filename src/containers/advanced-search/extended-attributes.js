@@ -51,9 +51,11 @@ const ExtendedAttributes = ({
           return (
             <Form.Item label={displayName}>
               <Input 
-              value={selectedValues[extendedAttrName]} 
-              onChange={(e) => updateFormData(extendedAttrName, e.target.value)} 
-              className="oe-adv-search-input" />
+                value={selectedValues[extendedAttrName]} 
+                onChange={(e) => updateFormData(extendedAttrName, e.target.value)} 
+                allowClear
+                className="oe-adv-search-input" 
+              />
             </Form.Item>
           );
         } else  {
@@ -64,6 +66,7 @@ const ExtendedAttributes = ({
         return (
           <Form.Item label={displayName}>
             <DatePicker 
+            allowClear
             value={selectedValues[extendedAttrName]} 
             onChange={(d, ds) => updateFormData(extendedAttrName, ds)} 
             className="oe-adv-search-datepicker" />
@@ -75,6 +78,7 @@ const ExtendedAttributes = ({
             <Input 
             value={selectedValues[extendedAttrName]} 
             onChange={(e) => updateFormData(extendedAttrName, e.target.value)} 
+            allowClear
             className="oe-adv-search-input" />
           </Form.Item>
         )

@@ -2,7 +2,7 @@
 @import "./../../assets/colors.scss";
 
 .oe-typography {
-  color: $typo-text-color;
+  color: $typo-text-2;
   font-family: $primary-font-medium;
   font-size: $font-size-12;
   font-weight: $font-weight-normal;
@@ -10,6 +10,9 @@
   font-style: $font-style-normal;
   line-height: normal;
   letter-spacing: normal;
+  & > span > img {
+    margin-top: -4px;
+  }
   &.heading1 {
     font-size: $font-size-heading-1;
   }

@@ -22,7 +22,7 @@
     font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
-    color: $title-color;
+    color: $typo-text-1;
     margin-bottom: 24px;
   }
 }
@@ -50,7 +50,7 @@
     content: "";
     top: -5px;
     height: 1px;
-    background-color: $border-disabled;
+    background-color: $border-variant-1;
   }
   button.save {
     &:last-child {

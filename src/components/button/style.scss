@@ -1,5 +1,5 @@
-@import './../../assets/colors.scss';
-@import './../../assets/fonts.scss';
+@import "./../../assets/colors.scss";
+@import "./../../assets/fonts.scss";
 
 .oe-btn.ant-btn {
   width: max-content;
@@ -16,7 +16,7 @@
   font-family: $secondary-font-regular;
   cursor: pointer;
   white-space: nowrap;
-  transition: all .3s cubic-bezier(.645,.045,.355,1);
+  transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
   &.oe-btn-large {
     height: 40px;
     padding: 12px 16px;
@@ -48,7 +48,7 @@
     &:disabled {
       color: rgba(0, 0, 0, 0.25);
       background: $disabled-background;
-      border-color: $border-disabled;
+      border-color: $border-variant-1;
       text-shadow: none;
       cursor: not-allowed;
     }
@@ -71,11 +71,42 @@
       color: $background-color;
     }
     &:disabled {
-      color: $border-disabled;
+      color: $border-variant-1;
       background: $disabled-background;
-      border-color: #d9d9d9;
+      border-color: $border-variant-1;
       text-shadow: none;
       cursor: not-allowed;
+    }
+  }
+  &.oe-exportBtn {
+    border-radius: 4px;
+    border: 1px solid $button-border;
+    height: 33px;
+    padding: 7px 8px 9px;
+    & span {
+      padding: 0px 9px 0px 12px;
+      &.oe-info-content-span {
+        & > img {
+          width: 13px;
+          height: 13px;
+          margin-top: -2px;
+        }
+        padding: 0;
+      }
+    }
+    & .hover {
+      display: none;
+    }
+    &:hover {
+      border: 1px solid $theme-primary;
+      color: $theme-primary-font-color;
+      background-color: unset;
+      & .hover {
+        display: inline;
+      }
+      & .normal {
+        display: none;
+      }
     }
   }
 }

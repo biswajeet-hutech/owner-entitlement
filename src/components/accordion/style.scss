@@ -18,7 +18,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: 1px solid $collapse-item-border;
+    border-bottom: 1px solid $border-variant-1;
     position: sticky;
     top: 0;
     z-index: 99;
@@ -31,7 +31,7 @@
     font-style: $font-style-normal;
     line-height: $line-height-normal;
     letter-spacing: normal;
-    color: $title-color;
+    color: $typo-text-1;
   }
   & .oe-accordion-subtitle {
     font-family: $primary-font-regular;
@@ -42,11 +42,11 @@
     font-style: $font-style-normal;
     line-height: $line-height-normal;
     letter-spacing: normal;
-    color: $subtitle-color;
+    color: $typo-text-1;
     margin: 2px 0px 0;
   }
   & .ant-collapse-content {
-    border-top: 1px solid $collapse-item-border;
+    border-top: 1px solid $border-variant-1;
   }
   &.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
     padding: 12px 144px;
