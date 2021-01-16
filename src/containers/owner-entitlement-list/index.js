@@ -173,7 +173,7 @@ const OwnerEntitlement = () => {
       setSelectedRowKeys(selectedRowKeys);
     },
     getCheckboxProps: (record) => ({
-      disabled: record.name === 'Disabled User',
+      disabled: true,
       // Column configuration not to be checked
       name: record.name,
     }),

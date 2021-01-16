@@ -29,7 +29,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
       onVisibleChange={onVisibleChange}
       onClick={(e) => e.stopPropagation()}
     >
-      <span className="oe-info-content-span"><InfoIcon /></span>
+      <span className="oe-info-content-span"><InfoIcon width={14} height={14} /></span>
     </Popover>
   )
 }

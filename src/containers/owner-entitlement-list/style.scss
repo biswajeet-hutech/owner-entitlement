@@ -27,6 +27,8 @@
         padding: 0px 9px 0px 12px;
         &.oe-info-content-span {
           padding: 0;
+          font-size: 13px;
+          font-family: "MyriadPro-Regular";
         }
       }
       &:hover {
@@ -73,7 +75,7 @@
       background-image: $card-two;
     }
     &:nth-child(3) {
-      background-position: bottom 2px left 2px;
+      background-position: bottom 2px left 9px;
       background-image: $card-three;
     }
     &:nth-child(4) {

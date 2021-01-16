@@ -53,8 +53,8 @@ const ResponsiveActionIcons = ({
         </div>
       </Tooltip>
       <Tooltip title="Export" placement="bottom">
-        <div className="oe-icon-btn">
-          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
+        <div className="oe-icon-btn" onClick={() => onAction('export', data.id)}>
+          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} />
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>

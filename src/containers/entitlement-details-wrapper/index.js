@@ -77,7 +77,7 @@ const EntitlementDetailsWrapper = ({
     name: 'Entitlement Members',
     content: (
       <Spin spinning={loadingEntitlement}>
-        <EntitlementMembers data={entitlementData.Members[0]} onUpdate={handleOnMemberSearch} />
+        <EntitlementMembers data={entitlementData.Members[0]} id={entitlementId} onUpdate={handleOnMemberSearch} />
       </Spin>
     )
   }, {
