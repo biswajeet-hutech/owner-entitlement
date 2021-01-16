@@ -106,7 +106,7 @@ const EntitlementMembers = ({
           <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
         </Col>
         <Col>
-          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoContent showTooltip toolTipData=""/>} className="exportBtn">Export</Button>
+          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoContent showTooltip toolTipData="Test"/>} className="oe-exportBtn">Export</Button>
         </Col>
       </Row>
       <Row className="oe-sc-row-padding">
