@@ -13,7 +13,7 @@
     font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
-    font-family: 'Roboto-Medium';
+    font-family: $primary-font-medium;
   }
   &.filled-tab .ant-tabs-tab {
     background: #ededed;

@@ -6,7 +6,7 @@
   flex-direction: column;
   margin-right: 10px;
   & .oe-form-label {
-    font-family: "MyriadPro-Regular";
+    font-family: $secondary-font-regular;
     font-size: $font-size-12;
     font-weight: $font-weight-normal;
     font-stretch: normal;
@@ -42,7 +42,7 @@
     border: unset;
     background: #f1f7ff;
     font-size: $font-size-14;
-    font-family: "Roboto-Regular";
+    font-family: $primary-font-regular;
     color: #7d86a9;
   }
 }

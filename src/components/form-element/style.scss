@@ -14,7 +14,7 @@
     margin: 4px 0;
   }
   & .oe-form-label {
-    font-family: "MyriadPro-Regular";
+    font-family: $secondary-font-regular;
     font-size: $font-size-14;
     font-weight: $font-weight-normal;
     font-stretch: normal;
@@ -28,7 +28,7 @@
     padding: 5px 0px 1px 0px;
   }
   & .oe-form-value {
-    font-family: "Roboto-Regular";
+    font-family: $primary-font-regular;
     font-size: $font-size-14;
     font-weight: normal;
     font-stretch: normal;

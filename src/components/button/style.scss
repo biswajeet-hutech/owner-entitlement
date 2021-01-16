@@ -13,7 +13,7 @@
   font-style: $font-style-normal;
   line-height: normal;
   letter-spacing: normal;
-  font-family: 'MyriadPro-Regular';
+  font-family: $secondary-font-regular;
   cursor: pointer;
   white-space: nowrap;
   transition: all .3s cubic-bezier(.645,.045,.355,1);
@@ -26,9 +26,11 @@
     margin-right: 0;
   }
   &.oe-btn-primary {
-    border: solid 1px $theme-primary;
+    border-radius: 30px;
+    height: 40px;
+    min-width: 110px;
     background-color: $theme-primary;
-    color: $background-color;
+    padding: 0 11px;
     &:hover {
       border: solid 1px $theme-primary-hover;
       background-color: $theme-primary-hover;
@@ -52,9 +54,11 @@
     }
   }
   &.oe-btn-secondary {
-    border: solid 1px $theme-primary;
-    background-color: $background-color;
-    color: $theme-primary;
+    border-radius: 30px;
+    height: 40px;
+    width: 110px;
+    border: 1px solid $theme-primary;
+    padding: 0px;
     &:hover {
       border: solid 1px $theme-primary;
       background-color: $theme-primary;

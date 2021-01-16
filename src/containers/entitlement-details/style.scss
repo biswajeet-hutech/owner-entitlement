@@ -1,5 +1,5 @@
-@import './../../assets/colors.scss';
-@import './../../assets/fonts.scss';
+@import "./../../assets/colors.scss";
+@import "./../../assets/fonts.scss";
 
 .form-section {
   padding: 32px 24px 50px;
@@ -15,7 +15,7 @@
     // background-color: #f6fdff;
   }
   & .extended-property-label {
-    font-family: "Roboto-Medium";
+    font-family: $primary-font-medium;
     font-size: $font-size-18;
     font-weight: $font-weight-normal;
     font-stretch: normal;
@@ -56,15 +56,6 @@
     &:last-child {
       margin-right: 200px;
     }
-  }
-  .ant-btn.ant-btn-secondary.oe-btn.oe-btn-secondary.cancel.oe-btn-large,
-  .ant-btn.ant-btn-primary.oe-btn.oe-btn-primary.save.oe-btn-large {
-    border-radius: 30px;
-    height: 40px;
-    width: 110px;
-    border: 1px solid $theme-primary;
-    border-radius: 40px;
-    padding: 0px;
   }
 }
 

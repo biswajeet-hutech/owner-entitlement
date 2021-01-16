@@ -5,11 +5,9 @@
   padding: 10px 0;
   & .ant-col {
     & .oe-exportBtn {
-      height: 33px;
-      width: 107px;
-      background-color: $background-color;
+      border-radius: 4px;
       border: 1px solid $button-border;
-      color: $theme-primary;
+      height: 33px;
       padding: 7px 8px 9px;
       & span {
         padding: 0px 9px 0px 12px;

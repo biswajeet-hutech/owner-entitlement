@@ -65,7 +65,7 @@ const AdvancedSearch = ({ onSearch }) => {
         destroyTooltipOnHide
       >
         <Badge count={filterCount()} style={{ backgroundColor: '#d42511' }}>
-          <Button type="hybrid" leftIcon={<SettingIcon />} className="adv-btn-wrapper">Advanced Search</Button>
+          <Button type="primary" leftIcon={<SettingIcon />} className="adv-btn-wrapper">Advanced Search</Button>
         </Badge>
       </Popover>
     </div>
