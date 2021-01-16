@@ -258,7 +258,7 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll:{ y: "300px", x: "100%" },
+              scroll:{ y: window.screen.height<700?"200px":"300px", x: "100%" },
               tableLayout:"auto",
               pagination: {
                 total: entitlementList.total,

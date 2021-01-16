@@ -114,7 +114,7 @@ const EntitlementMembers = ({
           dataSource={data.MemberDetails || []}
           columns={columns}
           config={{
-            scroll:{ y: window.screen.height<700?200:360, x: "max-content" },
+            scroll:{ y: "360px", x: "max-content" },
             tableLayout:"auto",
             pagination: {
               total: data.total,
