@@ -12,6 +12,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 10px 12px;
   margin-right: 24px;
   & .oe-card-value {
     font-size: $font-size-heading-1;
@@ -23,6 +24,7 @@
     padding: 0px 0px 0px 18px;
     color: $theme-primary;
     margin: 4px 0;
+    font-family: "Roboto-Medium";
   }
   & .oe-card-desc {
     min-width: 159px;
@@ -44,8 +46,14 @@
   }
 }
 
-@media screen and (max-width: 10240px) {
+@media screen and (max-width: 1024px) {
   .oe-card {
     padding: 10px 12px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .oe-card {
+    padding: 10px 16px;
   }
 }

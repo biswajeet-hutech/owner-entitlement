@@ -63,6 +63,21 @@
     line-height: 1.83;
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.85);
+    margin-bottom: 0;
+  }
+}
+
+.oe-btn.ant-btn.oe-btn-primary.oe-advance-search-btn {
+  border-radius: 4px;
+  height: 33px;
+  line-height: 14px;
+  padding: 8px;
+  min-width: auto;
+  span{
+    padding: 2px 2px 0px 5px;
+  }
+  img{
+    margin-top: -2px;
   }
 }
 

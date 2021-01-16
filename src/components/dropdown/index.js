@@ -27,6 +27,7 @@ const Dropdown = ({
       onChange={onChange}
       disabled={!!disabled}
       value={value}
+      allowClear={true}
     >
       {
         options.map(option => (

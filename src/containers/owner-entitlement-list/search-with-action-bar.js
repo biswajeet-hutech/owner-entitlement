@@ -44,7 +44,7 @@ const SearchWithActionBar = ({
               <Search
                 onSearch={(searchVal) => handleSearch({searchVal})}
                 onChange={(val) => setSearchTextChange(val)}
-                placeHolder="Search by application name"
+                placeHolder="Search by Application, Display Name or Entitlement value"
               />
             </Col>
             <Col xs={24} md={6}>

@@ -259,7 +259,7 @@
       "displayName": null,
       "logiplex_app_name": null,
       "approval_levels": null,
-      "description": "Provides Administrative access on application '<b><i><u>Local AD1</u></i></b>'",
+      "description": "The <b>Administrators group</b> that has full control over the domain controllers. Members of that <b>group</b> have <b>admin</b> rights over all DC's in that domain, they share their local security databases.",
       "application": "Entitlement Data Application",
       "birthright": null,
       "type": "Entitlement",

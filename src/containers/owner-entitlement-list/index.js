@@ -1,6 +1,5 @@
 import React from "react";
-import { CheckCircleFilled, StopOutlined } from '@ant-design/icons';
-import { message, Spin } from "antd";
+import { message, Spin, Popover } from "antd";
 import { useJsonToCsv } from 'react-json-csv';
 import Table from '../../components/table';
 import Modal from '../../components/modal';
@@ -199,7 +198,7 @@ const OwnerEntitlement = () => {
       render: (text) => text === "true" ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />
     },
     users: {
-      render: (text, record) => <a onClick={() => setShowMembersModal({show: true, data: {...record} })}>{`${text} Member${text > 1 ? 's' : ''}`}</a>
+      render: (text, record) => <a onClick={() => setShowMembersModal({show: true, data: {...record} })} className="oe-link">{`${text} Member${text > 1 ? 's' : ''}`}</a>
     },
   }
 
@@ -262,6 +261,7 @@ const OwnerEntitlement = () => {
               tableLayout:"auto",
               pagination: {
                 total: entitlementList.total,
+                current: +tableConfig.start+1,
                 onChange: handlePageChange,
                 position: ['none', 'bottomCenter'], pageSizeOptions: tablePaginationConfig.pageSizeOptions, defaultPageSize: tablePaginationConfig.defaultPageSize, showSizeChanger: true },
               className: "oe-table oe-entitlement-list-table",

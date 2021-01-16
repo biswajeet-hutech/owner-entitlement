@@ -1,12 +1,15 @@
 import React from "react";
 import { Grid, Tooltip } from 'antd';
-import { ExportOutlined, EyeOutlined, EditOutlined, SwapOutlined, EllipsisOutlined } from '@ant-design/icons';
-import {ExportsIcon,ViewIcon,EditIcon,DisputeIcon,ExportCertIcon,ExportCertHoverIcon,ViewHoverIcon,EditHoverIcon,DisputeHoverIcon,ExportHoverIcon} from './../../assets'
+import { EllipsisOutlined } from '@ant-design/icons';
+
+import { ViewIcon,EditIcon,DisputeIcon,ExportCertIcon,ExportCertHoverIcon,ViewHoverIcon,EditHoverIcon,DisputeHoverIcon } from './../../assets';
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";
 import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
 import RaiseDispute from "../raise-dispute";
+
+// import img1 from "../../assets/images/group-5.svg";
 
 const { useBreakpoint } = Grid;
 
@@ -53,9 +56,9 @@ const ResponsiveActionIcons = ({
         </div>
       </Tooltip>
       <Tooltip title="Export" placement="bottom">
-        <div className="oe-icon-btn">
-          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} className="normal"/>          
-          <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} className="hover"/>
+        <div className="oe-icon-btn" onClick={() => onAction('export', data.id)}>
+          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="normal"/>          
+          <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="hover"/>
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>

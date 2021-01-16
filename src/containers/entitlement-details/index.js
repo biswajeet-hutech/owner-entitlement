@@ -30,6 +30,7 @@ const EntitlementDetails = ({
     // console.log(formData);
     const payload = {
       ...formData,
+      displayName: formData.displayName || null,
       id: data?.EntitlementDetails?.id
     };
 

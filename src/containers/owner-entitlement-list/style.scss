@@ -9,9 +9,9 @@
   // margin-bottom: 20px;
   // flex-wrap: wrap;
 
-  & .adv-btn-wrapper {
-    // margin-left: 12px;
-  }
+  // & .adv-btn-wrapper {
+  //   // margin-left: 12px;
+  // }
 
   & .action-wrapper-btn-group {
     text-align: right;
@@ -60,6 +60,10 @@
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+}
+
+.oe-link {
+  color: #0a66c2;
 }
 
 .oe-card-wrapper {
@@ -119,12 +123,17 @@
   text-align: justify;
 }
 
+.oe-table-tooltip {
+  font-size: 12px;
+  height: auto;
+}
+
 @media screen and (max-width: 600px) {
   .action-wrapper {
     padding: 20px 8px;
-    & .adv-btn-wrapper {
-      // margin: 12px 0;
-    }
+    // & .adv-btn-wrapper {
+    //   // margin: 12px 0;
+    // }
     & .adv-search-wrapper {
       margin-bottom: 12px;
       border-radius: 3px;

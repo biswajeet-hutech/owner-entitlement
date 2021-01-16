@@ -15,6 +15,22 @@
     line-height: 1.5;
   }
 
+  & .DraftEditor-editorContainer {
+    min-height: 220px;
+  }
+
+  & .oe-rte-text-count {
+    padding: 8px 12px 0;
+    font-family: "Roboto-Regular";
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #000000;
+  }
+
   & .test-root {
     border-radius: 3px;
     border: solid 1px $input-border;
