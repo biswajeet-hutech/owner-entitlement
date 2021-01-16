@@ -6,11 +6,10 @@ import Button from "../../components/button";
 import Table from '../../components/table';
 import Typography from "../../components/typography";
 import Search from "../../components/search";
-import InfoContent from "../owner-entitlement-list/info-content";
 
 import { API, localMode } from "../../api";
 import './style.scss';
-import {ExportsIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon} from './../../assets';
+import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon, InfoHoverIcon } from './../../assets';
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -148,14 +147,20 @@ const EntitlementMembers = ({
           <Col>
             <Button
               type="secondary"
-              leftIcon={<ExportsIcon />}
+              leftIcon={<>
+                <ExportsIcon className="normal"/>
+                <ExportHoverIcon className="hover" width="16px" height="16px"/></>
+              }
               rightIcon={(
                 <Popover
                   content={<div style={{ maxWidth: 200, fontSize: 13 }}>Export entitlement members details</div>}
                   trigger="hover"
                   placement="bottomRight"
                 >
-                  <span style={{ padding: 0 }}><InfoIcon width={14} height={14} /></span>
+                  <span style={{ padding: 0 }}>
+                    <InfoIcon width={14} height={14} className="normal" />
+                    <InfoHoverIcon width={14} height={14} className="hover"/>
+                  </span>
                 </Popover>
               )}
               className="oe-exportBtn"

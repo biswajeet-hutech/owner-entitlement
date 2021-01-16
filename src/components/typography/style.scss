@@ -1,46 +1,40 @@
+@import "./../../assets/fonts.scss";
+@import "./../../assets/colors.scss";
+
 .oe-typography {
-  color: #202020;
-  font-size: 13px;
-  font-weight: normal;
+  color: $typo-text-color;
+  font-family: $primary-font-medium;
+  font-size: $font-size-12;
+  font-weight: $font-weight-normal;
   font-stretch: normal;
-  font-style: normal;
+  font-style: $font-style-normal;
   line-height: normal;
   letter-spacing: normal;
   &.heading1 {
-    font-size: 35px;
-    font-weight: 500;
-    font-family: 'Roboto-Medium';
+    font-size: $font-size-heading-1;
   }
   &.heading2 {
-    font-size: 32px;
-    font-weight: 500;
-    font-family: 'Roboto-Medium';
+    font-size: $font-size-heading-2;
   }
   &.heading3 {
-    font-size: 26px;
-    font-weight: 500;
-    font-family: 'Roboto-Medium';
+    font-size: $font-size-heading-3;
   }
   &.heading4 {
-    font-size: 22px;
-    font-weight: 500;
-    font-family: 'Roboto-Medium';
+    font-size: $font-size-heading-4;
   }
   &.title1 {
-    font-size: 16px;
+    font-size: $font-size-16;
   }
   &.title2 {
-    font-size: 14px;
-    font-weight: 500;
-    font-family: 'Roboto-Medium';
-    color: #4a4848;
+    font-size: $font-size-14;
+    color: $typo-title2-color;
     margin-bottom: 5px;
   }
   &.body1 {
-    font-size: 14px;
+    font-size: $font-size-14;
   }
   &.body2 {
-    font-size: 12px;
+    font-size: $font-size-12;
   }
   &.gutter-bottom {
     margin-bottom: 8px;

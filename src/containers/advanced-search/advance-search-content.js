@@ -223,7 +223,7 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
         <Row justify="end" className="oe-overlay-footer">
           <Button onClick={onClose}>Cancel</Button>
           <Button onClick={onClear}>Reset</Button>
-          <Button type="primary" onClick={handleAdvanceSearch}>Apply</Button>
+          <Button type="primary" className="oe-advance-search-btn" onClick={handleAdvanceSearch}>Apply</Button>
         </Row>
       </div>
     </Spin>

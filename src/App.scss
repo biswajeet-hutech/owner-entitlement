@@ -1,5 +1,7 @@
 @import "~antd/dist/antd.css";
 @import "./assets/images.scss";
+@import "./assets/fonts.scss";
+@import "./assets/colors.scss";
 
 .oe-app {
   padding: 20px 40px;
@@ -40,7 +42,7 @@ div {
 
   /* Handle */
   &::-webkit-scrollbar-thumb {
-    background: #0894bd;
+    background: $theme-primary;
     border-radius: 10px;
   }
   &::-webkit-scrollbar-track:hover {
@@ -48,7 +50,7 @@ div {
   }
   /* Handle on hover */
   &::-webkit-scrollbar-thumb:hover {
-    background: #0894bd;
+    background: $theme-primary;
     cursor: pointer;
   }
 }

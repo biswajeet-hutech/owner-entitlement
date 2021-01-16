@@ -1,5 +1,8 @@
+@import './../../assets/colors.scss';
+@import './../../assets/fonts.scss';
+
 .oe-modal {
-  font-family: "Roboto-Regular";
+  font-family: $primary-font-regular;
 
   & .ant-modal-content {
     border-radius: 10px;
@@ -7,24 +10,24 @@
   & .ant-modal-header {
     padding: 20px 32px;
     border-radius: 10px 10px 0 0;
-    border-bottom: solid 1px #d9d9d9;
+    border-bottom: solid 1px $border-disabled;
   }
   & .ant-modal-title {
-    font-family: "Roboto-Medium";
-    font-size: 22px;
-    font-weight: 500;
+    font-family: $primary-font-medium;
+    font-size: $font-size-14;
+    font-weight: $font-weight-normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
     color: #191919;
   }
   & .ant-modal-body {
-    font-family: "Roboto-Regular";
-    font-size: 14px;
-    font-weight: normal;
+    font-family: $primary-font-regular;
+    font-size: $font-size-heading-4;
+    font-weight: $font-weight-normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
     color: #6a6a6a;
@@ -38,12 +41,12 @@
         .ant-table-thead {
           &::after {
             height: 4px;
-            border-top: 2px solid #ffffff;
+            border-top: 2px solid $background-color;
             width: calc(100% - 70px);
             left: 32px;
           }
           tr {
-            border-bottom: 1px solid black;
+            border-bottom: 1px solid $input-border;
           }
         }
       }
@@ -67,7 +70,7 @@
           height: 1px;
           width: 100%;
           margin-top: -20px;
-          background-color: #d9d9d9;
+          background-color: $border-disabled;
         }
       }
     }
@@ -93,8 +96,9 @@
 
 .description_modal {
   .ant-modal-content {
+    max-width: 100vh;
     .ant-modal-body {
-      max-height: 45vh;
+      max-height: 60vh;
       height: fit-content;
       min-height: 5vh;
       .oe-modal-content{

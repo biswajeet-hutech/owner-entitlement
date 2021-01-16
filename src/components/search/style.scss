@@ -1,12 +1,15 @@
+@import './../../assets/fonts.scss';
+@import './../../assets/colors.scss';
+
 .oe-search {
   height: 35px;
   &.ant-input-affix-wrapper {
     background-color: #eef3f8;
-    border: 1px solid #ccc;
+    border: 1px solid $input-border;
     border-radius: 3px;
     box-shadow: unset;
     &:hover,&:focus,&:active {
-      border: 1px solid #037da1;
+      border: 1px solid $theme-primary;
       box-shadow: unset;
       cursor: pointer;
     }

@@ -1,3 +1,6 @@
+@import './../../assets/colors.scss';
+@import './../../assets/fonts.scss';
+
 .oe-form-wrapper {
   display: flex;
   // align-items: center;
@@ -11,25 +14,25 @@
     margin: 4px 0;
   }
   & .oe-form-label {
-    font-family: "MyriadPro-Regular";
-    font-size: 14px;
-    font-weight: 500;
+    font-family: $secondary-font-regular;
+    font-size: $font-size-14;
+    font-weight: $font-weight-normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #191919;
+    color: $subtitle-color;
     width: 150px;
     min-width: 150px;
     margin-right: 20px;
     padding: 5px 0px 1px 0px;
   }
   & .oe-form-value {
-    font-family: "Roboto-Regular";
-    font-size: 14px;
+    font-family: $primary-font-regular;
+    font-size: $font-size-14;
     font-weight: normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
     color: #6a6a6a;
@@ -42,10 +45,10 @@
   & .oe-form-input.ant-input {
     line-height: 32px;
     border-radius: 3px;
-    border: solid 1px#ccc;
+    border: solid 1px $input-border;
     &:focus,&:hover,&:active {
       box-shadow: none;
-      border: solid 1px #037da1;
+      border: solid 1px $theme-primary;
     }
   }
 
@@ -53,18 +56,17 @@
     margin-right: 0px;
     border-radius: 3px;
     & .oe-dropdown.ant-select:not(.ant-select-customize-input) .ant-select-selector {
-      color: #191919;
+      color: $subtitle-color;
       border-radius: 3px;
       border: unset;
-      background-color: #ffffff;
+      background-color: $background-color;
       &:focus,&:hover,&:active {
         box-shadow: none;
         border: unset;
-        // border: solid 1px #037da1;
       }
     }
     & .ant-select-arrow {
-      color: #ccc;
+      color: $input-border;
     }
   }
 }

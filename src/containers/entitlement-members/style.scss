@@ -1,12 +1,13 @@
+@import "./../../assets/colors.scss";
+@import "./../../assets/fonts.scss";
+
 .oe-sc-row-padding {
   padding: 10px 0;
-  & .ant-col{
+  & .ant-col {
     & .oe-exportBtn {
+      border-radius: 4px;
+      border: 1px solid $button-border;
       height: 33px;
-      width: 107px;
-      background-color: #ffffff;
-      border: 1px solid #c8caca;
-      color: #037da1;
       padding: 7px 8px 9px;
       & span {
         padding: 0px 9px 0px 12px;
@@ -14,14 +15,22 @@
           padding: 0;
         }
       }
+      & .hover {
+        display: none;
+      }
       &:hover {
-        border: 1px solid #037da1;
-        color: #025c77;
+        border: 1px solid $theme-primary;
+        color: $theme-primary-font-color;
         background-color: unset;
+        & .hover {
+          display: inline;
+        }
+        & .normal {
+          display: none;
+        }
       }
     }
   }
-  
 }
 
 .oe-sc-search-label {
@@ -33,7 +42,7 @@
 }
 
 .userStatus_active {
-  color: #1f8e0c;
+  color: $member-active;
   div {
     position: absolute;
     padding-top: 2px;
@@ -41,9 +50,9 @@
   }
   &::before {
     content: "";
-    color: #51c03e;
-    font-size: 10px;
-    background-color: #51c03e;
+    color: $member-active-icon;
+    font-size: $font-size-10;
+    background-color: $member-active-icon;
     padding-right: 11px;
     margin-right: 7px;
     border-radius: 11px;
@@ -51,7 +60,7 @@
 }
 
 .userStatus_disable {
-  color: #f64a3f;
+  color: $member-disabled;
   div {
     position: absolute;
     padding-top: 2px;
@@ -59,9 +68,9 @@
   }
   &::before {
     content: "";
-    color: #f64a3f;
-    font-size: 10px;
-    background-color: #f64a3f;
+    color: $member-disabled-icon;
+    font-size: $font-size-10;
+    background-color: $member-disabled-icon;
     padding-right: 11px;
     margin-right: 7px;
     border-radius: 11px;
@@ -74,14 +83,14 @@
   }
 }
 .pending {
-  color: #bf9f00;
+  color: $member-pending;
 }
 .open {
-  color: #258400;
+  color: $member-open;
 }
 .revoked {
-  color: #e22e1c;
+  color: $member-revoked;
 }
 .approved {
-  color: #008dcf;
+  color: $member-approved;
 }
