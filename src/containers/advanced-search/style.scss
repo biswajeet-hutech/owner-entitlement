@@ -1,26 +1,20 @@
+@import './../../assets/colors.scss';
+@import './../../assets/fonts.scss';
+
 .oe-adv-search {
-  & .adv-btn-wrapper {
-    margin-left: 12px;
-    margin-right: 0;
-    width: 147px;
-    height: fit-content;
-    padding: 0px;
-    border-radius: 4px;
-    & > span {
-      margin: 10px 10px 8px 5px;
-      display: inline;
+  .oe-popover{
+    & .adv-btn-wrapper {
+      margin-left: 19px;
+      border-radius: 4px;
+      height: 35px;
       line-height: 14px;
-      vertical-align: middle;
-      float: left;
-    }
-    & > img {
-      width: 16px;
-      height: 16px;
-      line-height: 16px;
-      margin: 8px 0px 9px 11px;
-      vertical-align: middle;
-      display: inline;
-      float: left;
+      padding: 8px;
+      span{
+        padding: 2px 2px 0px 5px;
+      }
+      img{
+        margin-top: -2px;
+      }
     }
   }
 }
@@ -38,17 +32,9 @@
     width: 100%;
     height: 1px;
     margin: 10px 0 1px;
-    border: solid 1px #e8e8e8;
+    border: solid 1px $divider-color;
   }
 
-  .ant-input {
-    &:hover {
-      border: solid 1px #037da1;
-    }
-    &:focus {
-      border: solid 1px #037da1;
-    }
-  }
   & .oe-adv-search-input,
   & .oe-adv-search-datepicker {
     line-height: 34px;
@@ -56,11 +42,11 @@
     width: 96%;
     background: #f1f7ff;
     font-size: 16px;
-    font-family: "Roboto-Regular";
+    font-family: $primary-font-regular;
     color: #7d86a9;
-    border: 1px solid #ccc;
+    border: 1px solid $input-border;
     &:hover,&:active,&:focus{
-      border: 1px solid #037da1;
+      border: 1px solid $theme-primary;
       box-shadow: unset;
     }
   }
@@ -69,7 +55,7 @@
     margin-bottom: 5px;
   }
   & .ant-form-item-label > label {
-    font-family: "MyriadPro-Regular";
+    font-family: $secondary-font-regular;
     font-size: 12px;
     font-weight: 400;
     font-stretch: normal;
@@ -81,6 +67,20 @@
   }
 }
 
+.oe-btn.ant-btn.oe-btn-primary.oe-advance-search-btn {
+  border-radius: 4px;
+  height: 33px;
+  line-height: 14px;
+  padding: 8px;
+  min-width: auto;
+  span{
+    padding: 2px 2px 0px 5px;
+  }
+  img{
+    margin-top: -2px;
+  }
+}
+
 .oe-overlay {
   left: 60px !important; //Not able to override this style by normal way
 
@@ -88,13 +88,13 @@
     display: none;
   }
   & .oe-overlay-footer {
-    padding: 20px 0px 0px 0px;
+    padding: 10px 0px 0px 0px;
   }
   & .oe-overlay-header {
     padding: 8px 0 2px;
     font-size: 14px;
     line-height: 20px;
-    background-color: white;
+    background-color: $background-color;
     position: sticky;
     top: 0;
   }
@@ -102,7 +102,7 @@
     font-family: "MyriadPro-Semibold";
     line-height: 1.83;
     margin: 10px 0px 5px 0;
-    font-weight: 500;
+    font-weight: $font-weight-normal;
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.85);
   }

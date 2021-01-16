@@ -1,7 +1,8 @@
 import React from "react";
 import { Grid, Tooltip } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { ViewIcon,EditIcon,DisputeIcon,ExportCertIcon } from './../../assets'
+
+import { ViewIcon,EditIcon,DisputeIcon,ExportCertIcon,ExportCertHoverIcon,ViewHoverIcon,EditHoverIcon,DisputeHoverIcon } from './../../assets';
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";
@@ -44,22 +45,26 @@ const ResponsiveActionIcons = ({
     <div className="oe-icon-btn-wrapper">
       <Tooltip title="View" placement="bottom">
         <div className="oe-icon-btn" onClick={() => setOpenModal({show: true, edit: false })}>
-          <ViewIcon />
+          <ViewIcon className="normal"/>          
+          <ViewHoverIcon className="hover"/>
         </div>
       </Tooltip>
       <Tooltip title="Edit" placement="bottom">
         <div className="oe-icon-btn" onClick={() => setOpenModal({show: true, edit: true })}>
-          <EditIcon />
+          <EditIcon className="normal"/>          
+          <EditHoverIcon className="hover"/>
         </div>
       </Tooltip>
       <Tooltip title="Export" placement="bottom">
-        <div className="oe-icon-btn">
-          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} />
+        <div className="oe-icon-btn" onClick={() => onAction('export', data.id)}>
+          <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="normal"/>          
+          <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="hover"/>
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>
         <div className="oe-icon-btn">
-          <DisputeIcon />
+          <DisputeIcon className="normal"/>          
+          <DisputeHoverIcon className="hover"/>
         </div>
       </Tooltip>
       <Modal open={openModal.show} onHide={() => setOpenModal({show: false, edit: false })} title={`${data.displayName || data.value} - ${openModal.edit ? 'Edit' : 'View'} Details`}>

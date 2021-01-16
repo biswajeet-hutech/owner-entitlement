@@ -257,7 +257,7 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll:{ y: "300px", x: "100%" },
+              scroll:{ y: window.screen.height<700?"200px":"300px", x: "100%" },
               tableLayout:"auto",
               pagination: {
                 total: entitlementList.total,
@@ -284,7 +284,7 @@ const OwnerEntitlement = () => {
           }
         />
       </Modal>
-      <Modal open={showDescrptionModal.show} className="description_modal" onHide={() => setShowDescrptionModal({ show: false, data: {}})} title={`Entitlement Description`}>
+      <Modal open={showDescrptionModal.show} className="description_modal" width={"100vh"} onHide={() => setShowDescrptionModal({ show: false, data: {}})} title={`Entitlement Description`}>
       <div dangerouslySetInnerHTML={{__html: showDescrptionModal.data.descrption}} className="description_modal_text"></div>
       </Modal>
     </>

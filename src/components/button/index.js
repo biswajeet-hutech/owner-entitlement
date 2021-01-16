@@ -19,7 +19,8 @@ const Button = ({
   const btnClassNameMap = {
     primary: 'oe-btn-primary',
     secondary: 'oe-btn-secondary',
-    hybrid: `${screens.xs ? 'oe-btn-secondary' : 'oe-btn-primary'} oe-btn-hybrid`
+    hybrid: `${screens.xs ? 'oe-btn-secondary' : 'oe-btn-primary'} oe-btn-hybrid`,
+    flat: 'oe-btn-primary-flat'
   }
 
   const btnClassNameMapWithSize = {
