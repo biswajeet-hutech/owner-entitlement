@@ -1,7 +1,7 @@
 import React from "react";
 import { Grid, Tooltip } from 'antd';
 import { ExportOutlined, EyeOutlined, EditOutlined, SwapOutlined, EllipsisOutlined } from '@ant-design/icons';
-import {ExportsIcon,ViewIcon,EditIcon,DisputeIcon,ExportCertIcon,ViewHoverIcon,EditHoverIcon,DisputeHoverIcon,ExportHoverIcon} from './../../assets'
+import {ExportsIcon,ViewIcon,EditIcon,DisputeIcon,ExportCertIcon,ExportCertHoverIcon,ViewHoverIcon,EditHoverIcon,DisputeHoverIcon,ExportHoverIcon} from './../../assets'
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";
@@ -55,7 +55,7 @@ const ResponsiveActionIcons = ({
       <Tooltip title="Export" placement="bottom">
         <div className="oe-icon-btn">
           <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} className="normal"/>          
-          <ExportHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} className="hover"/>
+          <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} onClick={() => onAction('export', data.id)} className="hover"/>
         </div>
       </Tooltip>
       <Tooltip title="Raise Dispute" placement="bottom" onClick={() => setOpenDisputeModal(true)}>

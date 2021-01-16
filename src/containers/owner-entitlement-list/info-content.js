@@ -2,7 +2,7 @@ import React from "react";
 
 import { Popover } from 'antd';
 
-import { InfoIcon } from './../../assets';
+import { InfoIcon,InfoHoverIcon } from './../../assets';
 import "./style.scss";
 
 const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
@@ -29,7 +29,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
       onVisibleChange={onVisibleChange}
       onClick={(e) => e.stopPropagation()}
     >
-      <span className="oe-info-content-span"><InfoIcon /></span>
+      <span className="oe-info-content-span"><InfoIcon className="normal"/><InfoHoverIcon className="hover"/></span>
     </Popover>
   )
 }

@@ -14,8 +14,9 @@ const CheckTrue = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.req
 const CheckFalse = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.requestable.false} width={width} height={height} alt={alt?alt:"False"} className={className}/>
 const SearchIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.search} width={width?width:13} height={height?height:13} alt={alt?alt:"Search"} className={className}/>
 const SettingIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.settings} width={width?width:16} height={height?height:16} alt={alt?alt:"Settings"} className={className}/>
-const ExportsIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.exportCert} width={width?width:16} height={height?height:16} alt={alt?alt:"Export"} className={className}/>
+const ExportsIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.export} width={width?width:16} height={height?height:16} alt={alt?alt:"Export"} className={className}/>
 const InfoIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.info} width={width?width:11} height={height?height:11} alt={alt?alt:"Info"} className={className}/>
+const InfoHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.infoHover} width={width?width:11} height={height?height:11} alt={alt?alt:"Info"} className={className}/>
 const ScheduleIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.info} width={width?width:16} height={height?height:16} alt={alt?alt:"Schedule"} className={className}/>
 const ApprovedIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.approved} width={width?width:22} height={height?height:22} alt={alt?alt:"Approved"} className={className}/>
 const RevokedIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.revoked} width={width?width:22} height={height?height:22} alt={alt?alt:"Revoked"} className={className}/>
@@ -28,7 +29,8 @@ const ExportCertIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrl
 const ViewHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.viewhover} width={width?width:22} height={height?height:22} alt={alt?alt:"View"} className={className}/>
 const EditHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.edithover} width={width?width:22} height={height?height:22} alt={alt?alt:"Edit"} className={className}/>
 const DisputeHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.disputehover} width={width?width:22} height={height?height:22} alt={alt?alt:"Dispute"} className={className}/>
-const ExportHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.exporthover} width={width?width:22} height={height?height:22} alt={alt?alt:"Export"} className={className}/>
+const ExportCertHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.exportCerthover} width={width?width:22} height={height?height:22} alt={alt?alt:"Export"} className={className}/>
+const ExportHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.exportHover} width={width?width:22} height={height?height:22} alt={alt?alt:"Export"} className={className}/>
 
 export {
     CheckTrue,
@@ -37,6 +39,7 @@ export {
     SettingIcon,
     ExportsIcon,
     InfoIcon,
+    InfoHoverIcon,
     ScheduleIcon,
     ApprovedIcon,
     RevokedIcon,
@@ -49,5 +52,6 @@ export {
     EditHoverIcon,
     DisputeHoverIcon,
     ExportHoverIcon,
+    ExportCertHoverIcon,
     ExportCertIcon
 }

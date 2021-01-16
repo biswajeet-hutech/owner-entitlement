@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col } from 'antd';
 
-import { ExportsIcon,ExportHoverIcon } from './../../assets'
+import { ExportsIcon,ExportCertHoverIcon, ExportHoverIcon } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
@@ -55,7 +55,8 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={<><ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/></>} rightIcon={(
+          <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={
+          <><ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/></>} rightIcon={(
             <InfoContent
               type="export"
               visible={popVisible.export}
