@@ -146,6 +146,8 @@ const ScheduleCertification = ({
           dataSource={tableData}
           columns={columns}
           config={{
+            scroll:{ y: 240, x: "max-content" },
+            tableLayout:"auto",
             pagination: false,
             className: "oe-table oe-scheduled-cert-table",
             rowKey: 'id',

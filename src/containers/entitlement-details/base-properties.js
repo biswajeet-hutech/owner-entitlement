@@ -11,6 +11,7 @@ const BaseProperties = ({
     ExtentedAttributeProperties: []
   },
   readOnly,
+  setActions=(ele)=>{},
   onSave=()=>{},
   onCancel=()=>{}
 }) => {
@@ -86,6 +87,7 @@ const BaseProperties = ({
 
   const handleSaveData = () => {
     const payload = {};
+    // console.log(formData);
     for (const key in formData) {
       if(!readOnlyProperties.includes(key)) {
         payload[key] = formData[key];
@@ -98,6 +100,18 @@ const BaseProperties = ({
   React.useEffect(() => {
     // console.log("data updated", data.EntitlementDetails);
     setEntitlementData(data.EntitlementDetails || {});
+    if(!readOnly) {
+      setActions(
+        (
+          <>
+            <Row justify="end" className="accordion_footer">
+              <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
+              <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+            </Row>
+          </>
+        )
+      )
+    }
   }, [data]);
 
   return (
@@ -112,7 +126,6 @@ const BaseProperties = ({
         writableFormConfig.map(formElement => <FormElement {...formElement} />)
       }
       </div>
-
       <ExtendedProperties
         entitlementData={entitlementData}
         extendedProps={data.ExtentedAttributeProperties}
@@ -121,12 +134,15 @@ const BaseProperties = ({
       />
       {
         !readOnly && (
-        <Row justify="end" style={{ paddingTop: 16 }}>
-          <Button type="secondary" size="large" onClick={onCancel}>Cancel</Button>
-          <Button type="primary" size="large" onClick={handleSaveData}>Save</Button>
-        </Row>
+        <>
+          <Row justify="end" className="accordion_footer">
+            <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
+            <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+          </Row>
+        </>
         )
       }
+      
     </>
   );
 }

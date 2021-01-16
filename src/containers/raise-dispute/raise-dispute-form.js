@@ -86,9 +86,9 @@ const RaiseDisputeForm = ({
       {
         writableformConfig.map(formElement => <FormElement {...formElement} onChange={onChange} value={comment} error={error.comment} />)
       }
-      <Row justify="end" style={{ paddingTop: 16 }}>
-        <Button type="secondary" size="large" onClick={onHide}>Cancel</Button>
-        <Button type="primary" size="large" onClick={onSubmit}>Raise Dispute</Button>
+      <Row justify="end" className="dispute_Footer">
+        <Button type="secondary" size="large" className="cancel"  onClick={onHide}>Cancel</Button>
+        <Button type="primary" size="large" className="dispute" onClick={onSubmit}>Raise Dispute</Button>
       </Row>
     </div>
     </>

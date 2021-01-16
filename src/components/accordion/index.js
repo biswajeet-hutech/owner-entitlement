@@ -17,7 +17,6 @@ const Accordion = ({
     <Panel header={(
       <>
         <div className="oe-accordion-title">{title}</div>
-        {subTitle && <div className="oe-accordion-subtitle">{subTitle}</div>}
       </>
       )}
       key={key}>
@@ -32,8 +31,9 @@ const Accordion = ({
       bordered={false}
       defaultActiveKey={defaultActiveKey}
       expandIconPosition="right"
-      className="oe-accordion"
-      expandIcon={({ isActive }) => <DownOutlined rotate={isActive ? 180 : 0} style={{ fontSize: 32, right: 60, top: 24 }} />}
+      className={`oe-accordion`}
+      collapsible="disabled"
+      expandIcon={({ isActive }) => null}
     >
       {
         panelData.map((panel, index) => renderAccordionPanel({

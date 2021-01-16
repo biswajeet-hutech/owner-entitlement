@@ -95,7 +95,8 @@ const EntitlementDetailsWrapper = ({
   }]
 
   return (
-    <Tabs tabs={tabsData.filter((tab, index) => index+1 === +defaultActiveKey)} filled defaultActiveKey={defaultActiveKey} />
+    // <Tabs tabs={tabsData.filter((tab, index) => index+1 === +defaultActiveKey)} filled defaultActiveKey={defaultActiveKey} />
+    tabsData[+defaultActiveKey-1].content
   );
 }
 

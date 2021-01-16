@@ -2,31 +2,73 @@
   & .adv-btn-wrapper {
     margin-left: 12px;
     margin-right: 0;
+    width: 147px;
+    height: fit-content;
+    padding: 0px;
+    border-radius: 4px;
+    & > span {
+      margin: 10px 10px 8px 5px;
+      display: inline;
+      line-height: 14px;
+      vertical-align: middle;
+      float: left;
+    }
+    & > img {
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      margin: 8px 0px 9px 11px;
+      vertical-align: middle;
+      display: inline;
+      float: left;
+    }
   }
 }
 
 .oe-adv-search-content {
   padding: 8px;
-  width: 600px;
-  min-height: max-content;
-
+  width: 900px;
+  min-height: fit-content;
+  max-height: 420px;
+  .oe-adv-search-content_form {
+    max-height: 320px;
+    overflow-y: auto;
+  }
   & .divider {
     width: 100%;
     height: 1px;
-    margin: 23px 0 1px;
+    margin: 10px 0 1px;
     border: solid 1px #e8e8e8;
   }
 
-  & .oe-adv-search-input, & .oe-adv-search-datepicker {
+  .ant-input {
+    &:hover {
+      border: solid 1px #037da1;
+    }
+    &:focus {
+      border: solid 1px #037da1;
+    }
+  }
+  & .oe-adv-search-input,
+  & .oe-adv-search-datepicker {
     line-height: 34px;
+    height: 35px;
     width: 96%;
     background: #f1f7ff;
     font-size: 16px;
     font-family: "Roboto-Regular";
     color: #7d86a9;
+    border: 1px solid #ccc;
+    &:hover,&:active,&:focus{
+      border: 1px solid #037da1;
+      box-shadow: unset;
+    }
   }
 
-  & .ant-form-item-label>label {
+  & .ant-form-item{
+    margin-bottom: 5px;
+  }
+  & .ant-form-item-label > label {
     font-family: "MyriadPro-Regular";
     font-size: 12px;
     font-weight: 400;
@@ -34,7 +76,7 @@
     font-style: normal;
     line-height: 1.83;
     letter-spacing: normal;
-    color: rgba(0,0,0,.85);
+    color: rgba(0, 0, 0, 0.85);
   }
 }
 
@@ -45,15 +87,20 @@
     display: none;
   }
   & .oe-overlay-footer {
-    padding-top: 20px;
+    padding: 20px 0px 0px 0px;
   }
   & .oe-overlay-header {
-    padding: 8px 0 20px;
+    padding: 8px 0 2px;
+    font-size: 14px;
+    line-height: 20px;
+    background-color: white;
+    position: sticky;
+    top: 0;
   }
   & .oe-overlay-subheader {
     font-family: "MyriadPro-Semibold";
     line-height: 1.83;
-    margin: 12px 0;
+    margin: 10px 0px 5px 0;
     font-weight: 500;
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.85);

@@ -1,11 +1,36 @@
 .oe-search {
+  height: 35px;
   &.ant-input-affix-wrapper {
     background-color: #eef3f8;
-    border-color: #eef3f8;
+    border: 1px solid #ccc;
     border-radius: 3px;
+    box-shadow: unset;
+    &:hover,&:focus,&:active {
+      border: 1px solid #037da1;
+      box-shadow: unset;
+      cursor: pointer;
+    }
   }
   & .ant-input {
     line-height: 24px;
+    height: 25px;
     background-color: transparent;
+    &::placeholder {
+      color: #7d86a9;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+  }
+  & .ant-input-suffix {
+    opacity: 0.7;
+    & .ant-btn {
+      &:focus {
+        background: unset;
+      }
+      &:hover {
+        background: unset;
+      }
+    }
   }
 }

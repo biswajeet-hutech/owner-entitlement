@@ -1,13 +1,14 @@
 import React from "react";
 import { Row, Col } from 'antd';
-import { ImportOutlined, ExportOutlined, FileDoneOutlined } from '@ant-design/icons';
+
+import { ExportsIcon } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
 import InfoContent from './info-content';
 import AdvancedSearch from '../advanced-search';
-import "./style.scss";
 import ScheduleCertification from "../scheduled-certification";
+import "./style.scss";
 
 const SearchWithActionBar = ({
   onSearch = () => {},
@@ -43,7 +44,7 @@ const SearchWithActionBar = ({
               <Search
                 onSearch={(searchVal) => handleSearch({searchVal})}
                 onChange={(val) => setSearchTextChange(val)}
-                placeHolder="Search by Application, Display Name, Entitlement value"
+                placeHolder="Search by application name"
               />
             </Col>
             <Col xs={24} md={6}>
@@ -54,14 +55,14 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button onClick={() => onExport(searchProps)} type="secondary" leftIcon={<ExportOutlined />} rightIcon={(
+          <Button className="exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={<ExportsIcon />} rightIcon={(
             <InfoContent
               type="export"
               visible={popVisible.export}
               onVisibleChange={(v) => setPopVisible({ ...popVisible, export: v })}
               onHide={() => setPopVisible({ ...popVisible, export: false })} />
           )}>Export</Button>
-          <Button disabled type="primary" leftIcon={<ImportOutlined />} rightIcon={(
+          {/* <Button disabled type="primary" leftIcon={<ImportOutlined />} rightIcon={(
             <InfoContent
               type="import"
               visible={popVisible.import}
@@ -75,7 +76,7 @@ const SearchWithActionBar = ({
               onVisibleChange={(v) => setPopVisible({ ...popVisible, scheduledCert: v })}
               onHide={() => setPopVisible({ ...popVisible, scheduledCert: false })} />
           )}
-          onClick={() => setOpenSecduledCertModal(true)}>Schedule Certification</Button>
+          onClick={() => setOpenSecduledCertModal(true)}>Schedule Certification</Button> */}
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

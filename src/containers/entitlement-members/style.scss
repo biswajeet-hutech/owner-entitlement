@@ -1,5 +1,27 @@
 .oe-sc-row-padding {
   padding: 10px 0;
+  & .ant-col{
+    & .exportBtn {
+      height: 33px;
+      width: 107px;
+      background-color: #ffffff;
+      border: 1px solid #c8caca;
+      color: #037da1;
+      padding: 7px 8px 9px;
+      & span {
+        padding: 0px 9px 0px 12px;
+        &.oe-info-content-span {
+          padding: 0;
+        }
+      }
+      &:hover {
+        border: 1px solid #037da1;
+        color: #025c77;
+        background-color: unset;
+      }
+    }
+  }
+  
 }
 
 .oe-sc-search-label {
@@ -8,4 +30,58 @@
 
 .oe-sc-wrapper {
   margin-top: 24px;
+}
+
+.userStatus_active {
+  color: #1f8e0c;
+  div {
+    position: absolute;
+    padding-top: 2px;
+    display: inline;
+  }
+  &::before {
+    content: "";
+    color: #51c03e;
+    font-size: 10px;
+    background-color: #51c03e;
+    padding-right: 11px;
+    margin-right: 7px;
+    border-radius: 11px;
+  }
+}
+
+.userStatus_disable {
+  color: #f64a3f;
+  div {
+    position: absolute;
+    padding-top: 2px;
+    display: inline;
+  }
+  &::before {
+    content: "";
+    color: #f64a3f;
+    font-size: 10px;
+    background-color: #f64a3f;
+    padding-right: 11px;
+    margin-right: 7px;
+    border-radius: 11px;
+  }
+}
+
+.certificationStatus {
+  img {
+    margin-right: 8px;
+  }
+}
+.pending {
+  color: #bf9f00;
+}
+.open {
+  color: #258400;
+}
+.revoked {
+  color: #e22e1c;
+}
+.approved {
+  color: #008dcf;
 }

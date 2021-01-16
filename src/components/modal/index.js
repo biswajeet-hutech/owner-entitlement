@@ -8,11 +8,12 @@ const Modal = ({
   children,
   onHide,
   open,
+  className,
   config
 }) => (
   <AntModal
     title={title}
-    className="oe-modal"
+    className={`oe-modal ${className?className:''}`}
     centered
     style={{ top: 20 }}
     visible={open}

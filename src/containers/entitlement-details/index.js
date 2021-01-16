@@ -1,10 +1,9 @@
 import React from "react";
-import { message, Spin } from "antd";
+import { message, Spin, Row } from "antd";
+import Button from "../../components/button";
 import './style.scss';
 import Accordion from "../../components/accordion";
 import BaseProperties from "./base-properties";
-// import ObjectAttributes from "./object-attributes";
-// import MembersPanel from "./members-panel";
 import { API, localMode } from "../../api";
 
 const EntitlementDetails = ({
@@ -55,11 +54,13 @@ const EntitlementDetails = ({
   ];
 
   return (
+    <>
     <Spin spinning={loading}>
-      <div className="oe-ed-wrapper">
+      <div className={`oe-ed-wrapper ${editMode?'edit':'readOnly'}`}>
         <Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} />
       </div>
     </Spin>
+    </>
   );
 }
 

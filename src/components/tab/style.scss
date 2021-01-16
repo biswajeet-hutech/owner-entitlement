@@ -21,17 +21,20 @@
   &.ant-tabs-top > .ant-tabs-nav .ant-tabs-ink-bar {
     height: 3px;
     background: #037da1;
+    border-radius: 10px;
   }
   & .ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
     color: #202020;
+    font-weight: 600;
   }
   & .ant-tabs-tab-btn {
     color: rgba(0, 0, 0, 0.38);
   }
   &.ant-tabs > .ant-tabs-nav {
-    border-bottom: 1px solid #dddddd;
-    margin: 8px 0px;
+    // border-bottom: 1px solid #dddddd;
+    margin: 8px 40px;
   }
+  // &.ant-tabs >home_tab
 }
 
 @media screen and (max-width: 600px) {

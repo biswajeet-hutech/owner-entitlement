@@ -1,17 +1,57 @@
-@import '~antd/dist/antd.css';
+@import "~antd/dist/antd.css";
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
+@import "./assets/images.scss";
+
 .oe-app {
   padding: 20px 40px;
   background-color: #f3f2ef;
-  font-family: "Roboto-Regular", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;;
-  min-height: 120vh;
+  background-image: $background-image;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  font-family: "Roboto-Regular", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  overflow-y: hidden;
+  scrollbar-width: thin;
+  .home_tab {
+    // margin: 8px 43px 8px 57px;
+  }
 }
 
 .oe-section {
-  padding: 24px 0;  
+  padding: 24px 40px;
 }
 
 .oe-page-margin {
   margin: 0px;
+}
+
+body,
+div {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+    background-clip: content-box;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #0894bd;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    cursor: pointer;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #0894bd;
+    cursor: pointer;
+  }
 }
 
 @media screen and (max-width: 600px) {

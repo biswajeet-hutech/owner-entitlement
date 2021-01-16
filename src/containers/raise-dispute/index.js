@@ -61,12 +61,13 @@ const RaiseDispute = ({
 
   const tabsData = [{
     name: 'Raise Dispute',
-    content: <Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} />
+    content: <div className="oe-ed-wrapper dispute"><Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} /></div>
   }]
 
   return (
     <Spin spinning={loading}>
-      <Tabs tabs={tabsData} filled defaultActiveKey="2" />
+      {/* <Tabs tabs={tabsData} filled defaultActiveKey="2" /> */}
+      {tabsData[0].content}
     </Spin>
   );
 }
