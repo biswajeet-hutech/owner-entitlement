@@ -1,6 +1,9 @@
+@import './../../assets/colors.scss';
+@import './../../assets/fonts.scss';
+
 .form-section {
   padding: 32px 24px 50px;
-  border-bottom: solid 1px #e2dfdf;
+  border-bottom: solid 1px $form-section-border;
   width: 100%;
   &:last-child {
     border-bottom: none;
@@ -13,13 +16,13 @@
   }
   & .extended-property-label {
     font-family: "Roboto-Medium";
-    font-size: 18px;
-    font-weight: 500;
+    font-size: $font-size-18;
+    font-weight: $font-weight-normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #191919;
+    color: $title-color;
     margin-bottom: 24px;
   }
 }
@@ -47,7 +50,7 @@
     content: "";
     top: -5px;
     height: 1px;
-    background-color: #d9d9d9;
+    background-color: $border-disabled;
   }
   button.save {
     &:last-child {
@@ -59,7 +62,7 @@
     border-radius: 30px;
     height: 40px;
     width: 110px;
-    border: 1px solid #037da1;
+    border: 1px solid $theme-primary;
     border-radius: 40px;
     padding: 0px;
   }

@@ -26,7 +26,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: $font-size-22;
+    font-size: $font-size-heading-4;
     flex-direction: column;
   }
 
@@ -40,7 +40,7 @@
   }
   & .ant-modal-title {
     font-family: 'Roboto-Medium';
-    font-size: $font-size-22;
+    font-size: $font-size-heading-4;
     font-weight: $font-weight-normal;
     font-stretch: normal;
     font-style: $font-style-normal;

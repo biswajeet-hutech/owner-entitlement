@@ -1,3 +1,6 @@
+@import './../../assets/colors.scss';
+@import './../../assets/fonts.scss';
+
 .dispute_Footer {
     position: absolute;
     z-index: 99;
@@ -13,15 +16,15 @@
         left: 0px;
         top: -20px;
         height: 21px;
-        border-top: 1px solid #d9d9d9;
-        background-color: #ffffff;
+        border-top: 1px solid $border-disabled;
+        background-color: $background-color;
     }
     .ant-btn.ant-btn-secondary.oe-btn.oe-btn-secondary.cancel.oe-btn-large,
     .ant-btn.ant-btn-primary.oe-btn.oe-btn-primary.dispute.oe-btn-large {
       border-radius: 30px;
       height: 40px;
       width: 110px;
-      border: 1px solid #037da1;
+      border: 1px solid $theme-primary;
       border-radius: 40px;
       padding: 0px;
     }
