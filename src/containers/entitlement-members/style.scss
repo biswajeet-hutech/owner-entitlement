@@ -14,10 +14,19 @@
           padding: 0;
         }
       }
+      & .hover{
+        display: none;
+      }
       &:hover {
         border: 1px solid #037da1;
         color: #025c77;
         background-color: unset;
+        & .hover{
+          display: inline;
+        }
+        & .normal{
+          display: none;
+        }
       }
     }
   }

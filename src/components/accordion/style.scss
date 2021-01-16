@@ -1,6 +1,9 @@
+@import './../../assets/fonts.scss';
+@import './../../assets/colors.scss';
+
 .oe-accordion {
   padding: 0px 40px;
-  background-color: #ffffff;
+  background-color: $background-color;
   &.ant-collapse {
     border: none;
   }
@@ -9,13 +12,13 @@
   }
   &.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header {
     padding: 12px 35px 12px 26px;
-    background-color: #f7f7f7;
+    background-color: $background-color-collapse;
     margin: 0 0 3px;
     min-height: 35px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border-bottom: 1px solid #d9d9d9;
+    border-bottom: 1px solid $collapse-item-border;
     position: sticky;
     top: 0;
     z-index: 99;
@@ -23,34 +26,34 @@
   & .oe-accordion-title {
     font-family: "Roboto-Medium";
     font-size: 22px;
-    font-weight: 500;
+    font-weight: $font-weight-500;
     font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
+    font-style: $font-style-normal;
+    line-height: $line-height-normal;
     letter-spacing: normal;
-    color: #191919;
+    color: $title-color;
   }
   & .oe-accordion-subtitle {
     font-family: "Roboto-Regular";
-    font-size: 14px;
-    line-height: 14px;
-    font-weight: normal;
+    font-size: $font-size-14;
+    line-height: $line-height-14;
+    font-weight: $font-weight-normal;
     font-stretch: normal;
-    font-style: normal;
-    line-height: normal;
+    font-style: $font-style-normal;
+    line-height: $line-height-normal;
     letter-spacing: normal;
-    color: #191919;
+    color: $subtitle-color;
     margin: 2px 0px 0;
   }
   & .ant-collapse-content {
-    border-top: 1px solid #e2dfdf;
+    border-top: 1px solid $collapse-item-border;
   }
   &.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
     padding: 12px 144px;
-    background-color: #ffffff;
+    background-color: $background-color;
     & .form-section {
       &:hover {
-        background-color: #f6fdff;
+        background-color: $form-hover-background;
         cursor: pointer;
       }
     }

@@ -9,6 +9,7 @@ const Modal = ({
   onHide,
   open,
   className,
+  width,
   config
 }) => (
   <AntModal
@@ -19,7 +20,7 @@ const Modal = ({
     visible={open}
     onCancel={onHide}
     closeIcon={<CloseOutlined style={{ fontSize: 24, color: '#202020', fontWeight: 'bold' }} />}
-    width={1180}
+    width={width?width:1180}
     destroyOnClose
     {...config}
   >

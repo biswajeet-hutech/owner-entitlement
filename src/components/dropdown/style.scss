@@ -1,27 +1,31 @@
+@import './../../assets/fonts.scss';
+@import './../../assets/colors.scss';
+
 .oe-dropdown-container {
   display: flex;
   flex-direction: column;
   margin-right: 10px;
   & .oe-form-label {
     font-family: "MyriadPro-Regular";
-    font-size: 12px;
-    font-weight: 400;
+    font-size: $font-size-12;
+    font-weight: $font-weight-400;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.83;
     letter-spacing: normal;
     color: rgba(0, 0, 0, 0.85);
     text-align: left;
+    height: 32px;
     padding: 5px 0px 1px 0px;
   }
 
   & .oe-dropdown {
-    margin: 4px 0;
+    margin: 0px 0;
     width: 100%;
-    border: 1px solid #ccc;
+    border: 1px solid $input-border;
     border-radius: 3px;
     &:hover,&:active,&:focus{
-      border: 1px solid #037da1;
+      border: 1px solid $theme-blue;
       box-shadow: unset;
     }
   }
@@ -30,13 +34,13 @@
   .ant-select-selector:active,
   .ant-select-open .ant-select-selector {
     border: unset;
-    border-color: #037da1 !important;
+    border-color: $theme-blue !important;
   }
   & .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     padding: 1px 8px;
     height: 33px;
+    border: unset;
     background: #f1f7ff;
-    border-color: #f1f7ff;
     font-size: 14px;
     font-family: "Roboto-Regular";
     color: #7d86a9;

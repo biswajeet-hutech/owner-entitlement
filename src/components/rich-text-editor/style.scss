@@ -1,7 +1,10 @@
+@import './../../assets/colors.scss';
+@import './../../assets/fonts.scss';
+
 .oe-rte {
   & .DraftEditor-root {
     font-family: "Roboto-Regular";
-    font-size: 14px;
+    font-size: $font-size-14;
     font-weight: normal;
     font-stretch: normal;
     font-style: normal;
@@ -14,7 +17,7 @@
 
   & .test-root {
     border-radius: 3px;
-    border: solid 1px #ccc;
+    border: solid 1px $input-border;
 
     & .test-toolbar {
       background-color: #f1f1f1;
@@ -24,7 +27,7 @@
     & .ButtonGroup__root___3lEAn {
       margin: 0 5px 0px 0;
       white-space: nowrap;
-      border-right: 1px solid #ccc;
+      border-right: 1px solid $input-border;
       &:last-child {
         border-right: none;
       }
@@ -34,14 +37,14 @@
         border: none;
         background: transparent;
         &.IconButton__isActive___2Ey8p {
-          background: none #d8d8d8;
+          background: none $border-disabled;
         }
       }
       
     }
     &:focus,&:hover,&:active {
       box-shadow: none;
-      border: solid 1px #037da1;
+      border: solid 1px $theme-blue;
     }
   }
 }

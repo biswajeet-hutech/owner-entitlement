@@ -1,5 +1,5 @@
 import React from "react";
-import {ExportsIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon} from './../../assets';
+import {ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon} from './../../assets';
 import Button from "../../components/button";
 import Table from '../../components/table';
 import './style.scss';
@@ -106,7 +106,7 @@ const EntitlementMembers = ({
           <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
         </Col>
         <Col>
-          <Button type="secondary" leftIcon={<ExportsIcon />} rightIcon={<InfoContent showTooltip toolTipData="Test"/>} className="oe-exportBtn">Export</Button>
+          <Button type="secondary" leftIcon={<><ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/></>} rightIcon={<InfoContent showTooltip toolTipData=""/>} className="oe-exportBtn">Export</Button>
         </Col>
       </Row>
       <Row className="oe-sc-row-padding">

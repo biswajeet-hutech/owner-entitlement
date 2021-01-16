@@ -1,7 +1,10 @@
+@import "./../../assets/fonts.scss";
+@import "./../../assets/colors.scss";
+
 .oe-table {
   & .ant-table {
     font-size: 13px;
-    color: #202020;
+    color: $color-table-cell;
   }
   & .ant-table-thead {
     &::after {
@@ -18,20 +21,19 @@
     }
 
     & > tr {
-      &>th {
-        color: #676768;
-        background: #d9e7f6;
+      & > th {
+        color: $color-table-head;
+        background: $background-color-table-head;
         height: 56px;
         font-size: 16px;
-        &:last-child{
+        &:last-child {
           // display: none;
         }
       }
-      
     }
   }
   & .ant-checkbox-inner {
-    border: 1px solid #979797;
+    border: 1px solid $border-color-normal;
     opacity: 0.38;
   }
   .ant-checkbox-indeterminate {
@@ -112,6 +114,19 @@
   & .oe-icon-btn-wrapper {
     display: flex;
     justify-content: center;
+    .oe-icon-btn {
+      & > .hover {
+        display: none;
+      }
+      &:hover{
+        & .hover{
+          display: inline;
+        }
+        & .normal{
+          display: none;
+        }
+      }
+    }
   }
 }
 
