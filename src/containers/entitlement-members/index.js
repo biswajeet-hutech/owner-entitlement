@@ -25,12 +25,12 @@ const CertificationStatus = ({status}) =>{
     default:return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>Revoked</span></div>)
   }
 }
-const columns = [
+const entitlement_member_columns = [
   {
     title: 'Name',
     dataIndex: 'name',
     width:"100px",
-    render: (text, record) => <span>{record.name}</span>
+    render: (text, record) => record.name?<span>{record.name}</span>:'—'
   },
   {
     title: 'Email',
@@ -65,6 +65,8 @@ const columns = [
     dataIndex: 'certificationactiondate',
   }
 ];
+
+const columns = entitlement_member_columns.map((item)=>{return {render: (text,record)=> record[item.dataIndex]?record[item.dataIndex]:'—',...item}})
 
 const EntitlementMembers = ({
   data={},

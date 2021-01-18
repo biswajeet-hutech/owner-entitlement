@@ -59,6 +59,10 @@
           cursor: pointer;
         }
       }
+      & > a.oe-disabled-link {
+        color: $typo-text-2;
+        cursor: context-menu;
+      }
     }
   }
   & .ant-pagination-item-active {
@@ -104,11 +108,11 @@
       & > .hover {
         display: none;
       }
-      &:hover{
-        & .hover{
+      &:hover {
+        & .hover {
           display: inline;
         }
-        & .normal{
+        & .normal {
           display: none;
         }
       }

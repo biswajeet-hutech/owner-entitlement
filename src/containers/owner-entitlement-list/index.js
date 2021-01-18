@@ -190,14 +190,16 @@ const OwnerEntitlement = () => {
 
   const headerConfig = {
     description: {
-      render: (text) => (<div dangerouslySetInnerHTML={{__html: text}} className={(text||'').length>59?"oe-td-description-link":"oe-td-description"} onClick={(text||'').length>59?()=>setShowDescrptionModal({show:true,data:{descrption:text}}):()=>{}}/>)
+      render: (text) => text?
+      (<div dangerouslySetInnerHTML={{__html: text}} className={(text||'').length>59?"oe-td-description-link":"oe-td-description"} onClick={(text||'').length>59?()=>setShowDescrptionModal({show:true,data:{descrption:text}}):()=>{}}/>)
+      :'—'
     },
     requestable: {
       align: 'center',
       render: (text) => text === "true" ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />
     },
     users: {
-      render: (text, record) => <a onClick={() => setShowMembersModal({show: true, data: {...record} })} className="oe-link">{`${text} Member${text > 1 ? 's' : ''}`}</a>
+      render: (text, record) => <a onClick={text > 0?() => setShowMembersModal({show: true, data: {...record} }):()=>{}} className={text>0?"oe-link":"oe-disabled-link"}>{text>0?`${text} Member${text > 1 ? 's' : ''}`:`No Members`}</a>
     },
   }
 
@@ -220,6 +222,7 @@ const OwnerEntitlement = () => {
     ...entitlementHeaders.map(item => ({
       title: item.displayName,
       dataIndex: item.name,
+      render: (text,record)=> record[item.name]?record[item.name]:'—',
       className:item.className?item.className:'',
       width:item.width?item.width:'200px',
       ...(headerConfig[item.name] || {})
@@ -242,7 +245,10 @@ const OwnerEntitlement = () => {
   const handleMultipleExport = (searchProps) => {
     muiltipleExportAPI(searchProps);
   }
+  let locale = {
+    emptyText: 'Abc',
 
+  };
   return (
     <>
       <CardWrapper cardData={entitlementStatistics} />
@@ -258,6 +264,8 @@ const OwnerEntitlement = () => {
             config={{
               scroll:{ y: window.screen.height<700?"200px":"300px", x: "100%" },
               tableLayout:"auto",
+              localae:locale,
+              renderEmpty:true,
               pagination: {
                 total: entitlementList.total,
                 current: +tableConfig.start+1,
