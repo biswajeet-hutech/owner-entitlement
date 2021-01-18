@@ -2,6 +2,7 @@
 @import './../../assets/fonts.scss';
 
 .oe-rte {
+  max-width: 580px;
   & .DraftEditor-root {
     font-family: $primary-font-regular;
     font-size: $font-size-14;
