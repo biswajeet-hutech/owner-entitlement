@@ -2,12 +2,14 @@ import React from "react";
 import { Select } from 'antd';
 import { CaretDownFilled } from '@ant-design/icons';
 import "./style.scss";
+import {strings} from './../../assets';
+
 const { Option } = Select;
 
 const Dropdown = ({
   label,
   options = [],
-  placeholder="Select a value",
+  placeholder=strings.default_dropdown_placeholder,
   selectedValue,
   onChange,
   overrideClass="",

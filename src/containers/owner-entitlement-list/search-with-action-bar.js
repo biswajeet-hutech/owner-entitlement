@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from 'antd';
-import { ExportsIcon, ExportHoverIcon } from './../../assets'
+import { ExportsIcon, ExportHoverIcon,strings } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
@@ -43,7 +43,7 @@ const SearchWithActionBar = ({
               <Search
                 onSearch={(searchVal) => handleSearch({searchVal})}
                 onChange={(val) => setSearchTextChange(val)}
-                placeHolder="Search by Application, Display Name or Entitlement value"
+                placeHolder={strings.entitlement_owner_search_placeholder}
               />
             </Col>
             <Col xs={24} md={6}>

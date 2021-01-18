@@ -69,21 +69,19 @@ const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
         <CheckTrue
           className="checkIcon"
           style={{
-            fontSize: 16,
-            color: '#37ae22'
+            fontSize: 16
           }}
         />
         ) : (
         <CheckFalse
           className="checkIcon"
           style={{
-            fontSize: 16,
-            color: '#c1c1c1'
+            fontSize: 16
           }}
         />
         )) : (
           <Checkbox
-            checked={!!value}
+            checked={!value}
             onChange={(e) => onChange(e.target.checked)}
             {...otherProps}
           />

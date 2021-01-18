@@ -1,0 +1,12 @@
+{
+    "info": {
+        "import": "Import Info",
+        "member": "Add the info icon and show search First Name, Last Name, Email Address , Status and Manager",
+        "export": "You can search and download the selected entitlement or apply advance filter and download",
+        "scheduledCert": "Scheduled Certification Info"
+    },
+    "default_dropdown_placeholder": "Select a value",
+    "entitlement_members_search_placeholder": "Search by name, email or status",
+    "entitlement_owner_search_placeholder": "Search by Application, Display Name or Entitlement value",
+    "entitlements_search_placeholder": "Search entitlements"
+}

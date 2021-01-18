@@ -1,11 +1,11 @@
 import React from "react";
 import { Button, Input, Tooltip } from 'antd';
 // import { SearchOutlined } from '@ant-design/icons';
-import {SearchIcon} from './../../assets';
+import {SearchIcon,strings} from './../../assets';
 import "./style.scss";
 
 const Search = ({
-  placeHolder="Search entitlements",
+  placeHolder=strings.entitlements_search_placeholder,
   onSearch=() => {},
   onChange=() => {},
 }) => {

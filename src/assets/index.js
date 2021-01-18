@@ -1,4 +1,5 @@
 import ImageUrls from './base64Images.json';
+import strings from './strings.json';
 
 const Icon = ({dataUrl,width,height,alt,className}) =>{
     return <img 
@@ -55,5 +56,6 @@ export {
     ExportHoverIcon,
     ExportCertHoverIcon,
     ExportCertIcon,
-    backgroundImage
+    backgroundImage,
+    strings
 }

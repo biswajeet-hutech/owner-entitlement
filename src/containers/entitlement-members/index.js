@@ -9,7 +9,7 @@ import Search from "../../components/search";
 
 import { API, localMode } from "../../api";
 import './style.scss';
-import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon, InfoHoverIcon } from './../../assets';
+import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon, InfoHoverIcon,strings } from './../../assets';
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -142,7 +142,7 @@ const EntitlementMembers = ({
         </Row>
         <Row justify="space-between" className="oe-sc-row-padding">
           <Col md={8}>
-            <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
+            <Search placeHolder={strings.entitlement_members_search_placeholder} onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
           </Col>
           <Col>
             <Button
