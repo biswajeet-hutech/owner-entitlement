@@ -44,13 +44,16 @@ const AdvancedSearch = ({ onSearch }) => {
 
   const handleClearData = () => {
     handleAdvanceSearch({...defaultSearchData});
-    hideContent();
   }
 
   return (
     <div className="oe-adv-search">
       <Popover
-        content={<AdvancedSearchContent onClose={hideContent} onSearch={handleAdvanceSearch} searchData={searchData} onClear={handleClearData} />}
+        content={<AdvancedSearchContent 
+        onClose={hideContent} 
+        onSearch={handleAdvanceSearch} 
+        searchData={searchData} 
+        onClear={handleClearData} />}
         title=""
         trigger="click"
         visible={showAdvancedContent}

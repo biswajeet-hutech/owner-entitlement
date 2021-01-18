@@ -1,5 +1,6 @@
 import React from "react";
 import { Collapse } from 'antd';
+import { DownOutlined } from '@ant-design/icons';
 import "./style.scss";
 const { Panel } = Collapse;
 

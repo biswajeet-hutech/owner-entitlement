@@ -57,6 +57,9 @@
         cursor: pointer;
       }
     }
+    .extended-property-section{
+      border-bottom: 0px;
+    }
   }
 
   &.ant-collapse-icon-position-right > .ant-collapse-item > .ant-collapse-header .ant-collapse-arrow {

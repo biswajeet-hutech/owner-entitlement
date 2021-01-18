@@ -10,7 +10,7 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
   return (
     <>
       {
-        readOnly ? <span>{ value }</span> : (
+        readOnly ? <span>{ value?value:'—' }</span> : (
           <Input
             defaultValue={value}
             value={value}
@@ -95,7 +95,7 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
   return (
     <>
       {
-        readOnly ? <span>{ value }</span> : (
+        readOnly ? <span>{ value?value:'—' }</span> : (
         <Dropdown
           options={options}
           value={value}
@@ -111,6 +111,7 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
 
 const FormElement = ({
   label,
+  required,
   ...props
 }) => {
   const renderFormItem = ({
@@ -135,7 +136,7 @@ const FormElement = ({
   return (
     <div className="oe-form-wrapper" style={{ flexDirection: props.fullWidth ? 'column' : 'row', alignItems: props.type === "description" ? "flex-start" : "center" }}>
       <div className="oe-form-label" style={{ marginBottom: props.fullWidth ? '8px' : '0' }}>
-        { label }
+        { label }<span className="astreak">{` ${required?'*':''}`}</span>
       </div>
       <div className="oe-form-value">
         {

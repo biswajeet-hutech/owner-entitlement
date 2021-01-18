@@ -1,5 +1,5 @@
-@import './../../assets/colors.scss';
-@import './../../assets/fonts.scss';
+@import "./../../assets/colors.scss";
+@import "./../../assets/fonts.scss";
 
 .oe-form-wrapper {
   display: flex;
@@ -15,17 +15,20 @@
   }
   & .oe-form-label {
     font-family: $secondary-font-regular;
-    font-size: $font-size-14;
-    font-weight: $font-weight-normal;
+    font-size: $font-size-16;
+    font-weight: $font-weight-bold;
     font-stretch: normal;
     font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
     color: $typo-text-1;
     width: 150px;
-    min-width: 150px;
+    max-width: 129px;
     margin-right: 20px;
     padding: 5px 0px 1px 0px;
+    & > .astreak {
+      color: $required;
+    }
   }
   & .oe-form-value {
     font-family: $primary-font-regular;
@@ -46,7 +49,9 @@
     line-height: 32px;
     border-radius: 3px;
     border: solid 1px $input-border;
-    &:focus,&:hover,&:active {
+    &:focus,
+    &:hover,
+    &:active {
       box-shadow: none;
       border: solid 1px $theme-primary;
     }
@@ -60,7 +65,9 @@
       border-radius: 3px;
       border: unset;
       background-color: $background-color;
-      &:focus,&:hover,&:active {
+      &:focus,
+      &:hover,
+      &:active {
         box-shadow: none;
         border: unset;
       }
