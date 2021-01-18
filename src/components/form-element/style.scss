@@ -14,9 +14,9 @@
     margin: 4px 0;
   }
   & .oe-form-label {
-    font-family: $secondary-font-regular;
+    font-family: $primary-font-medium;
     font-size: $font-size-16;
-    font-weight: $font-weight-bold;
+    font-weight: $font-weight-500;
     font-stretch: normal;
     font-style: $font-style-normal;
     line-height: normal;
@@ -40,7 +40,6 @@
     letter-spacing: normal;
     color: #6a6a6a;
     width: 100%;
-    max-width: 700px;
     line-height: 1.5;
     & img {
       cursor: context-menu;

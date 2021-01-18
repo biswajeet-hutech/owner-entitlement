@@ -59,7 +59,7 @@
       & .ant-pagination {
         margin: 0px;
         position: absolute;
-        bottom: -80px;
+        bottom: -75px;
         align-content: center;
         width: 100%;
         right: 0px;
@@ -69,7 +69,7 @@
           position: absolute;
           height: 1px;
           width: 100%;
-          margin-top: -20px;
+          margin-top: -15px;
           background-color: $border-variant-1;
         }
       }
@@ -96,6 +96,7 @@
 
 .description_modal {
   .ant-modal-content {
+    border-radius: 10px;
     max-width: 100vh;
     .ant-modal-body {
       max-height: 60vh;

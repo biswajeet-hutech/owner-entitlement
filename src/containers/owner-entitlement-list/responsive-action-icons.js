@@ -29,7 +29,7 @@ const ResponsiveActionIcons = ({
       case 'dispute':
         return {
           type: type,
-          title: type === 'success' ? 'Dispute Raised!' : 'Something Went Wrong!',
+          title: type === 'success' ? 'Dispute Raised!' : 'Oops! Something went wrong.',
           subTitle: type === 'success' ? '' : 'Some error occured while raising dispute. Please try again.'
         };
         default:

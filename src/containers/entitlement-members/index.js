@@ -131,7 +131,7 @@ const EntitlementMembers = ({
       <div className="oe-sc-wrapper">
         <Row justify="space-between" className="oe-sc-search-label">
           <Typography type="title2">
-            <span>Search by name or email</span>
+            <span>Search</span>
             <Popover
               content={<div style={{ maxWidth: 200, fontSize: 13 }}>Search First Name, Last Name, Email Address , Status and Manager</div>}
               trigger="hover"

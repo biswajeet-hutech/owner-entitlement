@@ -39,7 +39,7 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
   )
 }
 
-const TextAreaForm = ({value, readOnly, onChange, ...otherProps }) => {
+const TextAreaForm = ({value, readOnly, onChange,maxLength, ...otherProps }) => {
   return (
     <>
       {
@@ -47,12 +47,13 @@ const TextAreaForm = ({value, readOnly, onChange, ...otherProps }) => {
           <>
           <TextArea
             showCount
-            maxLength={2000}
+            maxLength={maxLength}
             value={value}
             rows={10}
             onChange={(e) => onChange(e.target.value)}
             {...otherProps}
           />
+          {maxLength?`${maxLength-value.length} characters remaining of ${maxLength}`:null}
           { otherProps.error && <div className="oe-form-error">{otherProps.error}</div> }
           </>
         )
@@ -134,7 +135,7 @@ const FormElement = ({
     }
   }
   return (
-    <div className="oe-form-wrapper" style={{ flexDirection: props.fullWidth ? 'column' : 'row', alignItems: props.type === "description" ? "flex-start" : "center" }}>
+    <div className="oe-form-wrapper" style={{ flexDirection: props.fullWidth ? 'column' : 'row', alignItems: props.type === "description" ? "flex-start" : (props.type === "textarea" ? "flex-start" : "center")}}>
       <div className="oe-form-label" style={{ marginBottom: props.fullWidth ? '8px' : '0' }}>
         { label }<span className="astreak">{` ${required?'*':''}`}</span>
       </div>

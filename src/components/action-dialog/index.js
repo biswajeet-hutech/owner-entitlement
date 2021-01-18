@@ -2,7 +2,7 @@ import React from "react";
 import { Modal } from 'antd';
 import {
   CheckCircleOutlined,
-  InfoCircleOutlined,
+  ExclamationCircleOutlined,
   CloseOutlined
 } from '@ant-design/icons';
 import Typography from "../typography";
@@ -21,16 +21,13 @@ const ActionDialog = ({
     <div className="oe-action-modal-body">
       <div className="oe-action-modal-header">
         {
-          type === "success" ? <CheckCircleOutlined className="dialog-icon oe-ad-success" /> : (type === "error" ? <InfoCircleOutlined className="dialog-icon oe-ad-error" /> : null)
+          type === "success" ? <CheckCircleOutlined className="dialog-icon oe-ad-success" /> : (type === "error" ? <ExclamationCircleOutlined  className="dialog-icon oe-ad-error" /> : null)
         }
       </div>
       <div className="oe-action-modal-content">
         <Typography type="heading3" gutterBottom>{ title }</Typography>
-        {
-          subTitle && (
-          <Typography type="body1">{ subTitle }</Typography>
-          )
-        }
+        {/* <h1>{title}</h1> */}
+        <Typography type="body1">{ subTitle }</Typography>
       </div>
     </div>
   );
@@ -42,6 +39,7 @@ const ActionDialog = ({
       style={{ top: 20 }}
       visible={open}
       onCancel={onHide}
+      onOk={onHide}
       closeIcon={<CloseOutlined style={{ fontSize: 18, color: '#202020', fontWeight: 'bold' }} />}
       width={500}
       destroyOnClose

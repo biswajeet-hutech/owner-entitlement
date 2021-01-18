@@ -17,9 +17,9 @@ const Dropdown = ({
   value
 }) => (
   <div className={`oe-dropdown-container ${overrideClass}`}>
-    <div className="oe-form-label">
+    {label?<div className="oe-form-label">
         { label }
-      </div>
+      </div>:null}
     <Select
       suffixIcon={<CaretDownFilled
       style={{ fontSize: 16 }} />}

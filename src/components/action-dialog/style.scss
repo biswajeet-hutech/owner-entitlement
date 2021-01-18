@@ -2,4 +2,46 @@
 @import "./../../assets/colors.scss";
 
 .oe-action-dialog {
+    .oe-action-modal-header {
+        text-align: center;
+        .oe-ad-error {
+            color: $error;
+            font-size: $font-size-40;
+        }
+    }
+    .ant-modal-content {
+        border-radius: 10px;
+    }
+    .oe-action-modal-content {
+        text-align: center;
+        padding-top: 16px;
+        border-radius: 10px;
+    }
+    .ant-modal-footer {
+        & > .ant-btn:first-of-type {
+            transition-duration: 1s;
+            transition-property: background-color, color, box-shadow;
+            box-shadow: inset 0 0 0 0px #037da1;
+            box-sizing: border-box;
+            &:hover,
+            &:focus {
+                color: #037da1;
+                background-color: #037ca156;
+                box-shadow: inset 0 0 0 2px #037da1;
+                outline: 0;
+            }
+        }
+        & > .ant-btn:last-of-type {
+            border-radius: 4px;
+            height: 33px;
+            line-height: 14px;
+            // padding: 8px;
+            min-width: auto;
+            border: none;
+            background-color: #037da1;
+            span {
+                // padding: 2px 2px 0px 5px;
+            }
+        }
+    }
 }

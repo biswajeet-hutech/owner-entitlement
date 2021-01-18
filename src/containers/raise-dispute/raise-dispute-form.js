@@ -62,6 +62,7 @@ const RaiseDisputeForm = ({
       label: 'Description',
       value: entitlementData.description,
       type: 'description',
+      maxLength:2000,
       readOnly: true
     },
   ];
@@ -72,8 +73,8 @@ const RaiseDisputeForm = ({
       label: 'Dispute Statement',
       value: '',
       required:true,
-      type: 'description',
-      maxLength: 1024
+      type: 'textarea',
+      maxLength: 250
     }
   ]
   return (
