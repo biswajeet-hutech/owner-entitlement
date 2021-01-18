@@ -1,7 +1,6 @@
 import React from "react";
 import { Row, Col } from 'antd';
-
-import { ExportsIcon,ExportCertHoverIcon, ExportHoverIcon } from './../../assets'
+import { ExportsIcon, ExportHoverIcon } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
@@ -63,21 +62,6 @@ const SearchWithActionBar = ({
               onVisibleChange={(v) => setPopVisible({ ...popVisible, export: v })}
               onHide={() => setPopVisible({ ...popVisible, export: false })} />
           )}>Export</Button>
-          {/* <Button disabled type="primary" leftIcon={<ImportOutlined />} rightIcon={(
-            <InfoContent
-              type="import"
-              visible={popVisible.import}
-              onVisibleChange={(v) => setPopVisible({ ...popVisible, import: v })}
-              onHide={() => setPopVisible({ ...popVisible, import: false })} />
-          )}>Import</Button>
-          <Button disabled type="secondary" leftIcon={<FileDoneOutlined />} rightIcon={(
-            <InfoContent
-              type="scheduledCert"
-              visible={popVisible.scheduledCert}
-              onVisibleChange={(v) => setPopVisible({ ...popVisible, scheduledCert: v })}
-              onHide={() => setPopVisible({ ...popVisible, scheduledCert: false })} />
-          )}
-          onClick={() => setOpenSecduledCertModal(true)}>Schedule Certification</Button> */}
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

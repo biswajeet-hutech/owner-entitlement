@@ -4,11 +4,10 @@ import './App.scss';
 import Tabs from './components/tab';
 // import Typography from './components/typography';
 import OwnerEntitlement from './containers/owner-entitlement-list';
-
+import {backgroundImage} from './assets';
 function App() {
   return (
-    <div className="oe-app">
-      {/* <Typography type="heading3" className="oe-section oe-page-margin">Owner Entitlement</Typography> */}
+    <div className="oe-app" style={{backgroundImage}}>
       <Tabs 
         className="home_tab"
       tabs={[{

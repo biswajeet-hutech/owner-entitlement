@@ -32,7 +32,7 @@ const columns = [
   {
     title: 'Members',
     dataIndex: 'users',
-    render: (text) => <a>{`${text} Member${text > 1 ? 's' : ''}`}</a>
+    render: (text) => <span>{`${text} Member${text > 1 ? 's' : ''}`}</span>
   },
 ];
 
@@ -147,12 +147,10 @@ const ScheduleCertification = ({
           columns={columns}
           config={{
             scroll:{ y: "240px", x: "max-content" },
-            tableLayout:"auto",
+            tableLayout:"fixed",
             pagination: false,
             className: "oe-table oe-scheduled-cert-table",
             rowKey: 'id',
-            tableLayout: "fixed",
-            scroll: { x: 1500 }
           }}
         />
       </Row>

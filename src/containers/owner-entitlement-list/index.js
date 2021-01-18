@@ -1,5 +1,5 @@
 import React from "react";
-import { message, Spin, Popover } from "antd";
+import { message, Spin } from "antd";
 import { useJsonToCsv } from 'react-json-csv';
 import Table from '../../components/table';
 import Modal from '../../components/modal';
@@ -14,7 +14,6 @@ import {CheckFalse} from './../../assets';
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
 import entitlementHeadersData from "../../data/entitlement-headers.json";
-import exportEntitlementData from "../../data/export-entitlement.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
 
 const OwnerEntitlement = () => {
