@@ -239,7 +239,7 @@ const OwnerEntitlement = () => {
 
   const handlePageChange = (page, pageSize) => {
     // console.log(page, pageSize);
-    getEntitlementList({ totalRecordsToFetch: pageSize, start: page - 1 });
+    getEntitlementList({ ...tableConfig, totalRecordsToFetch: pageSize, start: page - 1 });
   }
 
   const handleMultipleExport = (searchProps) => {

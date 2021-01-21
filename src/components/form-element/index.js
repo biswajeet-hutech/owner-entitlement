@@ -141,7 +141,12 @@ const FormElement = ({
   return (
     <div className="oe-form-wrapper" style={{ flexDirection: props.fullWidth ? 'column' : 'row', alignItems: props.type === "checkbox" ? "center" : "flex-start"}}>
       <div className="oe-form-label" style={{ marginBottom: props.fullWidth ? '8px' : '0' }}>
-        { label }<span className="oe-astreak">{`${required ? '*' : ''}`}</span>
+        {
+          label
+        }
+        {
+          !props.readOnly && <span className="oe-astreak">{`${required ? '*' : ''}`}</span>
+        }
       </div>
       <div className="oe-form-value">
         {
