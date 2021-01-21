@@ -1,0 +1,38 @@
+[
+  {
+    "displayName": "Name",
+    "name": "name"
+  },
+  {
+    "displayName": "FName",
+    "name": "firstname"
+  },
+  {
+    "displayName": "Last Name",
+    "name": "lastname"
+  },
+  {
+    "displayName": "Email",
+    "name": "email"
+  },
+  {
+    "displayName": "User Status",
+    "name": "status"
+  },
+  {
+    "displayName": "Manager",
+    "name": "manager"
+  },
+  {
+    "displayName": "Source",
+    "name": "source"
+  },
+  {
+    "displayName": "Certification Action",
+    "name": "certificationaction"
+  },
+  {
+    "displayName": "Certification Action Date",
+    "name": "certificationactiondate"
+  }
+]

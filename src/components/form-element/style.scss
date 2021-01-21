@@ -26,8 +26,9 @@
     max-width: 129px;
     margin-right: 20px;
     padding: 5px 0px 1px 0px;
-    & > .astreak {
-      color: $required;
+    & > .oe-astreak {
+      color: #ec3737;
+      margin-left: 2px;
     }
   }
   & .oe-form-value {
@@ -44,6 +45,13 @@
     & img {
       cursor: context-menu;
     }
+    & .oe-form-error {
+      color: inherit;
+      border: 1px solid #de0808;
+    }
+    & .oe-form-error-text {
+      color: #de0808;
+    }
   }
   & .oe-form-input.ant-input {
     line-height: 32px;
@@ -54,6 +62,9 @@
     &:active {
       box-shadow: none;
       border: solid 1px $theme-primary;
+    }
+    &.oe-form-error {
+      border: 1px solid #de0808;
     }
   }
 

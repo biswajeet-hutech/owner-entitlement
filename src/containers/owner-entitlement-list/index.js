@@ -41,7 +41,7 @@ const OwnerEntitlement = () => {
   });
 
   const getEntitlementList = ({ totalRecordsToFetch, start, searchVal, otherProps }) => {
-    setTableConfig({totalRecordsToFetch, start, otherProps});
+    setTableConfig({totalRecordsToFetch, start, searchVal, otherProps});
     setLoadingEntitlement(true);
     const url = 'EntitlementManagement/EntitlmentDetails';
     API.post(url, {
@@ -227,14 +227,14 @@ const OwnerEntitlement = () => {
       width:item.width?item.width:'200px',
       ...(headerConfig[item.name] || {})
     })),
-    {
+    entitlementHeaders.length ? {
       title: 'Action',
       dataIndex: 'action',
       width:'120px',
       align: 'center',
       fixed: 'right',
       render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction}  />
-    }
+    } : {}
   ];
 
   const handlePageChange = (page, pageSize) => {
@@ -273,9 +273,9 @@ const OwnerEntitlement = () => {
                 position: ['none', 'bottomCenter'], pageSizeOptions: tablePaginationConfig.pageSizeOptions, defaultPageSize: tablePaginationConfig.defaultPageSize, showSizeChanger: true },
               className: "oe-table oe-entitlement-list-table",
               rowKey: 'id',
-              rowSelection: {
-                ...rowSelection,
-              }
+              // rowSelection: {
+              //   ...rowSelection,
+              // }
             }}
             />
         </div>

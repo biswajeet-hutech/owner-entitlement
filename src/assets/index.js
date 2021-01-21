@@ -21,6 +21,7 @@ const InfoHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls
 const ScheduleIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.info} width={width?width:16} height={height?height:16} alt={alt?alt:"Schedule"} className={className}/>
 const ApprovedIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.approved} width={width?width:22} height={height?height:22} alt={alt?alt:"Approved"} className={className}/>
 const RevokedIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.revoked} width={width?width:22} height={height?height:22} alt={alt?alt:"Revoked"} className={className}/>
+const NotCertifiedIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.notCertified} width={width?width:22} height={height?height:22} alt={alt?alt:"Not Certified"} className={className}/>
 const OpenIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.open} width={width?width:22} height={height?height:22} alt={alt?alt:"Open"} className={className}/>
 const PendingIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.pending} width={width?width:22} height={height?height:22} alt={alt?alt:"Pending"} className={className}/>
 const ViewIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.view} width={width?width:22} height={height?height:22} alt={alt?alt:"View"} className={className}/>
@@ -45,6 +46,7 @@ export {
     ScheduleIcon,
     ApprovedIcon,
     RevokedIcon,
+    NotCertifiedIcon,
     OpenIcon,
     PendingIcon,
     ViewIcon,

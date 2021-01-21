@@ -117,15 +117,6 @@
       "name": "approver_level3",
       "named": "true",
       "type": "sailpoint.object.Identity"
-    },
-    {
-      "APIName": null,
-      "allowedValues": null,
-      "displayName": "PII Level",
-      "extendedAttrName": "extended1",
-      "name": "piilevel",
-      "named": "false",
-      "type": "string"
     }
   ],
   "Members": [

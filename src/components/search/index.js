@@ -11,8 +11,15 @@ const Search = ({
 }) => {
   const [searchText, onSearchTextChange] = React.useState('');
   const handleSearchTextUpdate = (e) => {
-    onSearchTextChange(e.target.value);
-    onChange(e.target.value);
+    const val = e.target.value;
+
+    if (val !== searchText) {
+      onSearchTextChange(e.target.value);
+      onChange(e.target.value);
+      if (!val) {
+        onSearch('');
+      }
+    }
   }
   const handleSearch = (e) => {
     if (e.keyCode === 13) {
@@ -27,7 +34,9 @@ const Search = ({
       className="oe-search"
       placeholder={placeHolder}
       onChange={handleSearchTextUpdate}
-      onKeyUp={handleSearch}
+      onPressEnter={() => onSearch(searchText)}
+      allowClear
+      handleReset={() => console.log("Hello reset")}
       suffix={
         <Tooltip title="Click to search">
           <Button icon={<SearchIcon/>} type="text" onClick={() => onSearch(searchText)}/>

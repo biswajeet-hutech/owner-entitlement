@@ -34,6 +34,15 @@ const SearchWithActionBar = ({
     setSearchProps(payload);
   }
 
+  const hideInfoContent = (e) => {
+    e.stopPropagation();
+    setPopVisible({ ...popVisible, export: false });
+  }
+
+  const changeInfoContent = (v) => {
+    setPopVisible({ ...popVisible, export: v });
+  }
+
   return (
     <>
       <Row justify="space-between" className="action-wrapper">
@@ -59,8 +68,8 @@ const SearchWithActionBar = ({
             <InfoContent
               type="export"
               visible={popVisible.export}
-              onVisibleChange={(v) => setPopVisible({ ...popVisible, export: v })}
-              onHide={() => setPopVisible({ ...popVisible, export: false })} />
+              onVisibleChange={changeInfoContent}
+              onHide={hideInfoContent} />
           )}>Export</Button>
         </Col>
       </Row>
