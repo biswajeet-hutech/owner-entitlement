@@ -24,15 +24,15 @@
     .ant-modal-footer {
         display: none;
         & > .ant-btn:first-of-type {
-            transition-duration: 1s;
+            transition-duration: 0.5s;
             transition-property: background-color, color, box-shadow;
-            box-shadow: inset 0 0 0 0px #037da1;
+            box-shadow: inset 0 0 0 0px $theme-primary;
             box-sizing: border-box;
             &:hover,
             &:focus {
-                color: #037da1;
-                background-color: #037ca156;
-                box-shadow: inset 0 0 0 2px #037da1;
+                color: $theme-primary;
+                background-color: #037ca11a;
+                box-shadow: inset 0 0 0 1px $theme-primary;
                 outline: 0;
             }
         }
@@ -43,7 +43,7 @@
             // padding: 8px;
             min-width: auto;
             border: none;
-            background-color: #037da1;
+            background-color: $theme-primary;
             span {
                 // padding: 2px 2px 0px 5px;
             }
