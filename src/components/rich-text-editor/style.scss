@@ -16,26 +16,28 @@
   }
 
   & .DraftEditor-editorContainer {
-    min-height: 220px;
+    & .public-DraftEditor-content {
+      min-height: 200px;
+    }
   }
 
   & .oe-rte-text-count {
     padding: 8px 12px 0;
     font-family: "Roboto-Regular";
-    font-size: 12px;
+    font-size: $font-size-14;
     font-weight: normal;
     font-stretch: normal;
-    font-style: normal;
+    font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
-    color: #000000;
+    color: $black;
   }
 
-  & .test-root {
+  & .oe-rte-root {
     border-radius: 3px;
     border: solid 1px $input-border;
 
-    & .test-toolbar {
+    & .oe-rte-toolbar {
       background-color: $background-color;
       margin: 0;
       padding: 8px 16px 8px;
@@ -53,7 +55,7 @@
         border: none;
         background: transparent;
         &.IconButton__isActive___2Ey8p {
-          background: none $border-disabled;
+          background: none $border-variant-1;
         }
       }
       

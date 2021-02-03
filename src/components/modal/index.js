@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal as AntModal, Button } from 'antd';
+import { Modal as AntModal } from 'antd';
 import { CloseOutlined } from '@ant-design/icons';
 import "./style.scss";
 

@@ -4,7 +4,7 @@
 .oe-search {
   height: 35px;
   &.ant-input-affix-wrapper {
-    background-color: #eef3f8;
+    background-color: $input-background-home;
     border: 1px solid $input-border;
     border-radius: 3px;
     box-shadow: unset;

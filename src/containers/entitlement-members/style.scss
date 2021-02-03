@@ -3,34 +3,6 @@
 
 .oe-sc-row-padding {
   padding: 10px 0;
-  & .ant-col {
-    & .oe-exportBtn {
-      border-radius: 4px;
-      border: 1px solid $button-border;
-      height: 33px;
-      padding: 7px 8px 9px;
-      & span {
-        padding: 0px 9px 0px 12px;
-        &.oe-info-content-span {
-          padding: 0;
-        }
-      }
-      & .hover {
-        display: none;
-      }
-      &:hover {
-        border: 1px solid $theme-primary;
-        color: $theme-primary-font-color;
-        background-color: unset;
-        & .hover {
-          display: inline;
-        }
-        & .normal {
-          display: none;
-        }
-      }
-    }
-  }
 }
 
 .oe-sc-search-label {
@@ -41,8 +13,11 @@
   margin-top: 24px;
 }
 
+.ant-row.ant-row-space-between.oe-sc-row-padding{
+  margin-bottom: 10px;
+}
 .userStatus_active {
-  color: $member-active;
+  color: $typo-member-status-active;
   div {
     position: absolute;
     padding-top: 2px;
@@ -50,9 +25,9 @@
   }
   &::before {
     content: "";
-    color: $member-active-icon;
+    color: $typo-member-status-active;
     font-size: $font-size-10;
-    background-color: $member-active-icon;
+    background-color: $typo-member-status-active;
     padding-right: 11px;
     margin-right: 7px;
     border-radius: 11px;
@@ -60,7 +35,7 @@
 }
 
 .userStatus_disable {
-  color: $member-disabled;
+  color: $typo-member-status-disabled;
   div {
     position: absolute;
     padding-top: 2px;
@@ -68,9 +43,9 @@
   }
   &::before {
     content: "";
-    color: $member-disabled-icon;
+    color: $typo-member-status-disabled;
     font-size: $font-size-10;
-    background-color: $member-disabled-icon;
+    background-color: $typo-member-status-disabled;
     padding-right: 11px;
     margin-right: 7px;
     border-radius: 11px;
@@ -83,14 +58,14 @@
   }
 }
 .pending {
-  color: $member-pending;
+  color: $typo-member-certification-pending;
 }
 .open {
-  color: $member-open;
+  color: $typo-member-certification-open;
 }
 .revoked {
-  color: $member-revoked;
+  color: $typo-member-certification-revoked;
 }
 .approved {
-  color: $member-approved;
+  color: $typo-member-certification-approved;
 }

@@ -20,7 +20,7 @@ const Typography = ({
   }
   return (
     <div
-      className={`oe-typography ${classNameMap[type] || ''} ${gutterBottom ? 'gutter-bottom' : ''} ${className}`}
+      className={`oe-typography ${classNameMap[type] || ''} ${gutterBottom ? 'gutter-bottom' : ''} ${className?className:''}`}
       {...otherProps}
     >
       { children }

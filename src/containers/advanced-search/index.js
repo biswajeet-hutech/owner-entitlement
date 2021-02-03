@@ -37,20 +37,23 @@ const AdvancedSearch = ({ onSearch }) => {
   }
 
   const filterCount = () => {
-    const count = (searchData.application ? 1 : 0) + (searchData.attribute ? 1 : 0) + (searchData.value ? 1 : 0) + Object.keys(searchData?.extendedAttributes).length;
+    const count = (searchData.application ? 1 : 0) + (searchData.attribute ? 1 : 0) + (searchData.value ? 1 : 0) + (Object.keys(searchData?.extendedAttributes).filter(item => searchData?.extendedAttributes[item])).length;
     
     return count;
   }
 
   const handleClearData = () => {
     handleAdvanceSearch({...defaultSearchData});
-    hideContent();
   }
 
   return (
     <div className="oe-adv-search">
       <Popover
-        content={<AdvancedSearchContent onClose={hideContent} onSearch={handleAdvanceSearch} searchData={searchData} onClear={handleClearData} />}
+        content={<AdvancedSearchContent 
+        onClose={hideContent} 
+        onSearch={handleAdvanceSearch} 
+        searchData={searchData} 
+        onClear={handleClearData} />}
         title=""
         trigger="click"
         visible={showAdvancedContent}

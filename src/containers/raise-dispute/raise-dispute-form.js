@@ -62,6 +62,7 @@ const RaiseDisputeForm = ({
       label: 'Description',
       value: entitlementData.description,
       type: 'description',
+      maxLength:2000,
       readOnly: true
     },
   ];
@@ -69,8 +70,9 @@ const RaiseDisputeForm = ({
   const writableformConfig = [
     {
       key: 'disputeStatement',
-      label: 'Dispute Statement *',
+      label: 'Dispute Statement',
       value: '',
+      required:true,
       type: 'textarea',
       maxLength: 250
     }
@@ -84,7 +86,7 @@ const RaiseDisputeForm = ({
     </div>
     <div className="form-section form-section-writable">
       {
-        writableformConfig.map(formElement => <FormElement {...formElement} onChange={onChange} value={comment} error={error.comment} />)
+        writableformConfig.map(formElement => <FormElement {...formElement} onChange={onChange} value={comment} error={error.comment}/>)
       }
       <Row justify="end" className="dispute_Footer">
         <Button type="secondary" size="large" className="cancel"  onClick={onHide}>Cancel</Button>

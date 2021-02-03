@@ -1,38 +1,40 @@
-[
-  {
-    "displayName": "Entitlement Value",
-    "name": "value",
-    "width": "190px"
-  },
-  {
-    "displayName": "Application Name",
-    "name": "application",
-    "width": "180px"
-  },
-  {
-    "displayName": "Display Name",
-    "name": "displayName",
-    "width": "180px"
-  },
-  {
-    "displayName": "Description",
-    "name": "description",
-    "width": "200px",
-    "className": "descrption"
-  },
-  {
-    "displayName": "Requestable",
-    "name": "requestable",
-    "width": "120px"
-  },
-  {
-    "displayName": "Member",
-    "name": "users",
-    "width": "110px"
-  },
-  {
-    "displayName": "Privileged",
-    "name": "privileged",
-    "width": "110px"
-  }
-]
+[{
+	"displayName": "Entitlement Value",
+	"name": "value"
+}, {
+	"displayName": "Application Name",
+	"name": "application"
+}, {
+	"displayName": "Display Name",
+	"name": "displayName"
+}, {
+	"displayName": "Description",
+	"name": "description"
+}, {
+	"displayName": "Requestable",
+	"name": "requestable"
+}, {
+	"displayName": "Privileged",
+	"name": "privileged"
+}, {
+	"displayName": "Member",
+	"name": "users"
+}, {
+	"displayName": "Birth Right",
+	"name": "birthright"
+}, {
+	"displayName": "Certifiable",
+	"name": "certifiable"
+}, {
+	"displayName": "Logical Application Name",
+	"name": "logiplex_app_name"
+}, {
+	"displayName": "Target Application Name",
+	"name": "target_app"
+}, {
+	"displayName": "Approver Level 2",
+	"name": "approver_level2"
+}, {
+	"displayName": "Approver Level 3",
+	"name": "approver_level3"
+}]

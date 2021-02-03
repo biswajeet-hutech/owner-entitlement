@@ -10,14 +10,17 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
   return (
     <>
       {
-        readOnly ? <span>{ value }</span> : (
-          <Input
-            defaultValue={value}
-            value={value}
-            className="oe-form-input"
-            onChange={(e) => onChange(e.target.value)}
-            {...otherProps}
-          />
+        readOnly ? <span>{ value?value:'—' }</span> : (
+          <>
+            <Input
+              defaultValue={value}
+              value={value}
+              className={`oe-form-input ${otherProps.error && 'oe-form-error'}`}
+              onChange={(e) => onChange(e.target.value)}
+              {...otherProps}
+            />
+            { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+          </>
         )
       }
     </>
@@ -30,8 +33,7 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
       {
         readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
           <>
-          <MyStatefulEditor value={value || ''} onChange={onChange} {...otherProps} />
-          { otherProps.error && <div className="oe-form-error">{otherProps.error}</div> }
+            <MyStatefulEditor value={value || ''} onChange={onChange} {...otherProps} />
           </>
         )
       }
@@ -39,7 +41,7 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
   )
 }
 
-const TextAreaForm = ({value, readOnly, onChange, ...otherProps }) => {
+const TextAreaForm = ({value, readOnly, onChange,maxLength, ...otherProps }) => {
   return (
     <>
       {
@@ -47,13 +49,13 @@ const TextAreaForm = ({value, readOnly, onChange, ...otherProps }) => {
           <>
           <TextArea
             showCount
-            maxLength={2000}
+            maxLength={maxLength}
             value={value}
             rows={10}
             onChange={(e) => onChange(e.target.value)}
             {...otherProps}
           />
-          { otherProps.error && <div className="oe-form-error">{otherProps.error}</div> }
+          { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
           </>
         )
       }
@@ -69,16 +71,14 @@ const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
         <CheckTrue
           className="checkIcon"
           style={{
-            fontSize: 16,
-            color: '#37ae22'
+            fontSize: 16
           }}
         />
         ) : (
         <CheckFalse
           className="checkIcon"
           style={{
-            fontSize: 16,
-            color: '#c1c1c1'
+            fontSize: 16
           }}
         />
         )) : (
@@ -97,14 +97,17 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
   return (
     <>
       {
-        readOnly ? <span>{ value }</span> : (
-        <Dropdown
-          options={options}
-          value={value}
-          onChange={onChange}
-          overrideClass="oe-form-dropdown"
-          {...otherProps}
-        />
+        readOnly ? <span>{ value?value:'—' }</span> : (
+        <>
+          <Dropdown
+            options={options}
+            value={value}
+            onChange={onChange}
+            overrideClass={`oe-form-dropdown ${otherProps.error && 'oe-form-error'}`}
+            {...otherProps}
+          />
+          { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+        </>
         )
       }
     </>
@@ -113,6 +116,7 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
 
 const FormElement = ({
   label,
+  required,
   ...props
 }) => {
   const renderFormItem = ({
@@ -131,13 +135,18 @@ const FormElement = ({
       case 'dropdown':
         return <DropdownForm {...otherProps} />;
       default:
-        return otherProps.value;
+        return otherProps.value || '—';
     }
   }
   return (
-    <div className="oe-form-wrapper" style={{ flexDirection: props.fullWidth ? 'column' : 'row', alignItems: props.type === "description" ? "flex-start" : "center" }}>
+    <div className="oe-form-wrapper" style={{ flexDirection: props.fullWidth ? 'column' : 'row', alignItems: (props.type === "checkbox" || props.readOnly) ? "center" : "flex-start"}}>
       <div className="oe-form-label" style={{ marginBottom: props.fullWidth ? '8px' : '0' }}>
-        { label }
+        {
+          label
+        }
+        {
+          !props.readOnly && <span className="oe-astreak">{`${required ? '*' : ''}`}</span>
+        }
       </div>
       <div className="oe-form-value">
         {

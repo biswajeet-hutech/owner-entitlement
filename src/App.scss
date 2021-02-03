@@ -1,21 +1,16 @@
 @import "~antd/dist/antd.css";
-@import "./assets/images.scss";
 @import "./assets/fonts.scss";
 @import "./assets/colors.scss";
 
 .oe-app {
   padding: 20px 40px;
   background-color: #f3f2ef;
-  background-image: $background-image;
   background-repeat: no-repeat;
   background-size: 100%;
   font-family: "Roboto-Regular", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 100vh;
   overflow-y: hidden;
   scrollbar-width: thin;
-  // .home_tab {
-  //   // margin: 8px 43px 8px 57px;
-  // }
 }
 
 .oe-section {

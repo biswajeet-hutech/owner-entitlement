@@ -1,21 +1,19 @@
 import React from "react";
-
 import { Popover } from 'antd';
-
-import { InfoIcon,InfoHoverIcon } from './../../assets';
+import { InfoIcon,InfoHoverIcon,strings } from './../../assets';
 import "./style.scss";
 
 const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
   const getInfoContent = () => {
     switch(type) {
       case 'import':
-        return <div>Import Info</div>
+        return <div>{strings['info'][type]}</div>
       case 'member':
-        return <div>Add the info icon and show search First Name, Last Name, Email Address , Status and Manager</div>
+        return <div>{strings['info'][type]}</div>
       case 'export':
-        return <div>You can search and download the selected entitlement or apply advance filter and download.</div>
+        return <div>{strings['info'][type]}</div>
       case 'scheduledCert':
-        return <div>Scheduled Certification Info</div>;
+        return <div>{strings['info'][type]}</div>
       default:
         return <div>{text}</div>;
     }
@@ -27,7 +25,8 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
       trigger="hover"
       visible={visible}
       onVisibleChange={onVisibleChange}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {e.preventDefault(); e.stopPropagation();}}
+      placement="bottomRight"
     >
       <span className="oe-info-content-span">
         <InfoIcon width={14} height={14} className="normal"/>

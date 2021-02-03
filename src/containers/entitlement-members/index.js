@@ -6,10 +6,12 @@ import Button from "../../components/button";
 import Table from '../../components/table';
 import Typography from "../../components/typography";
 import Search from "../../components/search";
-
+import entitlementJSON from "../../data/entitlement-members-attribute.json";
+// import exportJSON from "../../data/export-entitlement.json";
 import { API, localMode } from "../../api";
 import './style.scss';
-import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon, InfoHoverIcon } from './../../assets';
+import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon, NotCertifiedIcon,OpenIcon,PendingIcon, InfoHoverIcon,strings } from './../../assets';
+import { getExportMembersFileName } from "../../utils";
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -17,61 +19,43 @@ const UserStatus = ({status}) =>{
 }
 
 const CertificationStatus = ({status}) =>{
-  switch(status.toLowerCase()){
-    case 'approved':return(<div className={`certificationStatus ${status.toLowerCase()}`}><ApprovedIcon alt={status}/> <span>{status}</span></div>)
-    case 'revoked':return(<div className={`certificationStatus ${status.toLowerCase()}`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
-    case 'open':return(<div className={`certificationStatus ${status.toLowerCase()}`}><OpenIcon alt={status}/> <span>{status}</span></div>)
-    case 'pending':return(<div className={`certificationStatus ${status.toLowerCase()}`}><PendingIcon alt={status}/> <span>{status}</span></div>)
-    default:return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>Revoked</span></div>)
+  switch(status.toLowerCase()) {
+    case 'approved': return(<div className={`certificationStatus ${status.toLowerCase()}`}><ApprovedIcon alt={status}/> <span>{status}</span></div>)
+    case 'revoked': return(<div className={`certificationStatus ${status.toLowerCase()}`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
+    case 'open': return(<div className={`certificationStatus ${status.toLowerCase()}`}><OpenIcon alt={status}/> <span>{status}</span></div>)
+    case 'pending': return(<div className={`certificationStatus ${status.toLowerCase()}`}><PendingIcon alt={status}/> <span>{status}</span></div>)
+    case 'not certified': return(<div className={`certificationStatus ${status.toLowerCase()}`}><NotCertifiedIcon alt={status}/> <span>{status}</span></div>)
+    default: return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
   }
 }
-const columns = [
-  {
+
+const headerConfig = {
+  name: {
     title: 'Name',
     dataIndex: 'name',
-    width:"100px",
-    render: (text, record) => <span>{record.name}</span>
+    render: (text, record) => record.name? <span>{record.name}</span> : '—'
   },
-  {
-    title: 'Email',
-    width:"180px",
-    dataIndex: 'email',
-  },
-  {
+  status: {
     title: 'User Status',
     dataIndex: 'status',
-    width:"100px",
     render: (text, record) => <UserStatus status={record.status}/>
   },
-  {
-    title: 'Manager',
-    width:"130px",
-    dataIndex: 'manager',
-  },
-  {
-    title: 'Source',
-    width:"100px",
-    dataIndex: 'source',
-  },
-  {
+  certificationaction: {
     title: 'Certification Action',
-    width:"110px",
     dataIndex: 'certificationaction',
+    width: "180px",
     render: (text, record) => <CertificationStatus status={record.certificationaction}/>
   },
-  {
-    title: 'Certification Action Date',
-    width:"90px",
-    dataIndex: 'certificationactiondate',
-  }
-];
+};
 
 const EntitlementMembers = ({
   data={},
   id,
+  entitlementName = "",
   onUpdate
 }) => {
   const { saveAsCsv } = useJsonToCsv();
+  const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
   const [paginationConfig, setPaginationConfig] = React.useState({
     totalRecordsToFetch: 25,
@@ -93,6 +77,21 @@ const EntitlementMembers = ({
     });
   }
 
+
+  const getEntitlementHeaders = () => {
+    const url = 'EntitlementManagement/memberattributes';
+    API.get(url).then(res => {
+      if (Array.isArray(res.data)) {
+        setEntitlementHeaders([...res.data]);
+      }
+    }).catch(err => {
+      message.error("Failed to load headers");
+      if (localMode) {
+        setEntitlementHeaders([...entitlementJSON]);
+      }
+    });
+  }
+
   const exportAPI = (entitlementID) => {
     setLoadingEntitlement(true);
     API.get(`EntitlementManagement/exportmember/${entitlementID}`)
@@ -106,7 +105,7 @@ const EntitlementMembers = ({
         const csv_config = {
           data: exportData.details,
           fields: fields,
-          filename: 'Entitlement_Members'
+          filename: getExportMembersFileName(entitlementName)
         }
         saveAsCsv(csv_config);
       } catch(e) {
@@ -124,12 +123,26 @@ const EntitlementMembers = ({
     });
   }
 
+  const columns = [
+    ...entitlementHeaders.map(item => ({
+      title: item.displayName,
+      dataIndex: item.name,
+      render: (text,record)=> record[item.name] || '—',
+      className:item.className || '',
+      ...(headerConfig[item.name] || {})
+    }))
+  ];
+
+  React.useEffect(() => {
+    getEntitlementHeaders();
+  }, []);
+
   return (
     <Spin spinning={loadingEntitlement}>
       <div className="oe-sc-wrapper">
         <Row justify="space-between" className="oe-sc-search-label">
           <Typography type="title2">
-            <span>Search by name or email</span>
+            <span>Search</span>
             <Popover
               content={<div style={{ maxWidth: 200, fontSize: 13 }}>Search First Name, Last Name, Email Address , Status and Manager</div>}
               trigger="hover"
@@ -142,7 +155,7 @@ const EntitlementMembers = ({
         </Row>
         <Row justify="space-between" className="oe-sc-row-padding">
           <Col md={8}>
-            <Search placeHolder="Search by name, email or status" onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
+            <Search placeHolder={strings.entitlement_members_search_placeholder} onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
           </Col>
           <Col>
             <Button
@@ -175,8 +188,7 @@ const EntitlementMembers = ({
             dataSource={data.MemberDetails || []}
             columns={columns}
             config={{
-              scroll:{ y: 360, x: "max-content" },
-              tableLayout:"auto",
+              scroll:{ y: 360, x: 1500 },
               pagination: {
                 total: data.total,
                 current: paginationConfig.start,

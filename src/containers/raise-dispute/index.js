@@ -4,7 +4,6 @@ import { Spin } from "antd";
 
 import './style.scss';
 import Accordion from "../../components/accordion";
-import Tabs from "../../components/tab";
 import RaiseDisputeForm from "./raise-dispute-form";
 import API from "../../api";
 

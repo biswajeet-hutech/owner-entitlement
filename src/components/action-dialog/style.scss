@@ -1,83 +1,52 @@
-@import './../../assets/fonts.scss';
-@import './../../assets/colors.scss';
+@import "./../../assets/fonts.scss";
+@import "./../../assets/colors.scss";
 
 .oe-action-dialog {
-  font-family: $primary-font-regular;
-
-  & .oe-action-modal-header {
-    height: 70px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    & .dialog-icon {
-      font-size: $font-size-40;
+    .oe-action-modal-header {
+        text-align: center;
+        & .oe-ad-error {
+            color: $error;
+            font-size: $font-size-40;
+        }
+        & .oe-ad-success {
+            color: green;
+            font-size: $font-size-40;
+        }
     }
-
-    & .oe-ad-success {
-      color: green;
+    .ant-modal-content {
+        border-radius: 10px;
     }
-    & .oe-ad-error {
-      color: red;
+    .oe-action-modal-content {
+        text-align: center;
+        padding-top: 16px;
+        border-radius: 10px;
     }
-  }
-
-  & .oe-action-modal-content {
-    padding: 16px 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: $font-size-heading-4;
-    flex-direction: column;
-  }
-
-  & .ant-modal-content {
-    border-radius: 10px;
-  }
-  & .ant-modal-header {
-    padding: 20px 32px;
-    border-radius: 10px 10px 0 0;
-    border-bottom: solid 1px $border-disabled;
-  }
-  & .ant-modal-title {
-    font-family: $primary-font-medium;
-    font-size: $font-size-heading-4;
-    font-weight: $font-weight-normal;
-    font-stretch: normal;
-    font-style: $font-style-normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: $title-color;
-  }
-  & .ant-modal-body {
-    font-family: $primary-font-regular;
-    font-size: $font-size-14;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: $font-style-normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: #6a6a6a;
-    padding: 28px 32px;
-    & .oe-modal-content {
-      height: 70vh;
-      overflow-y: auto;
+    .ant-modal-footer {
+        display: none;
+        & > .ant-btn:first-of-type {
+            transition-duration: 0.5s;
+            transition-property: background-color, color, box-shadow;
+            box-shadow: inset 0 0 0 0px $theme-primary;
+            box-sizing: border-box;
+            &:hover,
+            &:focus {
+                color: $theme-primary;
+                background-color: #037ca11a;
+                box-shadow: inset 0 0 0 1px $theme-primary;
+                outline: 0;
+            }
+        }
+        & > .ant-btn:last-of-type {
+            border-radius: 4px;
+            height: 33px;
+            line-height: 14px;
+            // padding: 8px;
+            min-width: auto;
+            border: none;
+            background-color: $theme-primary;
+            span {
+                // padding: 2px 2px 0px 5px;
+            }
+        }
     }
-  }
-  & .ant-modal-footer {
-    display: none;
-  }
-  & .ant-modal-close {
-    top: 12px;
-    right: 12px;
-  }
-  & .ant-modal-close-x {
-    border-radius: 50%;
-    width: 26px;
-    height: 26px;
-    line-height: 28px;
-    transition: all .3s cubic-bezier(.645,.045,.355,1);
-    &:hover {
-      background-color: #ededed;
-    }
-  }
 }

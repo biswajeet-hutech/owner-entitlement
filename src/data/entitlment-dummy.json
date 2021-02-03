@@ -1,5 +1,5 @@
 {
-  "total": "15",
+  "total": "150",
   "EntitlementDetails": [
     {
       "owner": "",
@@ -22,21 +22,21 @@
       "attribute": "entitlement",
       "requestable": "false",
       "certifiable": "Yes",
-      "value": "ent_0000004080"
+      "value": "CN=Protected Users,CN=Users,DC=st,DC=com"
     },
     {
       "owner": "",
       "displayName": null,
       "logiplex_app_name": null,
       "approval_levels": null,
-      "description": "Provides Administrative access on application '<b><i><u>Local AD1</u></i></b>'",
+      "description": "Provides '",
       "application": "Entitlement Data Application",
       "birthright": null,
       "type": "Entitlement",
       "approver_level3": null,
       "approver_level2": null,
       "lastrefresh": "",
-      "users": "17",
+      "users": "0",
       "privileged": null,
       "piilevel": null,
       "target_app": null,

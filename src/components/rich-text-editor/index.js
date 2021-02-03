@@ -3,7 +3,7 @@ import RichTextEditor from 'react-rte';
 
 import './style.scss';
  
-const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultValue="" }) => {
+const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultValue="", error }) => {
   const textValue = RichTextEditor.createValueFromString(defaultValue || "", "html");
   const [editorValue, setValue] = React.useState(textValue);
   const editorState = editorValue.getEditorState();
@@ -12,16 +12,12 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultVa
  
   const handleChange = (newValue) => {
     let editorState = newValue.getEditorState();
-    // let oldEditorState = editorValue.getEditorState();
     const contentState = editorState.getCurrentContent();
-    // const oldContent = oldEditorState.getCurrentContent();
-    // console.log("dasdasdas", contentState.getPlainText());
     if (contentState.getPlainText().length > maxLength) {
       setValue(RichTextEditor.createValueFromString(editorValue.toString('html') || "", "html"));
       return;
     }
     if (!contentState.getPlainText().length) {
-      // setValue(RichTextEditor.createEmptyValue());
       onChange(null);
     } else {
       onChange(newValue.toString('html'));
@@ -65,9 +61,9 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultVa
         value={editorValue}
         onChange={handleChange}
         toolbarConfig={toolbarConfig}
-        toolbarClassName="test-toolbar"
-        editorClassName="test-editor"
-        className="test-root"
+        toolbarClassName="oe-rte-toolbar"
+        editorClassName="oe-rte-editor"
+        className={`oe-rte-root ${!!error && 'oe-form-error'}`}
       />
       <p className="oe-rte-text-count">{`${+(maxLength - editorTextLength)} characters remaining of ${maxLength} characters`}</p>
     </div>
