@@ -1,5 +1,6 @@
 import React from "react";
 import { Row, Col } from 'antd';
+
 import { ExportsIcon, ExportHoverIcon,strings } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
@@ -7,14 +8,16 @@ import Modal from '../../components/modal';
 import InfoContent from './info-content';
 import AdvancedSearch from '../advanced-search';
 import ScheduleCertification from "../scheduled-certification";
+import ImportEntitlementDialog from "../import-entitlement";
 import "./style.scss";
 
 const SearchWithActionBar = ({
   onSearch = () => {},
   onExport = () => {},
-  onSearchTextChange = () => {}
+  onAction = () => {}
 }) => {
   const [openSecduledCertModal, setOpenSecduledCertModal] = React.useState(false);
+  const [openImportDialog, setOpenImportModal] = React.useState(false);
   const [searchText, setSearchTextChange] = React.useState('');
   const [searchProps, setSearchProps] = React.useState({});
   const [popVisible, setPopVisible] = React.useState({
@@ -36,11 +39,11 @@ const SearchWithActionBar = ({
 
   const hideInfoContent = (e) => {
     e.stopPropagation();
-    setPopVisible({ ...popVisible, export: false });
+    setPopVisible({ ...popVisible, export: false, import: false });
   }
 
-  const changeInfoContent = (v) => {
-    setPopVisible({ ...popVisible, export: v });
+  const changeInfoContent = (v, type="export") => {
+    setPopVisible({ ...popVisible, [type]: v });
   }
 
   return (
@@ -63,6 +66,18 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
+          <Button className="oe-importBtn" onClick={() => setOpenImportModal(true)} type="text" leftIcon={
+            <>
+              <ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/>
+            </>
+            }
+            rightIcon={(
+              <InfoContent
+                type="import"
+                visible={popVisible.import}
+                onVisibleChange={(v) => changeInfoContent(v, "import")}
+                onHide={hideInfoContent} />
+            )}>Import</Button>
           <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={
           <><ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/></>} rightIcon={(
             <InfoContent
@@ -75,6 +90,9 @@ const SearchWithActionBar = ({
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>
         <ScheduleCertification onHide={() => setOpenSecduledCertModal(false)} />
+      </Modal>
+      <Modal open={openImportDialog} onHide={() => {setOpenImportModal(false); onAction('import')}} title="Import Entitlements from CSV file" config={{ className: "oe-modal oe-import-entitlement-dialog" }} width={800}>
+        <ImportEntitlementDialog onHide={() => setOpenImportModal(false)} />
       </Modal>
     </>
   )

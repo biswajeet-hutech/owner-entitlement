@@ -12,16 +12,12 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultVa
  
   const handleChange = (newValue) => {
     let editorState = newValue.getEditorState();
-    // let oldEditorState = editorValue.getEditorState();
     const contentState = editorState.getCurrentContent();
-    // const oldContent = oldEditorState.getCurrentContent();
-    // console.log("dasdasdas", contentState.getPlainText());
     if (contentState.getPlainText().length > maxLength) {
       setValue(RichTextEditor.createValueFromString(editorValue.toString('html') || "", "html"));
       return;
     }
     if (!contentState.getPlainText().length) {
-      // setValue(RichTextEditor.createEmptyValue());
       onChange(null);
     } else {
       onChange(newValue.toString('html'));

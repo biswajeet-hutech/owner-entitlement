@@ -36,7 +36,6 @@ const Search = ({
       onChange={handleSearchTextUpdate}
       onPressEnter={() => onSearch(searchText)}
       allowClear
-      handleReset={() => console.log("Hello reset")}
       suffix={
         <Tooltip title="Click to search">
           <Button icon={<SearchIcon/>} type="text" onClick={() => onSearch(searchText)}/>

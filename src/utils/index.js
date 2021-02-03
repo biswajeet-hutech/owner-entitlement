@@ -18,6 +18,9 @@ const getFormType = (prop) => {
   }
 };
 
+const getExportMembersFileName = (name="") => name.split("CN=").slice(0, 2).join("").split(",").join("_").split(" ").join("_").concat("_Members");
+
 export {
-  getFormType
+  getFormType,
+  getExportMembersFileName
 }

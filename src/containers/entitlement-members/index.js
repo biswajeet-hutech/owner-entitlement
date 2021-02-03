@@ -7,9 +7,11 @@ import Table from '../../components/table';
 import Typography from "../../components/typography";
 import Search from "../../components/search";
 import entitlementJSON from "../../data/entitlement-members-attribute.json";
+// import exportJSON from "../../data/export-entitlement.json";
 import { API, localMode } from "../../api";
 import './style.scss';
 import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon, NotCertifiedIcon,OpenIcon,PendingIcon, InfoHoverIcon,strings } from './../../assets';
+import { getExportMembersFileName } from "../../utils";
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -26,46 +28,6 @@ const CertificationStatus = ({status}) =>{
     default: return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
   }
 }
-// const entitlement_member_columns = [
-//   {
-//     title: 'Name',
-//     dataIndex: 'name',
-//     width:"100px",
-//     render: (text, record) => record.name?<span>{record.name}</span>:'—'
-//   },
-//   {
-//     title: 'Email',
-//     width:"180px",
-//     dataIndex: 'email',
-//   },
-//   {
-//     title: 'User Status',
-//     dataIndex: 'status',
-//     width:"100px",
-//     render: (text, record) => <UserStatus status={record.status}/>
-//   },
-//   {
-//     title: 'Manager',
-//     width:"130px",
-//     dataIndex: 'manager',
-//   },
-//   {
-//     title: 'Source',
-//     width:"100px",
-//     dataIndex: 'source',
-//   },
-//   {
-//     title: 'Certification Action',
-//     width:"110px",
-//     dataIndex: 'certificationaction',
-//     render: (text, record) => <CertificationStatus status={record.certificationaction}/>
-//   },
-//   {
-//     title: 'Certification Action Date',
-//     width:"90px",
-//     dataIndex: 'certificationactiondate',
-//   }
-// ];
 
 const headerConfig = {
   name: {
@@ -89,6 +51,7 @@ const headerConfig = {
 const EntitlementMembers = ({
   data={},
   id,
+  entitlementName = "",
   onUpdate
 }) => {
   const { saveAsCsv } = useJsonToCsv();
@@ -142,7 +105,7 @@ const EntitlementMembers = ({
         const csv_config = {
           data: exportData.details,
           fields: fields,
-          filename: 'Entitlement_Members'
+          filename: getExportMembersFileName(entitlementName)
         }
         saveAsCsv(csv_config);
       } catch(e) {
@@ -225,8 +188,7 @@ const EntitlementMembers = ({
             dataSource={data.MemberDetails || []}
             columns={columns}
             config={{
-              scroll:{ y: 360, x: "max-content" },
-              tableLayout:"fixed",
+              scroll:{ y: 360, x: 1500 },
               pagination: {
                 total: data.total,
                 current: paginationConfig.start,

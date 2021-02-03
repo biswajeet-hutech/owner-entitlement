@@ -1,15 +1,15 @@
 import React from "react";
+import { message, Spin } from "antd";
 
-import './style.scss';
-import Tabs from "../../components/tab";
 import EntitlementDetails from "../entitlement-details";
 import EntitlementMembers from "../entitlement-members";
 import { API, localMode } from "../../api";
-import { message, Spin } from "antd";
 import dummyData from "../../data/entitlement-details-dummy.json";
+import './style.scss';
 
 const EntitlementDetailsWrapper = ({
   entitlementId,
+  entitlementName,
   defaultActiveKey="1",
   editMode,
   onClose = ()=> {},
@@ -77,7 +77,7 @@ const EntitlementDetailsWrapper = ({
     name: 'Entitlement Members',
     content: (
       <Spin spinning={loadingEntitlement}>
-        <EntitlementMembers data={entitlementData.Members[0]} id={entitlementId} onUpdate={handleOnMemberSearch} />
+        <EntitlementMembers data={entitlementData.Members[0]} id={entitlementId} onUpdate={handleOnMemberSearch} entitlementName={entitlementName} />
       </Spin>
     )
   }, {

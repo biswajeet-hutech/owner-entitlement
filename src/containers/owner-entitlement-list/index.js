@@ -13,8 +13,10 @@ import {CheckFalse} from './../../assets';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
+import exportMemberData from "../../data/export-entitlement.json";
 import entitlementHeadersData from "../../data/entitlement-headers.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
+import { getExportMembersFileName } from "../../utils";
 
 const OwnerEntitlement = () => {
   const tablePaginationConfig = {
@@ -106,7 +108,7 @@ const OwnerEntitlement = () => {
         const csv_config = {
           data: exportData.details,
           fields: fields,
-          filename: memID
+          filename: filename || memID
         }
         saveAsCsv(csv_config);
       } catch(e) {
@@ -189,6 +191,9 @@ const OwnerEntitlement = () => {
   }
 
   const headerConfig = {
+    value: {
+      fixed: true
+    },
     description: {
       render: (text) => text?
       (<div dangerouslySetInnerHTML={{__html: text}} className={(text||'').length>59?"oe-td-description-link":"oe-td-description"} onClick={(text||'').length>59?()=>setShowDescrptionModal({show:true,data:{descrption:text}}):()=>{}}/>)
@@ -199,15 +204,16 @@ const OwnerEntitlement = () => {
       render: (text) => text === "true" ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />
     },
     users: {
-      render: (text, record) => <a onClick={text > 0?() => setShowMembersModal({show: true, data: {...record} }):()=>{}} className={text>0?"oe-link":"oe-disabled-link"}>{text>0?`${text} Member${text > 1 ? 's' : ''}`:`No Members`}</a>
+      render: (text, record) => <a onClick={text > 0 ? () => setShowMembersModal({show: true, data: {...record} }) : ()=>{}} className={text > 0 ? "oe-link" : "oe-disabled-link"}>{text > 0 ? `${text} Member${text > 1 ? 's' : ''}`:`No Members`}</a>
     },
   }
 
-  const handleAction = (actionType, value) => {
+  const handleAction = (actionType, actionProps) => {
     switch (actionType) {
       case 'export':
-        exportAPI(value);
+        exportAPI(actionProps.id, getExportMembersFileName(actionProps.value || actionProps.displayName));
         return;
+      case 'import':
       case 'dispute':
       case 'edit_success':
         getEntitlementList(tableConfig);
@@ -238,17 +244,13 @@ const OwnerEntitlement = () => {
   ];
 
   const handlePageChange = (page, pageSize) => {
-    // console.log(page, pageSize);
     getEntitlementList({ ...tableConfig, totalRecordsToFetch: pageSize, start: page - 1 });
   }
 
   const handleMultipleExport = (searchProps) => {
     muiltipleExportAPI(searchProps);
   }
-  let locale = {
-    emptyText: 'Abc',
 
-  };
   return (
     <>
       <CardWrapper cardData={entitlementStatistics} />
@@ -257,14 +259,14 @@ const OwnerEntitlement = () => {
           <SearchWithActionBar
             onSearch={handleSearchEntitlement}
             onExport={handleMultipleExport}
+            onAction={handleAction}
           />
           <Table
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll:{ y: window.screen.height<700?"200px":"300px", x: "100%" },
-              tableLayout:"auto",
-              localae:locale,
+              scroll:{ y: window.screen.height< 700 ? 200 : 360, x: 'max-content' },
+              // tableLayout:"fixed",
               renderEmpty:true,
               pagination: {
                 total: entitlementList.total,
@@ -284,6 +286,7 @@ const OwnerEntitlement = () => {
         <EntitlementDetailsWrapper
           defaultActiveKey="1"
           entitlementId={showMembersModal.data.id}
+          entitlementName={showMembersModal.data.value || showMembersModal.data.displayName}
           onClose={() => {
               setShowMembersModal({ show: false, data: {}});
               getEntitlementList(tableConfig);

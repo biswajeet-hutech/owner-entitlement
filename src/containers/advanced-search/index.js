@@ -37,7 +37,6 @@ const AdvancedSearch = ({ onSearch }) => {
   }
 
   const filterCount = () => {
-    console.log(searchData);
     const count = (searchData.application ? 1 : 0) + (searchData.attribute ? 1 : 0) + (searchData.value ? 1 : 0) + (Object.keys(searchData?.extendedAttributes).filter(item => searchData?.extendedAttributes[item])).length;
     
     return count;
