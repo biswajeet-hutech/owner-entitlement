@@ -160,10 +160,10 @@ const EntitlementMembers = ({
           <Col>
             <Button
               type="secondary"
-              leftIcon={<>
-                <ExportsIcon className="normal"/>
-                <ExportHoverIcon className="hover" width="16px" height="16px"/></>
-              }
+              // leftIcon={<>
+              //   <ExportsIcon className="normal"/>
+              //   <ExportHoverIcon className="hover" width="16px" height="16px"/></>
+              // }
               rightIcon={(
                 <Popover
                   content={<div style={{ maxWidth: 200, fontSize: 13 }}>Export entitlement members details</div>}
@@ -179,7 +179,7 @@ const EntitlementMembers = ({
               className="oe-exportBtn"
               onClick={() => exportAPI(id)}
             >
-              Export
+              EXPORT
             </Button>
           </Col>
         </Row>
@@ -188,7 +188,7 @@ const EntitlementMembers = ({
             dataSource={data.MemberDetails || []}
             columns={columns}
             config={{
-              scroll:{ y: 360, x: 1500 },
+              scroll:{ y: 320, x: 1500 },
               pagination: {
                 total: data.total,
                 current: paginationConfig.start,

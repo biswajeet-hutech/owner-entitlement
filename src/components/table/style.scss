@@ -25,6 +25,7 @@
         color: $color-table-head;
         background: $background-color-table-head;
         font-size: $font-size-14;
+        font-family: $primary-font-medium;
         height: 56px;
       }
     }
@@ -104,6 +105,7 @@
   & .oe-icon-btn-wrapper {
     display: flex;
     justify-content: center;
+    padding: 0 10px;
     .oe-icon-btn {
       & > .hover {
         display: none;
