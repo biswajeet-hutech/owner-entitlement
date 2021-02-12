@@ -8,8 +8,6 @@ import "./style.scss";
 import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
 import RaiseDispute from "../raise-dispute";
 
-// import img1 from "../../assets/images/group-5.svg";
-
 const { useBreakpoint } = Grid;
 
 const ResponsiveActionIcons = ({
@@ -54,8 +52,8 @@ const ResponsiveActionIcons = ({
           <EditHoverIcon className="hover"/>
         </div>
       </Tooltip>
-      <Tooltip title="Export" placement="bottom">
-        <div className="oe-icon-btn" onClick={() => onAction('export', data.id)}>
+      <Tooltip title="Export Members" placement="bottom">
+        <div className="oe-icon-btn" onClick={() => onAction('export', data)}>
           <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="normal"/>          
           <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="hover"/>
         </div>

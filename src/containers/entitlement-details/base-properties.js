@@ -1,5 +1,6 @@
 import React from "react";
 import { Row } from "antd";
+import { getFormType } from "../../utils";
 import Button from "../../components/button";
 import './style.scss';
 import FormElement from "../../components/form-element";
@@ -17,7 +18,11 @@ const BaseProperties = ({
 }) => {
   const [entitlementData, setEntitlementData] = React.useState(data.EntitlementDetails || {});
   const [formData, setFormData] = React.useState({});
+  const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
+  const requiredCommonAttributes = ["displayName", "description"];
+  const requiredExtendedAttributes = Array.isArray(data.ExtentedAttributeProperties) ? data.ExtentedAttributeProperties.filter(item => ((item.name !== "approval_levels") && ["input", "dropdown"].includes(getFormType(item)))).map(item => item.name) : [];
+  const requiredProps = [...requiredCommonAttributes, ...requiredExtendedAttributes];
 
   const handleUpdate = (key, value) => {
     // console.log('updatefff');
@@ -64,6 +69,8 @@ const BaseProperties = ({
       maxLength: 100,
       value: entitlementData.displayName,
       readOnly,
+      required: true,
+      error: errors.displayName,
       onChange: (value) => handleUpdate('displayName', value)
     },
     {
@@ -72,6 +79,7 @@ const BaseProperties = ({
       value: entitlementData.requestable === "true",
       type: 'checkbox',
       readOnly,
+      // required: true,
       onChange: (value) => handleUpdate('requestable', value+'')
     },
     {
@@ -80,21 +88,34 @@ const BaseProperties = ({
       value: data.EntitlementDetails.description,
       defaultValue: data.EntitlementDetails.description,
       type: 'description',
+      required: true,
+      error: errors.description,
       readOnly,
       onChange: (value) => handleUpdate('description', value)
     }
   ]
 
   const handleSaveData = () => {
-    const payload = {};
-    // console.log(formData);
-    for (const key in formData) {
-      if(!readOnlyProperties.includes(key)) {
-        payload[key] = formData[key];
+    const errors = {};
+    requiredProps.forEach(item => {
+      if (!entitlementData[item]) {
+        errors[item] = "This field is required";
       }
-    }
+    })
 
-    onSave(payload);
+    const inValidForm = Object.keys(errors).length;
+    setErrors(errors);
+    if (inValidForm) {
+      return;
+    } else {
+      const payload = {};
+      for (const key in formData) {
+        if(!readOnlyProperties.includes(key)) {
+          payload[key] = formData[key];
+        }
+      }
+      onSave(payload);
+    }
   }
 
   React.useEffect(() => {
@@ -131,6 +152,7 @@ const BaseProperties = ({
         extendedProps={data.ExtentedAttributeProperties}
         readOnly={readOnly}
         onChange={handleUpdate}
+        errors={errors}
       />
       {
         !readOnly && (

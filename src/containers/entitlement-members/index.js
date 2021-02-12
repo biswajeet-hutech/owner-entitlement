@@ -6,10 +6,12 @@ import Button from "../../components/button";
 import Table from '../../components/table';
 import Typography from "../../components/typography";
 import Search from "../../components/search";
-
+import entitlementJSON from "../../data/entitlement-members-attribute.json";
+// import exportJSON from "../../data/export-entitlement.json";
 import { API, localMode } from "../../api";
 import './style.scss';
-import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon,OpenIcon,PendingIcon, InfoHoverIcon,strings } from './../../assets';
+import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon, NotCertifiedIcon,OpenIcon,PendingIcon, InfoHoverIcon,strings } from './../../assets';
+import { getExportMembersFileName } from "../../utils";
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -17,63 +19,43 @@ const UserStatus = ({status}) =>{
 }
 
 const CertificationStatus = ({status}) =>{
-  switch(status.toLowerCase()){
-    case 'approved':return(<div className={`certificationStatus ${status.toLowerCase()}`}><ApprovedIcon alt={status}/> <span>{status}</span></div>)
-    case 'revoked':return(<div className={`certificationStatus ${status.toLowerCase()}`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
-    case 'open':return(<div className={`certificationStatus ${status.toLowerCase()}`}><OpenIcon alt={status}/> <span>{status}</span></div>)
-    case 'pending':return(<div className={`certificationStatus ${status.toLowerCase()}`}><PendingIcon alt={status}/> <span>{status}</span></div>)
-    default:return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>Revoked</span></div>)
+  switch(status.toLowerCase()) {
+    case 'approved': return(<div className={`certificationStatus ${status.toLowerCase()}`}><ApprovedIcon alt={status}/> <span>{status}</span></div>)
+    case 'revoked': return(<div className={`certificationStatus ${status.toLowerCase()}`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
+    case 'open': return(<div className={`certificationStatus ${status.toLowerCase()}`}><OpenIcon alt={status}/> <span>{status}</span></div>)
+    case 'pending': return(<div className={`certificationStatus ${status.toLowerCase()}`}><PendingIcon alt={status}/> <span>{status}</span></div>)
+    case 'not certified': return(<div className={`certificationStatus ${status.toLowerCase()}`}><NotCertifiedIcon alt={status}/> <span>{status}</span></div>)
+    default: return(<div className={`certificationStatus revoked`}><RevokedIcon alt={status}/> <span>{status}</span></div>)
   }
 }
-const entitlement_member_columns = [
-  {
+
+const headerConfig = {
+  name: {
     title: 'Name',
     dataIndex: 'name',
-    width:"100px",
-    render: (text, record) => record.name?<span>{record.name}</span>:'—'
+    render: (text, record) => record.name? <span>{record.name}</span> : '—'
   },
-  {
-    title: 'Email',
-    width:"180px",
-    dataIndex: 'email',
-  },
-  {
+  status: {
     title: 'User Status',
     dataIndex: 'status',
-    width:"100px",
     render: (text, record) => <UserStatus status={record.status}/>
   },
-  {
-    title: 'Manager',
-    width:"130px",
-    dataIndex: 'manager',
-  },
-  {
-    title: 'Source',
-    width:"100px",
-    dataIndex: 'source',
-  },
-  {
+  certificationaction: {
     title: 'Certification Action',
-    width:"110px",
     dataIndex: 'certificationaction',
+    width: "180px",
     render: (text, record) => <CertificationStatus status={record.certificationaction}/>
   },
-  {
-    title: 'Certification Action Date',
-    width:"90px",
-    dataIndex: 'certificationactiondate',
-  }
-];
-
-const columns = entitlement_member_columns.map((item)=>{return {render: (text,record)=> record[item.dataIndex]?record[item.dataIndex]:'—',...item}})
+};
 
 const EntitlementMembers = ({
   data={},
   id,
+  entitlementName = "",
   onUpdate
 }) => {
   const { saveAsCsv } = useJsonToCsv();
+  const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
   const [paginationConfig, setPaginationConfig] = React.useState({
     totalRecordsToFetch: 25,
@@ -95,6 +77,21 @@ const EntitlementMembers = ({
     });
   }
 
+
+  const getEntitlementHeaders = () => {
+    const url = 'EntitlementManagement/memberattributes';
+    API.get(url).then(res => {
+      if (Array.isArray(res.data)) {
+        setEntitlementHeaders([...res.data]);
+      }
+    }).catch(err => {
+      message.error("Failed to load headers");
+      if (localMode) {
+        setEntitlementHeaders([...entitlementJSON]);
+      }
+    });
+  }
+
   const exportAPI = (entitlementID) => {
     setLoadingEntitlement(true);
     API.get(`EntitlementManagement/exportmember/${entitlementID}`)
@@ -108,7 +105,7 @@ const EntitlementMembers = ({
         const csv_config = {
           data: exportData.details,
           fields: fields,
-          filename: 'Entitlement_Members'
+          filename: getExportMembersFileName(entitlementName)
         }
         saveAsCsv(csv_config);
       } catch(e) {
@@ -125,6 +122,20 @@ const EntitlementMembers = ({
       // always executed
     });
   }
+
+  const columns = [
+    ...entitlementHeaders.map(item => ({
+      title: item.displayName,
+      dataIndex: item.name,
+      render: (text,record)=> record[item.name] || '—',
+      className:item.className || '',
+      ...(headerConfig[item.name] || {})
+    }))
+  ];
+
+  React.useEffect(() => {
+    getEntitlementHeaders();
+  }, []);
 
   return (
     <Spin spinning={loadingEntitlement}>
@@ -177,8 +188,7 @@ const EntitlementMembers = ({
             dataSource={data.MemberDetails || []}
             columns={columns}
             config={{
-              scroll:{ y: 360, x: "max-content" },
-              tableLayout:"auto",
+              scroll:{ y: 360, x: 1500 },
               pagination: {
                 total: data.total,
                 current: paginationConfig.start,

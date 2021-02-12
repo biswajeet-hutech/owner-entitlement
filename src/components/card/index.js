@@ -6,7 +6,11 @@ const Card = ({
   description,
   backGround
 }) => {
-  const backgroundImage = `url(${cards['col'+backGround]})`
+  const maxCardDesignNo = 5; //total number of card design
+  const colIndex = maxCardDesignNo >= backGround ? backGround : backGround % maxCardDesignNo;
+  
+  const backgroundImage = `url(${cards['col'+colIndex]})`;
+
   return (
    <div className="oe-card" style={{backgroundImage:backgroundImage}}>
      <div className="oe-card-value">{value}</div>

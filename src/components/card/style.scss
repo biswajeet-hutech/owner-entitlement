@@ -4,7 +4,7 @@
 .oe-card {
   width: 20%;
   min-width: 200px;
-  max-width: 228px;
+  // max-width: 228px;
   height: 110px;
   border-radius: 4px;
   box-shadow: 0 1px 1px 1px #ccc;
@@ -46,14 +46,8 @@
   }
 }
 
-@media screen and (max-width: 1024px) {
-  .oe-card {
-    padding: 10px 12px;
-  }
-}
-
 @media screen and (max-width: 1280px) {
   .oe-card {
-    padding: 10px 16px;
+    padding: 10px 12px;
   }
 }

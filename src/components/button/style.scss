@@ -80,7 +80,7 @@
       cursor: not-allowed;
     }
   }
-  &.oe-exportBtn {
+  &.oe-exportBtn, &.oe-importBtn {
     border-radius: 4px;
     border: 1px solid $button-border;
     height: 33px;

@@ -1,5 +1,5 @@
 {
-  "total": "15",
+  "total": "150",
   "EntitlementDetails": [
     {
       "owner": "",
@@ -22,7 +22,7 @@
       "attribute": "entitlement",
       "requestable": "false",
       "certifiable": "Yes",
-      "value": "ent_0000004080"
+      "value": "CN=Protected Users,CN=Users,DC=st,DC=com"
     },
     {
       "owner": "",

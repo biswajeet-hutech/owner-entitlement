@@ -74,6 +74,12 @@
   height: auto;
 }
 
+.oe-importBtn {
+  & img {
+    transform: rotate(180deg);
+  }
+}
+
 @media screen and (max-width: 600px) {
   .action-wrapper {
     padding: 20px 8px;

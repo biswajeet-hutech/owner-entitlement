@@ -25,7 +25,8 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
       trigger="hover"
       visible={visible}
       onVisibleChange={onVisibleChange}
-      onClick={(e) => e.stopPropagation()}
+      onClick={(e) => {e.preventDefault(); e.stopPropagation();}}
+      placement="bottomRight"
     >
       <span className="oe-info-content-span">
         <InfoIcon width={14} height={14} className="normal"/>

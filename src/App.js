@@ -11,7 +11,7 @@ function App() {
       <Tabs 
         className="home_tab"
       tabs={[{
-        name: 'Entitlement Owner Self-service',
+        name: 'Review Owned Entitlements',
         content: <OwnerEntitlement />
       }]} />
     </div>
