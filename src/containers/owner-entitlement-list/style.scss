@@ -36,6 +36,7 @@
   overflow: auto;
   display: flex;
   justify-content: space-between;
+  padding: 24px 0;
   .oe-card {
     background-position: top 2px right 2px;
     background-repeat: no-repeat;
@@ -74,11 +75,11 @@
   height: auto;
 }
 
-.oe-importBtn {
-  & img {
-    transform: rotate(180deg);
-  }
-}
+// .oe-importBtn {
+//   & img {
+//     transform: rotate(180deg);
+//   }
+// }
 
 @media screen and (max-width: 600px) {
   .action-wrapper {

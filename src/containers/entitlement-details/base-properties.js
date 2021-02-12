@@ -45,16 +45,19 @@ const BaseProperties = ({
       type: 'input',
       readOnly: true
     },
+  ];
+
+  const userActionSectionData = [
     {
       key: 'lastrefresh',
-      label: 'Last Refreshed',
+      label: 'Refreshed On',
       value: entitlementData.lastrefresh,
       type: 'input',
       readOnly: true
     },
     {
       key: 'modified',
-      label: 'Last Modified',
+      label: 'Updated On',
       value: entitlementData.modified,
       type: 'input',
       readOnly: true
@@ -154,6 +157,11 @@ const BaseProperties = ({
         onChange={handleUpdate}
         errors={errors}
       />
+      <div className="form-section form-section-readonly form-top-border">
+        {
+          userActionSectionData.map(formElement => <FormElement {...formElement} />)
+        } 
+      </div>
       {
         !readOnly && (
         <>

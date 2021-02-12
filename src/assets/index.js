@@ -33,6 +33,7 @@ const EditHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls
 const DisputeHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.disputehover} width={width?width:22} height={height?height:22} alt={alt?alt:"Dispute"} className={className}/>
 const ExportCertHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.exportCerthover} width={width?width:22} height={height?height:22} alt={alt?alt:"Export"} className={className}/>
 const ExportHoverIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.exportHover} width={width?width:22} height={height?height:22} alt={alt?alt:"Export"} className={className}/>
+const HelpIcon = ({width,height,alt,className}) => <Icon dataUrl={ImageUrls.icons.helpIcon} width={width?width:22} height={height?height:22} alt={alt?alt:"Help"} className={className}/>
 const backgroundImage = `url(${ImageUrls.backgroundImage})`
 
 export {
@@ -58,6 +59,7 @@ export {
     ExportHoverIcon,
     ExportCertHoverIcon,
     ExportCertIcon,
+    HelpIcon,
     backgroundImage,
     strings
 }

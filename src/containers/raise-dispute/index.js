@@ -28,9 +28,11 @@ const RaiseDispute = ({
       message: disputeComment,
       id: entID
     }).then(response => {
-      // console.log(response);
-      // message.success("Dispute Raised!");
-      onSuccess();
+      if (response.data && response.data.status === 'success') {
+        onSuccess();
+      } else {
+        onError(response.message);
+      }
     }).catch(err => {
       console.log(err);
       onError();

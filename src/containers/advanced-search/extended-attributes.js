@@ -97,7 +97,7 @@ const ExtendedAttributes = ({
   }
 
   return (
-    <Col md={6} style={{ margin: '4px 0' }}>
+    <Col md={8} lg={6} style={{ margin: '4px 0' }}>
       {
         renderContent()
       }
