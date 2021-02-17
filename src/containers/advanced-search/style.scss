@@ -21,11 +21,12 @@
 
 .oe-adv-search-content {
   padding: 8px;
-  width: 900px;
+  max-width: 900px;
+  min-width: 900px;
   min-height: fit-content;
-  max-height: 420px;
+  // max-height: 420px;
   .oe-adv-search-content_form {
-    max-height: 320px;
+    max-height: 400px;
     overflow-y: auto;
   }
   & .divider {
@@ -91,7 +92,6 @@
   &:focus {
     color: $theme-primary;
     background-color: #037ca11a;
-    box-shadow: inset 0 0 0 1px $theme-primary;
     outline: 0;
   }
 }
@@ -132,6 +132,11 @@
   .oe-adv-search-content {
     padding: 12px;
     width: 100%;
-    min-height: 100%;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .oe-adv-search-content {
+    min-width: 600px;
   }
 }

@@ -16,11 +16,10 @@ const Modal = ({
     title={title}
     className={`oe-modal ${className?className:''}`}
     centered
-    style={{ top: 20 }}
     visible={open}
     onCancel={onHide}
     closeIcon={<CloseOutlined style={{ fontSize: 24, color: '#202020', fontWeight: 'bold' }} />}
-    width={width?width:1180}
+    width={width ? width : 900}
     destroyOnClose
     {...config}
   >

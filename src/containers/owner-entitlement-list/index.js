@@ -15,6 +15,7 @@ import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
 import exportMemberData from "../../data/export-entitlement.json";
 import entitlementHeadersData from "../../data/entitlement-headers.json";
+import helpDataJSON from "../../data/helpdata.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
 import { getExportMembersFileName } from "../../utils";
 
@@ -35,8 +36,10 @@ const OwnerEntitlement = () => {
   const [entitlementList, setEntitlementList] = React.useState({...defaultEntitlementList});
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
+  const [helpData, setHelpData] = React.useState('');
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
+  const [tableHeight, setTableHeight] = React.useState(window.screen.height - 600);
   const [tableConfig, setTableConfig] = React.useState({
     totalRecordsToFetch: tablePaginationConfig.defaultPageSize,
     start: 0
@@ -77,6 +80,20 @@ const OwnerEntitlement = () => {
       message.error("Failed to load statistics");
       if (localMode) {
         setEntitlementStatistics([...statisticsData]);
+      }
+    });
+  }
+
+  const getHelpInfoData = () => {
+    const url = 'EntitlementManagement/helpurl';
+    API.get(url).then(res => {
+      if (res.data) {
+        setHelpData(res.data);
+      }
+    }).catch(err => {
+      message.error("Failed to load help info");
+      if (localMode) {
+        setHelpData(helpDataJSON);
       }
     });
   }
@@ -166,6 +183,7 @@ const OwnerEntitlement = () => {
       start: 0
     });
     getEntitlementStatistics();
+    getHelpInfoData();
   }, []);
 
   const rowSelection = {
@@ -226,12 +244,13 @@ const OwnerEntitlement = () => {
 
   const columns = [
     ...entitlementHeaders.map(item => ({
+      sorter: ['description', 'users'].includes(item.name) ? null : (a, b) => (a[item.name]+'').localeCompare(b[item.name]+''),
       title: item.displayName,
       dataIndex: item.name,
       render: (text,record)=> record[item.name]?record[item.name]:'—',
       className:item.className?item.className:'',
       width:item.width?item.width:'200px',
-      ...(headerConfig[item.name] || {})
+      ...(headerConfig[item.name] || {}),
     })),
     entitlementHeaders.length ? {
       title: 'Action',
@@ -251,6 +270,15 @@ const OwnerEntitlement = () => {
     muiltipleExportAPI(searchProps);
   }
 
+  React.useLayoutEffect(() => {
+    function updateSize() {
+      setTableHeight(window.screen.height - 600);
+    }
+    window.addEventListener('resize', updateSize);
+    updateSize();
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
   return (
     <>
       <CardWrapper cardData={entitlementStatistics} />
@@ -260,12 +288,13 @@ const OwnerEntitlement = () => {
             onSearch={handleSearchEntitlement}
             onExport={handleMultipleExport}
             onAction={handleAction}
+            helpUrl={helpData}
           />
           <Table
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll:{ y: window.screen.height< 700 ? 200 : 360, x: 'max-content' },
+              scroll:{ y: tableHeight, x: 'max-content' },
               // tableLayout:"fixed",
               renderEmpty:true,
               pagination: {

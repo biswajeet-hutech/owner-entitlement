@@ -1,7 +1,7 @@
 import React from "react";
-import { Row, Col } from 'antd';
+import { Row, Col, Tooltip } from 'antd';
 
-import { ExportsIcon, ExportHoverIcon,strings } from './../../assets'
+import { ExportsIcon, ExportHoverIcon,strings, HelpIcon } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
@@ -14,7 +14,8 @@ import "./style.scss";
 const SearchWithActionBar = ({
   onSearch = () => {},
   onExport = () => {},
-  onAction = () => {}
+  onAction = () => {},
+  helpUrl
 }) => {
   const [openSecduledCertModal, setOpenSecduledCertModal] = React.useState(false);
   const [openImportDialog, setOpenImportModal] = React.useState(false);
@@ -66,26 +67,32 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button className="oe-importBtn" onClick={() => setOpenImportModal(true)} type="text" leftIcon={
-            <>
-              <ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/>
-            </>
-            }
+          {/* <Button className="oe-importBtn" onClick={() => setOpenImportModal(true)} type="text"
             rightIcon={(
               <InfoContent
                 type="import"
                 visible={popVisible.import}
                 onVisibleChange={(v) => changeInfoContent(v, "import")}
                 onHide={hideInfoContent} />
-            )}>Import</Button>
-          <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text" leftIcon={
-          <><ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/></>} rightIcon={(
+            )}>IMPORT</Button> */}
+          <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text"
+          // leftIcon={
+          //   <>
+          //     <ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/>
+          //   </>
+          // }
+          rightIcon={(
             <InfoContent
               type="export"
               visible={popVisible.export}
               onVisibleChange={changeInfoContent}
               onHide={hideInfoContent} />
-          )}>Export</Button>
+          )}>EXPORT</Button>
+          <Tooltip title="Help" placement="bottom">
+            <a href={helpUrl} target="_blank">
+              <HelpIcon />
+            </a>
+          </Tooltip>
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

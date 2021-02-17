@@ -150,7 +150,7 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
 
   React.useEffect(() => {
     getExtendedAttributes();
-    callSearchAPI('applications', 'application');
+    // callSearchAPI('applications', 'application');
   }, []);
 
   React.useEffect(() => {
@@ -174,8 +174,9 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
   return (
     <Spin spinning={loading}>
       <div className="oe-adv-search-content">
-        <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
-          <div className="oe-adv-search-content_form">
+        <div className="oe-adv-search-content_form">
+          <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
+        {/* <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
           <Row>
           <Col md={6} style={{ margin: '4px 0' }}>
             <Dropdown
@@ -200,31 +201,25 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
              label="Value" 
              disabled={!formData.attribute} />
           </Col>
-          {/* <Col md={6} style={{ margin: '4px 0' }}>
-            <Dropdown 
-            options={typeData} 
-            value={formData.value}
-             onChange={(v, e) => updateFormData('type', v)} 
-             label="Type" 
-             disabled={!formData.application} />
-          </Col> */}
         </Row>
-        <div className="divider"></div>
-        <Typography type="body2" className="oe-overlay-subheader">Searchable Attributes</Typography>
-        <Spin spinning={loadingExtendedAttr} indicator={loadingIcon}>
-          <Row>
-            {extendedAttributes.map(item => (
-              <ExtendedAttributes selectedValues={formData.extendedAttributes} data={item} updateFormData={handleUpdateFormData} />
-            ))}
+        <div className="divider"></div> */}
+        {/* <Typography type="body2" className="oe-overlay-subheader">Searchable Attributes</Typography> */}
+          <Spin spinning={loadingExtendedAttr} indicator={loadingIcon}>
+            <Row>
+              {extendedAttributes.map(item => (
+                <ExtendedAttributes selectedValues={formData.extendedAttributes} data={item} updateFormData={handleUpdateFormData} />
+              ))}
+            </Row>
+          </Spin>
+        </div>
+        {
+          extendedAttributes.length ? (
+          <Row justify="end" className="oe-overlay-footer">
+            <Button onClick={onClose} className="transBtn">Cancel</Button>
+            <Button onClick={onClear} className="transBtn">Reset</Button>
+            <Button type="primary" className="oe-advance-search-btn" onClick={handleAdvanceSearch}>Apply</Button>
           </Row>
-        </Spin>
-        
-          </div>
-        <Row justify="end" className="oe-overlay-footer">
-          <Button onClick={onClose} className="transBtn">Cancel</Button>
-          <Button onClick={onClear} className="transBtn">Reset</Button>
-          <Button type="primary" className="oe-advance-search-btn" onClick={handleAdvanceSearch}>Apply</Button>
-        </Row>
+        ) : null }
       </div>
     </Spin>
   )

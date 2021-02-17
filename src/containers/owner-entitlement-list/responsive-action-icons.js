@@ -22,13 +22,13 @@ const ResponsiveActionIcons = ({
     origin: ''
   })
 
-  const getActionDialogConfig = (origin, type) => {
+  const getActionDialogConfig = ({origin, type, text}) => {
     switch(origin) {
       case 'dispute':
         return {
           type: type,
-          title: type === 'success' ? 'Dispute Raised!' : 'Oops! Something went wrong.',
-          subTitle: type === 'success' ? '' : 'Some error occured while raising dispute. Please try again.'
+          title: type === 'success' ? 'Dispute Raised!' : 'Error',
+          subTitle: type === 'success' ? '' : (text || 'Unable to raise dispute.')
         };
         default:
           return {}
@@ -77,11 +77,11 @@ const ResponsiveActionIcons = ({
         <RaiseDispute
           entitlementData={data}
           onHide={() => setOpenDisputeModal(false)}
-          onSuccess={() => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'success', origin: 'dispute' }); onAction('dispute')}}
-          onError={() => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'error', origin: 'dispute' })}}
+          onSuccess={() => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'success', origin: 'dispute' });}}
+          onError={(errorMessage) => {setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'error', origin: 'dispute', text: errorMessage })}}
         />
       </Modal>
-      <ActionDialog open={actionModalConfig.show} onHide={() => setActionModalConfig({ show: false, type: '' })} {...getActionDialogConfig(actionModalConfig.origin, actionModalConfig.type)} />
+      <ActionDialog open={actionModalConfig.show} onHide={() => {setActionModalConfig({ show: false, type: '' }); onAction('dispute')}} {...getActionDialogConfig(actionModalConfig)} />
     </div>
   );
 

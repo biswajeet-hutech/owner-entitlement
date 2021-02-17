@@ -3,7 +3,7 @@ import RichTextEditor from 'react-rte';
 
 import './style.scss';
  
-const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=1024, defaultValue="", error }) => {
+const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=500, defaultValue="", error }) => {
   const textValue = RichTextEditor.createValueFromString(defaultValue || "", "html");
   const [editorValue, setValue] = React.useState(textValue);
   const editorState = editorValue.getEditorState();
