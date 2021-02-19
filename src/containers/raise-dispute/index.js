@@ -1,7 +1,7 @@
 import React from "react";
 
 import { Spin } from "antd";
-
+import {DisputeModal} from '../../assets';
 import './style.scss';
 import Accordion from "../../components/accordion";
 import RaiseDisputeForm from "./raise-dispute-form";
@@ -57,6 +57,7 @@ const RaiseDispute = ({
   const panelData = [{
     title: 'Entitlement Properties',
     subTitle: 'Provide a dispute comment to raise dispute',
+    icon:<DisputeModal/>,
     content: <RaiseDisputeForm entitlementData={entitlementData} onChange={handleUpdate} comment={disputeComment} onHide={onHide} onSubmit={handleSubmit} error={error} />
   }];
 

@@ -13,16 +13,20 @@
     padding: 20px 32px;
     border-radius: 10px 10px 0 0;
     border-bottom: solid 1px $border-variant-1;
+    background-color: #10a2ce;
+    margin-bottom: 8px;
   }
   & .ant-modal-title {
-    font-family: $primary-font-medium;
-    font-size: $font-size-20;
-    font-weight: $font-weight-normal;
+    font-size: $font-size-24;
+    font-weight: 300;
     font-stretch: normal;
     font-style: $font-style-normal;
-    line-height: normal;
-    letter-spacing: normal;
-    color: $typo-text-1;
+    line-height: 26px;
+    letter-spacing: 0.2px;
+    color: #fff;
+    img{
+      margin-right: 18px;
+    }
   }
   & .ant-modal-body {
     font-family: $primary-font-regular;
@@ -36,7 +40,6 @@
     padding: 0px 0px 0px 0px;
     max-height: 74vh;
     min-height: max-content;
-    overflow-y: auto;
     & .oe-modal-content {
       // height: 65vh;
       .oe-table {
@@ -44,8 +47,8 @@
           &::after {
             height: 4px;
             border-top: 2px solid $background-color;
-            width: calc(100% - 70px);
-            left: 32px;
+            width: 100%;
+            // left: 32px;
           }
           tr {
             border-bottom: 1px solid $input-border;
@@ -88,9 +91,16 @@
     width: 42px;
     height: 42px;
     line-height: 52px;
-    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    color: #fff;
+    svg{
+      fill: #fff!important;
+    }
     &:hover {
       background-color: #ededed;
+      color: #000;
+      svg{
+        fill: #000!important;
+      }
     }
   }
 }

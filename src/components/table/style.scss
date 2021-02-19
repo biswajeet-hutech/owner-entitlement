@@ -19,14 +19,23 @@
       border-top: 2px solid $background-color;
       width: calc(100% - 0px);
     }
-
+    & > tr > th {
+      &:first-child{
+        padding-left: 20px!important;
+      }
+    }
     & > tr {
       & > th {
         color: $color-table-head;
         background: $background-color-table-head;
         font-size: $font-size-14;
+        font-weight: bold;
         font-family: $primary-font-medium;
         height: 56px;
+        &:hover {
+          background-color: #fff;
+        }
+        
       }
     }
   }
@@ -64,6 +73,9 @@
         color: $typo-text-2;
         cursor: context-menu;
       }
+      &:first-child{
+        padding-left: 20px;
+      }
     }
   }
   & .ant-pagination-item-active {
@@ -88,14 +100,15 @@
     font-size: $font-size-12;
   }
   & .oe-icon-btn {
-    width: 20px;
-    height: 20px;
-    padding: 4px 10px;
+    width: 31px;
+    height: 31px;
     border-radius: 2px;
     margin-right: 10px;
     display: flex;
+    border: solid 1px #dfe2e8;
     align-items: center;
     cursor: pointer;
+    background-image: linear-gradient(to bottom, #ffffff 16%, #f9fafc);
     justify-content: center;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
     &:last-child {
@@ -107,6 +120,8 @@
     justify-content: center;
     padding: 0 10px;
     .oe-icon-btn {
+      margin: 0px 2.5px;
+      object-fit: contain;
       & > .hover {
         display: none;
       }

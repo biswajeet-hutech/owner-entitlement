@@ -8,8 +8,8 @@ import ResponsiveActionIcons from './responsive-action-icons';
 import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
 import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
-import {CheckTrue} from './../../assets';
-import {CheckFalse} from './../../assets';
+import { CheckTrue } from './../../assets';
+import { CheckFalse } from './../../assets';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
@@ -31,9 +31,9 @@ const OwnerEntitlement = () => {
   }
 
   const { saveAsCsv } = useJsonToCsv();
-  const [showMembersModal, setShowMembersModal] = React.useState({show: false, data: {}});
-  const [showDescrptionModal, setShowDescrptionModal] = React.useState({show: false, data: {}});
-  const [entitlementList, setEntitlementList] = React.useState({...defaultEntitlementList});
+  const [showMembersModal, setShowMembersModal] = React.useState({ show: false, data: {} });
+  const [showDescrptionModal, setShowDescrptionModal] = React.useState({ show: false, data: {} });
+  const [entitlementList, setEntitlementList] = React.useState({ ...defaultEntitlementList });
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
   const [helpData, setHelpData] = React.useState('');
@@ -46,19 +46,19 @@ const OwnerEntitlement = () => {
   });
 
   const getEntitlementList = ({ totalRecordsToFetch, start, searchVal, otherProps }) => {
-    setTableConfig({totalRecordsToFetch, start, searchVal, otherProps});
+    setTableConfig({ totalRecordsToFetch, start, searchVal, otherProps });
     setLoadingEntitlement(true);
     const url = 'EntitlementManagement/EntitlmentDetails';
     API.post(url, {
       PagingInfo: {
-        totalRecordsToFetch: totalRecordsToFetch+'',
-        start: start*totalRecordsToFetch+''
+        totalRecordsToFetch: totalRecordsToFetch + '',
+        start: start * totalRecordsToFetch + ''
       },
       searchVal,
       ...otherProps
     }).then(res => {
       if (res.data) {
-        setEntitlementList({...res.data});
+        setEntitlementList({ ...res.data });
       }
     }).catch(err => {
       message.error("Failed to load entitlement data");
@@ -115,32 +115,32 @@ const OwnerEntitlement = () => {
   const exportAPI = (memID, filename) => {
     setLoadingEntitlement(true);
     API.get(`EntitlementManagement/exportmember/${memID}`)
-    .then((response) => {
-      try {
-        const exportData = {...response.data};
-        const fields = exportData.headers?.reduce((acc, item) => {
-          acc[item] = item;
-          return acc;
-        }, {});
-        const csv_config = {
-          data: exportData.details,
-          fields: fields,
-          filename: filename || memID
+      .then((response) => {
+        try {
+          const exportData = { ...response.data };
+          const fields = exportData.headers?.reduce((acc, item) => {
+            acc[item] = item;
+            return acc;
+          }, {});
+          const csv_config = {
+            data: exportData.details,
+            fields: fields,
+            filename: filename || memID
+          }
+          saveAsCsv(csv_config);
+        } catch (e) {
+          message.error("Unable to export details at this moment");
         }
-        saveAsCsv(csv_config);
-      } catch(e) {
-        message.error("Unable to export details at this moment");
-      }
-    })
-    .catch((error) => {
-      // error
-      console.log(error);
-      message.error("Something went wrong!");
-    })
-    .then(() => {
-      setLoadingEntitlement(false);
-      // always executed
-    });
+      })
+      .catch((error) => {
+        // error
+        console.log(error);
+        message.error("Something went wrong!");
+      })
+      .then(() => {
+        setLoadingEntitlement(false);
+        // always executed
+      });
   }
 
   const muiltipleExportAPI = (data) => {
@@ -148,32 +148,32 @@ const OwnerEntitlement = () => {
     API.post(`EntitlementManagement/export`, {
       ...data
     })
-    .then((response) => {
-      try {
-        const exportData = {...response.data};
-        const fields = exportData.headers?.reduce((acc, item) => {
-          acc[item] = item;
-          return acc;
-        }, {});
-        const csv_config = {
-          data: exportData.EntitlementDetails,
-          fields: fields,
-          filename: 'Entitlement_Details'
+      .then((response) => {
+        try {
+          const exportData = { ...response.data };
+          const fields = exportData.headers?.reduce((acc, item) => {
+            acc[item] = item;
+            return acc;
+          }, {});
+          const csv_config = {
+            data: exportData.EntitlementDetails,
+            fields: fields,
+            filename: 'Entitlement_Details'
+          }
+          saveAsCsv(csv_config);
+        } catch (e) {
+          message.error("Unable to export details at this moment");
         }
-        saveAsCsv(csv_config);
-      } catch(e) {
-        message.error("Unable to export details at this moment");
-      }
-    })
-    .catch((error) => {
-      // error
-      console.log(error);
-      message.error("Something went wrong!");
-    })
-    .then(() => {
-      setLoadingEntitlement(false);
-      // always executed
-    });
+      })
+      .catch((error) => {
+        // error
+        console.log(error);
+        message.error("Something went wrong!");
+      })
+      .then(() => {
+        setLoadingEntitlement(false);
+        // always executed
+      });
   }
 
   React.useEffect(() => {
@@ -199,7 +199,7 @@ const OwnerEntitlement = () => {
     fixed: true
   };
 
-  const handleSearchEntitlement = ({searchVal="", ...otherProps}) => {
+  const handleSearchEntitlement = ({ searchVal = "", ...otherProps }) => {
     getEntitlementList({
       totalRecordsToFetch: tablePaginationConfig.defaultPageSize,
       start: 0,
@@ -213,16 +213,16 @@ const OwnerEntitlement = () => {
       fixed: true
     },
     description: {
-      render: (text) => text?
-      (<div dangerouslySetInnerHTML={{__html: text}} className={(text||'').length>59?"oe-td-description-link":"oe-td-description"} onClick={(text||'').length>59?()=>setShowDescrptionModal({show:true,data:{descrption:text}}):()=>{}}/>)
-      :'—'
+      render: (text) => text ?
+        (<div dangerouslySetInnerHTML={{ __html: text }} className={(text || '').length > 59 ? "oe-td-description-link" : "oe-td-description"} onClick={(text || '').length > 59 ? () => setShowDescrptionModal({ show: true, data: { descrption: text } }) : () => { }} />)
+        : '—'
     },
     requestable: {
       align: 'center',
       render: (text) => text === "true" ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />
     },
     users: {
-      render: (text, record) => <a onClick={text > 0 ? () => setShowMembersModal({show: true, data: {...record} }) : ()=>{}} className={text > 0 ? "oe-link" : "oe-disabled-link"}>{text > 0 ? `${text} Member${text > 1 ? 's' : ''}`:`No Members`}</a>
+      render: (text, record) => <a onClick={text > 0 ? () => setShowMembersModal({ show: true, data: { ...record } }) : () => { }} className={text > 0 ? "oe-link" : "oe-disabled-link"}>{text > 0 ? `${text} Member${text > 1 ? 's' : ''}` : `No Members`}</a>
     },
   }
 
@@ -244,21 +244,22 @@ const OwnerEntitlement = () => {
 
   const columns = [
     ...entitlementHeaders.map(item => ({
-      sorter: ['description', 'users'].includes(item.name) ? null : (a, b) => (a[item.name]+'').localeCompare(b[item.name]+''),
+      sorter: ['description', 'users'].includes(item.name) ? null : (a, b) => (a[item.name] + '').localeCompare(b[item.name] + ''),
       title: item.displayName,
       dataIndex: item.name,
-      render: (text,record)=> record[item.name]?record[item.name]:'—',
-      className:item.className?item.className:'',
-      width:item.width?item.width:'200px',
+      render: (text, record) => record[item.name] ? record[item.name] : '—',
+      className: item.className ? item.className : '',
+      width: item.width ? item.width : '200px',
+      align: item.align ? item.align : '',
       ...(headerConfig[item.name] || {}),
     })),
     entitlementHeaders.length ? {
       title: 'Action',
       dataIndex: 'action',
-      width:'120px',
+      width: '120px',
       align: 'center',
       fixed: 'right',
-      render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction}  />
+      render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction} />
     } : {}
   ];
 
@@ -283,7 +284,7 @@ const OwnerEntitlement = () => {
     <>
       <CardWrapper cardData={entitlementStatistics} />
       <Spin spinning={loadingEntitlement}>
-        <div className="table-filter-wrapper">
+        <div className="table-filter-wrapper oe-root-container">
           <SearchWithActionBar
             onSearch={handleSearchEntitlement}
             onExport={handleMultipleExport}
@@ -294,37 +295,38 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll:{ y: tableHeight, x: 'max-content' },
+              scroll: { x: 'max-content' },
               // tableLayout:"fixed",
-              renderEmpty:true,
+              renderEmpty: true,
               pagination: {
                 total: entitlementList.total,
-                current: +tableConfig.start+1,
+                current: +tableConfig.start + 1,
                 onChange: handlePageChange,
-                position: ['none', 'bottomCenter'], pageSizeOptions: tablePaginationConfig.pageSizeOptions, defaultPageSize: tablePaginationConfig.defaultPageSize, showSizeChanger: true },
+                position: ['none', 'bottomCenter'], pageSizeOptions: tablePaginationConfig.pageSizeOptions, defaultPageSize: tablePaginationConfig.defaultPageSize, showSizeChanger: true
+              },
               className: "oe-table oe-entitlement-list-table",
               rowKey: 'id',
               // rowSelection: {
               //   ...rowSelection,
               // }
             }}
-            />
+          />
         </div>
       </Spin>
-      <Modal open={showMembersModal.show} onHide={() => setShowMembersModal({ show: false, data: {}})} title={`${showMembersModal.data.displayName || showMembersModal.data.value} - Entitlement Members`}>
+      <Modal open={showMembersModal.show} onHide={() => setShowMembersModal({ show: false, data: {} })} title={`${showMembersModal.data.displayName || showMembersModal.data.value} - Entitlement Members`}>
         <EntitlementDetailsWrapper
           defaultActiveKey="1"
           entitlementId={showMembersModal.data.id}
           entitlementName={showMembersModal.data.value || showMembersModal.data.displayName}
           onClose={() => {
-              setShowMembersModal({ show: false, data: {}});
-              getEntitlementList(tableConfig);
-            }
+            setShowMembersModal({ show: false, data: {} });
+            getEntitlementList(tableConfig);
+          }
           }
         />
       </Modal>
-      <Modal open={showDescrptionModal.show} className="description_modal" width={"100vh"} onHide={() => setShowDescrptionModal({ show: false, data: {}})} title={`Entitlement Description`}>
-      <div dangerouslySetInnerHTML={{__html: showDescrptionModal.data.descrption}} className="description_modal_text"></div>
+      <Modal open={showDescrptionModal.show} className="description_modal" width={"100vh"} onHide={() => setShowDescrptionModal({ show: false, data: {} })} title={`Entitlement Description`}>
+        <div dangerouslySetInnerHTML={{ __html: showDescrptionModal.data.descrption }} className="description_modal_text"></div>
       </Modal>
     </>
   );

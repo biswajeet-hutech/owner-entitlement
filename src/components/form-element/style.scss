@@ -14,9 +14,9 @@
     margin: 4px 0;
   }
   & .oe-form-label {
-    font-family: $primary-font-medium;
-    font-size: $font-size-14;
-    font-weight: $font-weight-500;
+    font-family: $primary-font-regular;
+    font-size: $font-size-13;
+    font-weight: $font-weight-bold;
     font-stretch: normal;
     font-style: $font-style-normal;
     line-height: normal;
@@ -33,7 +33,7 @@
   }
   & .oe-form-value {
     font-family: $primary-font-regular;
-    font-size: $font-size-14;
+    font-size: $font-size-13;
     font-weight: normal;
     font-stretch: normal;
     font-style: $font-style-normal;
@@ -75,7 +75,7 @@
       color: $typo-text-1;
       border-radius: 3px;
       border: unset;
-      background-color: $background-color;
+      background-color: #fff;
       &:focus,
       &:hover,
       &:active {

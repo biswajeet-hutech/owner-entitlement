@@ -11,14 +11,18 @@ const Accordion = ({
   const renderAccordionPanel = ({
     title,
     subTitle,
+    icon,
     content,
     key
   }) => (
     <Panel header={(
       <>
-        <div className="oe-accordion-title">{title}</div>
+        <div className="oe-accordion-title">
+          {icon ? icon : null}
+          {title}
+        </div>
       </>
-      )}
+    )}
       key={key}>
       {
         content
