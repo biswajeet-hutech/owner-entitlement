@@ -20,8 +20,8 @@
       width: calc(100% - 0px);
     }
     & > tr > th {
-      &:first-child{
-        padding-left: 20px!important;
+      &:first-child {
+        padding-left: 20px !important;
       }
     }
     & > tr {
@@ -35,7 +35,6 @@
         &:hover {
           background-color: #fff;
         }
-        
       }
     }
   }
@@ -73,7 +72,7 @@
         color: $typo-text-2;
         cursor: context-menu;
       }
-      &:first-child{
+      &:first-child {
         padding-left: 20px;
       }
     }
@@ -125,7 +124,10 @@
       & > .hover {
         display: none;
       }
-      &:hover {
+      &:hover,
+      &:focus,
+      &:active {
+        border-color: $theme-primary;
         & .hover {
           display: inline;
         }
