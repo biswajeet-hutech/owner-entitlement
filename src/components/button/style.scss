@@ -34,22 +34,12 @@
     border: solid 1px #dfe2e8;
     background-image: linear-gradient(to bottom, #ffffff 16%, #f9fafc);
     color: #717171;
-    &:hover {
-      border: solid 1px $theme-primary;
-      background-color: $theme-primary;
-      color: $theme-primary;
-    }
-    &:active {
-      border: solid 1px $theme-primary;
-      background-color: $theme-primary;
-      color: $theme-primary;
-      outline: 0;
-    }
+    &:hover,
+    &:active,
     &:focus {
       border: solid 1px $theme-primary;
-      background-color: $theme-primary;
       color: $theme-primary;
-      outline: 0;
+      background-color: $theme-primary;
     }
     &:disabled {
       color: rgba(0, 0, 0, 0.25);
@@ -59,12 +49,19 @@
       cursor: not-allowed;
     }
   }
-  &.save,&.dispute {
-    background-color: #10a2ce;
+  &.save,
+  &.dispute {
+    background-color: $theme-primary;
     background-image: unset;
     color: #fff;
     padding: 0 14px;
-    border: 1px solid #10a2ce;
+    border: 1px solid $theme-primary;
+    &:hover,
+    &:focus,
+    &:active {
+      color: #fff;
+      background-color: $theme-primary-hover;
+    }
   }
   &.oe-btn-secondary {
     height: 33px;
