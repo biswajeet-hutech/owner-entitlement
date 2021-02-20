@@ -172,14 +172,14 @@ const EntitlementMembers = ({
                 >
                   <span style={{ padding: 0 }}>
                     <InfoIcon width={14} height={14} className="normal" />
-                    <InfoHoverIcon width={14} height={14} className="hover"/>
+                    {/* <InfoHoverIcon width={14} height={14} className="hover"/> */}
                   </span>
                 </Popover>
               )}
               className="oe-exportBtn"
               onClick={() => exportAPI(id)}
             >
-              EXPORT
+              Export
             </Button>
           </Col>
         </Row>

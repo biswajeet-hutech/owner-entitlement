@@ -15,16 +15,23 @@
 	"name": "requestable"
 }, {
 	"displayName": "Privileged",
-	"name": "privileged"
+	"name": "privileged",
+	"className":"align_center",
+	"width":"100px"
 }, {
 	"displayName": "Member",
-	"name": "users"
+	"name": "users",
+	"width":"110px"
 }, {
 	"displayName": "Birth Right",
-	"name": "birthright"
+	"name": "birthright",
+	"className":"align_center",
+	"width":"100px"
 }, {
 	"displayName": "Certifiable",
-	"name": "certifiable"
+	"name": "certifiable",
+	"className":"align_center",
+	"width":"100px"
 }, {
 	"displayName": "Logical Application Name",
 	"name": "logiplex_app_name"

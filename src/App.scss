@@ -3,52 +3,52 @@
 @import "./assets/colors.scss";
 
 .oe-app {
-  padding: 20px 40px;
-  background-color: #f3f2ef;
+  padding: 20px 20px;
+  background-color: #edeff3;
   background-repeat: no-repeat;
   background-size: 100%;
-  font-family: "Roboto-Regular", "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   min-height: 100vh;
   overflow-y: hidden;
-  // scrollbar-width: thin;
 }
 
 .oe-section {
-  padding: 24px 40px;
 }
-
+.oe-root-container {
+  margin: 0 50px;
+}
 .oe-page-margin {
   margin: 0px;
 }
 
-// body,
-// div {
-//   /* width */
-//   &::-webkit-scrollbar {
-//     width: 0.5em;
-//     height: 0.5em;
-//   }
-//   /* Track */
-//   &::-webkit-scrollbar-track {
-//     box-shadow: inset 0 0 5px grey;
-//     border-radius: 10px;
-//     background-clip: content-box;
-//   }
+body,
+div {
+  /* width */
+  &::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+  }
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background: transparent;
+    background-clip: content-box;
+  }
 
-//   /* Handle */
-//   &::-webkit-scrollbar-thumb {
-//     background: $theme-primary;
-//     border-radius: 10px;
-//   }
-//   &::-webkit-scrollbar-track:hover {
-//     cursor: pointer;
-//   }
-//   /* Handle on hover */
-//   &::-webkit-scrollbar-thumb:hover {
-//     background: $theme-primary;
-//     cursor: pointer;
-//   }
-// }
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #b2b2b2;
+    display: hidden;
+    border-radius: 0.3em;
+  }
+  &::-webkit-scrollbar-track:hover {
+    display: block;
+    cursor: pointer;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    cursor: pointer;
+  }
+}
 
 @media screen and (max-width: 600px) {
   .App {

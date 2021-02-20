@@ -1,5 +1,5 @@
 import axios from 'axios';
-const localMode = false;
+const localMode = true;
 const baseURL = window.PluginHelper ? window.PluginHelper.getPluginRestUrl("") : "/identityiq/plugin/rest/";
 
 const API = axios.create({

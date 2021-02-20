@@ -87,12 +87,8 @@ const SearchWithActionBar = ({
               visible={popVisible.export}
               onVisibleChange={changeInfoContent}
               onHide={hideInfoContent} />
-          )}>EXPORT</Button>
-          <Tooltip title="Help" placement="bottom">
-            <a href={helpUrl} target="_blank">
-              <HelpIcon />
-            </a>
-          </Tooltip>
+          )}>Export</Button>
+          <Button type="primary" onClick={() => window.open(helpUrl,"_blank")}>Help</Button>
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

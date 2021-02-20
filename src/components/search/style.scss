@@ -4,7 +4,7 @@
 .oe-search {
   height: 35px;
   &.ant-input-affix-wrapper {
-    background-color: $input-background-home;
+    background-color: #fff;
     border: 1px solid $input-border;
     border-radius: 3px;
     box-shadow: unset;
@@ -19,7 +19,7 @@
     height: 25px;
     background-color: transparent;
     &::placeholder {
-      color: #7d86a9;
+      color: #202020;
     }
     &:hover {
       cursor: pointer;

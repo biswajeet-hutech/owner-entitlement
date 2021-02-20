@@ -34,16 +34,35 @@
 
 .oe-ed-wrapper {
   max-height: 65vh;
-  margin-top: 8px;
-  // max-height: 60vh;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 // .edit {
 //   max-height: 65vh;
 // }
 .readOnly {
   max-height: 65vh;
-  .oe_scrollSection{
+  border-radius:  0 0 10px 10px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar-track {
+    background-clip: content-box;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    background: #b2b2b2;
+    display: hidden;
+    border-radius: 10px;
+  }
+  &::-webkit-scrollbar-track:hover {
+    display: block;
+    cursor: pointer;
+  }
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: #b2b2b2;
+    cursor: pointer;
+  }
+  .oe_scrollSection {
     max-height: unset;
   }
 }
@@ -56,21 +75,21 @@
 .accordion_footer {
   position: absolute;
   width: 100%;
-  padding: 15px 0 10px;
-  height: 58px;
+  padding: 12px 10px;
+  height: 60px;
   bottom: 0px;
   right: 0px;
-  z-index: 11;
+  z-index: 9999;
   background-color: #fff;
-  border-radius: 20px;
-  &::before {
-    position: absolute;
-    width: 100%;
-    content: "";
-    top: -1px;
-    height: 1px;
-    background-color: $border-variant-1;
-  }
+  border-top: 1px solid $border-variant-1;
+  // &::before {
+  //   position: absolute;
+  //   width: 100%;
+  //   content: "";
+  //   top: -1px;
+  //   height: 1px;
+  //   background-color: $border-variant-1;
+  // }
   button.save {
     &:last-child {
       margin-right: 32px;

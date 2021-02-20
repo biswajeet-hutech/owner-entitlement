@@ -7,6 +7,7 @@ const Modal = ({
   title,
   children,
   onHide,
+  footer,
   open,
   className,
   width,
@@ -21,6 +22,7 @@ const Modal = ({
     closeIcon={<CloseOutlined style={{ fontSize: 24, color: '#202020', fontWeight: 'bold' }} />}
     width={width ? width : 900}
     destroyOnClose
+    footer={footer}
     {...config}
   >
     <div className="oe-modal-content">

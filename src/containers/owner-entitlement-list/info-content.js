@@ -30,7 +30,7 @@ const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {
     >
       <span className="oe-info-content-span">
         <InfoIcon width={14} height={14} className="normal"/>
-        <InfoHoverIcon width={14} height={14} className="hover"/>
+        {/* <InfoHoverIcon width={14} height={14} className="hover"/> */}
       </span>
     </Popover>
   )

@@ -5,7 +5,6 @@
   padding: 20px;
   box-shadow: 0 1px 1px 0 $shadow-variant-1;
   background-color: $background-color;
-
   & .action-wrapper-btn-group {
     text-align: right;
     & .btn.ant-btn:last-child {
@@ -14,6 +13,45 @@
   }
 }
 
+#cardWrapper {
+  scroll-behavior: smooth;
+  overflow: hidden;
+  height: 120px;
+  z-index: 9;
+}
+.showShadowa {
+  box-shadow: 5px 0 10px 0px rgba(0, 0, 0, 0.2);
+}
+.showShadowb {
+  box-shadow: -5px 0 10px 0px rgba(0, 0, 0, 0.2);
+}
+.hideArrow {
+  display: none;
+}
+
+.caroselArrows {
+  height: 110px;
+  padding: 0px;
+  width: 36px;
+  vertical-align: middle;
+  background-color: #edeff3;
+  z-index: 999;
+
+  span {
+    padding: 10px;
+  }
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #edeff3;
+  }
+  &:first-of-type {
+    float: left;
+  }
+  &:last-of-type {
+    float: right;
+  }
+}
 .oe-td-description-link {
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -36,8 +74,14 @@
   overflow: auto;
   display: flex;
   justify-content: space-between;
-  padding: 24px 0;
+  overflow: hidden;
+  padding: 24px 16px;
+
+  .card_carosel {
+    display: inherit;
+  }
   .oe-card {
+    display: block;
     background-position: top 2px right 2px;
     background-repeat: no-repeat;
     &:nth-child(3) {
@@ -50,11 +94,10 @@
 }
 
 .table-filter-wrapper {
-  background-color: $background-color;
 }
 
 .oe-entitlement-list-table {
-  margin: 20px;
+  margin-top: 22px;
 }
 
 .description_modal_text {
@@ -80,7 +123,9 @@
 //     transform: rotate(180deg);
 //   }
 // }
-
+.align_center {
+  text-align: center;
+}
 @media screen and (max-width: 600px) {
   .action-wrapper {
     padding: 20px 8px;
