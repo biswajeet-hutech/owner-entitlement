@@ -4,6 +4,8 @@
 .oe-modal {
   pointer-events: auto;
   font-family: $primary-font-regular;
+  transition-duration: 0s!important;
+  animation-duration: 0s!important;
   & .ant-spin-nested-loading, & .ant-spin-container {
     position: static;
   }

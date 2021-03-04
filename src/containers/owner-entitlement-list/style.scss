@@ -26,10 +26,10 @@
   z-index: 9;
 }
 .showShadowa {
-  box-shadow: 5px 0 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 5px 0 5px 0px rgba(0, 0, 0, 0.2);
 }
 .showShadowb {
-  box-shadow: -5px 0 10px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: -5px 0 5px 0px rgba(0, 0, 0, 0.2);
 }
 .hideArrow {
   display: none;
@@ -42,7 +42,6 @@
   vertical-align: middle;
   background-color: #edeff3;
   z-index: 999;
-
   span {
     padding: 10px;
   }
@@ -81,7 +80,9 @@
   display: flex;
   justify-content: space-between;
   overflow: hidden;
-  padding: 24px 16px;
+  padding: 0px 16px;
+  margin: 24px 0px;
+  height: 110px;
 
   .card_carosel {
     display: inherit;
