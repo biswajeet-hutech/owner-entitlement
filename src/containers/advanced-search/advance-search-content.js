@@ -117,7 +117,7 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
 
   const getExtendedAttributes = () => {
     setLoadingExtendedAttr(true);
-    const url = 'EntitlementManagement/extendedattributes';
+    const url = 'EntitlementManagement/advancesearchattributes';
     API.get(url).then(res => {
       if (Array.isArray(res.data)) {
         setExtendedAttributes(res.data);

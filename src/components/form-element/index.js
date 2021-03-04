@@ -1,9 +1,15 @@
 import React from "react";
-import {CheckTrue,CheckFalse} from './../../assets';
-import { Input, Checkbox } from 'antd';
+import { Input, Checkbox, List, Popover } from 'antd';
+
+import { CheckTrue, CheckFalse, AddIcon, TickIcon, EditWhiteIcon } from './../../assets';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
+import ChipSelect from "../chip-select";
+import Button from "../button";
+import SearchList from "../search-list";
+import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
+
 const { TextArea } = Input;
 
 const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
@@ -114,6 +120,27 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
   )
 }
 
+const ChipDropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
+  return (
+    <>
+      {
+        readOnly ? <span>{ value?value:'—' }</span> : (
+        <>
+          <ChipSelect
+            options={options}
+            value={value}
+            onChange={onChange}
+            overrideClass={`oe-form-dropdown ${otherProps.error && 'oe-form-error'}`}
+            {...otherProps}
+          />
+          { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+        </>
+        )
+      }
+    </>
+  )
+}
+
 const FormElement = ({
   label,
   required,
@@ -133,7 +160,12 @@ const FormElement = ({
       case 'checkbox':
         return <CheckboxForm {...otherProps} />;
       case 'dropdown':
+      // case 'object':
         return <DropdownForm {...otherProps} />;
+      case 'chip_dropdown':
+        return <ChipDropdownForm {...otherProps} />;
+      case 'workgroup':
+        return <WorkGroupInput {...otherProps} />
       default:
         return otherProps.value || '—';
     }
