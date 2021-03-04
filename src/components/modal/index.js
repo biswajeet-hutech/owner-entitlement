@@ -1,10 +1,8 @@
 import React from "react";
 import { Modal as AntModal } from 'antd';
 import Draggable from 'react-draggable';
-import { ResizableBox } from "react-resizable";
-// import { DraggableModal, DraggableModalProvider } from 'ant-design-draggable-modal';
 import { CloseOutlined } from '@ant-design/icons';
-// import 'ant-design-draggable-modal/dist/index.css';
+import "./react-resizable.scss";
 import "./style.scss";
 
 const Modal = ({
@@ -72,24 +70,18 @@ const Modal = ({
           bounds={localState.bounds}
           onStart={(event, uiData) => onStart(event, uiData)}
         >
-          <div id="hello" ref={draggleRef}>
-          <ResizableBox>
+          <div ref={draggleRef}>
             {modal}
-            </ResizableBox>
           </div>
         </Draggable>
       )}
       {...config}
     >
-      {/* <ResizableBox
-        width={width || 900}
-      > */}
-        <div className="oe-modal-content">
+      <div className="oe-modal-content">
         {
           children
         }
-        </div>
-      {/* </ResizableBox> */}
+      </div>
     </AntModal>
   )
 }
