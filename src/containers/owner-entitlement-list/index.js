@@ -18,6 +18,7 @@ import entitlementHeadersData from "../../data/entitlement-headers.json";
 import helpDataJSON from "../../data/helpdata.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
 import { getExportMembersFileName } from "../../utils";
+import Button from "../../components/button";
 
 const OwnerEntitlement = () => {
   const tablePaginationConfig = {
@@ -215,14 +216,14 @@ const OwnerEntitlement = () => {
     description: {
       render: (text) => text ?
         (<div dangerouslySetInnerHTML={{ __html: text }} className={(text || '').length > 59 ? "oe-td-description-link" : "oe-td-description"} onClick={(text || '').length > 59 ? () => setShowDescrptionModal({ show: true, data: { descrption: text } }) : () => { }} />)
-        : '—'
+        : ''
     },
     requestable: {
       align: 'center',
       render: (text) => text === "true" ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />
     },
     users: {
-      render: (text, record) => <a onClick={text > 0 ? () => setShowMembersModal({ show: true, data: { ...record } }) : () => { }} className={text > 0 ? "oe-link" : "oe-disabled-link"}>{text > 0 ? `${text} Member${text > 1 ? 's' : ''}` : `No Members`}</a>
+      render: (text, record) => <a onClick={text > 0 ? () => setShowMembersModal({ show: true, data: { ...record } }) : () => { }} className={text > 0 ? "oe-link" : "oe-disabled-link"}>{text > 0 ? `${text}` : `0`}</a>
     },
   }
 
@@ -247,7 +248,7 @@ const OwnerEntitlement = () => {
       sorter: ['description', 'users'].includes(item.name) ? null : (a, b) => (a[item.name] + '').localeCompare(b[item.name] + ''),
       title: item.displayName,
       dataIndex: item.name,
-      render: (text, record) => record[item.name] ? record[item.name] : '—',
+      render: (text, record) => record[item.name],
       className: item.className ? item.className : '',
       width: item.width ? item.width : '200px',
       align: item.align ? item.align : '',
@@ -282,6 +283,7 @@ const OwnerEntitlement = () => {
 
   return (
     <>
+      <Button type="primary" onClick={() => window.open(helpData,"_blank")} className="oe-help-btn">Help</Button>
       <CardWrapper cardData={entitlementStatistics} />
       <Spin spinning={loadingEntitlement}>
         <div className="table-filter-wrapper oe-root-container">
@@ -289,7 +291,6 @@ const OwnerEntitlement = () => {
             onSearch={handleSearchEntitlement}
             onExport={handleMultipleExport}
             onAction={handleAction}
-            helpUrl={helpData}
           />
           <Table
             dataSource={entitlementList.EntitlementDetails}
@@ -313,7 +314,7 @@ const OwnerEntitlement = () => {
           />
         </div>
       </Spin>
-      <Modal open={showMembersModal.show} onHide={() => setShowMembersModal({ show: false, data: {} })} title={`${showMembersModal.data.displayName || showMembersModal.data.value} - Entitlement Members`}>
+      <Modal open={showMembersModal.show} onHide={() => setShowMembersModal({ show: false, data: {} })} title={`Entitlement Members - ${showMembersModal.data.displayName || showMembersModal.data.value}`}>
         <EntitlementDetailsWrapper
           defaultActiveKey="1"
           entitlementId={showMembersModal.data.id}

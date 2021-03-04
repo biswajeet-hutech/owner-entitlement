@@ -21,13 +21,29 @@ const BaseProperties = ({
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
   const requiredCommonAttributes = ["displayName", "description"];
-  const requiredExtendedAttributes = Array.isArray(data.ExtentedAttributeProperties) ? data.ExtentedAttributeProperties.filter(item => ((item.name !== "approval_levels") && ["input", "dropdown"].includes(getFormType(item)))).map(item => item.name) : [];
-  const requiredProps = [...requiredCommonAttributes, ...requiredExtendedAttributes];
-
+  const requiredExtendedAttributes = Array.isArray(data.ExtentedAttributeProperties) ? data.ExtentedAttributeProperties.map(item => item.name).filter(item => !['approver_level2', 'approver_level3'].includes(item)) : [];
+  // const requiredProps = [...requiredCommonAttributes, ...requiredExtendedAttributes];
+  const requiredProps = [];
+  if (entitlementData.approval_levels > "1") {
+    requiredProps.push("approver_level2");
+  }
+  if (entitlementData.approval_levels > "2") {
+    requiredProps.push("approver_level3")
+  }
   const handleUpdate = (key, value) => {
     // console.log('updatefff');
-    setFormData({ ...formData, [key]: value });
-    setEntitlementData({ ...entitlementData, [key]: value });
+    // console.log(value);
+    const updatedObj = {
+      [key]: value
+    }
+
+    if (key === 'approval_levels' && value === '1') {
+      updatedObj.approver_level2 = null;
+      updatedObj.approver_level3 = null;
+    }
+
+    setFormData({ ...formData, ...updatedObj });
+    setEntitlementData({ ...entitlementData, ...updatedObj });
   }
 
   const readOnlyFormConfig = [
@@ -72,7 +88,7 @@ const BaseProperties = ({
       maxLength: 100,
       value: entitlementData.displayName,
       readOnly,
-      required: true,
+      // required: true,
       error: errors.displayName,
       onChange: (value) => handleUpdate('displayName', value)
     },
@@ -91,7 +107,7 @@ const BaseProperties = ({
       value: data.EntitlementDetails.description,
       defaultValue: data.EntitlementDetails.description,
       type: 'description',
-      required: true,
+      // required: true,
       error: errors.description,
       readOnly,
       onChange: (value) => handleUpdate('description', value)
@@ -172,7 +188,6 @@ const BaseProperties = ({
         </>
         )
       }
-      
     </>
   );
 }

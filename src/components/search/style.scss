@@ -11,7 +11,7 @@
     &:hover,&:focus,&:active {
       border: 1px solid $theme-primary;
       box-shadow: unset;
-      cursor: pointer;
+      cursor: text;
     }
   }
   & .ant-input {
@@ -22,7 +22,7 @@
       color: #202020;
     }
     &:hover {
-      cursor: pointer;
+      cursor: text;
     }
   }
   & .ant-input-suffix {

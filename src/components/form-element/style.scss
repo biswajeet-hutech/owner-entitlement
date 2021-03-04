@@ -83,8 +83,28 @@
         border: unset;
       }
     }
+    & .ant-select-selection-overflow {
+      align-items: center;
+    }
     & .ant-select-arrow {
       color: $input-border;
+    }
+  }
+
+  .oe-workgroup-list {
+    & .ant-list-header {
+      padding: 0;
+    }
+
+    & .ant-list-items {
+      border: 1px solid #999;
+    }
+  }
+  .oe-workgroup-icons {
+    margin: 0 16px;
+    cursor: pointer;
+    & img {
+      cursor: pointer;
     }
   }
 }

@@ -140,7 +140,7 @@ const EntitlementMembers = ({
   return (
     <Spin spinning={loadingEntitlement}>
       <div className="oe-sc-wrapper">
-        <Row justify="space-between" className="oe-sc-search-label">
+        {/* <Row justify="space-between" className="oe-sc-search-label">
           <Typography type="title2">
             <span>Search</span>
             <Popover
@@ -152,9 +152,9 @@ const EntitlementMembers = ({
               <span style={{ margin: '0 5px' }}><InfoIcon width={14} height={14} /></span>
             </Popover>
           </Typography>
-        </Row>
+        </Row> */}
         <Row justify="space-between" className="oe-sc-row-padding">
-          <Col md={8}>
+          <Col md={10}>
             <Search placeHolder={strings.entitlement_members_search_placeholder} onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
           </Col>
           <Col>

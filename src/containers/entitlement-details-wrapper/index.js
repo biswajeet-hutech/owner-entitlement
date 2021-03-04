@@ -4,6 +4,7 @@ import { message, Spin } from "antd";
 import EntitlementDetails from "../entitlement-details";
 import EntitlementMembers from "../entitlement-members";
 import { API, localMode } from "../../api";
+import extendedAttributesDummyData from "../../data/extended-attributes.json";
 import dummyData from "../../data/entitlement-details-dummy.json";
 import './style.scss';
 
@@ -17,7 +18,6 @@ const EntitlementDetailsWrapper = ({
 }) => {
 
   const defaultEntitlementList = {
-    ExtentedAttributeProperties: {},
     EntitlementDetails: {},
     Members: [
       {
@@ -28,7 +28,25 @@ const EntitlementDetailsWrapper = ({
   }
 
   const [entitlementData, setEntitlementData] = React.useState({...defaultEntitlementList});
+  const [extendedAttributes, setExtendedAttributes] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
+  const entitlementPropData = {
+    ...entitlementData,
+    ExtentedAttributeProperties: [...extendedAttributes]
+  };
+
+  const getExtendedAttribures = () => {
+    const apiURL = !!editMode ? '/EntitlementManagement/editableattributes' : '/EntitlementManagement/viewableattributes';
+    API.get(apiURL).then(response => {
+      if (response.data) {
+        setExtendedAttributes(response.data);
+      }
+    }).catch(err => {
+      if (localMode) {
+        setExtendedAttributes([...extendedAttributesDummyData]);
+      }
+    })
+  }
 
   const getEntitlementList = ({ totalRecordsToFetch, start, attrVal, id }) => {
     setLoadingEntitlement(true);
@@ -70,7 +88,10 @@ const EntitlementDetailsWrapper = ({
       id: entitlementId,
       start: 0,
       attrVal: ''
-    })
+    });
+    if (defaultActiveKey === "2") {
+      getExtendedAttribures();
+    }
   }, []);
 
   const tabsData = [{
@@ -85,7 +106,8 @@ const EntitlementDetailsWrapper = ({
     content: (
       <Spin spinning={loadingEntitlement}>
         <EntitlementDetails
-          data={entitlementData}
+          data={entitlementPropData}
+          extendedAttributes={extendedAttributes}
           editMode={!!editMode}
           onSuccess={onSuccess}
           onClose={onClose}

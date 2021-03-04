@@ -29,20 +29,20 @@ const RaiseDisputeForm = ({
       type: 'input',
       readOnly: true
     },
-    {
-      key: 'lastRefreshed',
-      label: 'Last Refreshed',
-      value: entitlementData.lastrefresh,
-      type: 'input',
-      readOnly: true
-    },
-    {
-      key: 'lastModified',
-      label: 'Last Modified',
-      value: entitlementData.modified,
-      type: 'input',
-      readOnly: true
-    },
+    // {
+    //   key: 'lastRefreshed',
+    //   label: 'Last Refreshed',
+    //   value: entitlementData.lastrefresh,
+    //   type: 'input',
+    //   readOnly: true
+    // },
+    // {
+    //   key: 'lastModified',
+    //   label: 'Last Modified',
+    //   value: entitlementData.modified,
+    //   type: 'input',
+    //   readOnly: true
+    // },
     {
       key: 'displayValue',
       label: 'Display Value',
