@@ -81,14 +81,15 @@ const SearchWithActionBar = ({
           //     <ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/>
           //   </>
           // }
-          rightIcon={(
-            <InfoContent
-              type="export"
-              visible={popVisible.export}
-              onVisibleChange={changeInfoContent}
-              onHide={hideInfoContent} />
-          )}>Export</Button>
-          <Button type="primary" onClick={() => window.open(helpUrl,"_blank")}>Help</Button>
+          // rightIcon={(
+          //   <InfoContent
+          //     type="export"
+          //     visible={popVisible.export}
+          //     onVisibleChange={changeInfoContent}
+          //     onHide={hideInfoContent} />
+          // )}
+          >Export Entitlements</Button>
+          
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

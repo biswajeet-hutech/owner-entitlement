@@ -66,7 +66,7 @@ const ResponsiveActionIcons = ({
           <DisputeHoverIcon className="hover" />
         </div>
       </Tooltip>
-      <Modal open={openModal.show} onHide={() => setOpenModal({ show: false, edit: false })} footer={openModal.edit ? undefined : null} title={<>{openModal.edit ? (<EditModal />) : (<ViewModal />)}<span>{`${data.displayName || data.value} - ${openModal.edit ? 'Edit' : 'View'} Details`}</span></>}>
+      <Modal open={openModal.show} onHide={() => setOpenModal({ show: false, edit: false })} footer={openModal.edit ? undefined : null} title={<>{openModal.edit ? (<EditModal />) : (<ViewModal />)}<span>{`${openModal.edit ? 'Edit' : 'View'} Details - ${data.displayName || data.value}`}</span></>}>
         <EntitlementDetailsWrapper
           defaultActiveKey="2"
           entitlementId={data.id}

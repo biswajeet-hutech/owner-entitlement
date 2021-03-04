@@ -1,0 +1,25 @@
+.oe-search-list {
+  & ul {
+    list-style: none;
+    padding: 0;
+    padding-top: 10px;
+    max-height: 220px;
+    overflow: auto;
+
+    & li {
+      padding: 8px;
+      display: flex;
+      justify-content: space-between;
+      &:hover {
+        background-color: #f2f2f2;
+      }
+      & .li-item-action {
+        filter: brightness(0.44);
+        cursor: pointer;
+        & img {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}

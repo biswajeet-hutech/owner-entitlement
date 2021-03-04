@@ -26,6 +26,10 @@ const OpenIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls
 const PendingIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.pending} width={width ? width : 22} height={height ? height : 22} alt={alt ? alt : "Pending"} className={className} />
 const ViewIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.view} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "View"} className={className} />
 const EditIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.edit} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Edit"} className={className} />
+const EditWhiteIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.edit_white} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Edit"} className={className} />
+const AddIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.add} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Add"} className={className} />
+const TickIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.tick} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Tick"} className={className} />
+const CloseIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.close} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Close"} className={className} />
 const DisputeIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.dispute} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Dispute"} className={className} />
 const ExportCertIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.exportCert} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Export"} className={className} />
 const ViewHoverIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.viewhover} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "View"} className={className} />
@@ -55,6 +59,10 @@ export {
     PendingIcon,
     ViewIcon,
     EditIcon,
+    EditWhiteIcon,
+    AddIcon,
+    TickIcon,
+    CloseIcon,
     DisputeIcon,
     ViewHoverIcon,
     EditHoverIcon,

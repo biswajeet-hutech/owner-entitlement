@@ -1,6 +1,12 @@
 @import "./../../assets/fonts.scss";
 @import "./../../assets/colors.scss";
 
+.oe-help-btn {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+}
+
 .action-wrapper {
   padding: 20px;
   box-shadow: 0 1px 1px 0 $shadow-variant-1;
