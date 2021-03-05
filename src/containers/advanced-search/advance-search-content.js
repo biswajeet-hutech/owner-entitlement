@@ -215,8 +215,8 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
         {
           extendedAttributes.length ? (
           <Row justify="end" className="oe-overlay-footer">
-            <Button onClick={onClose} className="transBtn">Cancel</Button>
-            <Button onClick={onClear} className="transBtn">Reset</Button>
+            <Button type="primary" className="oe-advance-search-btn" onClick={onClose}>Cancel</Button>
+            <Button type="primary" className="oe-advance-search-btn" onClick={onClear}>Reset</Button>
             <Button type="primary" className="oe-advance-search-btn" onClick={handleAdvanceSearch}>Apply</Button>
           </Row>
         ) : null }

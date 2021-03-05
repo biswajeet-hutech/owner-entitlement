@@ -38,9 +38,9 @@ const DisputeHoverIcon = ({ width, height, alt, className }) => <Icon dataUrl={I
 const ExportCertHoverIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.exportCerthover} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Export"} className={className} />
 const ExportHoverIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.exportHover} width={width ? width : 16} height={height ? height : 16} alt={alt ? alt : "Export"} className={className} />
 const HelpIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.helpIcon} width={width ? width : 22} height={height ? height : 22} alt={alt ? alt : "Help"} className={className} />
-const ViewModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.view_modal} width={width ? width : 25} height={height ? height : 25} alt={alt ? alt : "Help"} className={className} />
-const EditModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.edit_modal} width={width ? width : 25} height={height ? height : 25} alt={alt ? alt : "Help"} className={className} />
-const DisputeModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.dispute_modal} width={width ? width : 25} height={height ? height : 25} alt={alt ? alt : "Help"} className={className} />
+const ViewModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.view_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "View"} className={className} />
+const EditModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.edit_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Edit"} className={className} />
+const DisputeModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.dispute_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Dispute"} className={className} />
 const backgroundImage = `url(${ImageUrls.backgroundImage})`
 
 export {
