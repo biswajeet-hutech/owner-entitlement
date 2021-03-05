@@ -16,7 +16,7 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
   return (
     <>
       {
-        readOnly ? <span>{ value?value:'—' }</span> : (
+        readOnly ? <span>{ value?value:'' }</span> : (
           <>
             <Input
               defaultValue={value}
@@ -47,17 +47,17 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
   )
 }
 
-const TextAreaForm = ({value, readOnly, onChange,maxLength, ...otherProps }) => {
+const TextAreaForm = ({value, readOnly, onChange,maxLength, hideCount, rows=10, ...otherProps }) => {
   return (
     <>
       {
         readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
           <>
           <TextArea
-            showCount
+            showCount={!hideCount}
             maxLength={maxLength}
             value={value}
-            rows={10}
+            rows={rows}
             onChange={(e) => onChange(e.target.value)}
             {...otherProps}
           />
@@ -103,7 +103,7 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
   return (
     <>
       {
-        readOnly ? <span>{ value?value:'—' }</span> : (
+        readOnly ? <span>{ value?value:'' }</span> : (
         <>
           <Dropdown
             options={options}
@@ -124,7 +124,7 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, ...otherProps}) =
   return (
     <>
       {
-        readOnly ? <span>{ value?value:'—' }</span> : (
+        readOnly ? <span>{ value?value:'' }</span> : (
         <>
           <ChipSelect
             options={options}
@@ -167,7 +167,7 @@ const FormElement = ({
       case 'workgroup':
         return <WorkGroupInput {...otherProps} />
       default:
-        return otherProps.value || '—';
+        return otherProps.value;
     }
   }
   return (

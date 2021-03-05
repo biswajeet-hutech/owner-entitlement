@@ -74,7 +74,7 @@ const WorkGroupInput = ({options, readOnly, onChange, value, ...otherProps}) => 
   return (
     <>
       {
-        readOnly ? <span>{ value?value:'—' }</span> : (
+        readOnly ? <span>{ value }</span> : (
         <>
           <List
             className="oe-workgroup-list"

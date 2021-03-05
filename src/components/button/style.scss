@@ -92,7 +92,6 @@
       cursor: not-allowed;
     }
   }
-  &.oe-exportBtn,
   &.oe-importBtn {
     color: #717171;
     border-radius: 4px;
@@ -144,4 +143,12 @@
       border: solid 1px $theme-primary;
     }
   }
+}
+
+.oe-exportBtn .ant-btn:first-child {
+  padding: 4px 24px;
+}
+
+.ant-dropdown-menu-item {
+  font-size: 13px;
 }

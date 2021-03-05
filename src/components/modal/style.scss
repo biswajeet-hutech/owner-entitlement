@@ -1,6 +1,10 @@
 @import './../../assets/colors.scss';
 @import './../../assets/fonts.scss';
 
+.ant-modal-root, .ant-modal-mask, .ant-modal-wrap.ant-modal-centered {
+  transition: none !important;
+}
+
 .oe-modal {
   pointer-events: auto;
   font-family: $primary-font-regular;
@@ -12,8 +16,12 @@
   & .ant-modal-content {
     border-radius: 10px;
   }
+  & .oe-modal-subtitle {
+    font-size: 0.7em;
+    margin-top: 4px;
+  }
   & .ant-modal-header {
-    padding: 20px 32px;
+    padding: 10px 32px;
     border-radius: 10px 10px 0 0;
     border-bottom: solid 1px $border-variant-1;
     background-color: #10a2ce;
@@ -87,7 +95,7 @@
     visibility: hidden;
   }
   & .ant-modal-close {
-    top: 12px;
+    top: 18px;
     right: 24px;
   }
   & .ant-modal-close-x {

@@ -109,7 +109,7 @@ const ExtendedProperties = (props) => {
 
   const formGroupData = Array.isArray(extendedPropsWithoutApprover) ? extendedPropsWithoutApprover.map(props => {
     const formType = getFormType(props);
-    const formValue = entitlementData[props.name];
+    const formValue = formType === 'checkbox' ? ["true", "Yes", "TRUE", "YES", "yes", "True"].includes(entitlementData[props.name]) : entitlementData[props.name];
     return {
       key: props.name,
       label: props.displayName,
@@ -130,19 +130,21 @@ const ExtendedProperties = (props) => {
   }, {});
 
   const renderApproverLevel = (props) => {
-    return (
-      <FormElement
-        key={props.name}
-        label={props.displayName}
-        value={entitlementData[props.name]}
-        type='dropdown'
-        options={props.allowedValues.map(item => ({ label: item, value: item }))}
-        onChange={(value) => onChange(props.name, value)}
-        readOnly={true}
-        error={errors[props.name]}
-        required={true}
-      />
-    )
+    if (props) {
+      return (
+        <FormElement
+          key={props.name}
+          label={props.displayName}
+          value={entitlementData[props.name]}
+          type='dropdown'
+          options={props.allowedValues.map(item => ({ label: item, value: item }))}
+          onChange={(value) => onChange(props.name, value)}
+          readOnly={true}
+          error={errors[props.name]}
+          required={true}
+        />
+      )
+    }
   }
 
   const onChangeApprover = (key, val) => {
@@ -219,93 +221,95 @@ const ExtendedProperties = (props) => {
   }
 
   const renderApproverLevel2_3 = (props) => {
-    let workgroupList = Array.isArray(workgroupDetailsData[props.name]) ? workgroupDetailsData[props.name].map(item => ({
-      label: item,
-      value: item
-    })) : [];
+    if (props) {
+      let workgroupList = Array.isArray(workgroupDetailsData[props.name]) ? workgroupDetailsData[props.name].map(item => ({
+        label: item,
+        value: item
+      })) : [];
 
-    let dropdownData = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].map(item => ({
-      label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
-      value: item.name,
-      workgroup: item.workgroup === 'true'
-    })) : [];
+      let dropdownData = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].map(item => ({
+        label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
+        value: item.name,
+        workgroup: item.workgroup === 'true'
+      })) : [];
 
-    let allMembersData = approverLevelData[props.name] && approverLevelData[props.name].filter(item => (item.workgroup !== "true" && !(approverStateData[props.name]?.includes(item.name))));
-    const workgroupListMap = dropdownData.filter(item => item.workgroup).map(item => item.value);
-    const isWorkgroupSelected = !!(approverStateData[props.name] && approverStateData[props.name][0] && workgroupListMap.includes(approverStateData[props.name][0]));
-    // console.log(workgroupListMap);
-    const renderOptions = () => {
-      const workgroupList = dropdownData.filter(item => !!item.workgroup);
-      const nonWorkgroupList = dropdownData.filter(item => !item.workgroup);
-      
-      return (
-      <>
-        <OptGroup label="Workgroup">
+      let allMembersData = approverLevelData[props.name] && approverLevelData[props.name].filter(item => (item.workgroup !== "true" && !(approverStateData[props.name]?.includes(item.name))));
+      const workgroupListMap = dropdownData.filter(item => item.workgroup).map(item => item.value);
+      const isWorkgroupSelected = !!(approverStateData[props.name] && approverStateData[props.name][0] && workgroupListMap.includes(approverStateData[props.name][0]));
+      // console.log(workgroupListMap);
+      const renderOptions = () => {
+        const workgroupList = dropdownData.filter(item => !!item.workgroup);
+        const nonWorkgroupList = dropdownData.filter(item => !item.workgroup);
+        
+        return (
+        <>
+          <OptGroup label="Workgroup">
+            {
+              workgroupList.map(option => (
+                <Option value={option.value}>{option.label}</Option>
+              ))
+            }
+          </OptGroup>
+          <OptGroup label="Members">
           {
-            workgroupList.map(option => (
+            nonWorkgroupList.map(option => (
               <Option value={option.value}>{option.label}</Option>
             ))
           }
-        </OptGroup>
-        <OptGroup label="Members">
-        {
-          nonWorkgroupList.map(option => (
-            <Option value={option.value}>{option.label}</Option>
-          ))
-        }
-        </OptGroup>
-      </>
-    );
-    }
+          </OptGroup>
+        </>
+      );
+      }
 
-    return (
-      // <>
-      //   <FormElement
-      //     key={props.name}
-      //     label={props.displayName}
-      //     value={approverStateData[props.name]}
-      //     type='chip_dropdown'
-      //     options={dropdownData}
-      //     onChange={(value) => onChangeApprover(props.name, value)}
-      //     readOnly={readOnly}
-      //     error={errors[props.name]}
-      //     required={true}
-      //     placeholder={'Select a workgroup or list of members as approver'}
-      //     renderOptions={renderOptions()}
-      //   />
-      //   {
-      //     !!approverStateData[props.name]?.length && !isWorkgroupSelected && (
-      //       <FormElement
-      //         value={workgroupStateData[props.name]}
-      //         label={`Associated Workgroup for Approver Level ${props.name.includes('2') ? '2' : '3'}`}
-      //         type='workgroup'
-      //         options={workgroupList}
-      //         onChange={(value) => handleWorkgroupChange(props.name, value )}
-      //         onCreate={workgroupInfo => handleCreateWorkgroup(workgroupInfo, props.name)}
-      //         readOnly={readOnly}
-      //         // required={true}
-      //         allUsers={allMembersData}
-      //         onItemAdd={(id) => handleWorkgroupMember('add', id, workgroupStateData[props.name])}
-      //         onItemRemove={(id) => handleWorkgroupMember('remove', id, workgroupStateData[props.name])}
-      //         error={!workgroupList.length ? 'Oops, no common workgroup found for these users. Create a workgroup to add them.' : ''}
-      //       />
-      //     )
-      //   }
-      // </>
-        <FormElement
-          key={props.name}
-          label={props.displayName}
-          value={entitlementData[props.name]}
-          type='input'
-          // options={dropdownData}
-          onChange={(value) => onChangeApprover(props.name, value)}
-          readOnly={true}
-          error={errors[props.name]}
-          required={true}
-          placeholder={'Select a workgroup or list of members as approver'}
-          renderOptions={renderOptions()}
-        />
-    )
+      return (
+        // <>
+        //   <FormElement
+        //     key={props.name}
+        //     label={props.displayName}
+        //     value={approverStateData[props.name]}
+        //     type='chip_dropdown'
+        //     options={dropdownData}
+        //     onChange={(value) => onChangeApprover(props.name, value)}
+        //     readOnly={readOnly}
+        //     error={errors[props.name]}
+        //     required={true}
+        //     placeholder={'Select a workgroup or list of members as approver'}
+        //     renderOptions={renderOptions()}
+        //   />
+        //   {
+        //     !!approverStateData[props.name]?.length && !isWorkgroupSelected && (
+        //       <FormElement
+        //         value={workgroupStateData[props.name]}
+        //         label={`Associated Workgroup for Approver Level ${props.name.includes('2') ? '2' : '3'}`}
+        //         type='workgroup'
+        //         options={workgroupList}
+        //         onChange={(value) => handleWorkgroupChange(props.name, value )}
+        //         onCreate={workgroupInfo => handleCreateWorkgroup(workgroupInfo, props.name)}
+        //         readOnly={readOnly}
+        //         // required={true}
+        //         allUsers={allMembersData}
+        //         onItemAdd={(id) => handleWorkgroupMember('add', id, workgroupStateData[props.name])}
+        //         onItemRemove={(id) => handleWorkgroupMember('remove', id, workgroupStateData[props.name])}
+        //         error={!workgroupList.length ? 'Oops, no common workgroup found for these users. Create a workgroup to add them.' : ''}
+        //       />
+        //     )
+        //   }
+        // </>
+          <FormElement
+            key={props.name}
+            label={props.displayName}
+            value={entitlementData[props.name]}
+            type='input'
+            // options={dropdownData}
+            onChange={(value) => onChangeApprover(props.name, value)}
+            readOnly={true}
+            error={errors[props.name]}
+            required={true}
+            placeholder={'Select a workgroup or list of members as approver'}
+            renderOptions={renderOptions()}
+          />
+      )
+    }
   }
 
   // React.useEffect(() => {
@@ -353,6 +357,16 @@ const ExtendedProperties = (props) => {
         formGroupData.map(formElement => <FormElement {...formElement} />)
       }
       {
+        renderApproverLevel(ext_props_with_approver.approval_levels)
+      }
+      {
+        renderApproverLevel2_3(ext_props_with_approver.approver_level2)
+      }
+      {
+        renderApproverLevel2_3(ext_props_with_approver.approver_level3)
+      }
+      
+      {/* {
         ext_props_with_approver.approval_levels && renderApproverLevel(ext_props_with_approver.approval_levels)
       }
       {
@@ -360,7 +374,7 @@ const ExtendedProperties = (props) => {
       }
       {
         ext_props_with_approver.approver_level3 && entitlementData.approval_levels > "2" && renderApproverLevel2_3(ext_props_with_approver.approver_level3)
-      }
+      } */}
     </div>
     </>
   );

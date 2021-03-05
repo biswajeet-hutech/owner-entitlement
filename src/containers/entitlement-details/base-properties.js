@@ -84,10 +84,12 @@ const BaseProperties = ({
     {
       key: 'displayName',
       label: 'Display Value',
-      type: 'input',
-      maxLength: 100,
+      type: 'textarea',
+      maxLength: 450,
+      // hideCount: true,
       value: entitlementData.displayName,
       readOnly,
+      rows: 1,
       // required: true,
       error: errors.displayName,
       onChange: (value) => handleUpdate('displayName', value)

@@ -54,7 +54,7 @@ const ResponsiveActionIcons = ({
           <EditHoverIcon className="hover" />
         </div>
       </Tooltip>
-      <Tooltip title="Export Members" placement="bottom">
+      <Tooltip title="Export Entitlement" placement="bottom">
         <div className="oe-icon-btn" onClick={() => onAction('export', data)}>
           <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="normal" />
           <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="hover" />
@@ -66,7 +66,12 @@ const ResponsiveActionIcons = ({
           <DisputeHoverIcon className="hover" />
         </div>
       </Tooltip>
-      <Modal open={openModal.show} onHide={() => setOpenModal({ show: false, edit: false })} footer={openModal.edit ? undefined : null} title={<>{openModal.edit ? (<EditModal />) : (<ViewModal />)}<span>{`${openModal.edit ? 'Edit' : 'View'} Details - ${data.displayName || data.value}`}</span></>}>
+      <Modal
+        open={openModal.show}
+        onHide={() => setOpenModal({ show: false, edit: false })}
+        footer={openModal.edit ? undefined : null}
+        titleIcon={openModal.edit ? (<EditModal />) : (<ViewModal />)}
+        title={<span>{`${openModal.edit ? 'Edit' : 'View'} Details`}</span>} subTitle={data.displayName || data.value}>
         <EntitlementDetailsWrapper
           defaultActiveKey="2"
           entitlementId={data.id}
@@ -75,7 +80,13 @@ const ResponsiveActionIcons = ({
           onSuccess={() => { setOpenModal({ show: false, edit: false }); onAction('edit_success') }}
         />
       </Modal>
-      <Modal open={openDisputeModal} onHide={() => setOpenDisputeModal(false)} title={<><DisputeModal /> <span>{data.displayName || data.value} - Raise Dispute</span></>}>
+      <Modal
+        open={openDisputeModal}
+        onHide={() => setOpenDisputeModal(false)}
+        titleIcon={<DisputeModal />}
+        title='Raise Dispute'
+        subTitle={data.displayName || data.value}
+      >
         <RaiseDispute
           entitlementData={data}
           onHide={() => setOpenDisputeModal(false)}

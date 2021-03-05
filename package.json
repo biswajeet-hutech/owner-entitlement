@@ -9,6 +9,8 @@
     "ant-design-draggable-modal": "^1.0.0",
     "antd": "^4.10.0",
     "axios": "^0.21.1",
+    "jspdf": "^2.3.0",
+    "jspdf-autotable": "^3.5.14",
     "node-sass": "^4.14.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",

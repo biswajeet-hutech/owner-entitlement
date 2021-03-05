@@ -10,6 +10,7 @@ import AdvancedSearch from '../advanced-search';
 import ScheduleCertification from "../scheduled-certification";
 import ImportEntitlementDialog from "../import-entitlement";
 import "./style.scss";
+import ExportButton from "../../components/button/export-btn";
 
 const SearchWithActionBar = ({
   onSearch = () => {},
@@ -75,21 +76,9 @@ const SearchWithActionBar = ({
                 onVisibleChange={(v) => changeInfoContent(v, "import")}
                 onHide={hideInfoContent} />
             )}>IMPORT</Button> */}
-          <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text"
-          // leftIcon={
-          //   <>
-          //     <ExportsIcon className="normal"/><ExportHoverIcon className="hover" width="16px" height="16px"/>
-          //   </>
-          // }
-          // rightIcon={(
-          //   <InfoContent
-          //     type="export"
-          //     visible={popVisible.export}
-          //     onVisibleChange={changeInfoContent}
-          //     onHide={hideInfoContent} />
-          // )}
-          >Export Entitlements</Button>
-          
+          {/* <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text"
+          >Export Entitlements</Button> */}
+          <ExportButton onClick={(type) => onExport(searchProps, type)} />
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>

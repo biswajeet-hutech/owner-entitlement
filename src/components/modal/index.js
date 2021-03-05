@@ -7,6 +7,8 @@ import "./style.scss";
 
 const Modal = ({
   title,
+  subTitle,
+  titleIcon,
   children,
   onHide,
   footer,
@@ -38,22 +40,31 @@ const Modal = ({
     <AntModal
       title={
         <div
-        onMouseOver={() => {
-          if (localState.disabled) {
+          style={{ display: 'flex', alignItems: 'center' }}
+          onMouseOver={() => {
+            if (localState.disabled) {
+              setLocalState({
+                ...localState,
+                disabled: false,
+              });
+            }
+          }}
+          onMouseOut={() => {
             setLocalState({
               ...localState,
-              disabled: false,
+              disabled: true,
             });
-          }
-        }}
-        onMouseOut={() => {
-          setLocalState({
-            ...localState,
-            disabled: true,
-          });
-        }}
+          }}
         >
-          {title}
+          {
+            titleIcon
+          }
+          <div>
+            <div>
+              {title}
+            </div>
+            <div className="oe-modal-subtitle">{subTitle}</div>
+          </div>
         </div>
       }
       className={`oe-modal ${className?className:''}`}

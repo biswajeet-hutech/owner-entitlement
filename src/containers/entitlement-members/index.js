@@ -7,11 +7,12 @@ import Table from '../../components/table';
 import Typography from "../../components/typography";
 import Search from "../../components/search";
 import entitlementJSON from "../../data/entitlement-members-attribute.json";
-// import exportJSON from "../../data/export-entitlement.json";
+import exportJSON from "../../data/export-entitlement.json";
 import { API, localMode } from "../../api";
 import './style.scss';
 import { ExportsIcon,ExportHoverIcon,InfoIcon,ApprovedIcon,RevokedIcon, NotCertifiedIcon,OpenIcon,PendingIcon, InfoHoverIcon,strings } from './../../assets';
 import { getExportMembersFileName } from "../../utils";
+import ExportButton from "../../components/button/export-btn";
 
 const UserStatus = ({status}) =>{
  let isActive = status.toLowerCase()==='active'
@@ -33,7 +34,7 @@ const headerConfig = {
   name: {
     title: 'Name',
     dataIndex: 'name',
-    render: (text, record) => record.name? <span>{record.name}</span> : '—'
+    render: (text, record) => record.name? <span>{record.name}</span> : ''
   },
   status: {
     title: 'User Status',
@@ -92,18 +93,18 @@ const EntitlementMembers = ({
     });
   }
 
-  const exportAPI = (entitlementID) => {
+  const exportAPI = (entitlementID, type) => {
     setLoadingEntitlement(true);
     API.get(`EntitlementManagement/exportmember/${entitlementID}`)
     .then((response) => {
       try {
-        const exportData = {...response.data};
+        const exportData = { ...response.data.Entitlement };
         const fields = exportData.headers?.reduce((acc, item) => {
           acc[item] = item;
           return acc;
         }, {});
         const csv_config = {
-          data: exportData.details,
+          data: [exportData.EntitlementDetails],
           fields: fields,
           filename: getExportMembersFileName(entitlementName)
         }
@@ -116,6 +117,23 @@ const EntitlementMembers = ({
       // error
       console.log(error);
       message.error("Something went wrong!");
+      if (localMode) {
+        try {
+          const exportData = { ...exportJSON.Entitlement };
+          const fields = exportData.headers?.reduce((acc, item) => {
+            acc[item] = item;
+            return acc;
+          }, {});
+          const csv_config = {
+            data: [exportData.EntitlementDetails],
+            fields: fields,
+            filename: getExportMembersFileName(entitlementName)
+          }
+          saveAsCsv(csv_config);
+        } catch(e) {
+          message.error("Unable to export at this moment");
+        }
+      }
     })
     .then(() => {
       setLoadingEntitlement(false);
@@ -127,7 +145,7 @@ const EntitlementMembers = ({
     ...entitlementHeaders.map(item => ({
       title: item.displayName,
       dataIndex: item.name,
-      render: (text,record)=> record[item.name] || '—',
+      render: (text,record)=> record[item.name] || '',
       className:item.className || '',
       ...(headerConfig[item.name] || {})
     }))
@@ -158,29 +176,7 @@ const EntitlementMembers = ({
             <Search placeHolder={strings.entitlement_members_search_placeholder} onSearch={(v) => handleUpdateSearchResult({ attrVal: v })} />
           </Col>
           <Col>
-            <Button
-              type="secondary"
-              // leftIcon={<>
-              //   <ExportsIcon className="normal"/>
-              //   <ExportHoverIcon className="hover" width="16px" height="16px"/></>
-              // }
-              rightIcon={(
-                <Popover
-                  content={<div style={{ maxWidth: 200, fontSize: 13 }}>Export entitlement members details</div>}
-                  trigger="hover"
-                  placement="bottomRight"
-                >
-                  <span style={{ padding: 0 }}>
-                    <InfoIcon width={14} height={14} className="normal" />
-                    {/* <InfoHoverIcon width={14} height={14} className="hover"/> */}
-                  </span>
-                </Popover>
-              )}
-              className="oe-exportBtn"
-              onClick={() => exportAPI(id)}
-            >
-              Export
-            </Button>
+            <ExportButton onClick={(type) => exportAPI(id, type)} tooltip="Export members" />
           </Col>
         </Row>
         <Row className="oe-sc-row-padding">
@@ -189,6 +185,7 @@ const EntitlementMembers = ({
             columns={columns}
             config={{
               scroll:{ y: 320, x: 1500 },
+              size: 'small',
               pagination: {
                 total: data.total,
                 current: paginationConfig.start,
