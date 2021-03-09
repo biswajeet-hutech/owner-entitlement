@@ -1,7 +1,20 @@
 import React from "react";
 import { Button, Grid, Tooltip } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
-import { ViewIcon, EditIcon, DisputeIcon, ExportCertIcon, ExportCertHoverIcon, ViewHoverIcon, EditHoverIcon, DisputeHoverIcon, DisputeModal, EditModal, ViewModal } from './../../assets';
+
+import {
+  ViewIcon,
+  EditIcon,
+  DisputeIcon,
+  ExportCertIcon,
+  ExportCertHoverIcon,
+  ViewHoverIcon,
+  EditHoverIcon,
+  DisputeHoverIcon,
+  DisputeModal,
+  EditModal,
+  ViewModal
+} from './../../assets';
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";

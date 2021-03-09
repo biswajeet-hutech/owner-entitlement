@@ -1,6 +1,7 @@
 import React from "react";
 import { Popover } from 'antd';
-import { InfoIcon,InfoHoverIcon,strings } from './../../assets';
+
+import { InfoIcon, strings } from './../../assets';
 import "./style.scss";
 
 const InfoContent = ({ type, onHide, visible, onVisibleChange, text }) => {

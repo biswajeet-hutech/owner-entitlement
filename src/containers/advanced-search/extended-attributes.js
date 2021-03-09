@@ -1,29 +1,27 @@
 import React from "react";
-import { Form, Row, Col, message, Input, DatePicker } from 'antd';
-import Button from '../../components/button';
+import { Form, Col, Input, DatePicker } from 'antd';
 import "./style.scss";
-import Typography from "../../components/typography";
 import Dropdown from "../../components/dropdown";
-import API from "../../api";
+// import API from "../../api";
 
-const dropdownOptions = [
-  {
-    label: 'Application 1',
-    value: 'app1'
-  },
-  {
-    label: 'Application 2',
-    value: 'app2'
-  },
-  {
-    label: 'Application 3',
-    value: 'app3'
-  },
-  {
-    label: 'Application 4',
-    value: 'app4'
-  }
-]
+// const dropdownOptions = [
+//   {
+//     label: 'Application 1',
+//     value: 'app1'
+//   },
+//   {
+//     label: 'Application 2',
+//     value: 'app2'
+//   },
+//   {
+//     label: 'Application 3',
+//     value: 'app3'
+//   },
+//   {
+//     label: 'Application 4',
+//     value: 'app4'
+//   }
+// ]
 
 const constructDropdown = (data = []) => {
   const result = Array.isArray(data) && data.map(item => ({
@@ -39,12 +37,18 @@ const ExtendedAttributes = ({
   updateFormData=()=>{},
   selectedValues={}
 }) => {
-  const getDataFromAPI = () => {
+  // const getDataFromAPI = () => {
 
-  }
+  // }
   
   const renderContent = () => {
-    const { type, allowedValues, APIName, displayName, extendedAttrName } = data;
+    const {
+      type,
+      allowedValues,
+      // APIName,
+      displayName,
+      extendedAttrName
+    } = data;
     switch(type) {
       case 'string':
         if (allowedValues === null) {

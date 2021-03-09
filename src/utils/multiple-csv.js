@@ -1,3 +1,9 @@
+/**
+ * Print Accumulated CSV report from members and entitlement details data
+ * @param  {Object[]} data
+ * @param  {Object[]} membersHeader
+ * @param  {Object[]} detailsHeader
+ */
 
 function getCombinedCSVData({ data, membersHeader: memberHeaderDetails, detailsHeader=[] }) {
   const entitlementDetails = data.Entitlement;
@@ -15,23 +21,21 @@ function getCombinedCSVData({ data, membersHeader: memberHeaderDetails, detailsH
 
   const headerLength = Math.max(entitlementDetails?.headers?.length, entitleMembers?.headers?.length);
 
-  const header = Array(headerLength).fill("");
+  const header = [`Export Date: ${new Date()}`, ...Array(headerLength-1).fill("")];
 
   const result = [];
-  result.push(header);
-
   const blankLineRow = [...Array(headerLength).fill("")];
   const entDetailsTitle = ["Entitlement Details", ...Array(headerLength - 1).fill("")];
   const entDetailsHeader = entitlementDetails?.headers.map(item => detailsHeaderMap[item] || item);
   const entDetailsBody = [];
   
-  entitlementDetails?.headers.forEach(head => {
-    entDetailsBody.push(entitlementDetails?.EntitlementDetails[head]);
-  })
-
   const entMembersTitle = ["Entitlement Members", ...Array(headerLength - 1).fill("")];
   const entMembersHeader = entitleMembers?.headers.map(item => memberHeaderMap[item] || item);
   const entMembersBody = [];
+
+  entitlementDetails?.headers.forEach(head => {
+    entDetailsBody.push(entitlementDetails?.EntitlementDetails[head]);
+  })
   
   entitleMembers?.MemberDetails?.forEach(element => {
     const row = [];
@@ -42,13 +46,13 @@ function getCombinedCSVData({ data, membersHeader: memberHeaderDetails, detailsH
   });
 
   result.push(
-    entDetailsTitle,
+    header,
     blankLineRow,
+    entDetailsTitle,
     entDetailsHeader,
     entDetailsBody,
     blankLineRow,
     entMembersTitle,
-    blankLineRow,
     entMembersHeader,
     ...entMembersBody
   );

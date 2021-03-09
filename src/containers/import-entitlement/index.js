@@ -8,7 +8,6 @@ import './style.scss';
 const ImportEntitlementDialog = ({
   onHide = () => {}
 }) => {
-  const [disputeComment, setDisputeComment] = React.useState('');
   const [loading, setLoading] = React.useState(false);
 
   return (
