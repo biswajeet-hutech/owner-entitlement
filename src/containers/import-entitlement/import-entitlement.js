@@ -8,7 +8,7 @@ import "./style.scss";
 
 class ImportEntitlements extends React.Component {
   state = {
-    selectedRowKeys: [], // Check here to configure the default column
+    selectedRowKeys: [],
     loading: false,
     dataList: [],
     importDataList: {},

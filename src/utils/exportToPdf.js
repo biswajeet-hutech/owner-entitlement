@@ -5,12 +5,20 @@ import "jspdf-autotable";
 
 // import exportData from "../data/export-entitlement.json";
 
+/**
+ * @param  {string} value
+ */
 function extractContent(value){
   var div = document.createElement('div')
   div.innerHTML=value;
   var text= div.textContent;
   return text;
 }
+
+/**
+ * used to remove extra quote from start and end of a string after removing escape charactes
+ * @param  {} str
+ */
 
 const decodeAndRemoveExtraQuoteFromString = (str) => {
   let decodedString = extractContent(str);
@@ -20,6 +28,12 @@ const decodeAndRemoveExtraQuoteFromString = (str) => {
 
   return decodedString;
 }
+
+/**
+ * printToPDF: Used to print PDF from entitlement object
+ * @param  {Object[]} exportData
+ * @param  {Object} options
+ */
 
 const printToPDF = ({
   exportData,
@@ -84,6 +98,11 @@ const printToPDF = ({
     }
 
     if (!hideDetailsData || !hideDetailsHeader) {
+      var today = new Date();
+      var newdat = today+'';
+      doc.setFontSize(8);
+      doc.text(newdat, 15,finalY);
+      doc.setFontSize(12);
       doc.text(`Entitlement Details`, 15, finalY + 10);
       doc.autoTable({
         ...commonTableProps,

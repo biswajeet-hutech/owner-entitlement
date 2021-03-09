@@ -1,9 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import Slider from "react-slick";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
 import Card from '../../components/card';
-import { setCardBackgrounds } from './../../assets';
 import { LeftOutlined, RightOutlined } from '@ant-design/icons';
 
 import "./style.scss";
@@ -16,12 +12,6 @@ const CardWrapper = ({ cardData }) => {
     calculateShadow()
   }, [])
 
-  let settings = {
-    // dots: true,
-    infinite: false,
-    slidesToShow: 5,
-    slidesToScroll: 1
-  };
   const calculateShadow = () => {
     const ele = document.getElementById('cardWrapper')
     const scrollLeft = ele ? ele.scrollLeft : 0
@@ -47,8 +37,6 @@ const CardWrapper = ({ cardData }) => {
         document.getElementById('cardWrapper').scrollLeft += 180
         calculateShadow()
       }} />
-
-
     </div>
   )
 }

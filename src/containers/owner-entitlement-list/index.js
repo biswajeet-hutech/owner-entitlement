@@ -21,6 +21,7 @@ import statisticsData from "../../data/entitlement-statistics-dummy.json";
 import { getExportMembersFileName } from "../../utils";
 import Button from "../../components/button";
 import { printToPDF } from "../../utils/exportToPdf";
+import { getCombinedCSVData } from "../../utils/multiple-csv";
 
 const OwnerEntitlement = () => {
   const tablePaginationConfig = {
@@ -164,17 +165,12 @@ const OwnerEntitlement = () => {
     API.get(`EntitlementManagement/exportmember/${memID}`)
       .then((response) => {
         try {
-          const exportData = { ...response.data.Entitlement };
-          const fields = exportData.headers?.reduce((acc, item) => {
-            acc[item] = item;
-            return acc;
-          }, {});
-          const csv_config = {
-            data: [exportData.EntitlementDetails],
-            fields: fields,
-            filename: filename || memID
-          }
-          saveAsCsv(csv_config);
+          const exportData = { ...response.data };
+          getCombinedCSVData({
+            data: exportData,
+            membersHeader: [],
+            detailsHeader: entitlementHeaders
+          });
         } catch (e) {
           message.error("Unable to export details at this moment");
         }

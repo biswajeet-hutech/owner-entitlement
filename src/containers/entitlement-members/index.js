@@ -1,6 +1,5 @@
 import React from "react";
 import { Col, Row, Popover, message, Spin } from "antd";
-import { useJsonToCsv } from "react-json-csv";
 
 import Button from "../../components/button";
 import Table from "../../components/table";
@@ -105,7 +104,6 @@ const EntitlementMembers = ({
   entitlementDetailsHeader,
   onUpdate,
 }) => {
-  const { saveAsCsv } = useJsonToCsv();
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
   const [paginationConfig, setPaginationConfig] = React.useState({
@@ -154,21 +152,6 @@ const EntitlementMembers = ({
       });
     } else {
       getCombinedCSVData({ data: exportJSON, membersHeader: entitlementHeaders, detailsHeader: entitlementDetailsHeader  });
-      // const exportData = { ...data.Entitlement };
-      // const fields = exportData.headers?.reduce((acc, item) => {
-      //   acc[item] = item;
-      //   return acc;
-      // }, {});
-      // const csv_config = {
-      //   data: [
-      //     ["abc", "def", "xyz"],
-      //     ["abc1", "def1", "xyz1"],
-      //     ["abc2", "def2", "xyz2"]
-      //   ],
-      //   fields: [],
-      //   filename: getExportMembersFileName(entitlementName)
-      // }
-      // saveAsCsv(csv_config);
     }
   }
 

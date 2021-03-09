@@ -1,3 +1,7 @@
+/**
+ * getFormType - used to get the type of input from server recieved data.
+ * @param  {Object} prop
+ */
 const getFormType = (prop) => {
   switch (prop.type) {
     case "string":
@@ -17,6 +21,12 @@ const getFormType = (prop) => {
       return prop.type;
   }
 };
+
+/**
+ * getExportMembersFileName
+ * get the filename of export members csv file
+ * @param  {string} name
+ */
 
 const getExportMembersFileName = (name="") => name.split("CN=").slice(0, 2).join("").split(",").join("_").split(" ").join("_").concat("_Members");
 
