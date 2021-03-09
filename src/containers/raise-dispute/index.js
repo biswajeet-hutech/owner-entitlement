@@ -1,11 +1,12 @@
 import React from "react";
-
 import { Spin } from "antd";
+
 import {DisputeModal} from '../../assets';
-import './style.scss';
 import Accordion from "../../components/accordion";
 import RaiseDisputeForm from "./raise-dispute-form";
 import API from "../../api";
+
+import './style.scss';
 
 const RaiseDispute = ({
   onHide,
@@ -61,15 +62,9 @@ const RaiseDispute = ({
     content: <RaiseDisputeForm entitlementData={entitlementData} onChange={handleUpdate} comment={disputeComment} onHide={onHide} onSubmit={handleSubmit} error={error} />
   }];
 
-  const tabsData = [{
-    name: 'Raise Dispute',
-    content: <div className="oe-ed-wrapper dispute"><Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} /></div>
-  }]
-
   return (
     <Spin spinning={loading}>
-      {/* <Tabs tabs={tabsData} filled defaultActiveKey="2" /> */}
-      {tabsData[0].content}
+      <div className="oe-ed-wrapper dispute"><Accordion defaultActiveKey={['0', '1', '2']} panelData={panelData} /></div>
     </Spin>
   );
 }

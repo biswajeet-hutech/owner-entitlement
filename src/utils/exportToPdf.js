@@ -5,73 +5,110 @@ import "jspdf-autotable";
 
 // import exportData from "../data/export-entitlement.json";
 
-const printToPDF = (exportData) => {
+function extractContent(value){
+  var div = document.createElement('div')
+  div.innerHTML=value;
+  var text= div.textContent;
+  return text;
+}
+
+const decodeAndRemoveExtraQuoteFromString = (str) => {
+  let decodedString = extractContent(str);
+  if (decodedString.charAt(0) === '"' || decodedString.charAt(0) === "'") {
+    return decodedString.slice(1, -1);
+  }
+
+  return decodedString;
+}
+
+const printToPDF = ({
+  exportData,
+  options
+}) => {
+  const {
+    hideDetailsData = false,
+    hideDetailsHeader = false,
+    hideMembersHeader = false,
+    hideMembersData = false,
+    
+  } = options;
+
   var totalPagesExp = "{total_pages_count_string}";
   try {
-    var pageMargin = 10;
-    // var startYpos = pageMargin;
-    const doc = new jsPDF();
+    const doc = new jsPDF('l', 'mm', [297, 210]);
     const commonTableProps = {
       headStyles: {
-        fontSize: 8,
+        fontSize: 5,
         fontStyle: "normal",
-        fillColor: "#44495b",
-        linheight: 30,
-        minCellHeight: 8,
+        fillColor: "#44495b"
       },
       bodyStyles: {
-        fontSize: 10,
+        fontSize: 5,
         textAlign: "center",
-        minCellHeight: 10,
         valign: "middle",
-        rowHeight: 10,
-      },
-      // margin: {top: 10},
+      }
     };
-    doc.setFontSize(10);
-    var finalY = doc.lastAutoTable.finalY || 10;
-    var pageNumber = doc.internal.getNumberOfPages()
-    // const entitlementDetailsHead = [exportData.Entitlement.headers];
-    const entitlementDetailsBody = [];
-    exportData?.Entitlement?.headers.forEach(head => {
-      entitlementDetailsBody.push([head, exportData.Entitlement.EntitlementDetails[head]]);
-    })
 
-    const entitlementMembersHead = [exportData?.Members?.headers];
+    doc.setFontSize(10);
+    let finalY = doc.lastAutoTable.finalY || 10;
+
+    const entitlementDetailsHead = !hideDetailsHeader ? [exportData?.Entitlement?.headers.filter(item => item !== "id")] : [];
+    const entitlementDetailsBody = [];
+    const entitlementMembersHead = !hideMembersHeader ? [exportData?.Members?.headers] : [];
     const entitlementMembersBody = [];
     
-    exportData?.Members?.MemberDetails[0]?.MemberDetails?.forEach(ent => {
-      const localResult = [];
-      exportData?.Members?.headers?.forEach(head => {
-        localResult.push(ent[head]);
-      })
-      entitlementMembersBody.push(localResult);
-    });
+    if (!hideDetailsData) {
+      if (Array.isArray(exportData?.Entitlement?.EntitlementDetails)) {
+        exportData?.Entitlement?.EntitlementDetails.forEach(row => {
+          const localResult = [];
+          entitlementDetailsHead[0]?.forEach(head => {
+            localResult.push(decodeAndRemoveExtraQuoteFromString(row[head]));
+          })
+          entitlementDetailsBody.push(localResult);
+        })
+      } else {
+        exportData?.Entitlement?.headers.forEach(head => {
+          entitlementDetailsBody.push([head, decodeAndRemoveExtraQuoteFromString(exportData.Entitlement.EntitlementDetails[head])]);
+        })
+      }
+    }
 
-    doc.text(`Entitlement Details`, 15, finalY + 10);
-    doc.autoTable({
-      ...commonTableProps,
-      // head: entitlementDetailsHead,
-      body: entitlementDetailsBody,
-      startY: finalY + 15,
-      tableWidth: 'auto',
-    });
-    // doc.setPage(pageNumber);
+    if (!hideMembersData) {
+      exportData?.Members?.MemberDetails?.forEach(ent => {
+        const localResult = [];
+        exportData?.Members?.headers?.forEach(head => {
+          localResult.push(decodeAndRemoveExtraQuoteFromString(ent[head]));
+        })
+        entitlementMembersBody.push(localResult);
+      });
+    }
 
-    finalY = doc.lastAutoTable.finalY;
-    doc.text(`Entitlement Members`, 15, finalY + 10);
-    doc.autoTable({
-      ...commonTableProps,
-      head: entitlementMembersHead,
-      body: entitlementMembersBody,
-      startY: finalY + 15,
-      tableWidth: 'auto',
-      // horizontalPageBreak: true,
-    });
+    if (!hideDetailsData || !hideDetailsHeader) {
+      doc.text(`Entitlement Details`, 15, finalY + 10);
+      doc.autoTable({
+        ...commonTableProps,
+        head: entitlementDetailsHead,
+        body: entitlementDetailsBody,
+        startY: finalY + 15,
+      });
+    }
+
+    if (!hideMembersData || !hideMembersHeader) {
+      finalY = doc.lastAutoTable.finalY;
+      doc.text(`Entitlement Members`, 15, finalY + 10);
+      doc.autoTable({
+        ...commonTableProps,
+        head: entitlementMembersHead,
+        body: entitlementMembersBody,
+        startY: finalY + 15,
+        tableWidth: 'auto',
+      });
+    }
+
     if (typeof doc.putTotalPages === "function") {
       doc.putTotalPages(totalPagesExp);
     }
-    doc.save("bill-register.pdf");
+    doc.save("entitlement-details.pdf");
   } catch (err) {
     console.log(err);
     message.error("Unable to Print");

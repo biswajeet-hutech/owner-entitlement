@@ -13,7 +13,7 @@ import { CheckFalse } from './../../assets';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
-import exportMemberData from "../../data/export-entitlement.json";
+import exportAllEntitlementData from "../../data/export-all-entitlement.json";
 import extendedAttributesJSON from "../../data/extended-attributes.json";
 import entitlementHeadersData from "../../data/entitlement-headers.json";
 import helpDataJSON from "../../data/helpdata.json";
@@ -136,6 +136,29 @@ const OwnerEntitlement = () => {
     })
   }
 
+  const prepareToExportDocument = (exportData, exportType) => {
+    if (exportType === "pdf") {
+      printToPDF({
+        exportData: exportData,
+        options: {
+          hideMembersHeader: true,
+          hideMembersData: true,
+        }
+      });
+    } else {
+      const fields = exportData.Entitlement.headers?.reduce((acc, item) => {
+        acc[item] = item;
+        return acc;
+      }, {});
+      const csv_config = {
+        data: exportData.Entitlement.EntitlementDetails,
+        fields: fields,
+        filename: 'Entitlement_Details'
+      }
+      saveAsCsv(csv_config);
+    }
+  }
+
   const exportAPI = (memID, filename) => {
     setLoadingEntitlement(true);
     API.get(`EntitlementManagement/exportmember/${memID}`)
@@ -175,21 +198,8 @@ const OwnerEntitlement = () => {
     })
       .then((response) => {
         try {
-          const exportData = { ...response.data };
-          if (type === "pdf") {
-            printToPDF(exportData);
-          } else {
-            const fields = exportData.headers?.reduce((acc, item) => {
-              acc[item] = item;
-              return acc;
-            }, {});
-            const csv_config = {
-              data: exportData.EntitlementDetails,
-              fields: fields,
-              filename: 'Entitlement_Details'
-            }
-            saveAsCsv(csv_config);
-          }
+          const exportData = { Entitlement: {...response.data} };
+          prepareToExportDocument(exportData, type);
         } catch (e) {
           message.error("Unable to export details at this moment");
         }
@@ -198,6 +208,14 @@ const OwnerEntitlement = () => {
         // error
         console.log(error);
         message.error("Something went wrong!");
+        if (localMode) {
+          try {
+            const exportData = { Entitlement: {...exportAllEntitlementData} };
+            prepareToExportDocument(exportData, type);
+          } catch (e) {
+            message.error("Unable to export details at this moment");
+          }
+        }
       })
       .then(() => {
         setLoadingEntitlement(false);
@@ -354,6 +372,7 @@ const OwnerEntitlement = () => {
       >
         <EntitlementDetailsWrapper
           defaultActiveKey="1"
+          entitlementDetailsHeader={entitlementHeaders}
           entitlementId={showMembersModal.data.id}
           entitlementName={showMembersModal.data.value || showMembersModal.data.displayName}
           onClose={() => {
@@ -366,7 +385,8 @@ const OwnerEntitlement = () => {
       <Modal
         open={showDescrptionModal.show}
         className="description_modal"
-        width={"100vh"}
+        // width={"100vh"}
+        height={250}
         onHide={() => setShowDescrptionModal({ show: false, data: {} })}
         title={`Entitlement Description`}
         subTitle={showDescrptionModal.data.displayName || showDescrptionModal.data.value}

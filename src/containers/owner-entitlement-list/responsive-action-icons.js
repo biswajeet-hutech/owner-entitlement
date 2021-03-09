@@ -54,7 +54,7 @@ const ResponsiveActionIcons = ({
           <EditHoverIcon className="hover" />
         </div>
       </Tooltip>
-      <Tooltip title="Export Entitlement" placement="bottom">
+      <Tooltip title="Export Members" placement="bottom">
         <div className="oe-icon-btn" onClick={() => onAction('export', data)}>
           <ExportCertIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="normal" />
           <ExportCertHoverIcon style={{ transform: 'rotate(-45deg)', fontSize: 12 }} className="hover" />

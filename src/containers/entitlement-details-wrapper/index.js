@@ -11,6 +11,7 @@ import './style.scss';
 const EntitlementDetailsWrapper = ({
   entitlementId,
   entitlementName,
+  entitlementDetailsHeader,
   defaultActiveKey="1",
   editMode,
   onClose = ()=> {},
@@ -98,7 +99,13 @@ const EntitlementDetailsWrapper = ({
     name: 'Entitlement Members',
     content: (
       <Spin spinning={loadingEntitlement}>
-        <EntitlementMembers data={entitlementData.Members[0]} id={entitlementId} onUpdate={handleOnMemberSearch} entitlementName={entitlementName} />
+        <EntitlementMembers
+          data={entitlementData.Members[0]}
+          id={entitlementId}
+          onUpdate={handleOnMemberSearch}
+          entitlementName={entitlementName}
+          entitlementDetailsHeader={entitlementDetailsHeader}
+        />
       </Spin>
     )
   }, {

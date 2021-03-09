@@ -26,7 +26,7 @@
 	"displayName": "Birth Right",
 	"name": "birthright",
 	"className":"align_center",
-	"width":"100px"
+	"width":"150px"
 }, {
 	"displayName": "Certifiable",
 	"name": "certifiable",
@@ -34,6 +34,7 @@
 	"width":"100px"
 }, {
 	"displayName": "Logical Application Name",
+	"width":"250px",
 	"name": "logiplex_app_name"
 }, {
 	"displayName": "Target Application Name",

@@ -1,9 +1,12 @@
 import React from "react";
-import { Modal as AntModal } from 'antd';
-import Draggable from 'react-draggable';
-import { CloseOutlined } from '@ant-design/icons';
-import "./react-resizable.scss";
+import { Modal as AntModal } from "antd";
+import Draggable from "react-draggable";
+import { Resizable } from "re-resizable";
+// import { DraggableModal, DraggableModalProvider } from 'ant-design-draggable-modal';
+import { CloseOutlined } from "@ant-design/icons";
+// import 'ant-design-draggable-modal/dist/index.css';
 import "./style.scss";
+import { logDOM } from "@testing-library/react";
 
 const Modal = ({
   title,
@@ -15,7 +18,8 @@ const Modal = ({
   open,
   className,
   width,
-  config
+  height,
+  config,
 }) => {
   const [localState, setLocalState] = React.useState({
     visible: false,
@@ -23,6 +27,9 @@ const Modal = ({
     bounds: { left: 0, top: 200, bottom: 0, right: 0 },
   });
   const draggleRef = React.createRef();
+  const ele = document.querySelector("#oe-drag > div");
+  const _height = ele ? ele.offsetHeight : '78vh';
+  const _width = ele ? ele.offsetWidth : 900;
   const onStart = (event, uiData) => {
     const { clientWidth, clientHeight } = window?.document?.documentElement;
     const targetRect = draggleRef?.current?.getBoundingClientRect();
@@ -67,34 +74,51 @@ const Modal = ({
           </div>
         </div>
       }
-      className={`oe-modal ${className?className:''}`}
+      className={`oe-modal ${className ? className : ""}`}
       centered
       visible={open}
       onCancel={onHide}
-      closeIcon={<CloseOutlined style={{ fontSize: 24, color: '#202020', fontWeight: 'bold' }} />}
+      closeIcon={
+        <CloseOutlined
+          style={{ fontSize: 20, color: "#202020", fontWeight: "bold" }}
+        />
+      }
       width={width ? width : 900}
+      height={height || '75%'}
       destroyOnClose
       footer={footer}
-      modalRender={modal => (
+      modalRender={(modal) => (
         <Draggable
           disabled={localState.disabled}
           bounds={localState.bounds}
           onStart={(event, uiData) => onStart(event, uiData)}
         >
-          <div ref={draggleRef}>
-            {modal}
+          <div id="oe-drag" ref={draggleRef}>
+            <Resizable
+              defaultSize={{
+                width: _width,
+                height: height || _height
+              }}
+              minHeight={height || 480}
+              minWidth={400}
+              maxWidth="100vw"
+              maxHeight="100vh"
+              boundsByDirection={true}
+            >
+              {modal}
+            </Resizable>
           </div>
         </Draggable>
       )}
       {...config}
     >
-      <div className="oe-modal-content">
-        {
-          children
-        }
-      </div>
+      {/* <Resizable
+        width={width || 900}
+      > */}
+      <div className="oe-modal-content">{children}</div>
+      {/* </Resizable> */}
     </AntModal>
-  )
-}
+  );
+};
 
 export default Modal;

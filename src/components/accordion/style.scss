@@ -47,6 +47,7 @@
   }
   & .ant-collapse-content {
     border-top: 1px solid $border-variant-1;
+    margin-bottom: 50px;
   }
   &.ant-collapse-borderless > .ant-collapse-item > .ant-collapse-content > .ant-collapse-content-box {
     background-color: $background-color;
