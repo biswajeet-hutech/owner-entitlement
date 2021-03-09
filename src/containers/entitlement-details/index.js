@@ -1,6 +1,5 @@
 import React from "react";
-import { message, Spin, Row } from "antd";
-import Button from "../../components/button";
+import { message, Spin } from "antd";
 import './style.scss';
 import Accordion from "../../components/accordion";
 import BaseProperties from "./base-properties";

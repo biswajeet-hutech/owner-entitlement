@@ -83,8 +83,8 @@ const ExtendedAttributes = ({
           </Form.Item>
         )
       case 'boolean':
-        return <Dropdown value={selectedValues[extendedAttrName]} options={constructDropdown(['True', 'False'])} 
-        onChange={(v, e) => updateFormData(extendedAttrName, v)} label={displayName} />;;
+        return <Dropdown value={selectedValues[extendedAttrName]} options={constructDropdown(allowedValues || ['True', 'False'])} 
+        onChange={(v, e) => updateFormData(extendedAttrName, v)} label={displayName} />;
       // case 'sailpoint.object.Identity':
       //   getDataFromAPI(APIName);
       //   return;

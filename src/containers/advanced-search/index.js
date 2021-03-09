@@ -1,6 +1,7 @@
 import React from "react";
 import { Popover, Badge } from 'antd';
-import {SettingIcon} from './../../assets'
+// import {SettingIcon} from './../../assets'
+import { FilterFilled } from "@ant-design/icons";
 import Button from '../../components/button';
 import "./style.scss";
 import AdvancedSearchContent from "./advance-search-content";
@@ -68,7 +69,7 @@ const AdvancedSearch = ({ onSearch }) => {
         destroyTooltipOnHide
       >
         <Badge count={filterCount()} style={{ backgroundColor: '#d42511' }}>
-          <Button type="primary" className="adv-btn-wrapper">Advanced Search</Button>
+          <Button leftIcon={<FilterFilled />} type="primary" className="adv-btn-wrapper">Filter</Button>
         </Badge>
       </Popover>
     </div>

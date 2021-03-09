@@ -4,13 +4,13 @@
 .oe-adv-search {
   .oe-popover {
     & .adv-btn-wrapper {
-      margin-left: 19px;
+      margin-left: 8px;
       border-radius: 4px;
       height: 35px;
       line-height: 14px;
       padding: 8px;
       span {
-        padding: 2px 2px 0px 5px;
+        // padding: 2px 2px 0px 5px;
       }
       img {
         margin-top: -2px;
@@ -62,7 +62,7 @@
   & .ant-form-item-label > label {
     font-family: $secondary-font-regular;
     font-size: $font-size-12;
-    font-weight: 400;
+    font-weight: 600;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.83;

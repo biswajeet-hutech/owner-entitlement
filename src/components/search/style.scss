@@ -21,6 +21,9 @@
     &::placeholder {
       color: #202020;
     }
+    &:placeholder-shown {
+      opacity: 0.6;
+    }
     &:hover {
       cursor: text;
     }

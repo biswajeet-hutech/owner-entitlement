@@ -105,6 +105,9 @@
 
 .oe-entitlement-list-table {
   margin-top: 22px;
+  &.oe-table .ant-table-tbody > tr > td:first-child {
+    max-width: 250px;
+  }
 }
 
 .description_modal_text {

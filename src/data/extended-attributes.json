@@ -29,7 +29,7 @@
 	"extendedAttrName": "birthright",
 	"name": "birthright",
 	"named": "true",
-	"type": "string"
+	"type": "boolean"
 }, {
 	"APIName": null,
 	"allowedValues": ["Yes", "No"],
@@ -37,7 +37,7 @@
 	"extendedAttrName": "privileged",
 	"name": "privileged",
 	"named": "true",
-	"type": "string"
+	"type": "boolean"
 }, {
 	"APIName": null,
 	"allowedValues": ["1", "2", "3"],

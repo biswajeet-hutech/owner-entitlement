@@ -1,34 +1,43 @@
-@import './../../assets/colors.scss';
-@import './../../assets/fonts.scss';
+@import "./../../assets/colors.scss";
+@import "./../../assets/fonts.scss";
+
+.ant-modal-root, .ant-modal-mask, .ant-modal-wrap.ant-modal-centered {
+  transition: none !important;
+}
 
 .oe-modal {
   pointer-events: auto;
   font-family: $primary-font-regular;
-  transition-duration: 0s!important;
-  animation-duration: 0s!important;
-  & .ant-spin-nested-loading, & .ant-spin-container {
+  transition-duration: 0s !important;
+  animation-duration: 0s !important;
+  & .ant-spin-nested-loading,
+  & .ant-spin-container {
     position: static;
   }
   & .ant-modal-content {
     border-radius: 10px;
+    height: 100%;
+  }
+  & .oe-modal-subtitle {
+    font-size: 0.7em;
   }
   & .ant-modal-header {
-    padding: 20px 32px;
+    padding: 10px 32px;
     border-radius: 10px 10px 0 0;
     border-bottom: solid 1px $border-variant-1;
     background-color: #10a2ce;
     margin-bottom: 8px;
   }
   & .ant-modal-title {
-    font-size: $font-size-24;
-    font-weight: 300;
+    font-size: $font-size-20;
+    font-weight: 400;
     font-stretch: normal;
     font-style: $font-style-normal;
     line-height: 26px;
     letter-spacing: 0.2px;
     color: #fff;
     cursor: move;
-    img{
+    img {
       margin-right: 18px;
     }
   }
@@ -42,10 +51,10 @@
     letter-spacing: normal;
     color: #6a6a6a;
     padding: 0px 0px 0px 0px;
-    max-height: 74vh;
-    min-height: max-content;
+    //max-height: 74vh;
+    height: 82%;
+    overflow: auto;
     & .oe-modal-content {
-      // height: 65vh;
       .oe-table {
         .ant-table-thead {
           &::after {
@@ -65,59 +74,69 @@
       .ant-table {
         padding: 0px 32px;
       }
-      & .ant-pagination {
-        margin: 0px;
-        position: absolute;
-        align-content: center;
-        width: 100%;
-        right: 0px;
-        padding-top: 20px;
-        &::before {
-          content: "";
-          position: absolute;
-          height: 1px;
-          width: 100%;
-          margin-top: -15px;
-          background-color: $border-variant-1;
-        }
-      }
+      // & .ant-pagination {
+      //   margin: 0px;
+      //   position: absolute;
+      //   align-content: center;
+      //   width: 100%;
+      //   right: 0px;
+      //   padding: 0px;
+      //   margin-top: 12px;
+      //   &::before {
+      //     content: "";
+      //     position: absolute;
+      //     height: 1px;
+      //     width: 100%;
+      //     margin-top: -10px;
+      //     background-color: $border-variant-1;
+      //   }
+      // }
     }
   }
   & .ant-modal-footer {
     visibility: hidden;
   }
   & .ant-modal-close {
-    top: 12px;
+    top: 18px;
     right: 24px;
   }
   & .ant-modal-close-x {
     border-radius: 50%;
-    width: 42px;
-    height: 42px;
-    line-height: 52px;
+    width: 32px;
+    height: 32px;
+    line-height: 38px;
     color: #fff;
-    svg{
-      fill: #fff!important;
+    span{
+      font-size: 20px;
+    }
+    svg {
+      fill: #fff !important;
     }
     &:hover {
       background-color: #ededed;
       color: #000;
-      svg{
-        fill: #000!important;
+      svg {
+        fill: #000 !important;
       }
     }
   }
 }
-
+#oe-drag {
+  .react-resizable {
+    .ant-modal-content {
+      .ant-modal-body {
+        overflow-y: scroll;
+        height: 430px;
+      }
+    }
+  }
+}
 .description_modal {
   .ant-modal-content {
     border-radius: 10px;
-    max-width: 100vh;
     .ant-modal-body {
-      max-height: 60vh;
-      height: fit-content;
-      min-height: 5vh;
-      .oe-modal-content{
+      max-height: 65%;
+      .oe-modal-content {
         height: fit-content;
       }
     }
@@ -127,11 +146,75 @@
   }
 }
 
-
 @media screen and (max-width: 1280px) {
-  .oe-modal { 
+  .oe-modal {
     & .ant-modal-body {
-      max-height: 70vh;
+      //max-height: 70vh;
     }
   }
+}
+
+.react-resizable {
+  position: relative;
+}
+.react-resizable-handle {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-origin: content-box;
+  box-sizing: border-box;
+  background-image: url("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA2IDYiIHN0eWxlPSJiYWNrZ3JvdW5kLWNvbG9yOiNmZmZmZmYwMCIgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSI2cHgiIGhlaWdodD0iNnB4Ij48ZyBvcGFjaXR5PSIwLjMwMiI+PHBhdGggZD0iTSA2IDYgTCAwIDYgTCAwIDQuMiBMIDQgNC4yIEwgNC4yIDQuMiBMIDQuMiAwIEwgNiAwIEwgNiA2IEwgNiA2IFoiIGZpbGw9IiMwMDAwMDAiLz48L2c+PC9zdmc+");
+  background-position: bottom right;
+  padding: 0 3px 3px 0;
+}
+.react-resizable-handle-sw {
+  left: 0;
+  cursor: sw-resize;
+  transform: rotate(90deg);
+}
+.react-resizable-handle-se {
+  margin-top: -20px;
+  right: 0;
+  cursor: se-resize;
+}
+.react-resizable-handle-nw {
+  top: 0;
+  left: 0;
+  cursor: nw-resize;
+  transform: rotate(180deg);
+}
+.react-resizable-handle-ne {
+  top: 0;
+  right: 0;
+  cursor: ne-resize;
+  transform: rotate(270deg);
+}
+.react-resizable-handle-w,
+.react-resizable-handle-e {
+  top: 50%;
+  margin-top: -10px;
+  cursor: ew-resize;
+}
+.react-resizable-handle-w {
+  left: 0;
+  transform: rotate(135deg);
+}
+.react-resizable-handle-e {
+  right: 0;
+  transform: rotate(315deg);
+}
+.react-resizable-handle-n,
+.react-resizable-handle-s {
+  left: 50%;
+  margin-left: -10px;
+  cursor: ns-resize;
+}
+.react-resizable-handle-n {
+  top: 0;
+  transform: rotate(225deg);
+}
+.react-resizable-handle-s {
+  bottom: 0;
+  transform: rotate(45deg);
 }
