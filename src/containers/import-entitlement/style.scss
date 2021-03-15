@@ -7,12 +7,12 @@
   border-radius: 4px;
 
   & .oe-ie-success-container {
-    font-size: 16px;
+    font-size: 14px;
     padding: 12px 24px;
-    line-height: 1.5;
+    line-height: 2;
     background: whitesmoke;
     & h5 {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 600;
       color: #509e14;
     }
@@ -30,6 +30,7 @@
     overflow-y: hidden;
     & .oe-modal-content {
       height: inherit;
+      overflow: auto;
     }
   }
   & .accordion_footer {
@@ -107,12 +108,7 @@
 }
 
 .table-wrapper {
-  margin: 16px 0;
   background-color: #ffffff;
-}
-
-.section {
-  margin: 16px 0;
 }
 
 .import-section {

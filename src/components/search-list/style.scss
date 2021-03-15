@@ -1,10 +1,12 @@
 .oe-search-list {
+  & .oe-infinite-container {
+    max-height: 220px;
+    overflow: auto;
+  }
   & ul {
     list-style: none;
     padding: 0;
     padding-top: 10px;
-    max-height: 220px;
-    overflow: auto;
 
     & li {
       padding: 8px;
@@ -21,5 +23,13 @@
         }
       }
     }
+  }
+
+  & .oe-loading-container {
+    display: flex;
+    width: 100%;
+    height: 50px;
+    justify-content: center;
+    align-items: center;
   }
 }

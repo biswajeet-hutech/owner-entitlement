@@ -6,13 +6,14 @@ import ImportEntitlements from "./import-entitlement";
 import './style.scss';
 
 const ImportEntitlementDialog = ({
-  onHide = () => {}
+  onHide = () => {},
+  onSuccess = () => {}
 }) => {
   const [loading, setLoading] = React.useState(false);
 
   return (
     <Spin spinning={loading}>
-      <ImportEntitlements onCancel={onHide}  />
+      <ImportEntitlements onCancel={onHide} onSuccess={onSuccess}  />
     </Spin>
   );
 }

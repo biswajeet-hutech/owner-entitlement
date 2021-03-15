@@ -9,6 +9,16 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=450, defaultVal
   const editorState = editorValue.getEditorState();
   const contentState = editorState.getCurrentContent();
   const editorTextLength = contentState.getPlainText().length;
+
+  let options = {
+    defaultBlockTag: null,
+    inlineStyles: {
+      BOLD: {element: 'b'},
+      ITALIC: {
+        element: 'i'
+      },
+    },
+  }
  
   const handleChange = (newValue) => {
     let editorState = newValue.getEditorState();
@@ -20,7 +30,8 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=450, defaultVal
     if (!contentState.getPlainText().length) {
       onChange(null);
     } else {
-      onChange(newValue.toString('html'));
+      // console.log(newValue.toString('html', options));
+      onChange(newValue.toString('html', options));
     }
     // console.log(newValue);
     setValue(newValue);
@@ -48,12 +59,12 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=450, defaultVal
       {label: 'UL', style: 'unordered-list-item'},
       {label: 'OL', style: 'ordered-list-item'}
     ],
-    BLOCK_ALIGNMENT_BUTTONS: [
-      {label: 'Align Left', style: 'ALIGN_LEFT'},
-      {label: 'Align Center', style: 'ALIGN_CENTER'},
-      {label: 'Align Right', style: 'ALIGN_RIGHT'},
-      {label: 'Align Justify', style: 'ALIGN_JUSTIFY'}
-    ]
+    // BLOCK_ALIGNMENT_BUTTONS: [
+    //   {label: 'Align Left', style: 'ALIGN_LEFT'},
+    //   {label: 'Align Center', style: 'ALIGN_CENTER'},
+    //   {label: 'Align Right', style: 'ALIGN_RIGHT'},
+    //   {label: 'Align Justify', style: 'ALIGN_JUSTIFY'}
+    // ]
   };
   return (
     <div className="oe-rte">

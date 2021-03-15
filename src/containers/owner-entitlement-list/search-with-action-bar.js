@@ -1,11 +1,11 @@
 import React from "react";
 import { Row, Col, Tooltip } from 'antd';
-
+import { ImportOutlined } from "@ant-design/icons";
 import { ExportsIcon, ExportHoverIcon,strings, HelpIcon } from './../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
-import InfoContent from './info-content';
+// import InfoContent from './info-content';
 import AdvancedSearch from '../advanced-search';
 import ScheduleCertification from "../scheduled-certification";
 import ImportEntitlementDialog from "../import-entitlement";
@@ -23,11 +23,11 @@ const SearchWithActionBar = ({
   const [openImportDialog, setOpenImportModal] = React.useState(false);
   const [searchText, setSearchTextChange] = React.useState('');
   const [searchProps, setSearchProps] = React.useState({});
-  const [popVisible, setPopVisible] = React.useState({
-    import: false,
-    export: false,
-    scheduledCert: false
-  });
+  // const [popVisible, setPopVisible] = React.useState({
+  //   import: false,
+  //   export: false,
+  //   scheduledCert: false
+  // });
 
   const handleSearch = (data) => {
     const payload = {};
@@ -40,14 +40,20 @@ const SearchWithActionBar = ({
     setSearchProps(payload);
   }
 
-  const hideInfoContent = (e) => {
-    e.stopPropagation();
-    setPopVisible({ ...popVisible, export: false, import: false });
-  }
+  // const hideInfoContent = (e) => {
+  //   e.stopPropagation();
+  //   setPopVisible({ ...popVisible, export: false, import: false });
+  // }
 
-  const changeInfoContent = (v, type="export") => {
-    setPopVisible({ ...popVisible, [type]: v });
-  }
+  // const changeInfoContent = (v, type="export") => {
+  //   setPopVisible({ ...popVisible, [type]: v });
+  // }
+
+  // React.useEffect(() => {
+  //   if (!openImportDialog) {
+  //     onAction('import');
+  //   }
+  // }, [openImportDialog]);
 
   return (
     <>
@@ -69,24 +75,29 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          {/* <Button className="oe-importBtn" onClick={() => setOpenImportModal(true)} type="text"
-            rightIcon={(
-              <InfoContent
-                type="import"
-                visible={popVisible.import}
-                onVisibleChange={(v) => changeInfoContent(v, "import")}
-                onHide={hideInfoContent} />
-            )}>IMPORT</Button> */}
-          {/* <Button className="oe-exportBtn" onClick={() => onExport(searchProps)} type="text"
-          >Export Entitlements</Button> */}
+          <Button className="oe-importBtn oe-btn-primary" onClick={() => setOpenImportModal(true)} type="text">
+            {/* <ExportsIcon /> */}
+            <ImportOutlined />
+            <span>Import</span>
+          </Button>
           <ExportButton onClick={(type) => onExport(searchProps, type)} />
         </Col>
       </Row>
       <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>
         <ScheduleCertification onHide={() => setOpenSecduledCertModal(false)} />
       </Modal>
-      <Modal open={openImportDialog} onHide={() => {setOpenImportModal(false); onAction('import')}} title="Import Entitlements from CSV file" config={{ className: "oe-modal oe-import-entitlement-dialog" }} width={800}>
-        <ImportEntitlementDialog onHide={() => setOpenImportModal(false)} />
+      <Modal
+        open={openImportDialog}
+        onHide={() => {
+          setOpenImportModal(false);
+        }}
+        title="Import"
+        subTitle="Import Entitlements from CSV file"
+        config={{ className: "oe-modal oe-import-entitlement-dialog" }}
+        width={800}
+        height={400}
+      >
+        <ImportEntitlementDialog onHide={() => setOpenImportModal(false)} onSuccess={() => onAction('import')} />
       </Modal>
     </>
   )

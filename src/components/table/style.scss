@@ -22,6 +22,10 @@
     & > tr > th {
       &:first-child {
         padding-left: 20px !important;
+        padding-right: 20px !important;
+        &.ant-table-selection-column {
+          padding-left: 6px !important;
+        }
       }
     }
     & > tr {
@@ -58,7 +62,7 @@
   }
   & .ant-table-tbody {
     & > tr.ant-table-row-selected > td {
-      background: $input-border;
+      background: #f1f1f1;
     }
     & > tr > td {
       & > a {
@@ -74,6 +78,10 @@
       }
       &:first-child {
         padding-left: 20px;
+        padding-right: 20px;
+        &.ant-table-selection-column {
+          padding-left: 6px;
+        }
       }
     }
   }

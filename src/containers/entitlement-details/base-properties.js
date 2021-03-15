@@ -1,6 +1,6 @@
 import React from "react";
 import { Row } from "antd";
-import { getFormType } from "../../utils";
+// import { getFormType } from "../../utils";
 import Button from "../../components/button";
 import './style.scss';
 import FormElement from "../../components/form-element";
@@ -20,30 +20,61 @@ const BaseProperties = ({
   const [formData, setFormData] = React.useState({});
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
-  const requiredCommonAttributes = ["displayName", "description"];
-  const requiredExtendedAttributes = Array.isArray(data.ExtentedAttributeProperties) ? data.ExtentedAttributeProperties.map(item => item.name).filter(item => !['approver_level2', 'approver_level3'].includes(item)) : [];
-  // const requiredProps = [...requiredCommonAttributes, ...requiredExtendedAttributes];
   const requiredProps = [];
-  if (entitlementData.approval_levels > "1") {
-    requiredProps.push("approver_level2");
-  }
-  if (entitlementData.approval_levels > "2") {
-    requiredProps.push("approver_level3")
-  }
+
   const handleUpdate = (key, value) => {
-    // console.log('updatefff');
-    // console.log(value);
     const updatedObj = {
       [key]: value
     }
 
-    if (key === 'approval_levels' && value === '1') {
-      updatedObj.approver_level2 = null;
-      updatedObj.approver_level3 = null;
+    if (key === 'approval_levels') {
+      if (!value || value === '1') {
+        updatedObj.approver_level2 = null;
+        updatedObj.approver_level3 = null;
+      }
+      if (value === '2') {
+        updatedObj.approver_level3 = null;
+      }
     }
 
-    setFormData({ ...formData, ...updatedObj });
-    setEntitlementData({ ...entitlementData, ...updatedObj });
+    setFormData(stateData => ({
+      ...stateData,
+      ...updatedObj
+    }));
+
+    setEntitlementData(stateData => ({
+      ...stateData,
+      ...updatedObj
+    }));
+  }
+
+  const getErrors = (formData) => {
+    const errorObj = {};
+    requiredProps.forEach(item => {
+      if (!entitlementData[item]) {
+        errorObj[item] = "This field is required";
+      }
+    })
+
+    const approverKeys = [];
+    if (entitlementData.approval_levels > "1") {
+      approverKeys.push("approver_level2");
+    }
+    if (entitlementData.approval_levels > "2") {
+      approverKeys.push("approver_level3")
+    }
+
+    approverKeys.forEach(item => {
+      if (!formData[item]) {
+        errorObj[item] = "This field is required";
+      } else if (Array.isArray(formData[item]) && formData[item]?.length > 1) {
+        errorObj[item] = "Select an associated workgroup or create one"
+      } else if (Array.isArray(formData[item]) && !formData[item].length) {
+        errorObj[item] = "Select an approver"
+      }
+    })
+
+    return errorObj;
   }
 
   const readOnlyFormConfig = [
@@ -117,27 +148,56 @@ const BaseProperties = ({
   ]
 
   const handleSaveData = () => {
-    const errors = {};
-    requiredProps.forEach(item => {
-      if (!entitlementData[item]) {
-        errors[item] = "This field is required";
-      }
-    })
-
+    const finalFormData = {...formData};
+    const errors = getErrors(finalFormData);
     const inValidForm = Object.keys(errors).length;
     setErrors(errors);
+
+    // requiredProps.forEach(item => {
+    //   if (!entitlementData[item]) {
+    //     errors[item] = "This field is required";
+    //   }
+    // })
+
+    // const approverKeys = [];
+    // if (entitlementData.approval_levels > "1") {
+    //   approverKeys.push("approver_level2");
+    // }
+    // if (entitlementData.approval_levels > "2") {
+    //   approverKeys.push("approver_level3")
+    // }
+
+    // approverKeys.forEach(item => {
+    //   if (!finalFormData[item]) {
+    //     errors[item] = "This field is required";
+    //   } else if (Array.isArray(finalFormData[item]) && finalFormData[item]?.length > 1) {
+    //     errors[item] = "Select an associated workgroup or create one"
+    //   } else if (Array.isArray(finalFormData[item]) && !finalFormData[item].length) {
+    //     errors[item] = "Select an approver"
+    //   }
+    // })
+
     if (inValidForm) {
       return;
     } else {
       const payload = {};
-      for (const key in formData) {
+      for (const key in finalFormData) {
         if(!readOnlyProperties.includes(key)) {
-          payload[key] = formData[key];
+          if (["approver_level2", "approver_level3"].includes(key) && Array.isArray(finalFormData[key])) {
+            payload[key] = finalFormData[key].join();
+          } else {
+            payload[key] = finalFormData[key];
+          }
         }
       }
       onSave(payload);
     }
   }
+
+  React.useEffect(() => {
+    const errorObj = getErrors({ ...formData });
+    setErrors(stateData => errorObj);
+  }, [formData]);
 
   React.useEffect(() => {
     // console.log("data updated", data.EntitlementDetails);

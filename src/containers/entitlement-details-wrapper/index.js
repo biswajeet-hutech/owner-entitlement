@@ -15,6 +15,7 @@ const EntitlementDetailsWrapper = ({
   defaultActiveKey="1",
   editMode,
   onClose = ()=> {},
+  onEntitlementUpdate = ()=> {},
   onSuccess = ()=> {}
 }) => {
 
@@ -103,6 +104,7 @@ const EntitlementDetailsWrapper = ({
           data={entitlementData.Members[0]}
           id={entitlementId}
           onUpdate={handleOnMemberSearch}
+          onEntitlementUpdate={onEntitlementUpdate}
           entitlementName={entitlementName}
           entitlementDetailsHeader={entitlementDetailsHeader}
         />
@@ -117,7 +119,7 @@ const EntitlementDetailsWrapper = ({
           extendedAttributes={extendedAttributes}
           editMode={!!editMode}
           onSuccess={onSuccess}
-          onClose={onClose}
+          onClose={() => {onClose(); onEntitlementUpdate();}}
         />
       </Spin>
     )

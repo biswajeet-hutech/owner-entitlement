@@ -1,5 +1,6 @@
 import React from "react";
-import { Input, Checkbox, List, Popover } from 'antd';
+import { Input, Checkbox, List, Popover, Tooltip } from 'antd';
+import { EyeFilled } from "@ant-design/icons";
 
 import { CheckTrue, CheckFalse, AddIcon, TickIcon, EditWhiteIcon } from './../../assets';
 import "./style.scss";
@@ -9,6 +10,8 @@ import ChipSelect from "../chip-select";
 import Button from "../button";
 import SearchList from "../search-list";
 import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
+import API, { localMode } from "../../api";
+import dummyWorkgroupMembers from "../../data/workgroup-members.json";
 
 const { TextArea } = Input;
 
@@ -34,12 +37,16 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
 }
 
 const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
+  const handleOnChange = (value='') => {
+    const newValue = value?.replace(/^\<p\>/,"").replace(/\<\/p\>$/,"") || "";
+    onChange(newValue);
+  }
   return (
     <>
       {
         readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
           <>
-            <MyStatefulEditor value={value || ''} onChange={onChange} {...otherProps} />
+            <MyStatefulEditor value={value || ''} onChange={handleOnChange} {...otherProps} />
           </>
         )
       }
@@ -120,11 +127,78 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
   )
 }
 
-const ChipDropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
+const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, ...otherProps}) => {
+  const [workgroupMembers, setWorkgroupMembers] = React.useState([]);
+  const [loadingWorkgroupMembers, setLoadingWorkgroupMembers] = React.useState(false);
+  const workgroupMembersDropList = workgroupMembers.map(item => ({
+    label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
+    id: item.name
+  }));
+  const [viewPopVisible, setViewPopVisible] = React.useState({});
+
+  const getWorkgroupMembers = (workgroupName) => {
+    setLoadingWorkgroupMembers(true);
+    API.post('/EntitlementManagement/workgroup/details', {
+      "name": workgroupName
+    }).then(response => {
+      if (Array.isArray(response.data)) {
+        setWorkgroupMembers(stateData => [...response.data]);
+      }
+    }).catch(err => {
+      if (localMode) {
+        const result = []
+        setWorkgroupMembers(stateData => [
+          ...dummyWorkgroupMembers,
+          ...result
+        ]);
+      }
+    }).finally(res => {
+      setLoadingWorkgroupMembers(false);
+    })
+  }
+
+  const handleViewVisibleChange = (v, index) => {
+    if (v) {
+      getWorkgroupMembers(index);
+    }
+    setViewPopVisible({
+      ...viewPopVisible,
+      [index]: v
+    });
+  }
+
   return (
     <>
       {
-        readOnly ? <span>{ value?value:'' }</span> : (
+        readOnly ? (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <span>{ value || '' }</span>
+            { isWorkgroup ? (
+              <Popover
+                content={
+                <SearchList
+                list={[...workgroupMembersDropList]}
+                labelProp="label"
+                action="view"
+                onItemAdd={() => {}}
+                onItemRemove={() => {}}
+                loadingList={loadingWorkgroupMembers}
+                />}
+                title=""
+                trigger="click"
+                visible={viewPopVisible[value]}
+                destroyTooltipOnHide
+                onVisibleChange={(v) => handleViewVisibleChange(v, value)}
+              >
+                <Tooltip title="View Members" placement="bottom">
+                  <p style={{ margin: '0px 8px', display: 'flex', cursor: 'pointer' }} onClick={e => e.stopPropagation()}>
+                    <EyeFilled style={{ color: '#666', fontSize: 16}} />
+                  </p>
+                </Tooltip>
+              </Popover>
+            ) : null}
+          </div>
+        ): (
         <>
           <ChipSelect
             options={options}
@@ -134,6 +208,7 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, ...otherProps}) =
             {...otherProps}
           />
           { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+          { value?.length > 1 && (<div style={{ margin: '4px 0 0' }}>Below are some common workgroup(s) between the selected members. Select one.</div> )}
         </>
         )
       }

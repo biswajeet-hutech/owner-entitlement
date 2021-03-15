@@ -30,7 +30,10 @@ const getFormType = (prop) => {
 
 const getExportMembersFileName = (name="") => name.split("CN=").slice(0, 2).join("").split(",").join("_").split(" ").join("_").concat("_Members");
 
+const titleCase = (str="") => str.split("_").map(item => item.charAt(0).toUpperCase() + item.substring(1)).join(" ");
+
 export {
   getFormType,
-  getExportMembersFileName
+  getExportMembersFileName,
+  titleCase
 }

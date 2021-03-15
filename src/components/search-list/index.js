@@ -1,61 +1,143 @@
-import { List } from "antd/lib/form/Form";
+import { List, Spin, Tooltip } from "antd";
 import React from "react";
-import { AddIcon, CloseIcon } from "../../assets";
+import InfiniteScroll from 'react-infinite-scroller';
+// import { AddIcon, CloseIcon } from "../../assets";
+import Button from "../button";
 import Search from "../search";
 import "./style.scss";
 
+const pageLimit = 10;
 
 function SearchList(props) {
   const {
     list,
-    keyProp="id",
-    labelProp="label",
     action="add",
     onItemAdd=() => {},
-    onItemRemove=()=>{}
+    onItemRemove=()=>{},
+    loadingList
   } = props;
-  // console.log(props);
-  const [listItems, setListItems] = React.useState([...list]);
+  const [listItems, setListItems] = React.useState([]);
+  const [pagination, setPagination] = React.useState({
+    page: 1
+  });
+  const [loading, setLoading] = React.useState(false);
+  const [hasMore, setHasMore] = React.useState(true);
   const [searchText, setSearchText] = React.useState("");
 
-  const filterSearch = (searchTxt) => {
-    const filteredList = list.filter(item => item.label.includes(searchTxt));
-    setSearchText(searchTxt);
-    setListItems([...filteredList]);
+  const getListData = ({ data: dataList, page }) => {
+    const limit = pageLimit;
+    const startIndex = limit * (page - 1);
+    const endIndex = limit * page;
+    const response = dataList.slice(startIndex, endIndex);
+    return response;
   }
 
-  const handleIconClick = (id) => {
-    // console.log("click");
-    if (action === "add") {
+  const filterSearch = (searchTxt, dataList = [...list]) => {
+    const filteredList = dataList.filter(item => ((item.label || '').toLowerCase()).includes(searchTxt.toLowerCase()) || (item.id || '').toLowerCase().includes(searchTxt.toLowerCase()));
+    const trimmedList = getListData({ data: [...filteredList], page: 1 });
+    setSearchText(searchTxt);
+    setListItems(JSON.parse(JSON.stringify(trimmedList)));
+    setLoading(false);
+    setHasMore(true);
+  }
+
+  const handleIconClick = (id, actionType) => {
+    if (actionType === "add") {
       onItemAdd(id);
     } else {
       onItemRemove(id);
     }
   }
 
+  const handleInfiniteOnLoad = () => {
+    let data = [...listItems];
+    setLoading(true);
+    if (data.length >= list.length) {
+      setLoading(false);
+      setHasMore(false);
+      setPagination({ page: 1 });
+      return;
+    }
+    const newPageSize = pagination.page + 1;
+
+    const newData = [
+      ...data,
+      ...getListData({
+        data: JSON.parse(JSON.stringify(list)),
+        page: newPageSize
+      })
+    ];
+
+    setListItems(newData);
+    setLoading(false);
+    setPagination({
+      page: newPageSize
+    })
+  };
+
   React.useEffect(() => {
     if (list) {
-      filterSearch(searchText);
+      filterSearch(searchText, [...list]);
     }
   }, [list]);
 
+  React.useEffect(() => {
+    setLoading(!!loadingList);
+  }, [loadingList]);
+
+  // const renderActionIcon = (actionType) => {
+  //   switch(actionType) {
+  //     case "add":
+  //       return <AddIcon />;
+  //     case "remove":
+  //       return action !== "view" ? <CloseIcon /> : null;
+  //     default:
+  //       return null;
+  //   }
+  // }
+
   return (
     <div className="oe-search-list">
-      <Search placeHolder="" onSearch={filterSearch} />
-      <ul>
-        {
-          listItems.map(item => (
-            <li>
-              <span>
-                {item.label}
-              </span>
-              <span className="li-item-action" onClick={() => handleIconClick(item.id)}>
-                { action === "add" ? <AddIcon /> : <CloseIcon /> }
-              </span>
-            </li>
-          ))
-        }
-      </ul>
+      <Search placeHolder="Search users" onSearch={val => filterSearch(val, [...list])} />
+        <div className="oe-infinite-container">
+          <InfiniteScroll
+            initialLoad={false}
+            pageStart={0}
+            loadMore={handleInfiniteOnLoad}
+            hasMore={!loading && hasMore}
+            useWindow={false}
+          >
+            <List
+              dataSource={listItems}
+              renderItem={item => (
+                <List.Item key={item.id} onClick={e => e.stopPropagation()}>
+                  <List.Item.Meta
+                    title={item.label}
+                  />
+                  <div>
+                    {
+                      action !== "view" && (
+                        <Tooltip title={item.action === "add" ? "Add Member" : "Remove Member"} placement="right">
+                          <Button type="primary" size="small" onClick={() => handleIconClick(item.id, item.action)}>
+                            {
+                              item.action === "add" ? "Add" : "Remove"
+                            }
+                          </Button>
+                        </Tooltip>
+                        )
+                      }
+                  </div>
+                </List.Item>
+              )}
+            >
+              {loading && hasMore && (
+                <div className="demo-loading-container">
+                  <Spin />
+                </div>
+              )}
+            </List>
+          </InfiniteScroll>
+        </div>
     </div>
   );
 }

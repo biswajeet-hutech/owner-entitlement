@@ -1,10 +1,14 @@
 import React from "react";
+
 import { message, Input, Alert, Spin, Row } from "antd";
 import { LoadingOutlined } from '@ant-design/icons';
 
 import Button from "../../components/button";
-import API from "../../api";
+import API, { localMode } from "../../api";
+import dummyResponse from "../../data/import-entitlement.json";
 import "./style.scss";
+import { ExportCertIcon } from "../../assets";
+import { exportCSVData } from "../../utils/multiple-csv";
 
 class ImportEntitlements extends React.Component {
   state = {
@@ -64,16 +68,26 @@ class ImportEntitlements extends React.Component {
             uploadingFile: false,
             uploadComplete: true
           });
+          this.props.onSuccess();
         })
         .catch((error) => {
           // error
           // console.log(error);
-          this.setState({
-            uploadingFile: false,
-            uploadComplete: true,
-            importDataList: {},
-            inputError: 'Unable to import file. Please try again!'
-          })
+          if (localMode) {
+            this.setState({
+              importDataList: dummyResponse || {},
+              uploadingFile: false,
+              uploadComplete: true
+            });
+            this.props.onSuccess();
+          } else {
+            this.setState({
+              uploadingFile: false,
+              uploadComplete: true,
+              importDataList: {},
+              inputError: 'Unable to import file. Please try again!'
+            })
+          }
         })
         .then(() => {
           // always executed
@@ -97,6 +111,15 @@ class ImportEntitlements extends React.Component {
       inputError: '',
       uploadComplete: false
     })
+  }
+
+  exportResult = () => {
+    const { importDataList } = this.state;
+    exportCSVData(
+      importDataList?.csvResult?.headers || [],
+      importDataList?.csvResult?.csvData || [],
+      "Import_Entitlement_Update_Result.csv"
+    );
   }
 
   render() {
@@ -143,14 +166,18 @@ class ImportEntitlements extends React.Component {
           <li>{importDataList.notfoundEntitlements} Not found</li>
           <li>{importDataList.unatourizedEntitlements} Unauthorized update</li>
         </ul>
-        <p>Status: <strong style={{ textTransform: 'capitalize', color: '#509e14' }}>{importDataList.message}</strong></p>
+        {/* <p>Status: <strong style={{ textTransform: 'capitalize', color: '#509e14' }}>{importDataList.message}</strong></p> */}
+        <Button onClick={this.exportResult}>
+          <ExportCertIcon />
+          <span style={{ marginLeft: 5 }}>Export Result</span>
+        </Button>
       </div>
     );
 
     const renderImportError = (
       <Alert
         message="Error"
-        description={`${importDataList.message}, Please try again.`}
+        description={`${importDataList?.message || 'Unable to import data'}, Please try again.`}
         type="error"
       />
     );

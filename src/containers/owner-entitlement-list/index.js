@@ -18,7 +18,7 @@ import extendedAttributesJSON from "../../data/extended-attributes.json";
 import entitlementHeadersData from "../../data/entitlement-headers.json";
 import helpDataJSON from "../../data/helpdata.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
-import { getExportMembersFileName } from "../../utils";
+import { getExportMembersFileName, titleCase } from "../../utils";
 import Button from "../../components/button";
 import { printToPDF } from "../../utils/exportToPdf";
 import { getCombinedCSVData } from "../../utils/multiple-csv";
@@ -144,11 +144,18 @@ const OwnerEntitlement = () => {
         options: {
           hideMembersHeader: true,
           hideMembersData: true,
-        }
+        },
+        membersHeader: [],
+        detailsHeader: entitlementHeaders
       });
     } else {
+      const headerMap = entitlementHeaders.reduce((acc, item) => {
+        acc[item.name] = item.displayName;
+        return acc;
+      }, {});
+  
       const fields = exportData.Entitlement.headers?.reduce((acc, item) => {
-        acc[item] = item;
+        acc[item] = headerMap[item] || titleCase(item);
         return acc;
       }, {});
       const csv_config = {
@@ -373,9 +380,8 @@ const OwnerEntitlement = () => {
           entitlementName={showMembersModal.data.value || showMembersModal.data.displayName}
           onClose={() => {
             setShowMembersModal({ show: false, data: {} });
-            getEntitlementList(tableConfig);
-          }
-          }
+          }}
+          onEntitlementUpdate={() => getEntitlementList(tableConfig)}
         />
       </Modal>
       <Modal

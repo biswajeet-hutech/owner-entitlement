@@ -1,6 +1,14 @@
 @import "./../../assets/colors.scss";
 @import "./../../assets/fonts.scss";
 
+.ant-popover-message {
+  & .selected-members-list {
+    max-height: 200px;
+    overflow: auto;
+    line-height: 2.5;
+  }
+}
+
 .oe-sc-row-padding {
   padding: 10px 0;
 }

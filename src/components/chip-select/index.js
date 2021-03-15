@@ -17,11 +17,11 @@ const ChipSelect = ({
   value,
   renderOptions
 }) => {
+  // console.log(selectedValue, value);
   function tagRender(props) {
     const { label, value, closable, onClose } = props;
-  
     return (
-      <Tag closable={closable} onClose={onClose} style={{ marginRight: 3 }} onClick={(e) => {console.log('tag clicked'); e.stopPropagation()}}>
+      <Tag closable={closable} onClose={onClose} style={{ marginRight: 3 }}>
         {label}
       </Tag>
     );
@@ -37,13 +37,12 @@ const ChipSelect = ({
       tagRender={tagRender}
       style={{width: '100%'}}
       suffixIcon={<CaretDownFilled style={{ fontSize: 16 }} />}
-      defaultValue={selectedValue}
+      // defaultValue={selectedValue}
       className="oe-dropdown"
       placeholder={placeholder}
       onChange={onChange}
       disabled={!!disabled}
       value={value}
-      optionFilterProp="label"
       onBlur={onBlur}
     >
       {
