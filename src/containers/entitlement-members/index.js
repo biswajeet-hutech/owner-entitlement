@@ -1,5 +1,6 @@
 import React from "react";
-import { Col, Row, Popover, message, Spin } from "antd";
+import { Col, Row, Popover, message, Spin, Popconfirm, Alert } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 
 import Button from "../../components/button";
 import Table from "../../components/table";
@@ -20,6 +21,7 @@ import {
   PendingIcon,
   InfoHoverIcon,
   strings,
+  CloseIcon,
 } from "./../../assets";
 import { getExportMembersFileName } from "../../utils";
 import ExportButton from "../../components/button/export-btn";
@@ -103,17 +105,79 @@ const EntitlementMembers = ({
   entitlementName = "",
   entitlementDetailsHeader,
   onUpdate,
+  onEntitlementUpdate
 }) => {
+  const [visibleDeletePopup, setVisibleDeletePopup] = React.useState(false);
+  const [showRemoveSuccessMessage, setShowRemoveSuccessMessage] = React.useState(false);
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
+  const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
+  const [keysMarkedForDeletion, setKeysMarkedForDeletion] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
   const [paginationConfig, setPaginationConfig] = React.useState({
     totalRecordsToFetch: 25,
     start: 1,
   });
+
+  const showPopconfirm = () => {
+    setVisibleDeletePopup(true);
+  };
+
+  const handleOk = () => {
+    setLoadingEntitlement(true);
+    setVisibleDeletePopup(false);
+    API.post('/EntitlementManagement/member/update', {
+      id: id,
+      operation: "Remove",
+      users: selectedRowKeys
+    }).then(response => {
+      if (response?.data?.status === "success") {
+        message.success('Member removal process is successfully initiated');
+        onUpdate({
+          totalRecordsToFetch: paginationConfig.totalRecordsToFetch,
+          start: paginationConfig.start,
+          attrVal: paginationConfig.attrVal || "",
+        });
+        const keySetForDeletion = [...keysMarkedForDeletion, ...selectedRowKeys];
+        setSelectedRowKeys([]);
+        setTimeout(() => {
+          setKeysMarkedForDeletion(keySetForDeletion);
+          onEntitlementUpdate();
+        }, 1000);
+        setShowRemoveSuccessMessage(true);
+      } else {
+        message.error('Unable to remove members at this moment');
+      }
+    }).catch(err => {
+      message.error('Unable to remove members at this moment');
+      if (localMode) {
+        message.success('Member removal process is successfully initiated');
+        setShowRemoveSuccessMessage(true);
+        onUpdate({
+          totalRecordsToFetch: paginationConfig.totalRecordsToFetch,
+          start: paginationConfig.start,
+          attrVal: paginationConfig.attrVal || "",
+        });
+        const keySetForDeletion = [...keysMarkedForDeletion, ...selectedRowKeys];
+        setSelectedRowKeys([]);
+        setTimeout(() => {
+          setKeysMarkedForDeletion(keySetForDeletion);
+          onEntitlementUpdate();
+        }, 1000);
+      }
+    }).then(() => {
+      setLoadingEntitlement(false);
+    });
+  };
+
+  const handleCancel = () => {
+    setVisibleDeletePopup(false);
+  };
+
   const handleUpdateSearchResult = ({ page, pageSize, attrVal }) => {
     setPaginationConfig({
       totalRecordsToFetch: pageSize || 25,
       start: page || 1,
+      attrVal: attrVal
     });
 
     const totalRecordsToFetch = pageSize || 25;
@@ -148,7 +212,10 @@ const EntitlementMembers = ({
         exportData: data,
         options: {
           hideDetailsHeader: true
-        }
+        },
+        membersHeader: entitlementHeaders,
+        detailsHeader: entitlementDetailsHeader,
+        filename: "Entitlement-Member-Details"
       });
     } else {
       getCombinedCSVData({ data: exportJSON, membersHeader: entitlementHeaders, detailsHeader: entitlementDetailsHeader  });
@@ -199,54 +266,82 @@ const EntitlementMembers = ({
     getEntitlementHeaders();
   }, []);
 
+  const rowSelection = {
+    selectedRowKeys: selectedRowKeys,
+    onChange: (rowKeys, selectedRows) => {
+      setSelectedRowKeys([...rowKeys]);
+    },
+    getCheckboxProps: (record) => ({
+      disabled: keysMarkedForDeletion.includes(record.name), // Column configuration not to be checked
+      name: record.name,
+    }),
+    type: "checkbox"
+  };
+
   return (
     <Spin spinning={loadingEntitlement}>
-        {/* <Row justify="space-between" className="oe-sc-search-label">
-          <Typography type="title2">
-            <span>Search</span>
-            <Popover
-              content={<div style={{ maxWidth: 200, fontSize: 13 }}>Search First Name, Last Name, Email Address , Status and Manager</div>}
-              trigger="hover"
-              placement="bottom"
-              onClick={(e) => e.stopPropagation()}
-            >
-              <span style={{ margin: '0 5px' }}><InfoIcon width={14} height={14} /></span>
-            </Popover>
-          </Typography>
-        </Row> */}
-        <Row justify="space-between" className="oe-sc-row-padding">
-          <Col md={10}>
-            <Search
-              placeHolder={strings.entitlement_members_search_placeholder}
-              onSearch={(v) => handleUpdateSearchResult({ attrVal: v })}
-            />
-          </Col>
-          <Col>
-            <ExportButton onClick={(type) => exportAPI(id, type)} tooltip="Export Members" />
-          </Col>
-        </Row>
-        <Row className="oe-sc-row-padding">
-          <Table
-            dataSource={data.MemberDetails || []}
-            columns={columns}
-            config={{
-              scroll:{ y: '40vh', x: 1500 },
-              size: 'small',
-              pagination: {
-                total: data.total,
-                current: paginationConfig.start,
-                onChange: (p, ps) =>
-                  handleUpdateSearchResult({ page: p, pageSize: ps }),
-                position: ["none", "bottomCenter"],
-                pageSizeOptions: [25, 50, 100],
-                defaultPageSize: 25,
-                showSizeChanger: true,
-              },
-              className: "oe-table",
-              rowKey: "id",
-            }}
+      <Row justify="space-between" className="oe-sc-row-padding">
+      {showRemoveSuccessMessage ? (
+          <Alert message="Request to remove membership is submitted successfully. Go to My Work --> Access Requests, to check the status of request" type="success" closable afterClose={() => setShowRemoveSuccessMessage(false)} />
+        ) : null}
+      </Row>
+      <Row justify="space-between" className="oe-sc-row-padding">
+        <Col md={10}>
+          <Search
+            placeHolder={strings.entitlement_members_search_placeholder}
+            onSearch={(v) => handleUpdateSearchResult({ attrVal: v })}
           />
-        </Row>
+        </Col>
+        <Col>
+          <Popconfirm
+            title={(
+              <div>
+                <p>Are you sure to remove these members?</p>
+                <ol className="selected-members-list">
+                  {
+                    selectedRowKeys.map(item => <li>{item}</li>)
+                  }
+                </ol>
+              </div>
+            )}
+            visible={visibleDeletePopup}
+            onConfirm={handleOk}
+            onCancel={handleCancel}
+            placement="bottom"
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" onClick={showPopconfirm} disabled={!selectedRowKeys.length}>
+              Remove Members
+            </Button>
+          </Popconfirm>
+
+          <ExportButton onClick={(type) => exportAPI(id, type)} tooltip="Export Members" />
+        </Col>
+      </Row>
+      <Row className="oe-sc-row-padding">
+        <Table
+          dataSource={data.MemberDetails || []}
+          columns={columns}
+          config={{
+            scroll:{ y: '40vh', x: 1500 },
+            size: 'small',
+            pagination: {
+              total: data.total,
+              current: paginationConfig.start,
+              onChange: (p, ps) =>
+                handleUpdateSearchResult({ page: p, pageSize: ps }),
+              position: ["none", "bottomCenter"],
+              pageSizeOptions: [25, 50, 100],
+              defaultPageSize: 25,
+              showSizeChanger: true,
+            },
+            className: "oe-table",
+            rowKey: "name",
+            rowSelection: rowSelection
+          }}
+        />
+      </Row>
     </Spin>
   );
 };

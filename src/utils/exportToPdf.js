@@ -2,6 +2,9 @@
 import { message } from "antd";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
+import dateFormat from "dateformat";
+import { titleCase } from ".";
+
 
 // import exportData from "../data/export-entitlement.json";
 
@@ -37,7 +40,10 @@ const decodeAndRemoveExtraQuoteFromString = (str) => {
 
 const printToPDF = ({
   exportData,
-  options
+  options,
+  detailsHeader=[],
+  membersHeader=[],
+  filename="Entitlement-Details"
 }) => {
   const {
     hideDetailsData = false,
@@ -47,35 +53,68 @@ const printToPDF = ({
     
   } = options;
 
+  const detailsHeaderMap = detailsHeader?.reduce((acc, header) => {
+    acc[header.name] = header.displayName;
+    return acc;
+  }, {});
+
+  const memberHeaderMap = membersHeader?.reduce((acc, header) => {
+    acc[header.name] = header.displayName;
+    return acc;
+  }, {});
+
   var totalPagesExp = "{total_pages_count_string}";
   try {
     const doc = new jsPDF('l', 'mm', [297, 210]);
+
+    doc.setFont('', 'bold', '500');
     const commonTableProps = {
       headStyles: {
-        fontSize: 5,
-        fontStyle: "normal",
-        fillColor: "#44495b"
+        fontSize: 6,
+        fontStyle: "bold",
+        fillColor: "#037da1",
+        textAlign: "center",
+        valign: "middle",
       },
       bodyStyles: {
         fontSize: 5,
         textAlign: "center",
         valign: "middle",
-      }
+      },
     };
+
+    const footer = function(res) {
+      let str = 'Page ' + res.pageCount;
+      let height = doc.internal.pageSize.getHeight();
+      var today = new Date();
+      var newdat = dateFormat(today, "dddd, mmmm dS, yyyy, h:MM TT");
+
+      if (typeof doc.putTotalPages === 'function') {
+          str = str + ' of ' + totalPagesExp + '';
+      }
+      doc.setTextColor('#333333');
+      doc.setFontSize(8);
+      doc.setFont('helvetica', 'normal');
+      doc.text(newdat, 15, height - 5);
+      doc.text(str, 265, height - 5);
+  };
 
     doc.setFontSize(10);
     let finalY = doc.lastAutoTable.finalY || 10;
 
-    const entitlementDetailsHead = !hideDetailsHeader ? [exportData?.Entitlement?.headers.filter(item => item !== "id")] : [];
+    const entitlementDetailsHead = !hideDetailsHeader ? exportData?.Entitlement?.headers.filter(item => item !== "id") : [];
+    const descriptionColumn = entitlementDetailsHead.indexOf('description');
+    const entitlementDetailsHeadToShow = [entitlementDetailsHead.map(item => detailsHeaderMap[item] || titleCase(item))];
     const entitlementDetailsBody = [];
-    const entitlementMembersHead = !hideMembersHeader ? [exportData?.Members?.headers] : [];
+    const entitlementMembersHead = !hideMembersHeader ? exportData?.Members?.headers?.map(item => memberHeaderMap[item] || titleCase(item)) : [];
+    const entitlementMembersHeadToShow = [entitlementMembersHead.map(item => memberHeaderMap[item] || item)];
     const entitlementMembersBody = [];
     
     if (!hideDetailsData) {
       if (Array.isArray(exportData?.Entitlement?.EntitlementDetails)) {
         exportData?.Entitlement?.EntitlementDetails.forEach(row => {
           const localResult = [];
-          entitlementDetailsHead[0]?.forEach(head => {
+          entitlementDetailsHead?.forEach(head => {
             localResult.push(decodeAndRemoveExtraQuoteFromString(row[head]));
           })
           entitlementDetailsBody.push(localResult);
@@ -98,17 +137,19 @@ const printToPDF = ({
     }
 
     if (!hideDetailsData || !hideDetailsHeader) {
-      var today = new Date();
-      var newdat = today+'';
-      doc.setFontSize(8);
-      doc.text(newdat, 15,finalY);
       doc.setFontSize(12);
+      doc.setFont('helvetica', 'bold');
       doc.text(`Entitlement Details`, 15, finalY + 10);
       doc.autoTable({
         ...commonTableProps,
-        head: entitlementDetailsHead,
+        head: !hideDetailsHeader && entitlementDetailsHeadToShow,
         body: entitlementDetailsBody,
         startY: finalY + 15,
+        afterPageContent: footer,
+        columnStyles: {
+          0: {cellWidth: 20},
+          [descriptionColumn]: {cellWidth: 30}
+        }
       });
     }
 
@@ -117,17 +158,18 @@ const printToPDF = ({
       doc.text(`Entitlement Members`, 15, finalY + 10);
       doc.autoTable({
         ...commonTableProps,
-        head: entitlementMembersHead,
+        head: entitlementMembersHeadToShow,
         body: entitlementMembersBody,
         startY: finalY + 15,
         tableWidth: 'auto',
+        afterPageContent: footer,
       });
     }
 
     if (typeof doc.putTotalPages === "function") {
       doc.putTotalPages(totalPagesExp);
     }
-    doc.save("entitlement-details.pdf");
+    doc.save(`${filename}.pdf`);
   } catch (err) {
     console.log(err);
     message.error("Unable to Print");

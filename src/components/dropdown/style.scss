@@ -16,7 +16,7 @@
     color: #717171;
     text-align: left;
     height: 32px;
-    padding: 5px 0px 1px 0px;
+    padding: 0px 0px 1px 0px;
   }
 
   & .oe-dropdown {
@@ -38,7 +38,7 @@
   }
   & .ant-select:not(.ant-select-customize-input) .ant-select-selector {
     padding: 1px 8px;
-    height: 33px;
+    min-height: 33px;
     border: unset;
     background: #fff;
     font-size: $font-size-14;

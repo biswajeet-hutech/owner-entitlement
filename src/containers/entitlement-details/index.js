@@ -18,15 +18,19 @@ const EntitlementDetails = ({
     API.post(url, {
       ...payload
     }).then(res => {
-       message.success("Updated entitlement properties");
-       onSuccess();
+      if (res.data?.status === "success") {
+        message.success("Updated entitlement properties");
+        onSuccess();
+      } else {
+        message.error("Failed to update");
+      }
+       
     }).catch(err => {
       message.error("Failed to update");
     }).then(() => setLoading(false));
   }
 
   const handleSave = (formData) => {
-    // console.log(formData);
     const payload = {
       ...formData,
       id: data?.EntitlementDetails?.id

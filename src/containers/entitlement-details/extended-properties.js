@@ -1,9 +1,10 @@
 import React from "react";
-import { message, Select } from 'antd';
+import { message, Select, Spin } from 'antd';
 import './style.scss';
 import { getFormType } from "../../utils";
 import FormElement from "../../components/form-element";
 import API, { localMode } from "../../api";
+import approverDummyData from "../../data/approver-data.json";
 
 const { Option, OptGroup } = Select;
 
@@ -17,6 +18,8 @@ const ExtendedProperties = (props) => {
   } = props;
 
   const [approverLevelData, setApproverLevelData] = React.useState({});
+  const [workgroupAccess, setWorkgroupAccess] = React.useState({approver_level2: {}, approver_level3: {}})
+  const [loadingWorkgroupList, setLoadingWorkgroupList] = React.useState({approver_level2: false, approver_level3: false})
   const [approverStateData, setApproverStateData] = React.useState({approver_level2: null, approver_level3: null});
   const [workgroupStateData, setWorkgroupStateData] = React.useState({approver_level2: [], approver_level3: []});
   const [workgroupDetailsData, setWorkgroupDetailsData] = React.useState({approver_level2: [], approver_level3: []});
@@ -25,67 +28,50 @@ const ExtendedProperties = (props) => {
 
   const getApproverLevelData = async ({APIName, name}) => {
     API.get(APIName).then(res => {
-      setApproverLevelData({ ...approverLevelData, [name]: res.data });
+      setApproverLevelData({
+        approver_level2: res.data,
+        approver_level3: res.data
+      });
     }).catch(err => {
       if (localMode) {
-        setApproverLevelData({
-          ...approverLevelData,
-          [name]: [
-          {
-            "workgroup": "true",
-            "firstname": null,
-            "name": "Test Work Group1",
-            "id": "8a4057b3757a50f701757a547e820015",
-            "email": "TestWorkGroup1@test.com",
-            "lastname": null
-          },
-          {
-            "workgroup": "false",
-            "firstname": "Donald",
-            "name": "200",
-            "id": "8a405b8a75ae475f0175ae5825e1002e",
-            "email": null,
-            "lastname": "Byrd"
-          },
-          {
-            "workgroup": "false",
-            "firstname": "Casey",
-            "name": "201",
-            "id": "8a405b8a75ae475f0175ae5826b70030",
-            "email": null,
-            "lastname": "Bridges"
-          },
-          {
-            "workgroup": "false",
-            "firstname": "Wayne",
-            "name": "202",
-            "id": "8a405b8a75ae475f0175ae5826f70032",
-            "email": null,
-            "lastname": "Lopez"
-          }
-        ]
-        });
+        setApproverLevelData(stateData => ({
+          approver_level2: approverDummyData,
+          approver_level3: approverDummyData
+        }));
       }
     })
   }
 
-  const callWorkgroupDetailsAPI = (users, name) => {
-    if (!users.length) {
-      setWorkgroupDetailsData({
-        ...workgroupDetailsData,
-        [name]: []
-      });
+  const callWorkgroupDetailsAPI = (users, name, firstLoad) => {
+    // console.log(users);
+    if (users.length < 2) {
+      if (firstLoad) {
+        setWorkgroupDetailsData(stateData => ({
+          ...stateData,
+          [name]: users
+        }));
+        handleWorkgroupChange(name, users[0])
+      } else {
+        setWorkgroupDetailsData(stateData => ({
+          ...stateData,
+          [name]: []
+        }));
+        // handleWorkgroupChange(name, '')
+      }
     } else {
+      //set loader to true
+      setLoadingWorkgroupList(stateData => ({
+        ...stateData,
+        [name]: true
+      }));
       API.post('/EntitlementManagement/workgroup/assigned', {
         'identities': [...users]
       }).then(res => {
-        setWorkgroupDetailsData({
-          ...workgroupDetailsData,
+        setWorkgroupDetailsData(stateData => ({
+          ...stateData,
           [name]: res.data
-        });
-        if (res.data && res.data[0]) {
-          handleWorkgroupChange(name, res.data[0]);
-        }
+        }));
+        // handleWorkgroupChange(name, '')
       }).catch(err => {
         if (localMode) {
           const response = {
@@ -95,14 +81,17 @@ const ExtendedProperties = (props) => {
               "Approver Level3",
             ]
           }
-          setWorkgroupDetailsData({
-            ...workgroupDetailsData,
+          setWorkgroupDetailsData(stateData => ({
+            ...stateData,
             [name]: response.data
-          });
-          if (response.data && response.data[0]) {
-            handleWorkgroupChange(name, response.data[0]);
-          }
+          }));
+          // handleWorkgroupChange(name, '')
         }
+      }).finally(res => {
+        setLoadingWorkgroupList(stateData => ({
+          ...stateData,
+          [name]: false
+        }));
       })
     }
   }
@@ -118,7 +107,7 @@ const ExtendedProperties = (props) => {
       maxLength: formType === 'input' ? 100 : null,
       options: formType === "dropdown" ? (Array.isArray(props.allowedValues) && props.allowedValues.map(item => ({ label: item, value: item }))) : null,
       onChange: (value) => onChange(props.name, value),
-      readOnly: readOnly || props.name === 'approval_levels',
+      readOnly: readOnly,
       error: errors[props.name],
       // required: ['input', 'dropdown'].includes(formType) && props.name !== 'approval_levels',
     }
@@ -129,56 +118,82 @@ const ExtendedProperties = (props) => {
     return acc;
   }, {});
 
-  const renderApproverLevel = (props) => {
-    if (props) {
-      return (
-        <FormElement
-          key={props.name}
-          label={props.displayName}
-          value={entitlementData[props.name]}
-          type='dropdown'
-          options={props.allowedValues.map(item => ({ label: item, value: item }))}
-          onChange={(value) => onChange(props.name, value)}
-          readOnly={true}
-          error={errors[props.name]}
-          required={true}
-        />
-      )
-    }
-  }
-
-  const onChangeApprover = (key, val) => {
+  const onChangeApprover = (key, val, forceLoadType) => {
     let result = [];
     const workgroupKeys = approverLevelData[key].filter(item => item.workgroup === 'true').map(item => item.name);
     const selectedVal = approverLevelData[key].find(item => item.name === val[val.length - 1]) || {};
-    if (selectedVal.workgroup === "true") {
-      result.push(selectedVal.name);
-      onChange(key, selectedVal.name);
+    const isWorkgroup = forceLoadType === "workgroup" || (selectedVal.workgroup === "true");
+
+    if (isWorkgroup) {
+      if (selectedVal.name) {
+        result.push(selectedVal.name);
+        if (!forceLoadType) {
+          onChange(key, selectedVal.name);
+        }
+      }
     } else {
       if (val.some(item => workgroupKeys.includes(item))) {
         result.push(val[val.length - 1])
       } else {
         result = [...val];
       }
+
+      handleWorkgroupChange(key, '');
     }
 
     if(!val.length) {
-      onChange(key, null);
+      if (!forceLoadType) {
+        onChange(key, null);
+      }
     }
 
-    callWorkgroupDetailsAPI(result, key);
-    setApproverStateData({
-      ...approverStateData,
+    callWorkgroupDetailsAPI(result, key, isWorkgroup);
+    setApproverStateData(stateData => ({
+      ...stateData,
       [key]: result
-    })
+    }));
+
+    if (!forceLoadType) {
+      onChange(key, result);
+    }
+  }
+
+  const getWorgroupAccess = (key, value) => {
+    if (value) {
+      API.post('/EntitlementManagement/workgroup/isWorkGroupMemberUpdateAllowed', {
+          "attrVal": value,
+          "attrName": key
+        }
+      ).then(res => {
+        setWorkgroupAccess(stateData => ({
+          ...stateData,
+          [key]: {
+            ...stateData[key],
+            [value]: res.data?.allowed === "true"
+          }
+        }))
+      }).catch(err => {
+        console.log(err);
+        if (localMode) {
+          setWorkgroupAccess(stateData => ({
+            ...stateData,
+            [key]: {
+              ...stateData[key],
+              [value]: true
+            }
+          }))
+        }
+      })  
+    }
   }
 
   const handleWorkgroupChange = (key, value) => {
-    setWorkgroupStateData({
-      ...workgroupStateData,
+    setWorkgroupStateData(stateData => ({
+      ...stateData,
       [key]: value
-    });
+    }));
     onChange(key, value);
+    getWorgroupAccess(key, value);
   }
 
   const handleCreateWorkgroup = (workgroupInfo, approverLevel) => {
@@ -204,7 +219,7 @@ const ExtendedProperties = (props) => {
     }
   }
 
-  const handleWorkgroupMember = (action, id, workgroupName) => {
+  const handleWorkgroupMember = (action, id, workgroupName, propName) => {
     API.post('/EntitlementManagement/workgroup/update/members', {
       "name": workgroupName,
       "add": action === "add" ? [id] : null,
@@ -212,12 +227,88 @@ const ExtendedProperties = (props) => {
     }).then(response => {
       if (response.data.status === "success") {
         message.success(`Member ${action === "add" ? "added" : "removed"} Successfully`);
+        if (approverStateData[propName].length > 1) {
+          if (action === "add") {
+            setApproverStateData(stateData => ({
+              ...stateData,
+              [propName]: [...new Set([...stateData[propName], id])]
+            }))
+          } else if (action === "remove") {
+            setApproverStateData(stateData => ({
+              ...stateData,
+              [propName]: stateData[propName].filter(item => item !== id)
+            }))
+          }
+        }
       } else {
-        message.error("Unable to execute the action")
+        message.error("Unable to execute the action");
       }
     }).catch(error => {
-      message.error("Unable to execute the action")
+      message.error("Unable to execute the action");
+      if (localMode) {
+        if (approverStateData[propName].length > 1) {
+          if (action === "add") {
+            setApproverStateData(stateData => ({
+              ...stateData,
+              [propName]: [...new Set([...stateData[propName], id])]
+            }))
+          } else if (action === "remove") {
+            setApproverStateData(stateData => ({
+              ...stateData,
+              [propName]: stateData[propName].filter(item => item !== id)
+            }))
+          }
+        }
+      }
     })
+  }
+
+  const handleApproverChange = (key, value='') => {
+    onChange(key, value || '');
+    // console.log(typeof value, value);
+    switch(value) {
+      case "":
+      case undefined:
+        setApproverStateData(stateData => ({
+          ...stateData,
+          approver_level2: [],
+          approver_level3: []
+        }));
+        break;
+      case "1":
+        setApproverStateData(stateData => ({
+          ...stateData,
+          approver_level2: [],
+          approver_level3: []
+        }));
+        break;
+      case "2":
+        setApproverStateData(stateData => ({
+          ...stateData,
+          approver_level3: []
+        }));
+        break;
+      default:
+        break;
+    }
+  }
+
+  const renderApproverLevel = (props) => {
+    if (props) {
+      return (
+        <FormElement
+          key={props.name}
+          label={props.displayName}
+          value={entitlementData[props.name]}
+          type='dropdown'
+          options={props.allowedValues.map(item => ({ label: item, value: item }))}
+          onChange={(value) => handleApproverChange(props.name, value)}
+          readOnly={readOnly}
+          error={errors[props.name]}
+          required={props.required}
+        />
+      )
+    }
   }
 
   const renderApproverLevel2_3 = (props) => {
@@ -228,7 +319,7 @@ const ExtendedProperties = (props) => {
       })) : [];
 
       let dropdownData = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].map(item => ({
-        label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
+        label: item.name,
         value: item.name,
         workgroup: item.workgroup === 'true'
       })) : [];
@@ -236,7 +327,8 @@ const ExtendedProperties = (props) => {
       let allMembersData = approverLevelData[props.name] && approverLevelData[props.name].filter(item => (item.workgroup !== "true" && !(approverStateData[props.name]?.includes(item.name))));
       const workgroupListMap = dropdownData.filter(item => item.workgroup).map(item => item.value);
       const isWorkgroupSelected = !!(approverStateData[props.name] && approverStateData[props.name][0] && workgroupListMap.includes(approverStateData[props.name][0]));
-      // console.log(workgroupListMap);
+      const showWorkgroupList = !readOnly && (!isWorkgroupSelected ? approverStateData[props.name]?.length > 1 : true) && !loadingWorkgroupList[props.name];
+      console.log(isWorkgroupSelected);
       const renderOptions = () => {
         const workgroupList = dropdownData.filter(item => !!item.workgroup);
         const nonWorkgroupList = dropdownData.filter(item => !item.workgroup);
@@ -260,95 +352,88 @@ const ExtendedProperties = (props) => {
         </>
       );
       }
-
       return (
-        // <>
-        //   <FormElement
-        //     key={props.name}
-        //     label={props.displayName}
-        //     value={approverStateData[props.name]}
-        //     type='chip_dropdown'
-        //     options={dropdownData}
-        //     onChange={(value) => onChangeApprover(props.name, value)}
-        //     readOnly={readOnly}
-        //     error={errors[props.name]}
-        //     required={true}
-        //     placeholder={'Select a workgroup or list of members as approver'}
-        //     renderOptions={renderOptions()}
-        //   />
-        //   {
-        //     !!approverStateData[props.name]?.length && !isWorkgroupSelected && (
-        //       <FormElement
-        //         value={workgroupStateData[props.name]}
-        //         label={`Associated Workgroup for Approver Level ${props.name.includes('2') ? '2' : '3'}`}
-        //         type='workgroup'
-        //         options={workgroupList}
-        //         onChange={(value) => handleWorkgroupChange(props.name, value )}
-        //         onCreate={workgroupInfo => handleCreateWorkgroup(workgroupInfo, props.name)}
-        //         readOnly={readOnly}
-        //         // required={true}
-        //         allUsers={allMembersData}
-        //         onItemAdd={(id) => handleWorkgroupMember('add', id, workgroupStateData[props.name])}
-        //         onItemRemove={(id) => handleWorkgroupMember('remove', id, workgroupStateData[props.name])}
-        //         error={!workgroupList.length ? 'Oops, no common workgroup found for these users. Create a workgroup to add them.' : ''}
-        //       />
-        //     )
-        //   }
-        // </>
+        <>
           <FormElement
             key={props.name}
             label={props.displayName}
-            value={entitlementData[props.name]}
-            type='input'
-            // options={dropdownData}
+            value={readOnly ? entitlementData[props.name] : approverStateData[props.name]}
+            type='chip_dropdown'
+            options={dropdownData}
             onChange={(value) => onChangeApprover(props.name, value)}
-            readOnly={true}
-            error={errors[props.name]}
-            required={true}
+            readOnly={readOnly}
+            error={!!showWorkgroupList ? '' : errors[props.name]}
+            required={props.required}
             placeholder={'Select a workgroup or list of members as approver'}
             renderOptions={renderOptions()}
+            isWorkgroup={!!workgroupListMap.includes(entitlementData[props.name])}
           />
+          { loadingWorkgroupList[props.name] && (
+            <div className="oe-workgroup-loader">
+              <Spin spinning={loadingWorkgroupList[props.name]}></Spin>
+            </div>
+          )}
+          {
+            !!showWorkgroupList ? (
+              <FormElement
+                value={workgroupStateData[props.name]}
+                label={`Associated Workgroup for Approver Level ${props.name.includes('2') ? '2' : '3'}`}
+                type='workgroup'
+                options={workgroupList}
+                onChange={(value) => handleWorkgroupChange(props.name, value )}
+                onCreate={workgroupInfo => handleCreateWorkgroup(workgroupInfo, props.name)}
+                readOnly={readOnly}
+                allUsers={allMembersData}
+                onItemAdd={(id) => handleWorkgroupMember('add', id, workgroupStateData[props.name], props.name)}
+                onItemRemove={(id) => handleWorkgroupMember('remove', id, workgroupStateData[props.name], props.name)}
+                error={errors[props.name]}
+                allowedActions={workgroupAccess[props.name]}
+                approverData={approverStateData[props.name]}
+              />
+            ) : null
+          }
+        </>
       )
     }
   }
 
-  // React.useEffect(() => {
-  //   if (ext_props_with_approver.approver_level2) {
-  //     getApproverLevelData(ext_props_with_approver.approver_level2);
-  //   }
-  // }, [ext_props_with_approver.approver_level2]);
+  React.useEffect(() => {
+    if (Object.keys(entitlementData).length) {
+      if (!approverStateData.approver_level2 || !approverStateData.approver_level3) {
+        const approver_level2_data = entitlementData.approver_level2 ? [entitlementData.approver_level2] : []
+        const approver_level3_data = entitlementData.approver_level3 ? [entitlementData.approver_level3] : []
+        setApproverStateData(stateData => ({
+          ...stateData,
+          approver_level2: approver_level2_data,
+          approver_level3: approver_level3_data
+        }));
+      }
+    }
+  }, []);
 
-  // React.useEffect(() => {
-  //   if (ext_props_with_approver.approver_level2 && entitlementData.approval_levels > "1" && !approverLevelData.approver_level2) {
-  //     // console.log("came here");
-  //     getApproverLevelData(ext_props_with_approver.approver_level2);
-  //   }
+  React.useEffect(() => {
+    if (ext_props_with_approver.approver_level2) {
+      getApproverLevelData(ext_props_with_approver.approver_level2);
+    }
+  }, [ext_props_with_approver.approver_level2]);
 
-  //   if (ext_props_with_approver.approver_level3 && entitlementData.approval_levels > "2" && !approverLevelData.approver_level3) {
-  //     // console.log("came here");
-  //     getApproverLevelData(ext_props_with_approver.approver_level3);
-  //   }
-    
-  // }, [entitlementData.approval_levels]);
+  React.useEffect(() => {
+    if (!readOnly) {
+      const approver_level2_data = entitlementData.approver_level2 ? [entitlementData.approver_level2] : []
+      if (approverLevelData.approver_level2) {
+        onChangeApprover('approver_level2', approver_level2_data, "workgroup");
+      }
+    }
+  }, [approverLevelData.approver_level2]);
 
-  // React.useEffect(() => {
-  //   if (entitlementData) {
-  //     if (!approverStateData.approver_level2) {
-  //       setApproverStateData({
-  //         ...approverStateData,
-  //         approver_level2: entitlementData.approver_level2 ? [entitlementData.approver_level2] : []
-  //       });
-  //     }
-
-  //     if (!approverStateData.approver_level3) {
-  //       setApproverStateData({
-  //         ...approverStateData,
-  //         approver_level3: entitlementData.approver_level3 ? [entitlementData.approver_level3] : []
-  //       });
-  //     }
-      
-  //   }
-  // }, [entitlementData]);
+  React.useEffect(() => {
+    if (!readOnly) {
+      const approver_level3_data = entitlementData.approver_level3 ? [entitlementData.approver_level3] : []
+      if (approverLevelData.approver_level3) {
+        onChangeApprover('approver_level3', approver_level3_data, "workgroup");
+      }
+    }
+  }, [approverLevelData.approver_level3]);
 
   return (
     <>
@@ -357,16 +442,6 @@ const ExtendedProperties = (props) => {
         formGroupData.map(formElement => <FormElement {...formElement} />)
       }
       {
-        renderApproverLevel(ext_props_with_approver.approval_levels)
-      }
-      {
-        renderApproverLevel2_3(ext_props_with_approver.approver_level2)
-      }
-      {
-        renderApproverLevel2_3(ext_props_with_approver.approver_level3)
-      }
-      
-      {/* {
         ext_props_with_approver.approval_levels && renderApproverLevel(ext_props_with_approver.approval_levels)
       }
       {
@@ -374,7 +449,7 @@ const ExtendedProperties = (props) => {
       }
       {
         ext_props_with_approver.approver_level3 && entitlementData.approval_levels > "2" && renderApproverLevel2_3(ext_props_with_approver.approver_level3)
-      } */}
+      }
     </div>
     </>
   );
