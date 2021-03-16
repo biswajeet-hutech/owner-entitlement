@@ -1,6 +1,5 @@
 import React from "react";
 import { Button, Input, Tooltip } from 'antd';
-// import { SearchOutlined } from '@ant-design/icons';
 import {SearchIcon,strings} from './../../assets';
 import "./style.scss";
 
@@ -21,14 +20,7 @@ const Search = ({
       }
     }
   }
-  const handleSearch = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      if (typeof onSearch === "function") {
-        onSearch(searchText);
-      }
-    }
-  }
+
   return (
     <Input
       className="oe-search"

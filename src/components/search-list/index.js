@@ -1,7 +1,6 @@
 import { List, Spin, Tooltip } from "antd";
 import React from "react";
 import InfiniteScroll from 'react-infinite-scroller';
-// import { AddIcon, CloseIcon } from "../../assets";
 import Button from "../button";
 import Search from "../search";
 import "./style.scss";
@@ -84,17 +83,6 @@ function SearchList(props) {
   React.useEffect(() => {
     setLoading(!!loadingList);
   }, [loadingList]);
-
-  // const renderActionIcon = (actionType) => {
-  //   switch(actionType) {
-  //     case "add":
-  //       return <AddIcon />;
-  //     case "remove":
-  //       return action !== "view" ? <CloseIcon /> : null;
-  //     default:
-  //       return null;
-  //   }
-  // }
 
   return (
     <div className="oe-search-list">

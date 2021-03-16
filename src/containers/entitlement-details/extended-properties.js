@@ -5,6 +5,7 @@ import { getFormType } from "../../utils";
 import FormElement from "../../components/form-element";
 import API, { localMode } from "../../api";
 import approverDummyData from "../../data/approver-data.json";
+import { messages } from "../../assets";
 
 const { Option, OptGroup } = Select;
 
@@ -212,7 +213,7 @@ const ExtendedProperties = (props) => {
       }).catch(err => {
         console.log(err);
         if (localMode) {
-          message.success("Workgroup created");
+          message.success(messages.SUCCESS_MESSAGE.WORKGROUP_CREATE);
           callWorkgroupDetailsAPI(approverStateData[approverLevel], approverLevel);
         }
       })
@@ -241,10 +242,10 @@ const ExtendedProperties = (props) => {
           }
         }
       } else {
-        message.error("Unable to execute the action");
+        message.error(messages.ERRORS.ACTION);
       }
     }).catch(error => {
-      message.error("Unable to execute the action");
+      message.error(messages.ERRORS.ACTION);
       if (localMode) {
         if (approverStateData[propName].length > 1) {
           if (action === "add") {
@@ -364,7 +365,7 @@ const ExtendedProperties = (props) => {
             readOnly={readOnly}
             error={!!showWorkgroupList ? '' : errors[props.name]}
             required={props.required}
-            placeholder={'Select a workgroup or list of members as approver'}
+            placeholder={messages.FORM.APPROVER_PLACEHOLDER}
             renderOptions={renderOptions()}
             isWorkgroup={!!workgroupListMap.includes(entitlementData[props.name])}
           />
@@ -377,7 +378,7 @@ const ExtendedProperties = (props) => {
             !!showWorkgroupList ? (
               <FormElement
                 value={workgroupStateData[props.name]}
-                label={`Associated Workgroup for Approver Level ${props.name.includes('2') ? '2' : '3'}`}
+                label={`${messages.FORM.WORKGROUP_LABEL} ${props.name.includes('2') ? '2' : '3'}`}
                 type='workgroup'
                 options={workgroupList}
                 onChange={(value) => handleWorkgroupChange(props.name, value )}

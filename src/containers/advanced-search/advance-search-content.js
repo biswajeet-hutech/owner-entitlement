@@ -1,13 +1,13 @@
 import React from "react";
-import { Row, Col, message, Spin } from 'antd';
+import { Row, Spin } from 'antd';
 import { LoadingOutlined } from '@ant-design/icons';
 import Button from '../../components/button';
 import "./style.scss";
 import Typography from "../../components/typography";
-import Dropdown from "../../components/dropdown";
 import { API, localMode } from "../../api";
 import ExtendedAttributes from "./extended-attributes";
 import extendedAttributesJSON from "../../data/extended-attributes.json";
+import { messages } from "../../assets";
 
 const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
 const dropdownOptions = [
@@ -175,35 +175,7 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
     <Spin spinning={loading}>
       <div className="oe-adv-search-content">
         <div className="oe-adv-search-content_form">
-          <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
-        {/* <Typography type="title2" className="oe-overlay-header">Select Search Attribute Fileds</Typography>
-          <Row>
-          <Col md={6} style={{ margin: '4px 0' }}>
-            <Dropdown
-              options={applicationData}
-              value={formData.application}
-              onChange={(v, e) => updateFormData('application', v)}
-              label="Application" />
-          </Col>
-          <Col md={6} style={{ margin: '4px 0' }}>
-            <Dropdown 
-            options={attributeData} 
-            value={formData.attribute} 
-            onChange={(v, e) => updateFormData('attribute', v)} 
-            label="Attribute" 
-            disabled={!formData.application} />
-          </Col>
-          <Col md={6} style={{ margin: '4px 0' }}>
-            <Dropdown 
-            options={valueData} 
-            value={formData.value}
-             onChange={(v, e) => updateFormData('value', v)} 
-             label="Value" 
-             disabled={!formData.attribute} />
-          </Col>
-        </Row>
-        <div className="divider"></div> */}
-        {/* <Typography type="body2" className="oe-overlay-subheader">Searchable Attributes</Typography> */}
+          <Typography type="title2" className="oe-overlay-header">{messages.ADVANCE_SEARCH.TITLE}</Typography>
           <Spin spinning={loadingExtendedAttr} indicator={loadingIcon}>
             <Row>
               {extendedAttributes.map(item => (
@@ -215,9 +187,9 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
         {
           extendedAttributes.length ? (
           <Row justify="end" className="oe-overlay-footer">
-            <Button type="primary" className="oe-advance-search-btn" onClick={onClose}>Cancel</Button>
-            <Button type="primary" className="oe-advance-search-btn" onClick={onClear}>Reset</Button>
-            <Button type="primary" className="oe-advance-search-btn" onClick={handleAdvanceSearch}>Apply</Button>
+            <Button type="primary" className="oe-advance-search-btn" onClick={onClose}>{messages.CANCEL_BTN}</Button>
+            <Button type="primary" className="oe-advance-search-btn" onClick={onClear}>{messages.REST_BTN}</Button>
+            <Button type="primary" className="oe-advance-search-btn" onClick={handleAdvanceSearch}>{messages.APPLY_BTN}</Button>
           </Row>
         ) : null }
       </div>

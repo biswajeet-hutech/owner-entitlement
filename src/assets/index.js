@@ -1,5 +1,6 @@
 import ImageUrls from './base64Images.json';
 import strings from './strings.json';
+import messages from "./messages";
 
 const Icon = ({ dataUrl, width, height, alt, className }) => {
     return <img
@@ -75,5 +76,6 @@ export {
     strings,
     ViewModal,
     EditModal,
-    DisputeModal
+    DisputeModal,
+    messages
 }

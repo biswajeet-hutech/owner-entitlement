@@ -2,11 +2,9 @@ import React from "react";
 import { Modal as AntModal } from "antd";
 import Draggable from "react-draggable";
 import { Resizable } from "re-resizable";
-// import { DraggableModal, DraggableModalProvider } from 'ant-design-draggable-modal';
 import { CloseOutlined } from "@ant-design/icons";
-// import 'ant-design-draggable-modal/dist/index.css';
+
 import "./style.scss";
-import { logDOM } from "@testing-library/react";
 
 const Modal = ({
   title,
@@ -112,11 +110,7 @@ const Modal = ({
       )}
       {...config}
     >
-      {/* <Resizable
-        width={width || 900}
-      > */}
       <div className="oe-modal-content">{children}</div>
-      {/* </Resizable> */}
     </AntModal>
   );
 };

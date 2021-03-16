@@ -3,7 +3,6 @@ import { Table as AntTable } from 'antd';
 import "./style.scss";
 
 const Table = ({ dataSource=[], columns=[], rowKey, config }) => {
-  // console.log(columns);
   return (
     <AntTable
       columns={columns}

@@ -17,7 +17,7 @@ const SearchWithActionBar = ({
   onSearch = () => {},
   onExport = () => {},
   onAction = () => {},
-  helpUrl
+  featureFlags={}
 }) => {
   const [openSecduledCertModal, setOpenSecduledCertModal] = React.useState(false);
   const [openImportDialog, setOpenImportModal] = React.useState(false);
@@ -75,11 +75,15 @@ const SearchWithActionBar = ({
           </Row>
         </Col>
         <Col xs={24} md={12} className="action-wrapper-btn-group">
-          <Button className="oe-importBtn oe-btn-primary" onClick={() => setOpenImportModal(true)} type="text">
-            {/* <ExportsIcon /> */}
-            <ImportOutlined />
-            <span>Import</span>
-          </Button>
+          {
+            featureFlags?.allowed === "true" && (
+            <Button className="oe-importBtn oe-btn-primary" onClick={() => setOpenImportModal(true)} type="text">
+              {/* <ExportsIcon /> */}
+              <ImportOutlined />
+              <span>Import</span>
+            </Button>
+            )
+          }
           <ExportButton onClick={(type) => onExport(searchProps, type)} />
         </Col>
       </Row>

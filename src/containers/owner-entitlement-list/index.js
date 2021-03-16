@@ -22,6 +22,7 @@ import { getExportMembersFileName, titleCase } from "../../utils";
 import Button from "../../components/button";
 import { printToPDF } from "../../utils/exportToPdf";
 import { getCombinedCSVData } from "../../utils/multiple-csv";
+import featureFlagData from "../../data/feature-flag.json";
 
 const OwnerEntitlement = () => {
   const tablePaginationConfig = {
@@ -41,6 +42,7 @@ const OwnerEntitlement = () => {
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [extendedAttributes, setExtendedAttributes] = React.useState({});
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
+  const [featureFlags, setFeatureFlags] = React.useState({});
   const [helpData, setHelpData] = React.useState('');
   const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
@@ -85,6 +87,20 @@ const OwnerEntitlement = () => {
       message.error("Failed to load statistics");
       if (localMode) {
         setEntitlementStatistics([...statisticsData]);
+      }
+    });
+  }
+
+  const getFeatureFlagAPI = () => {
+    const url = 'EntitlementManagement/importaccess';
+    API.get(url).then(res => {
+      if (res.data) {
+        setFeatureFlags({...res.data});
+      }
+    }).catch(err => {
+      // message.error("Failed to load featu");
+      if (localMode) {
+        setFeatureFlags({...featureFlagData});
       }
     });
   }
@@ -149,13 +165,8 @@ const OwnerEntitlement = () => {
         detailsHeader: entitlementHeaders
       });
     } else {
-      const headerMap = entitlementHeaders.reduce((acc, item) => {
-        acc[item.name] = item.displayName;
-        return acc;
-      }, {});
-  
       const fields = exportData.Entitlement.headers?.reduce((acc, item) => {
-        acc[item] = headerMap[item] || titleCase(item);
+        acc[item] = item;
         return acc;
       }, {});
       const csv_config = {
@@ -234,6 +245,7 @@ const OwnerEntitlement = () => {
       start: 0
     });
     getEntitlementStatistics();
+    getFeatureFlagAPI();
     getHelpInfoData();
   }, []);
 
@@ -344,6 +356,7 @@ const OwnerEntitlement = () => {
             onSearch={handleSearchEntitlement}
             onExport={handleMultipleExport}
             onAction={handleAction}
+            featureFlags={featureFlags}
           />
           <Table
             dataSource={entitlementList.EntitlementDetails}

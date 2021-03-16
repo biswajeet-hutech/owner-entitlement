@@ -4,6 +4,7 @@ import './style.scss';
 import Accordion from "../../components/accordion";
 import BaseProperties from "./base-properties";
 import { API, localMode } from "../../api";
+import { messages } from "../../assets";
 
 const EntitlementDetails = ({
   editMode,
@@ -19,14 +20,14 @@ const EntitlementDetails = ({
       ...payload
     }).then(res => {
       if (res.data?.status === "success") {
-        message.success("Updated entitlement properties");
+        message.success(messages.SUCCESS_MESSAGE.UPDATE_ENT);
         onSuccess();
       } else {
-        message.error("Failed to update");
+        message.error(messages.ERRORS.FAILED_UPDATE);
       }
        
     }).catch(err => {
-      message.error("Failed to update");
+      message.error(messages.ERRORS.FAILED_UPDATE);
     }).then(() => setLoading(false));
   }
 
