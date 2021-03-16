@@ -30,10 +30,8 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=450, defaultVal
     if (!contentState.getPlainText().length) {
       onChange(null);
     } else {
-      // console.log(newValue.toString('html', options));
       onChange(newValue.toString('html', options));
     }
-    // console.log(newValue);
     setValue(newValue);
   };
 

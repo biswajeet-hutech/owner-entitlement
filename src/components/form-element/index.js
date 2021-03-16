@@ -1,13 +1,12 @@
 import React from "react";
-import { Input, Checkbox, List, Popover, Tooltip } from 'antd';
+import { Input, Checkbox, Popover, Tooltip } from 'antd';
 import { EyeFilled } from "@ant-design/icons";
 
-import { CheckTrue, CheckFalse, AddIcon, TickIcon, EditWhiteIcon } from './../../assets';
+import { CheckTrue, CheckFalse, messages } from './../../assets';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
 import ChipSelect from "../chip-select";
-import Button from "../button";
 import SearchList from "../search-list";
 import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
 import API, { localMode } from "../../api";
@@ -208,7 +207,7 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, ...o
             {...otherProps}
           />
           { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
-          { value?.length > 1 && (<div style={{ margin: '4px 0 0' }}>Below are some common workgroup(s) between the selected members. Select one.</div> )}
+          { value?.length > 1 && (<div style={{ margin: '4px 0 0' }}>{messages.WORKGROUP.HELPER_TXT}</div> )}
         </>
         )
       }

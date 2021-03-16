@@ -1,9 +1,8 @@
 import React from "react";
 import { Menu, Dropdown, Tooltip } from 'antd';
 import { FilePdfOutlined, FileTextOutlined } from '@ant-design/icons';
-import { ExportsIcon } from "../../assets";
+import { ExportsIcon, messages } from "../../assets";
 import "./style.scss";
-
 
 function ExportButton({
   onClick,
@@ -16,10 +15,10 @@ function ExportButton({
   const menu = (
     <Menu onClick={handleMenuClick}>
       <Menu.Item key="csv" icon={<FileTextOutlined />}>
-        Export as CSV
+        {messages.CSV_EXPORT_BTN}
       </Menu.Item>
       <Menu.Item key="pdf" icon={<FilePdfOutlined />}>
-        Export as PDF
+        {messages.PDF_EXPORT_BTN}
       </Menu.Item>
     </Menu>
   );

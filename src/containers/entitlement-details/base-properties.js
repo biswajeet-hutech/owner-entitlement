@@ -5,6 +5,7 @@ import Button from "../../components/button";
 import './style.scss';
 import FormElement from "../../components/form-element";
 import ExtendedProperties from "./extended-properties";
+import { messages } from "../../assets";
 
 const BaseProperties = ({
   data={
@@ -52,7 +53,7 @@ const BaseProperties = ({
     const errorObj = {};
     requiredProps.forEach(item => {
       if (!entitlementData[item]) {
-        errorObj[item] = "This field is required";
+        errorObj[item] = messages.FORM.REQUIRED;
       }
     })
 
@@ -66,11 +67,11 @@ const BaseProperties = ({
 
     approverKeys.forEach(item => {
       if (!formData[item]) {
-        errorObj[item] = "This field is required";
+        errorObj[item] = messages.FORM.REQUIRED;
       } else if (Array.isArray(formData[item]) && formData[item]?.length > 1) {
-        errorObj[item] = "Select an associated workgroup or create one"
+        errorObj[item] = messages.FORM.SELECT_WORKGROUP;
       } else if (Array.isArray(formData[item]) && !formData[item].length) {
-        errorObj[item] = "Select an approver"
+        errorObj[item] = messages.FORM.SELECT_APPROVER;
       }
     })
 
@@ -153,30 +154,6 @@ const BaseProperties = ({
     const inValidForm = Object.keys(errors).length;
     setErrors(errors);
 
-    // requiredProps.forEach(item => {
-    //   if (!entitlementData[item]) {
-    //     errors[item] = "This field is required";
-    //   }
-    // })
-
-    // const approverKeys = [];
-    // if (entitlementData.approval_levels > "1") {
-    //   approverKeys.push("approver_level2");
-    // }
-    // if (entitlementData.approval_levels > "2") {
-    //   approverKeys.push("approver_level3")
-    // }
-
-    // approverKeys.forEach(item => {
-    //   if (!finalFormData[item]) {
-    //     errors[item] = "This field is required";
-    //   } else if (Array.isArray(finalFormData[item]) && finalFormData[item]?.length > 1) {
-    //     errors[item] = "Select an associated workgroup or create one"
-    //   } else if (Array.isArray(finalFormData[item]) && !finalFormData[item].length) {
-    //     errors[item] = "Select an approver"
-    //   }
-    // })
-
     if (inValidForm) {
       return;
     } else {
@@ -200,15 +177,14 @@ const BaseProperties = ({
   }, [formData]);
 
   React.useEffect(() => {
-    // console.log("data updated", data.EntitlementDetails);
     setEntitlementData(data.EntitlementDetails || {});
     if(!readOnly) {
       setActions(
         (
           <>
             <Row justify="end" className="accordion_footer">
-              <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
-              <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+              <Button type="secondary" size="large" className="cancel" onClick={onCancel}>{messages.CANCEL_BTN}</Button>
+              <Button type="primary" size="large" className="save" onClick={handleSaveData}>{messages.SAVE}</Button>
             </Row>
           </>
         )
@@ -244,8 +220,8 @@ const BaseProperties = ({
         !readOnly && (
         <>
           <Row justify="end" className="accordion_footer">
-            <Button type="secondary" size="large" className="cancel" onClick={onCancel}>Cancel</Button>
-            <Button type="primary" size="large" className="save" onClick={handleSaveData}>Save</Button>
+            <Button type="secondary" size="large" className="cancel" onClick={onCancel}>{messages.CANCEL_BTN}</Button>
+            <Button type="primary" size="large" className="save" onClick={handleSaveData}>{messages.SAVE}</Button>
           </Row>
         </>
         )

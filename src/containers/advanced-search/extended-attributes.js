@@ -4,25 +4,6 @@ import "./style.scss";
 import Dropdown from "../../components/dropdown";
 // import API from "../../api";
 
-// const dropdownOptions = [
-//   {
-//     label: 'Application 1',
-//     value: 'app1'
-//   },
-//   {
-//     label: 'Application 2',
-//     value: 'app2'
-//   },
-//   {
-//     label: 'Application 3',
-//     value: 'app3'
-//   },
-//   {
-//     label: 'Application 4',
-//     value: 'app4'
-//   }
-// ]
-
 const constructDropdown = (data = []) => {
   const result = Array.isArray(data) && data.map(item => ({
     label: item,
