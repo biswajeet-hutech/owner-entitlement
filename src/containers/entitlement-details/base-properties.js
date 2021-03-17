@@ -28,13 +28,13 @@ const BaseProperties = ({
       [key]: value
     }
 
-    if (key === 'approval_levels') {
+    if (key === 'approvalLevels') {
       if (!value || value === '1') {
-        updatedObj.approver_level2 = null;
-        updatedObj.approver_level3 = null;
+        updatedObj.approverLevel2 = null;
+        updatedObj.approverLevel3 = null;
       }
       if (value === '2') {
-        updatedObj.approver_level3 = null;
+        updatedObj.approverLevel3 = null;
       }
     }
 
@@ -58,11 +58,11 @@ const BaseProperties = ({
     })
 
     const approverKeys = [];
-    if (entitlementData.approval_levels > "1") {
-      approverKeys.push("approver_level2");
+    if (entitlementData.approvalLevels > "1") {
+      approverKeys.push("approverLevel2");
     }
-    if (entitlementData.approval_levels > "2") {
-      approverKeys.push("approver_level3")
+    if (entitlementData.approvalLevels > "2") {
+      approverKeys.push("approverLevel3")
     }
 
     approverKeys.forEach(item => {
@@ -160,7 +160,7 @@ const BaseProperties = ({
       const payload = {};
       for (const key in finalFormData) {
         if(!readOnlyProperties.includes(key)) {
-          if (["approver_level2", "approver_level3"].includes(key) && Array.isArray(finalFormData[key])) {
+          if (["approverLevel2", "approverLevel3"].includes(key) && Array.isArray(finalFormData[key])) {
             payload[key] = finalFormData[key].join();
           } else {
             payload[key] = finalFormData[key];

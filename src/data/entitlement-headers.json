@@ -41,8 +41,8 @@
 	"name": "target_app"
 }, {
 	"displayName": "Approver Level 2",
-	"name": "approver_level2"
+	"name": "approverLevel2"
 }, {
 	"displayName": "Approver Level 3",
-	"name": "approver_level3"
+	"name": "approverLevel3"
 }]

@@ -18,9 +18,9 @@
 			"certifiable",
 			"birthright",
 			"privileged",
-			"approval_levels",
-			"approver_level2",
-			"approver_level3",
+			"approvalLevels",
+			"approverLevel2",
+			"approverLevel3",
 			"piilevel",
 			"Status"
 		],

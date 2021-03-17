@@ -3,13 +3,13 @@
     "owner": "The Administrator",
     "displayName": "ACCOUNTING_ent_000",
     "logiplex_app_name": null,
-    "approval_levels": "3",
+    "approvalLevels": "3",
     "ObjecttInheritance": [],
     "description": "The <b>Administrators group</b> that has full control over the domain controllers. Members of that <b>group</b> have <b>admin</b> rights over all DC's in that domain, they share their local security databases.",
     "birthright": null,
     "type": "group",
-    "approver_level3": "TestWorkgroup-Ignore2",
-    "approver_level2": "NSF-Approver",
+    "approverLevel3": "TestWorkgroup-Ignore2",
+    "approverLevel2": "NSF-Approver",
     "lastrefresh": "10-07-2020",
     "users": "5",
     "ObjectProperties": {
@@ -95,8 +95,8 @@
         "3"
       ],
       "displayName": "Approver Levels",
-      "extendedAttrName": "approval_levels",
-      "name": "approval_levels",
+      "extendedAttrName": "approvalLevels",
+      "name": "approvalLevels",
       "named": "true",
       "type": "string"
     },
@@ -104,8 +104,8 @@
       "APIName": "/EntitlementManagement/identities",
       "allowedValues": null,
       "displayName": "Approver Level 2",
-      "extendedAttrName": "approver_level2",
-      "name": "approver_level2",
+      "extendedAttrName": "approverLevel2",
+      "name": "approverLevel2",
       "named": "true",
       "type": "sailpoint.object.Identity"
     },
@@ -113,8 +113,8 @@
       "APIName": "/EntitlementManagement/identities",
       "allowedValues": null,
       "displayName": "Approver Level 3",
-      "extendedAttrName": "approver_level3",
-      "name": "approver_level3",
+      "extendedAttrName": "approverLevel3",
+      "name": "approverLevel3",
       "named": "true",
       "type": "sailpoint.object.Identity"
     }
