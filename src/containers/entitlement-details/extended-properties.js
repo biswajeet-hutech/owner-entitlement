@@ -6,6 +6,7 @@ import FormElement from "../../components/form-element";
 import API, { localMode } from "../../api";
 import approverDummyData from "../../data/approver-data.json";
 import { messages } from "../../assets";
+import formConfig from "./form-config";
 
 const { Option, OptGroup } = Select;
 
@@ -110,7 +111,7 @@ const ExtendedProperties = (props) => {
       onChange: (value) => onChange(props.name, value),
       readOnly: readOnly,
       error: errors[props.name],
-      // required: ['input', 'dropdown'].includes(formType) && props.name !== 'approvalLevels',
+      ...(formConfig[props.name] || {})
     }
   }) : [];
 

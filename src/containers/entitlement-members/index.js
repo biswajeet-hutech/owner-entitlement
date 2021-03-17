@@ -218,7 +218,7 @@ const EntitlementMembers = ({
         filename: "Entitlement-Member-Details"
       });
     } else {
-      getCombinedCSVData({ data: exportJSON, membersHeader: entitlementHeaders, detailsHeader: entitlementDetailsHeader  });
+      getCombinedCSVData({ data: data, membersHeader: entitlementHeaders, detailsHeader: entitlementDetailsHeader  });
     }
   }
 

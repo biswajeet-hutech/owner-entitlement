@@ -53,7 +53,7 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
   )
 }
 
-const TextAreaForm = ({value, readOnly, onChange,maxLength, hideCount, rows=10, ...otherProps }) => {
+const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10, ...otherProps }) => {
   return (
     <>
       {
