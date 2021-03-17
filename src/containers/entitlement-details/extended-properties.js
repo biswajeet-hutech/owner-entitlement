@@ -19,25 +19,25 @@ const ExtendedProperties = (props) => {
   } = props;
 
   const [approverLevelData, setApproverLevelData] = React.useState({});
-  const [workgroupAccess, setWorkgroupAccess] = React.useState({approver_level2: {}, approver_level3: {}})
-  const [loadingWorkgroupList, setLoadingWorkgroupList] = React.useState({approver_level2: false, approver_level3: false})
-  const [approverStateData, setApproverStateData] = React.useState({approver_level2: null, approver_level3: null});
-  const [workgroupStateData, setWorkgroupStateData] = React.useState({approver_level2: [], approver_level3: []});
-  const [workgroupDetailsData, setWorkgroupDetailsData] = React.useState({approver_level2: [], approver_level3: []});
-  const extendedPropsWithoutApprover =  Array.isArray(extendedProps) ? extendedProps.filter(item => !(['approval_levels', 'approver_level2', 'approver_level3'].includes(item.name))) : [];
-  const extendedPropsWithApprover = Array.isArray(extendedProps) ? extendedProps.filter(item => (['approval_levels', 'approver_level2', 'approver_level3'].includes(item.name))) : [];
+  const [workgroupAccess, setWorkgroupAccess] = React.useState({approverLevel2: {}, approverLevel3: {}})
+  const [loadingWorkgroupList, setLoadingWorkgroupList] = React.useState({approverLevel2: false, approverLevel3: false})
+  const [approverStateData, setApproverStateData] = React.useState({approverLevel2: null, approverLevel3: null});
+  const [workgroupStateData, setWorkgroupStateData] = React.useState({approverLevel2: [], approverLevel3: []});
+  const [workgroupDetailsData, setWorkgroupDetailsData] = React.useState({approverLevel2: [], approverLevel3: []});
+  const extendedPropsWithoutApprover =  Array.isArray(extendedProps) ? extendedProps.filter(item => !(['approvalLevels', 'approverLevel2', 'approverLevel3'].includes(item.name))) : [];
+  const extendedPropsWithApprover = Array.isArray(extendedProps) ? extendedProps.filter(item => (['approvalLevels', 'approverLevel2', 'approverLevel3'].includes(item.name))) : [];
 
   const getApproverLevelData = async ({APIName, name}) => {
     API.get(APIName).then(res => {
       setApproverLevelData({
-        approver_level2: res.data,
-        approver_level3: res.data
+        approverLevel2: res.data,
+        approverLevel3: res.data
       });
     }).catch(err => {
       if (localMode) {
         setApproverLevelData(stateData => ({
-          approver_level2: approverDummyData,
-          approver_level3: approverDummyData
+          approverLevel2: approverDummyData,
+          approverLevel3: approverDummyData
         }));
       }
     })
@@ -110,7 +110,7 @@ const ExtendedProperties = (props) => {
       onChange: (value) => onChange(props.name, value),
       readOnly: readOnly,
       error: errors[props.name],
-      // required: ['input', 'dropdown'].includes(formType) && props.name !== 'approval_levels',
+      // required: ['input', 'dropdown'].includes(formType) && props.name !== 'approvalLevels',
     }
   }) : [];
 
@@ -272,21 +272,21 @@ const ExtendedProperties = (props) => {
       case undefined:
         setApproverStateData(stateData => ({
           ...stateData,
-          approver_level2: [],
-          approver_level3: []
+          approverLevel2: [],
+          approverLevel3: []
         }));
         break;
       case "1":
         setApproverStateData(stateData => ({
           ...stateData,
-          approver_level2: [],
-          approver_level3: []
+          approverLevel2: [],
+          approverLevel3: []
         }));
         break;
       case "2":
         setApproverStateData(stateData => ({
           ...stateData,
-          approver_level3: []
+          approverLevel3: []
         }));
         break;
       default:
@@ -400,41 +400,41 @@ const ExtendedProperties = (props) => {
 
   React.useEffect(() => {
     if (Object.keys(entitlementData).length) {
-      if (!approverStateData.approver_level2 || !approverStateData.approver_level3) {
-        const approver_level2_data = entitlementData.approver_level2 ? [entitlementData.approver_level2] : []
-        const approver_level3_data = entitlementData.approver_level3 ? [entitlementData.approver_level3] : []
+      if (!approverStateData.approverLevel2 || !approverStateData.approverLevel3) {
+        const approverLevel2_data = entitlementData.approverLevel2 ? [entitlementData.approverLevel2] : []
+        const approverLevel3_data = entitlementData.approverLevel3 ? [entitlementData.approverLevel3] : []
         setApproverStateData(stateData => ({
           ...stateData,
-          approver_level2: approver_level2_data,
-          approver_level3: approver_level3_data
+          approverLevel2: approverLevel2_data,
+          approverLevel3: approverLevel3_data
         }));
       }
     }
   }, []);
 
   React.useEffect(() => {
-    if (ext_props_with_approver.approver_level2) {
-      getApproverLevelData(ext_props_with_approver.approver_level2);
+    if (ext_props_with_approver.approverLevel2) {
+      getApproverLevelData(ext_props_with_approver.approverLevel2);
     }
-  }, [ext_props_with_approver.approver_level2]);
+  }, [ext_props_with_approver.approverLevel2]);
 
   React.useEffect(() => {
     if (!readOnly) {
-      const approver_level2_data = entitlementData.approver_level2 ? [entitlementData.approver_level2] : []
-      if (approverLevelData.approver_level2) {
-        onChangeApprover('approver_level2', approver_level2_data, "workgroup");
+      const approverLevel2_data = entitlementData.approverLevel2 ? [entitlementData.approverLevel2] : []
+      if (approverLevelData.approverLevel2) {
+        onChangeApprover('approverLevel2', approverLevel2_data, "workgroup");
       }
     }
-  }, [approverLevelData.approver_level2]);
+  }, [approverLevelData.approverLevel2]);
 
   React.useEffect(() => {
     if (!readOnly) {
-      const approver_level3_data = entitlementData.approver_level3 ? [entitlementData.approver_level3] : []
-      if (approverLevelData.approver_level3) {
-        onChangeApprover('approver_level3', approver_level3_data, "workgroup");
+      const approverLevel3_data = entitlementData.approverLevel3 ? [entitlementData.approverLevel3] : []
+      if (approverLevelData.approverLevel3) {
+        onChangeApprover('approverLevel3', approverLevel3_data, "workgroup");
       }
     }
-  }, [approverLevelData.approver_level3]);
+  }, [approverLevelData.approverLevel3]);
 
   return (
     <>
@@ -443,13 +443,13 @@ const ExtendedProperties = (props) => {
         formGroupData.map(formElement => <FormElement {...formElement} />)
       }
       {
-        ext_props_with_approver.approval_levels && renderApproverLevel(ext_props_with_approver.approval_levels)
+        ext_props_with_approver.approvalLevels && renderApproverLevel(ext_props_with_approver.approvalLevels)
       }
       {
-        ext_props_with_approver.approver_level2 && entitlementData.approval_levels > "1" && renderApproverLevel2_3(ext_props_with_approver.approver_level2)
+        ext_props_with_approver.approverLevel2 && entitlementData.approvalLevels > "1" && renderApproverLevel2_3(ext_props_with_approver.approverLevel2)
       }
       {
-        ext_props_with_approver.approver_level3 && entitlementData.approval_levels > "2" && renderApproverLevel2_3(ext_props_with_approver.approver_level3)
+        ext_props_with_approver.approverLevel3 && entitlementData.approvalLevels > "2" && renderApproverLevel2_3(ext_props_with_approver.approverLevel3)
       }
     </div>
     </>

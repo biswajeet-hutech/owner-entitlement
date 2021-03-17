@@ -1,16 +1,16 @@
 {
 	"Entitlement": {
-		"headers": ["id", "value", "users", "attribute", "type", "displayName", "owner", "requestable", "description", "application", "logiplex_app_name", "certifiable", "birthright", "privileged", "approval_levels", "approver_level2", "approver_level3", "app_id"],
+		"headers": ["id", "value", "users", "attribute", "type", "displayName", "owner", "requestable", "description", "application", "logiplex_app_name", "certifiable", "birthright", "privileged", "approvalLevels", "approverLevel2", "approverLevel3", "app_id"],
 		"EntitlementDetails": {
 			"owner": "\u0022The Administrator\u0022",
 			"displayName": "\u0022Administrator\u0022",
 			"logiplex_app_name": null,
-			"approval_levels": null,
+			"approvalLevels": null,
 			"description": "\u0022The\u003cstrong\u003eAdministrators group\u003c/strong\u003eon a domain controller is a local\u003cstrong\u003egroup\u003c/strong\u003ethat has full control over the domain controllers. Members of that\u003cstrong\u003egroup\u003c/strong\u003ehave\u003cstrong\u003eadmin\u003c/strong\u003erights over all DC\u0027s in that domain, they share their local security databases.\u0022",
 			"birthright": "Yes",
 			"type": "Entitlement",
-			"approver_level3": null,
-			"approver_level2": null,
+			"approverLevel3": null,
+			"approverLevel2": null,
 			"users": "301",
 			"privileged": "Yes",
 			"application": "Local AD",

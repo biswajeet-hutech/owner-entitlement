@@ -104,7 +104,8 @@ const printToPDF = ({
 
     const entitlementDetailsHead = !hideDetailsHeader ? exportData?.Entitlement?.headers.filter(item => item !== "id") : [];
     const descriptionColumn = entitlementDetailsHead.indexOf('description');
-    const approver2Column = entitlementDetailsHead.indexOf('approver_level2');
+    const approvalLevelColumn = entitlementDetailsHead.indexOf('approvalLevels');
+    const approver2Column = entitlementDetailsHead.indexOf('approverLevel2');
     const approver3Column = entitlementDetailsHead.indexOf('approver_level3');
     const entitlementDetailsHeadToShow = [entitlementDetailsHead.map(item => detailsHeaderMap[item] || titleCase(item))];
     const entitlementDetailsBody = [];
@@ -149,10 +150,11 @@ const printToPDF = ({
         startY: finalY + 15,
         afterPageContent: footer,
         columnStyles: {
-          0: {cellWidth: 20},
+          0: {cellWidth: 15},
           [descriptionColumn]: {cellWidth: 30},
           [approver2Column]: {cellWidth: 15},
-          [approver3Column]: {cellWidth: 15}
+          [approver3Column]: {cellWidth: 15},
+          [approvalLevelColumn]: {cellWidth: 13}
         }
       });
     }
