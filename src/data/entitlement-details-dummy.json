@@ -8,8 +8,12 @@
     "description": "The <b>Administrators group</b> that has full control over the domain controllers. Members of that <b>group</b> have <b>admin</b> rights over all DC's in that domain, they share their local security databases.",
     "birthright": null,
     "type": "group",
-    "approverLevel3": "TestWorkgroup-Ignore2",
-    "approverLevel2": "NSF-Approver",
+    "approverLevel3": null,
+    "approverLevel2": [{
+      "name": "NSF-Approver",
+      "workgroup": true,
+      "id": "0a0000047190181b817190f9602f0013"
+    }],
     "lastrefresh": "10-07-2020",
     "users": "5",
     "ObjectProperties": {

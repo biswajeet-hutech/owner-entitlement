@@ -126,34 +126,37 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
   )
 }
 
-const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, ...otherProps}) => {
+const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, dataObject, optionFilterProp, ...otherProps }) => {
   const [workgroupMembers, setWorkgroupMembers] = React.useState([]);
   const [loadingWorkgroupMembers, setLoadingWorkgroupMembers] = React.useState(false);
   const workgroupMembersDropList = workgroupMembers.map(item => ({
-    label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
-    id: item.name
+    label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
+    id: item.name,
+    searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
   }));
   const [viewPopVisible, setViewPopVisible] = React.useState({});
 
-  const getWorkgroupMembers = (workgroupName) => {
-    setLoadingWorkgroupMembers(true);
-    API.post('/EntitlementManagement/workgroup/details', {
-      "name": workgroupName
-    }).then(response => {
-      if (Array.isArray(response.data)) {
-        setWorkgroupMembers(stateData => [...response.data]);
-      }
-    }).catch(err => {
-      if (localMode) {
-        const result = []
-        setWorkgroupMembers(stateData => [
-          ...dummyWorkgroupMembers,
-          ...result
-        ]);
-      }
-    }).finally(res => {
-      setLoadingWorkgroupMembers(false);
-    })
+  const getWorkgroupMembers = (workgroupId) => {
+    if (workgroupId) {
+      setLoadingWorkgroupMembers(true);
+      API.post('/EntitlementManagement/workgroup/details', {
+        "id": workgroupId
+      }).then(response => {
+        if (Array.isArray(response.data)) {
+          setWorkgroupMembers(stateData => [...response.data]);
+        }
+      }).catch(err => {
+        if (localMode) {
+          const result = []
+          setWorkgroupMembers(stateData => [
+            ...dummyWorkgroupMembers,
+            ...result
+          ]);
+        }
+      }).finally(res => {
+        setLoadingWorkgroupMembers(false);
+      })
+    }
   }
 
   const handleViewVisibleChange = (v, index) => {
@@ -185,9 +188,9 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, ...o
                 />}
                 title=""
                 trigger="click"
-                visible={viewPopVisible[value]}
+                visible={viewPopVisible[dataObject?.id]}
                 destroyTooltipOnHide
-                onVisibleChange={(v) => handleViewVisibleChange(v, value)}
+                onVisibleChange={(v) => handleViewVisibleChange(v, dataObject?.id)}
               >
                 <Tooltip title="View Members" placement="bottom">
                   <p style={{ margin: '0px 8px', display: 'flex', cursor: 'pointer' }} onClick={e => e.stopPropagation()}>

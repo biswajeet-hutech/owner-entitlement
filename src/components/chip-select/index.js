@@ -26,6 +26,11 @@ const ChipSelect = ({
       </Tag>
     );
   }
+
+  const handleFilter = function(inputValue, option) {
+    console.log(inputValue, option);
+  }
+
   return (
   <div className={`oe-dropdown-container ${overrideClass}`}>
     {label?<div className="oe-form-label">
@@ -37,17 +42,17 @@ const ChipSelect = ({
       tagRender={tagRender}
       style={{width: '100%'}}
       suffixIcon={<CaretDownFilled style={{ fontSize: 16 }} />}
-      // defaultValue={selectedValue}
       className="oe-dropdown"
       placeholder={placeholder}
       onChange={onChange}
       disabled={!!disabled}
       value={value}
       onBlur={onBlur}
+      optionFilterProp="label"
     >
       {
         renderOptions || options.map(option => (
-          <Option value={option.value}>
+          <Option value={option.value} label={option.label} keyId={option.id}>
             {
               option.bold ? <b>{option.label}</b> : option.label
             }

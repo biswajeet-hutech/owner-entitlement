@@ -32,8 +32,8 @@ function SearchList(props) {
   }
 
   const filterSearch = (searchTxt, dataList = [...list]) => {
-    const filteredList = dataList.filter(item => ((item.label || '').toLowerCase()).includes(searchTxt.toLowerCase()) || (item.id || '').toLowerCase().includes(searchTxt.toLowerCase()));
-    const trimmedList = getListData({ data: [...filteredList], page: 1 });
+    const filteredList = dataList.filter(item => ((item.searchString || '').toLowerCase()).includes(searchTxt.toLowerCase()));
+    const trimmedList = getListData({ data: [...(filteredList || [])], page: 1 });
     setSearchText(searchTxt);
     setListItems(JSON.parse(JSON.stringify(trimmedList)));
     setLoading(false);

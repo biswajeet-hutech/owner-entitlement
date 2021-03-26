@@ -3,7 +3,7 @@
 
 .oe-help-btn {
   position: absolute;
-  top: 25px;
+  top: 16px;
   right: 40px;
 }
 
@@ -108,6 +108,10 @@
   &.oe-table .ant-table-tbody > tr > td:first-child {
     max-width: 250px;
   }
+
+  &.ant-table-tbody {
+
+  }
 }
 
 .description_modal_text {
@@ -150,5 +154,19 @@
   }
   .oe-card-wrapper {
     margin: 0 10px;
+  }
+}
+
+@media screen and (max-width: 1280px) {
+  .oe-card-wrapper {
+    margin: 12px 0px;
+  }
+
+  .oe-entitlement-list-table {
+    margin-top: 12px;
+
+    & div.ant-table-body {
+      max-height: 25vh !important;
+    }
   }
 }

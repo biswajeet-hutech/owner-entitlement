@@ -1,5 +1,5 @@
 import React from "react";
-import { Row } from "antd";
+import { Row, Spin } from "antd";
 // import { getFormType } from "../../utils";
 import Button from "../../components/button";
 import './style.scss';
@@ -19,6 +19,7 @@ const BaseProperties = ({
 }) => {
   const [entitlementData, setEntitlementData] = React.useState(data.EntitlementDetails || {});
   const [formData, setFormData] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
   const requiredProps = [];
@@ -205,11 +206,13 @@ const BaseProperties = ({
       }
       </div>
       <ExtendedProperties
+        originalData={data.EntitlementDetails}
         entitlementData={entitlementData}
         extendedProps={data.ExtentedAttributeProperties}
         readOnly={readOnly}
         onChange={handleUpdate}
         errors={errors}
+        onEntityLoad={(flag) => setLoading(!!flag)}
       />
       <div className="form-section form-section-readonly form-top-border">
         {
@@ -218,12 +221,12 @@ const BaseProperties = ({
       </div>
       {
         !readOnly && (
-        <>
+        <Spin spinning={!!loading}>
           <Row justify="end" className="accordion_footer">
             <Button type="secondary" size="large" className="cancel" onClick={onCancel}>{messages.CANCEL_BTN}</Button>
             <Button type="primary" size="large" className="save" onClick={handleSaveData}>{messages.SAVE}</Button>
           </Row>
-        </>
+        </Spin>
         )
       }
     </>

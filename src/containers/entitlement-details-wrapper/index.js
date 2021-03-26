@@ -30,9 +30,11 @@ const EntitlementDetailsWrapper = ({
   }
 
   const [entitlementData, setEntitlementData] = React.useState({...defaultEntitlementList});
+  const [entitlementMembersData, setEntitlementMembersData] = React.useState({...defaultEntitlementList});
   const [extendedAttributes, setExtendedAttributes] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
-  const entitlementPropData = {
+
+  const entitlementDataWithExtProps = {
     ...entitlementData,
     ExtentedAttributeProperties: [...extendedAttributes]
   };
@@ -62,6 +64,23 @@ const EntitlementDetailsWrapper = ({
       id
     }).then(res => {
       if (res.data) {
+        setEntitlementMembersData({...res.data});
+      }
+    }).catch(err => {
+      message.error("Failed to load entitlement data");
+      if(localMode) {
+        setEntitlementMembersData({ ...dummyData });
+      }
+    }).then(res => {
+      setLoadingEntitlement(false);
+    });
+  }
+
+  const getEntitlementDetails = ({ id }) => {
+    setLoadingEntitlement(true);
+    const url = `EntitlementManagement/EntitlementDetails/${id}`;
+    API.get(url).then(res => {
+      if (res.data) {
         setEntitlementData({...res.data});
       }
     }).catch(err => {
@@ -85,13 +104,19 @@ const EntitlementDetailsWrapper = ({
   }
 
   React.useEffect(() => {
-    getEntitlementList({
-      totalRecordsToFetch: 25,
-      id: entitlementId,
-      start: 0,
-      attrVal: ''
-    });
+    if (defaultActiveKey === "1") {
+      //Memebers tab
+      getEntitlementList({
+        totalRecordsToFetch: 25,
+        id: entitlementId,
+        start: 0,
+        attrVal: ''
+      });
+    } 
     if (defaultActiveKey === "2") {
+      getEntitlementDetails({
+        id: entitlementId
+      });
       getExtendedAttribures();
     }
   }, []);
@@ -101,7 +126,7 @@ const EntitlementDetailsWrapper = ({
     content: (
       <Spin spinning={loadingEntitlement}>
         <EntitlementMembers
-          data={entitlementData.Members[0]}
+          data={entitlementMembersData?.Members[0]}
           id={entitlementId}
           onUpdate={handleOnMemberSearch}
           onEntitlementUpdate={onEntitlementUpdate}
@@ -115,7 +140,7 @@ const EntitlementDetailsWrapper = ({
     content: (
       <Spin spinning={loadingEntitlement}>
         <EntitlementDetails
-          data={entitlementPropData}
+          data={entitlementDataWithExtProps}
           extendedAttributes={extendedAttributes}
           editMode={!!editMode}
           onSuccess={onSuccess}
