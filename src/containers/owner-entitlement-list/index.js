@@ -362,7 +362,7 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll: { x: 'max-content', y: 400 },
+              scroll: { x: 'max-content', y: '30vh' },
               renderEmpty: true,
               size: 'small',
               pagination: {

@@ -17,15 +17,18 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, ...o
   const [viewPopVisible, setViewPopVisible] = React.useState({});
 
   const workgroupMembersDropList = workgroupMembers.map(item => ({
-    label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
+    label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
     id: item.name,
-    action: 'remove'
+    action: 'remove',
+    searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
   }));
+
   const workgroupMembersIdList = workgroupMembersDropList.map(item => item.id);
   const AllUsersDropList = otherProps.allUsers && otherProps.allUsers.filter(item => !workgroupMembersIdList.includes(item.name)).map(item => ({
-    label: item.firstname ? `${item.firstname} ${item.lastname}` : item.name,
+    label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
     id: item.name,
-    action: 'add'
+    action: 'add',
+    searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
   }));
   
   const combinedUsersList = [
@@ -72,23 +75,25 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, ...o
   //   });
   // }
 
-  const getWorkgroupMembers = (workgroupName) => {
-    API.post('/EntitlementManagement/workgroup/details', {
-      "name": workgroupName
-    }).then(response => {
-      if (Array.isArray(response.data)) {
-        setWorkgroupMembers(stateData => [...response.data]);
-      }
-    }).catch(err => {
-      if (localMode) {
-        const result = []
-
-        setWorkgroupMembers(stateData => [
-          ...dummyWorkgroupMembers,
-          ...result
-        ]);
-      }
-    })
+  const getWorkgroupMembers = (workgroupId) => {
+    if (workgroupId) {
+      API.post('/EntitlementManagement/workgroup/details', {
+        "id": workgroupId
+      }).then(response => {
+        if (Array.isArray(response.data)) {
+          setWorkgroupMembers(stateData => [...response.data]);
+        }
+      }).catch(err => {
+        if (localMode) {
+          const result = []
+  
+          setWorkgroupMembers(stateData => [
+            ...dummyWorkgroupMembers,
+            ...result
+          ]);
+        }
+      })
+    }
   }
 
   const handleAddItem = async (...props) => {
@@ -196,6 +201,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, ...o
                           action="edit"
                           onItemAdd={handleAddItem}
                           onItemRemove={handleRemoveItem}
+                          searchKeys={['firstname', 'lastname', 'displayName', 'name']}
                           />}
                           title=""
                           trigger="click"

@@ -12,11 +12,13 @@ const { Option, OptGroup } = Select;
 
 const ExtendedProperties = (props) => {
   const {
+    originalData={},
     entitlementData={},
     extendedProps=[],
     readOnly,
     onChange,
-    errors={}
+    errors={},
+    onEntityLoad=()=>{}
   } = props;
 
   const [approverLevelData, setApproverLevelData] = React.useState({});
@@ -29,6 +31,7 @@ const ExtendedProperties = (props) => {
   const extendedPropsWithApprover = Array.isArray(extendedProps) ? extendedProps.filter(item => (['approvalLevels', 'approverLevel2', 'approverLevel3'].includes(item.name))) : [];
 
   const getApproverLevelData = async ({APIName, name}) => {
+    onEntityLoad(true);
     API.get(APIName).then(res => {
       setApproverLevelData({
         approverLevel2: res.data,
@@ -41,18 +44,20 @@ const ExtendedProperties = (props) => {
           approverLevel3: approverDummyData
         }));
       }
+    }).finally(() => {
+      onEntityLoad(false);
     })
   }
 
   const callWorkgroupDetailsAPI = (users, name, firstLoad) => {
-    // console.log(users);
     if (users.length < 2) {
       if (firstLoad) {
+        const selectedWorkgroupObject = approverLevelData[name]?.find(item => item.id === users[0]);
         setWorkgroupDetailsData(stateData => ({
           ...stateData,
-          [name]: users
+          [name]: [selectedWorkgroupObject || {}]
         }));
-        handleWorkgroupChange(name, users[0])
+        handleWorkgroupChange(name, selectedWorkgroupObject?.id || '')
       } else {
         setWorkgroupDetailsData(stateData => ({
           ...stateData,
@@ -78,9 +83,18 @@ const ExtendedProperties = (props) => {
         if (localMode) {
           const response = {
             data: [
-              "Approver Level1",
-              "Approver Level2",
-              "Approver Level3",
+              {
+                "id": "0a0000047190181b817190f9602f0013",
+                "name": "Approver Level1"
+              },
+              {
+                "id": "0a0000047190181b817190f9602f0013",
+                "name": "Approver Level2"
+              },
+              {
+                "id": "0a0000047190181b817190f9602f0013",
+                "name": "Approver Level3"
+              },
             ]
           }
           setWorkgroupDetailsData(stateData => ({
@@ -122,15 +136,15 @@ const ExtendedProperties = (props) => {
 
   const onChangeApprover = (key, val, forceLoadType) => {
     let result = [];
-    const workgroupKeys = approverLevelData[key].filter(item => item.workgroup === 'true').map(item => item.name);
-    const selectedVal = approverLevelData[key].find(item => item.name === val[val.length - 1]) || {};
+    const workgroupKeys = approverLevelData[key].filter(item => item.workgroup === 'true').map(item => item.id);
+    const selectedVal = approverLevelData[key].find(item => item.id === val[val.length - 1]) || {};
     const isWorkgroup = forceLoadType === "workgroup" || (selectedVal.workgroup === "true");
 
     if (isWorkgroup) {
-      if (selectedVal.name) {
-        result.push(selectedVal.name);
+      if (selectedVal.id) {
+        result.push(selectedVal.id);
         if (!forceLoadType) {
-          onChange(key, selectedVal.name);
+          onChange(key, selectedVal.id);
         }
       }
     } else {
@@ -190,11 +204,12 @@ const ExtendedProperties = (props) => {
   }
 
   const handleWorkgroupChange = (key, value) => {
+    
     setWorkgroupStateData(stateData => ({
       ...stateData,
       [key]: value
     }));
-    onChange(key, value);
+    onChange(key, value ? [value] : '');
     getWorgroupAccess(key, value);
   }
 
@@ -316,38 +331,48 @@ const ExtendedProperties = (props) => {
   const renderApproverLevel2_3 = (props) => {
     if (props) {
       let workgroupList = Array.isArray(workgroupDetailsData[props.name]) ? workgroupDetailsData[props.name].map(item => ({
-        label: item,
-        value: item
+        label: item.name,
+        value: item.id
       })) : [];
 
       let dropdownData = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].map(item => ({
-        label: item.name,
-        value: item.name,
-        workgroup: item.workgroup === 'true'
+        label: item.displayName || item.name,
+        value: item.displayName || item.name,
+        id: item.id,
+        workgroup: item.workgroup === 'true',
+        searchString: `${item.displayName || ''} ${item.name || ''} ${item.firstname || ''} ${item.lastname || ''}`
       })) : [];
 
-      let allMembersData = approverLevelData[props.name] && approverLevelData[props.name].filter(item => (item.workgroup !== "true" && !(approverStateData[props.name]?.includes(item.name))));
-      const workgroupListMap = dropdownData.filter(item => item.workgroup).map(item => item.value);
-      const isWorkgroupSelected = !!(approverStateData[props.name] && approverStateData[props.name][0] && workgroupListMap.includes(approverStateData[props.name][0]));
-      const showWorkgroupList = !readOnly && (!isWorkgroupSelected ? approverStateData[props.name]?.length > 1 : true) && !loadingWorkgroupList[props.name];
-      console.log(isWorkgroupSelected);
+      const workgroupOptionList = dropdownData.filter(item => !!item.workgroup);
+      const nonWorkgroupOptionList = dropdownData.filter(item => !item.workgroup);
+
+      let workgroupKeys = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].filter(item => item.workgroup === "true").map(item => item.id) : [];
+
+      let allMembersData = (approverLevelData[props.name] && approverLevelData[props.name].filter(item => (item.workgroup !== "true" && !(approverStateData[props.name]?.includes(item.name))))) || [];
+
+      const isWorkgroupSelected = !!(Array.isArray(originalData[props.name]) && originalData[props.name][0]?.workgroup);
+
+      const showWorkgroupList = !readOnly && entitlementData[props.name] && (
+        typeof entitlementData[props.name] === "string" ? (originalData[props.name] && originalData[props.name][0]?.workgroup) : (
+        Array.isArray(entitlementData[props.name]) && (
+          (entitlementData[props.name]?.length > 1 ? true : (workgroupKeys.includes(entitlementData[props.name][0]) ||  workgroupList.length > 0))
+        ))
+      );
       const renderOptions = () => {
-        const workgroupList = dropdownData.filter(item => !!item.workgroup);
-        const nonWorkgroupList = dropdownData.filter(item => !item.workgroup);
         
         return (
         <>
           <OptGroup label="Workgroup">
             {
-              workgroupList.map(option => (
-                <Option value={option.value}>{option.label}</Option>
+              workgroupOptionList.map(option => (
+                <Option value={option.id} label={option.label} keyId={option.id}>{option.label}</Option>
               ))
             }
           </OptGroup>
           <OptGroup label="Members">
           {
-            nonWorkgroupList.map(option => (
-              <Option value={option.value}>{option.label}</Option>
+            nonWorkgroupOptionList.map(option => (
+              <Option value={option.id} label={option.label} keyId={option.id}>{option.label}</Option>
             ))
           }
           </OptGroup>
@@ -359,7 +384,8 @@ const ExtendedProperties = (props) => {
           <FormElement
             key={props.name}
             label={props.displayName}
-            value={readOnly ? entitlementData[props.name] : approverStateData[props.name]}
+            dataObject={(entitlementData[props.name] && entitlementData[props.name][0]) || {}}
+            value={readOnly ? (Array.isArray(entitlementData[props.name]) && entitlementData[props.name][0]?.name) : approverStateData[props.name]}
             type='chip_dropdown'
             options={dropdownData}
             onChange={(value) => onChangeApprover(props.name, value)}
@@ -368,7 +394,7 @@ const ExtendedProperties = (props) => {
             required={props.required}
             placeholder={messages.FORM.APPROVER_PLACEHOLDER}
             renderOptions={renderOptions()}
-            isWorkgroup={!!workgroupListMap.includes(entitlementData[props.name])}
+            isWorkgroup={!!(isWorkgroupSelected)}
           />
           { loadingWorkgroupList[props.name] && (
             <div className="oe-workgroup-loader">
@@ -402,8 +428,8 @@ const ExtendedProperties = (props) => {
   React.useEffect(() => {
     if (Object.keys(entitlementData).length) {
       if (!approverStateData.approverLevel2 || !approverStateData.approverLevel3) {
-        const approverLevel2_data = entitlementData.approverLevel2 ? [entitlementData.approverLevel2] : []
-        const approverLevel3_data = entitlementData.approverLevel3 ? [entitlementData.approverLevel3] : []
+        const approverLevel2_data = (Array.isArray(entitlementData.approverLevel2) && entitlementData.approverLevel2[0]?.id) ? [entitlementData.approverLevel2[0]?.id] : []
+        const approverLevel3_data = (Array.isArray(entitlementData.approverLevel3) && entitlementData.approverLevel3[0]?.id) ? [entitlementData.approverLevel3[0]?.id] : []
         setApproverStateData(stateData => ({
           ...stateData,
           approverLevel2: approverLevel2_data,
@@ -414,14 +440,16 @@ const ExtendedProperties = (props) => {
   }, []);
 
   React.useEffect(() => {
-    if (ext_props_with_approver.approverLevel2) {
-      getApproverLevelData(ext_props_with_approver.approverLevel2);
+    if (!readOnly) {
+      if (ext_props_with_approver.approverLevel2) {
+        getApproverLevelData(ext_props_with_approver.approverLevel2);
+      }
     }
   }, [ext_props_with_approver.approverLevel2]);
 
   React.useEffect(() => {
     if (!readOnly) {
-      const approverLevel2_data = entitlementData.approverLevel2 ? [entitlementData.approverLevel2] : []
+      const approverLevel2_data = (Array.isArray(entitlementData.approverLevel2) && entitlementData.approverLevel2[0]?.id) ? [entitlementData.approverLevel2[0].id] : []
       if (approverLevelData.approverLevel2) {
         onChangeApprover('approverLevel2', approverLevel2_data, "workgroup");
       }
@@ -430,7 +458,7 @@ const ExtendedProperties = (props) => {
 
   React.useEffect(() => {
     if (!readOnly) {
-      const approverLevel3_data = entitlementData.approverLevel3 ? [entitlementData.approverLevel3] : []
+      const approverLevel3_data = (Array.isArray(entitlementData.approverLevel3) && entitlementData.approverLevel3[0]?.id) ? [entitlementData.approverLevel3[0].id] : []
       if (approverLevelData.approverLevel3) {
         onChangeApprover('approverLevel3', approverLevel3_data, "workgroup");
       }
