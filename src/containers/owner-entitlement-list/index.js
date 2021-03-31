@@ -138,7 +138,7 @@ const OwnerEntitlement = () => {
     API.get(url).then(res => {
       if (Array.isArray(res.data)) {
         setExtendedAttributes(res.data.reduce((acc, item) => {
-          acc[item.extendedAttrName] = item;
+          acc[item.name] = item;
           return acc;
         }, {}));
       }
@@ -146,7 +146,7 @@ const OwnerEntitlement = () => {
       // message.error("Failed to load statistics");
       if (localMode) {
         setExtendedAttributes(extendedAttributesJSON.reduce((acc, item) => {
-          acc[item.extendedAttrName] = item;
+          acc[item.name] = item;
           return acc;
         }, {}));
       }
@@ -287,7 +287,7 @@ const OwnerEntitlement = () => {
     }
   }
 
-  const renderCheckboxColumn = (text) => ["true", "Yes", "TRUE", "YES", "yes", "True"].includes(text) ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />;
+  const renderCheckboxColumn = (text) => ["true", "yes"].includes(text?.toLowerCase()) ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />;
 
   const headerConfig = {
     value: {

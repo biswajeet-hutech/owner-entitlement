@@ -5,7 +5,8 @@ const baseURL = window.PluginHelper ? window.PluginHelper.getPluginRestUrl("") :
 const API = axios.create({
   baseURL: baseURL,
   headers: {
-    'Content-Type': 'application/json'
+    'Content-Type': 'application/json',
+    'X-XSRF-TOKEN': window.PluginHelper?.getCsrfToken()
   }
 });
 
