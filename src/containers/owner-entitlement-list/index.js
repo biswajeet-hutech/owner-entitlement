@@ -208,7 +208,8 @@ const OwnerEntitlement = () => {
     // console.log(type);
     setLoadingEntitlement(true);
     API.post(`EntitlementManagement/export`, {
-      ...data
+      ...data,
+      filetype: type
     })
       .then((response) => {
         try {
@@ -362,7 +363,7 @@ const OwnerEntitlement = () => {
             dataSource={entitlementList.EntitlementDetails}
             columns={columns}
             config={{
-              scroll: { x: 'max-content', y: '30vh' },
+              scroll: { x: 'max-content', y: '35vh' },
               renderEmpty: true,
               size: 'small',
               pagination: {

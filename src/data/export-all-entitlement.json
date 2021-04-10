@@ -1,6 +1,7 @@
 {
 	"headers": ["id", "value", "users", "attribute", "type", "displayName", "owner", "requestable", "description", "application", "target_app", "logiplex_app_name", "certifiable", "birthright", "privileged", "approvalLevels", "approverLevel2", "approverLevel3", "app_id"],
 	"total": "481",
+	"OwnerDetails": "The Administrator",
 	"EntitlementDetails": [{
 		"owner": "\u0022The Administrator\u0022",
 		"displayName": "\u0022Group Policy Creator Owners\u0022",

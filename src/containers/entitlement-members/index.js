@@ -336,7 +336,7 @@ const EntitlementMembers = ({
               defaultPageSize: 25,
               showSizeChanger: true,
             },
-            className: "oe-table",
+            className: "oe-table oe-members-table",
             rowKey: "name",
             rowSelection: rowSelection
           }}

@@ -9,6 +9,7 @@ import { messages } from "../../assets";
 const EntitlementDetails = ({
   editMode,
   data={},
+  standardAttributes=[],
   onClose = ()=> {},
   onSuccess = ()=> {}
 }) => {
@@ -44,7 +45,15 @@ const EntitlementDetails = ({
     {
       title: 'Entitlement Properties',
       subTitle: `${editMode ? 'Edit' : 'View'} entitlement properties`,
-      content: <BaseProperties data={data} readOnly={!editMode} onSave={handleSave} onCancel={onClose} />
+      content: (
+        <BaseProperties
+          data={data}
+          readOnly={!editMode}
+          onSave={handleSave}
+          onCancel={onClose}
+          standardAttributes={standardAttributes}
+        />
+      )
     },
     // {
     //   title: 'Object Attribute',

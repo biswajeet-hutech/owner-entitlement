@@ -12,6 +12,7 @@ const BaseProperties = ({
     EntitlementDetails: {},
     ExtentedAttributeProperties: []
   },
+  standardAttributes = [],
   readOnly,
   setActions=(ele)=>{},
   onSave=()=>{},
@@ -113,41 +114,30 @@ const BaseProperties = ({
     },
   ]
 
-  const writableFormConfig = [
-    {
-      key: 'displayName',
-      label: 'Display Value',
+  const getStandardFormConfig = {
+    displayName: {
       type: 'textarea',
       maxLength: 450,
-      // hideCount: true,
-      value: entitlementData.displayName,
-      readOnly,
-      rows: 1,
-      // required: true,
-      error: errors.displayName,
-      onChange: (value) => handleUpdate('displayName', value)
+      rows: 1
     },
-    {
-      key: 'requestable',
-      label: 'Requestable',
-      value: entitlementData.requestable === "true",
-      type: 'checkbox',
-      readOnly,
-      // required: true,
-      onChange: (value) => handleUpdate('requestable', value+'')
+    requestable: {
+      type: 'checkbox'
     },
-    {
-      key: 'description',
-      label: 'Description',
-      value: data.EntitlementDetails.description,
-      defaultValue: data.EntitlementDetails.description,
-      type: 'description',
-      // required: true,
-      error: errors.description,
-      readOnly,
-      onChange: (value) => handleUpdate('description', value)
+    description: {
+      type: 'description'
     }
-  ]
+  }
+
+  const standardFormConfig = standardAttributes.map(attr => ({
+    ...getStandardFormConfig[attr.name],
+    key: attr.name,
+    label: attr.displayName,
+    type: getStandardFormConfig[attr.name]?.type || attr.type,
+    value: entitlementData[attr.name],
+    readOnly: readOnly || attr.readOnly,
+    onChange: (value) => handleUpdate(attr.name, value),
+    error: errors[attr.name]
+  }))
 
   const handleSaveData = () => {
     const finalFormData = {...formData};
@@ -202,7 +192,7 @@ const BaseProperties = ({
       </div>
       <div className="form-section form-section-writable">
       {
-        writableFormConfig.map(formElement => <FormElement {...formElement} />)
+        standardFormConfig.map(formElement => <FormElement {...formElement} />)
       }
       </div>
       <ExtendedProperties

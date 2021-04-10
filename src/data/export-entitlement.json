@@ -20,7 +20,8 @@
 			"certifiable": null,
 			"value": "\u0022CN=Administrators,CN=Builtin,DC=st,DC=com\u0022",
 			"app_id": null
-		}
+		},
+		"OwnerDetails": "The Administrator"
 	},
 	"Members": {
 		"headers": ["name", "firstname", "lastname", "email", "status", "manager", "correlated", "source", "certificationaction", "certificationactiondate"],

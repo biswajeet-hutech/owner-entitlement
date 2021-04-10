@@ -76,10 +76,11 @@ const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10,
 }
 
 const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
+  const isChecked = typeof value === "boolean" ? !!value : value === "true";
   return (
     <>
       {
-        readOnly ? (value ? (
+        readOnly ? (isChecked ? (
         <CheckTrue
           className="checkIcon"
           style={{
@@ -95,8 +96,8 @@ const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
         />
         )) : (
           <Checkbox
-            checked={!!value}
-            onChange={(e) => onChange(e.target.checked)}
+            checked={!!isChecked}
+            onChange={(e) => onChange(e.target.checked+'')}
             {...otherProps}
           />
           )

@@ -9,6 +9,19 @@
   }
 }
 
+.oe-members-table {
+  & .ant-table.ant-table-small .ant-table-thead > tr > th {
+    padding: 4px;
+    &:hover {
+      background-color: $background-color-table-head;
+    }
+  }
+
+  &.oe-table .ant-table-pagination.ant-pagination {
+    padding-bottom: 0;
+  }
+}
+
 .oe-sc-row-padding {
   padding: 10px 0;
 }
@@ -76,4 +89,13 @@
 }
 .approved {
   color: $typo-member-certification-approved;
+}
+
+
+@media screen and (max-width: 1280px) {
+  .oe-members-table {
+    & div.ant-table-body {
+      max-height: 35vh !important;
+    }
+  }
 }
