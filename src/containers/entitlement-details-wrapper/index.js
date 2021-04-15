@@ -46,6 +46,7 @@ const EntitlementDetailsWrapper = ({
       if (response.data) {
         setExtendedAttributes(response.data?.ExtendedAttributes || []);
         setStandardAttributes(response.data?.StandardAttributes || []);
+        
       }
     }).catch(err => {
       if (localMode) {

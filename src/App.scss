@@ -9,7 +9,7 @@
   background-repeat: no-repeat;
   background-size: 100%;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  height: 100vh;
+  height: calc(100vh - 100px);
   overflow-y: hidden;
 }
 

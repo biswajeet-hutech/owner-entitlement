@@ -7,6 +7,7 @@ import API, { localMode } from "../../api";
 import approverDummyData from "../../data/approver-data.json";
 import { messages } from "../../assets";
 import formConfig from "./form-config";
+import fetchUserList from "../../utils/user";
 
 const { Option, OptGroup } = Select;
 
@@ -30,7 +31,7 @@ const ExtendedProperties = (props) => {
   const extendedPropsWithoutApprover =  Array.isArray(extendedProps) ? extendedProps.filter(item => !(['approvalLevels', 'approverLevel2', 'approverLevel3'].includes(item.name))) : [];
   const extendedPropsWithApprover = Array.isArray(extendedProps) ? extendedProps.filter(item => (['approvalLevels', 'approverLevel2', 'approverLevel3'].includes(item.name))) : [];
 
-  const getApproverLevelData = async ({APIName, name}) => {
+  const getApproverLevelData = ({APIName, name}) => {
     onEntityLoad(true);
     API.get(APIName).then(res => {
       setApproverLevelData({
@@ -39,10 +40,12 @@ const ExtendedProperties = (props) => {
       });
     }).catch(err => {
       if (localMode) {
-        setApproverLevelData(stateData => ({
-          approverLevel2: approverDummyData,
-          approverLevel3: approverDummyData
-        }));
+        setTimeout(() => {
+          setApproverLevelData(stateData => ({
+            approverLevel2: approverDummyData,
+            approverLevel3: approverDummyData
+          }));
+        }, 4000);
       }
     }).finally(() => {
       onEntityLoad(false);
@@ -135,6 +138,7 @@ const ExtendedProperties = (props) => {
   }, {});
 
   const onChangeApprover = (key, val, forceLoadType) => {
+    console.log(key, val);
     let result = [];
     const workgroupKeys = approverLevelData[key].filter(item => item.workgroup === 'true').map(item => item.id);
     const selectedVal = approverLevelData[key].find(item => item.id === val[val.length - 1]) || {};
@@ -335,22 +339,22 @@ const ExtendedProperties = (props) => {
         value: item.id
       })) : [];
 
-      let dropdownData = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].map(item => ({
-        label: item.displayName || item.name,
-        value: item.displayName || item.name,
-        id: item.id,
-        workgroup: item.workgroup === 'true',
-        searchString: `${item.displayName || ''} ${item.name || ''} ${item.firstname || ''} ${item.lastname || ''}`
-      })) : [];
+      // let dropdownData = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].map(item => ({
+      //   label: item.displayName || item.name,
+      //   value: item.displayName || item.name,
+      //   id: item.id,
+      //   workgroup: item.workgroup === 'true',
+      //   searchString: `${item.displayName || ''} ${item.name || ''} ${item.firstname || ''} ${item.lastname || ''}`
+      // })) : [];
 
-      const workgroupOptionList = dropdownData.filter(item => !!item.workgroup);
-      const nonWorkgroupOptionList = dropdownData.filter(item => !item.workgroup);
+      // const workgroupOptionList = dropdownData.filter(item => !!item.workgroup);
+      // const nonWorkgroupOptionList = dropdownData.filter(item => !item.workgroup);
 
       let workgroupKeys = Array.isArray(approverLevelData[props.name]) ?  approverLevelData[props.name].filter(item => item.workgroup === "true").map(item => item.id) : [];
 
       let allMembersData = (approverLevelData[props.name] && approverLevelData[props.name].filter(item => (item.workgroup !== "true" && !(approverStateData[props.name]?.includes(item.name))))) || [];
 
-      const isWorkgroupSelected = !!(Array.isArray(originalData[props.name]) && originalData[props.name][0]?.workgroup);
+      // const isWorkgroupSelected = !!(Array.isArray(originalData[props.name]) && originalData[props.name][0]?.workgroup);
 
       const showWorkgroupList = !readOnly && entitlementData[props.name] && (
         typeof entitlementData[props.name] === "string" ? (originalData[props.name] && originalData[props.name][0]?.workgroup) : (
@@ -358,43 +362,45 @@ const ExtendedProperties = (props) => {
           (entitlementData[props.name]?.length > 1 ? true : (workgroupKeys.includes(entitlementData[props.name][0]) ||  workgroupList.length > 0))
         ))
       );
-      const renderOptions = () => {
-        
-        return (
-        <>
-          <OptGroup label="Workgroup">
-            {
-              workgroupOptionList.map(option => (
-                <Option value={option.id} label={option.label} keyId={option.id}>{option.label}</Option>
-              ))
-            }
-          </OptGroup>
-          <OptGroup label="Members">
-          {
-            nonWorkgroupOptionList.map(option => (
-              <Option value={option.id} label={option.label} keyId={option.id}>{option.label}</Option>
-            ))
-          }
-          </OptGroup>
-        </>
-      );
-      }
+
+      // const renderOptions = () => {
+      //   return (
+      //   <>
+      //     <OptGroup label="Workgroup">
+      //       {
+      //         workgroupOptionList.map(option => (
+      //           <Option value={option.id} label={option.label} keyId={option.id}>{option.label}</Option>
+      //         ))
+      //       }
+      //     </OptGroup>
+      //     <OptGroup label="Members">
+      //     {
+      //       nonWorkgroupOptionList.map(option => (
+      //         <Option value={option.id} label={option.label} keyId={option.id}>{option.label}</Option>
+      //       ))
+      //     }
+      //     </OptGroup>
+      //   </>
+      // );
+      // }
       return (
         <>
           <FormElement
             key={props.name}
             label={props.displayName}
-            dataObject={(entitlementData[props.name] && entitlementData[props.name][0]) || {}}
+            mode="multiple"
+            // labelInValue={false}
             value={readOnly ? (Array.isArray(entitlementData[props.name]) && entitlementData[props.name][0]?.name) : approverStateData[props.name]}
-            type='chip_dropdown'
-            options={dropdownData}
+            type='search-dropdown'
             onChange={(value) => onChangeApprover(props.name, value)}
             readOnly={readOnly}
             error={!!showWorkgroupList ? '' : errors[props.name]}
             required={props.required}
             placeholder={messages.FORM.APPROVER_PLACEHOLDER}
-            renderOptions={renderOptions()}
-            isWorkgroup={!!(isWorkgroupSelected)}
+            renderWorkgroupWithUsers={true}
+            style={{ width: '100%' }}
+            showSearch={true}
+            fetchOptions={(userName) => fetchUserList(userName, true)}
           />
           { loadingWorkgroupList[props.name] && (
             <div className="oe-workgroup-loader">
@@ -402,7 +408,7 @@ const ExtendedProperties = (props) => {
             </div>
           )}
           {
-            !!showWorkgroupList ? (
+            showWorkgroupList && (
               <FormElement
                 value={workgroupStateData[props.name]}
                 label={`${messages.FORM.WORKGROUP_LABEL} ${props.name.includes('2') ? '2' : '3'}`}
@@ -418,7 +424,7 @@ const ExtendedProperties = (props) => {
                 allowedActions={workgroupAccess[props.name]}
                 approverData={approverStateData[props.name]}
               />
-            ) : null
+            )
           }
         </>
       )

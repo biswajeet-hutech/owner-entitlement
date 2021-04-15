@@ -14,7 +14,7 @@ import { CheckFalse } from './../../assets';
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
 import exportAllEntitlementData from "../../data/export-all-entitlement.json";
-import extendedAttributesJSON from "../../data/extended-attributes.json";
+import extendedAttributesJSON from "../../data/advance-editable-attributes.json";
 import entitlementHeadersData from "../../data/entitlement-headers.json";
 import helpDataJSON from "../../data/helpdata.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
@@ -136,8 +136,8 @@ const OwnerEntitlement = () => {
   const getExtendedAttributes = () => {
     const url = 'EntitlementManagement/viewableattributes';
     API.get(url).then(res => {
-      if (Array.isArray(res.data)) {
-        setExtendedAttributes(res.data.reduce((acc, item) => {
+      if (Array.isArray(res.data?.ExtendedAttributes)) {
+        setExtendedAttributes(res.data.ExtendedAttributes.reduce((acc, item) => {
           acc[item.name] = item;
           return acc;
         }, {}));
@@ -145,7 +145,7 @@ const OwnerEntitlement = () => {
     }).catch(err => {
       // message.error("Failed to load statistics");
       if (localMode) {
-        setExtendedAttributes(extendedAttributesJSON.reduce((acc, item) => {
+        setExtendedAttributes(extendedAttributesJSON.ExtendedAttributes.reduce((acc, item) => {
           acc[item.name] = item;
           return acc;
         }, {}));
@@ -288,7 +288,7 @@ const OwnerEntitlement = () => {
     }
   }
 
-  const renderCheckboxColumn = (text) => ["true", "yes"].includes(text?.toLowerCase()) ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} />;
+  const renderCheckboxColumn = (text) => ["true", "yes"].includes(text?.toLowerCase()) ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : (["false", "no"].includes(text?.toLowerCase()) ? <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} /> : text);
 
   const headerConfig = {
     value: {

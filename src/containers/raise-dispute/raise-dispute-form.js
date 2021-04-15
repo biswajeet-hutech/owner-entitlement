@@ -4,15 +4,19 @@ import { Row } from "antd";
 import Button from "../../components/button";
 import FormElement from "../../components/form-element";
 import './style.scss';
+import fetchUserList from "../../utils/user";
 
 const RaiseDisputeForm = ({
   onChange,
-  comment,
+  disputeData = {},
   onHide,
   onSubmit,
   error,
-  entitlementData
+  entitlementData,
+  allowedActions=[]
 }) => {
+
+  const { disputeStatement, action } = disputeData;
 
   const formConfig = [
     {
@@ -29,20 +33,6 @@ const RaiseDisputeForm = ({
       type: 'input',
       readOnly: true
     },
-    // {
-    //   key: 'lastRefreshed',
-    //   label: 'Last Refreshed',
-    //   value: entitlementData.lastrefresh,
-    //   type: 'input',
-    //   readOnly: true
-    // },
-    // {
-    //   key: 'lastModified',
-    //   label: 'Last Modified',
-    //   value: entitlementData.modified,
-    //   type: 'input',
-    //   readOnly: true
-    // },
     {
       key: 'displayValue',
       label: 'Display Value',
@@ -69,14 +59,42 @@ const RaiseDisputeForm = ({
 
   const writableformConfig = [
     {
+      ...(
+        allowedActions.length ? {
+          key: 'action',
+          label: 'Dispute Reason',
+          options: allowedActions.map(item => ({ label: item, value: item })),
+          value: action,
+          required: true,
+          type: 'dropdown'
+      } : {})
+    },
+    {
+      ...(
+        action?.includes("Transfer Ownership") ? {
+          key: 'owner',
+          label: 'New Owner',
+          placeholder: 'Search by user name',
+          fetchOptions: fetchUserList,
+          // options: allowedActions.map(item => ({ label: item, value: item })),
+          // value: owner,
+          required: true,
+          showSearch: true,
+          style: { width: '100%' },
+          type: 'search-dropdown',
+          onChange: ({value}) => onChange('owner', value)
+      } : {})
+    },
+    {
       key: 'disputeStatement',
       label: 'Dispute Statement',
-      value: '',
-      required:true,
+      value: disputeStatement,
+      required: (action?.includes("Dispute") || action?.includes("Others")),
       type: 'textarea',
       maxLength: 250
     }
   ]
+
   return (
     <>
     <div className="form-section form-section-readonly">
@@ -86,7 +104,13 @@ const RaiseDisputeForm = ({
     </div>
     <div className="form-section form-section-writable">
       {
-        writableformConfig.map(formElement => <FormElement {...formElement} onChange={onChange} value={comment} error={error.comment}/>)
+        writableformConfig.map(formElement => (
+          <FormElement
+            onChange={(value) => onChange(formElement.key, value)}
+            {...formElement}
+            error={error[formElement.key]}
+          />
+        ))
       }
       <Row justify="end" className="dispute_Footer">
         <Button type="secondary" size="large" className="cancel"  onClick={onHide}>Cancel</Button>

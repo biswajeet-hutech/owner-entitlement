@@ -11,6 +11,7 @@ import SearchList from "../search-list";
 import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
 import API, { localMode } from "../../api";
 import dummyWorkgroupMembers from "../../data/workgroup-members.json";
+import DebounceSelect from "../dropdown/search-dropdown";
 
 const { TextArea } = Input;
 
@@ -244,6 +245,8 @@ const FormElement = ({
         return <ChipDropdownForm {...otherProps} />;
       case 'workgroup':
         return <WorkGroupInput {...otherProps} />
+      case 'search-dropdown':
+        return <DebounceSelect {...otherProps} />
       default:
         return otherProps.value;
     }

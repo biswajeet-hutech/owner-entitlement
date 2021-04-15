@@ -4,7 +4,7 @@ import { Spin } from "antd";
 import {DisputeModal} from '../../assets';
 import Accordion from "../../components/accordion";
 import RaiseDisputeForm from "./raise-dispute-form";
-import API from "../../api";
+import API, { localMode } from "../../api";
 
 import './style.scss';
 
@@ -14,20 +14,40 @@ const RaiseDispute = ({
   onError,
   entitlementData
 }) => {
-  const [disputeComment, setDisputeComment] = React.useState('');
+  const [disputeState, setDisputeState] = React.useState({});
   const [loading, setLoading] = React.useState(false);
+  const [allowedActions, setAllowedActions] = React.useState([]);
   const [error, setError] = React.useState({});
-  const handleUpdate = (value) => {
+  const handleUpdate = (key, value) => {
+    console.log(key, value);
     setError({});
-    setDisputeComment(value);
+    setDisputeState({
+      ...disputeState,
+      [key]: value
+    });
   }
 
-  const raiseDisputeAPI = ({ entID, disputeComment }) => {
+  const getAllowedActions = (entitlementid) => {
+    const baseURL = `EntitlementManagement/dispute/allowedactions/${entitlementid}`;
+    API.get(baseURL).then(response => {
+      if (response.data) {
+        setAllowedActions(response.data);
+      }
+    }).catch(err => {
+      if (localMode) {
+        setAllowedActions(["I do not know owner(Dispute Ownership)","This entitlement is redundant(not needed or wanted)", "Transfer Ownership", "Others"]);
+      }
+    })
+  }
+
+  const raiseDisputeAPI = ({ entID, disputeStatement, action, owner }) => {
     setLoading(true);
     const baseURL = 'EntitlementManagement/dispute';
     API.post(baseURL, {
-      message: disputeComment,
-      id: entID
+      message: disputeStatement,
+      id: entID,
+      action: action,
+      owner: owner
     }).then(response => {
       if (response.data && response.data.status === 'success') {
         onSuccess();
@@ -42,24 +62,52 @@ const RaiseDispute = ({
     });
   }
 
+  const getErrors = () => {
+    const errorObj = {};
+    const { disputeStatement, action } = disputeState;
+    if ((action.includes("Dispute") || action.includes("Others")) && !disputeStatement) {
+      errorObj.disputeStatement = 'Please provide some comment.';
+    }
+    if (!action) {
+      errorObj.action = "Please select a reason";
+    }
+
+    return errorObj;
+  }
+
   const handleSubmit = () => {
-    if (!disputeComment) {
-      setError({
-        comment: 'Please provide some comment.'
-      })
+    const errors = getErrors();
+    if (Object.keys(errors).length) {
+      setError(errors);
     } else {
       raiseDisputeAPI({
         entID: entitlementData.id,
-        disputeComment
+        ...disputeState
       });
     }
   }
+
+  React.useEffect(() => {
+    getAllowedActions(entitlementData.id);
+  }, []);
 
   const panelData = [{
     title: 'Entitlement Properties',
     subTitle: 'Provide a dispute comment to raise dispute',
     icon:<DisputeModal/>,
-    content: <RaiseDisputeForm entitlementData={entitlementData} onChange={handleUpdate} comment={disputeComment} onHide={onHide} onSubmit={handleSubmit} error={error} />
+    content: (
+      <RaiseDisputeForm
+        entitlementData={entitlementData}
+        onChange={handleUpdate}
+        onHide={onHide}
+        onSubmit={handleSubmit}
+        error={error}
+        allowedActions={allowedActions}
+        disputeData={{
+          ...disputeState
+        }}
+      />
+    )
   }];
 
   return (
