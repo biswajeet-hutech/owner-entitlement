@@ -37,8 +37,8 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
 }
 
 const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
-  const handleOnChange = (value='') => {
-    const newValue = value?.replace(/^\<p\>/,"").replace(/\<\/p\>$/,"") || "";
+  const handleOnChange = (txt='') => {
+    const newValue = txt?.replace(/^\<p\>/,"").replace(/\<\/p\>$/,"") || "";
     onChange(newValue);
   }
   return (
@@ -219,6 +219,7 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
             value={value}
             onChange={onChange}
             overrideClass={`oe-form-dropdown ${otherProps.error && 'oe-form-error'}`}
+            dataObject={dataObject}
             {...otherProps}
           />
           { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }

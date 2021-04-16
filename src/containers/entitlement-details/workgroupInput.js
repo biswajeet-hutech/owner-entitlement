@@ -2,6 +2,7 @@ import React from 'react';
 import { Input, List, Popover } from 'antd';
 import { EyeFilled } from "@ant-design/icons";
 import debounce from 'lodash/debounce';
+import _ from "lodash";
 
 import { EditWhiteIcon } from './../../assets';
 import Button from "../../components/button";
@@ -14,6 +15,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
   const [workgroupInfo, setWorkgroupInfo] = React.useState({ name: '', description: ''});
   const [showCreateWorkgroupForm, setShowCreateWorkgroupForm] = React.useState(false);
   const [workgroupError, setWorkgroupError] = React.useState('');
+  const [workgroupSearchText, setWorkgroupSearchText] = React.useState('');
   const [workgroupMembers, setWorkgroupMembers] = React.useState([]);
   const [originalWorkgroupMembers, setOriginalWorkgroupMembers] = React.useState([]);
   const [entitlementUsers, setEntitlementUsers] = React.useState([]);
@@ -33,9 +35,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
     action: (workgroupMembersIdList.includes(item.id) || workgroupMembersNameList.includes(item.name)) ? 'remove' : 'add'
   }));
   
-  const combinedUsersList = [
-    ...AllUsersDropList
-  ];
+  const combinedUsersList = workgroupSearchText ? [...AllUsersDropList] : _.uniqBy([...workgroupMembers, ...AllUsersDropList], 'id');
 
   const handleCreateWorkgroup = () => {
     if (!workgroupInfo.name) {
@@ -73,6 +73,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
       fetchRef.current += 1;
       const fetchId = fetchRef.current;
       setEntitlementUsers([]);
+      setWorkgroupSearchText(value);
       setFetching(true);
       fetchOptions(value).then((newOptions) => {
         if (fetchId !== fetchRef.current) {
@@ -96,6 +97,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
           const output = response.data.map(item => ({
             label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
             id: item.id,
+            value: item.id,
             name: item.name,
             action: 'remove',
             searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
@@ -108,6 +110,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
           const result = dummyWorkgroupMembers.map(item => ({
             label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
             id: item.id,
+            value: item.id,
             name: item.name,
             action: 'remove',
             searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
@@ -205,7 +208,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
             dataSource={options}
             renderItem={(item, key) => (
               <List.Item
-                onClick={(e) => {onChange(item.value); e.stopPropagation()}}
+                onClick={(e) => {onChange(item.value, item); e.stopPropagation()}}
                 style={{ backgroundColor: value === item.value ? '#037da1' : '#fff', color: value === item.value ? '#fff' : '#191919', padding: '4px 8px', fontSize: 13, cursor: 'pointer' }}>
                 <span>{item.label}</span>
                 <div>

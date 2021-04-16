@@ -9,6 +9,7 @@ async function fetchUserList(username, showWorkgroup, defaultValue) {
     // onlyUsers: true
   }).then(response => {
     if (showWorkgroup) {
+      const result = [];
       const res = [
         ...response.data.map(user => ({
           label: user.displayName || user.name,
@@ -19,10 +20,11 @@ async function fetchUserList(username, showWorkgroup, defaultValue) {
         }))
       ];
       if (!username && defaultValue) {
-        res.push(defaultValue);
+        result.push(defaultValue);
       }
-      return _.uniqBy(res, 'id');
+      return _.uniqBy([...res, ...result], 'id');
     } else {
+      const result = [];
       const res = [
         ...response.data?.filter(item => item.workgroup !== "true").map(user => ({
           label: user.displayName || user.name,
@@ -33,13 +35,14 @@ async function fetchUserList(username, showWorkgroup, defaultValue) {
           }))
       ];
       if (!username && defaultValue) {
-        res.push(defaultValue);
+        result.push(defaultValue);
       }
-      return _.uniqBy(res, 'id');
+      return _.uniqBy([...res, ...result], 'id');
     }}
   ).catch(err => {
     if (localMode) {
       if (showWorkgroup) {
+        const result = [];
         const res = [
           ...IdentitiesJSON.map(user => ({
             label: user.displayName || user.name,
@@ -50,10 +53,11 @@ async function fetchUserList(username, showWorkgroup, defaultValue) {
           }))
         ];
         if (!username && defaultValue) {
-          res.push(defaultValue);
+          result.push(defaultValue);
         }
-        return _.uniqBy(res, 'id');
+        return _.uniqBy([...res, ...result], 'id');
       } else {
+        const result = [];
         const res = [
           ...IdentitiesJSON?.filter(item => item.workgroup !== "true").map(user => ({
             label: user.displayName || user.name,
@@ -64,12 +68,16 @@ async function fetchUserList(username, showWorkgroup, defaultValue) {
             }))
         ];
         if (!username && defaultValue) {
-          res.push(defaultValue);
+          result.push(defaultValue);
         }
-        return _.uniqBy(res, 'id');
+        return _.uniqBy([...res, ...result], 'id');
       }
     } else {
-      return [];
+      const res = [];
+      if (!username && defaultValue) {
+        res.push(defaultValue);
+      }
+      return res;
     }
   });
 }

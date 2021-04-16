@@ -106,7 +106,7 @@
 		"extendedAttrName": null,
 		"name": "description",
 		"named": null,
-		"readOnly": true,
+		"readOnly": false,
 		"type": "string"
 	}, {
 		"APIName": null,

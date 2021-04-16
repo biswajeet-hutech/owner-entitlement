@@ -11,7 +11,7 @@
     "approverLevel3": null,
     "approverLevel2": [{
       "displayName": "SelfRegistrationWorkGroup",
-      "id": "0a0000047190181b817190f9602f0013",
+      "id": "0a0000047190181b817190f9602f001",
       "name": "SelfRegistrationWorkGroup",
       "workgroup": true
     }],

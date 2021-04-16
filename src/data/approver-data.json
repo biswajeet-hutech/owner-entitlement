@@ -7,13 +7,6 @@
 	"lastname": "Administrator",
 	"displayName": "The administrator"
 }, {
-	"workgroup": "true",
-	"firstname": null,
-	"name": "SelfRegistrationWorkGroup",
-	"id": "0a0000047190181b817190f9602f0013",
-	"email": null,
-	"lastname": null
-}, {
 	"workgroup": "false",
 	"firstname": "Ranjan",
 	"name": "Ranjan",

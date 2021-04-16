@@ -1,5 +1,5 @@
 import React from "react";
-import { Select, Spin } from 'antd';
+import { Select, Spin, Tag } from 'antd';
 import { CaretDownFilled } from '@ant-design/icons';
 import debounce from 'lodash/debounce';
 import "./style.scss";
@@ -12,6 +12,7 @@ function DebounceSelect({
   renderWorkgroupWithUsers,
   defaultSearchValue,
   overrideClass,
+  dataObject,
   ...props
 }) {
   const [fetching, setFetching] = React.useState(false);
@@ -40,6 +41,12 @@ function DebounceSelect({
   React.useEffect(() => {
     debounceFetcher('');
   }, []);
+
+  React.useEffect(() => {
+    if (dataObject) {
+      debounceFetcher('', 0);
+    }
+  }, [dataObject]);
 
   const renderOptions = () => {
     const workgroupOptionList = options.filter(item => item.workgroup);

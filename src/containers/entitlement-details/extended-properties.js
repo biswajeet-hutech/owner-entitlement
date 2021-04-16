@@ -1,5 +1,7 @@
 import React from "react";
-import { message, Select, Spin } from 'antd';
+import { message, Spin } from 'antd';
+import _ from "lodash";
+
 import './style.scss';
 import { getFormType } from "../../utils";
 import FormElement from "../../components/form-element";
@@ -21,6 +23,7 @@ const ExtendedProperties = (props) => {
     errors={}
   } = props;
   const [workgroupSelection, setWorkgroupSelection] = React.useState({});
+  const [currentWorkgroup, setCurrentWorkgroup] = React.useState(null);
   const [workgroupAccess, setWorkgroupAccess] = React.useState({approverLevel2: {}, approverLevel3: {}})
   const [loadingWorkgroupList, setLoadingWorkgroupList] = React.useState({approverLevel2: false, approverLevel3: false})
   const [approverStateData, setApproverStateData] = React.useState({approverLevel2: null, approverLevel3: null});
@@ -195,7 +198,19 @@ const ExtendedProperties = (props) => {
     }
   }
 
-  const handleWorkgroupChange = (key, value) => {
+  const handleWorkgroupChange = (key, value, workgroup) => {
+    if (workgroup) {
+      const currentWorkgroupObj = {
+        label: workgroup.label,
+        value: workgroup.value,
+        id: workgroup.id,
+        workgroup: true
+      }
+      if (!(_.isEqual(currentWorkgroup, currentWorkgroupObj))) {
+        setCurrentWorkgroup(currentWorkgroupObj);
+      }
+    }
+
     setWorkgroupStateData(stateData => ({
       ...stateData,
       [key]: value
@@ -234,9 +249,9 @@ const ExtendedProperties = (props) => {
     }
   }
 
-  const handleWorkgroupMember = (action, id, workgroupName, propName) => {
+  const handleWorkgroupMember = (action, id, workgroupId, propName) => {
     API.post('/EntitlementManagement/workgroup/update/members', {
-      "name": workgroupName,
+      "id": workgroupId,
       "add": action === "add" ? [id] : null,
       "remove": action === "remove" ? [id] : null,
     }).then(response => {
@@ -344,16 +359,19 @@ const ExtendedProperties = (props) => {
         name: initialApproverData.name,
         workgroup: initialApproverData.workgroup
       }
+
+      const approverReadOnly = !!(readOnly || readOnlyConfig[props.name]);
+
       return (
         <>
           <FormElement
             key={props.name}
             label={props.displayName}
-            mode="tags"
+            mode="multiple"
             value={searchValue}
             type='search-dropdown'
             onChange={(value, workgroupObj) => onChangeApprover(props.name, value, workgroupObj)}
-            readOnly={readOnly || readOnlyConfig[props.name]}
+            readOnly={approverReadOnly}
             error={!!showWorkgroupList ? '' : errors[props.name]}
             required={props.required}
             placeholder={messages.FORM.APPROVER_PLACEHOLDER}
@@ -361,9 +379,9 @@ const ExtendedProperties = (props) => {
             style={{ width: '100%' }}
             showSearch={true}
             isWorkgroup={isEntitlementAWorkgroup}
-            fetchOptions={(userName) => fetchUserList(userName, true, initalOptionValue)}
+            fetchOptions={(userName) => fetchUserList(userName, true, currentWorkgroup || initalOptionValue)}
             defaultSearchValue={defaultValue}
-            dataObject={initialApproverData}
+            dataObject={approverReadOnly ? initalOptionValue : currentWorkgroup}
             initalOptionValue={initalOptionValue}
           />
           { loadingWorkgroupList[props.name] && (
@@ -378,7 +396,7 @@ const ExtendedProperties = (props) => {
                 label={`${messages.FORM.WORKGROUP_LABEL} ${props.name.includes('2') ? '2' : '3'}`}
                 type='workgroup'
                 options={workgroupList}
-                onChange={(value) => handleWorkgroupChange(props.name, value )}
+                onChange={(value, workgroup) => handleWorkgroupChange(props.name, value, workgroup )}
                 onCreate={workgroupInfo => handleCreateWorkgroup(workgroupInfo, props.name)}
                 readOnly={readOnly}
                 allUsers={[]}

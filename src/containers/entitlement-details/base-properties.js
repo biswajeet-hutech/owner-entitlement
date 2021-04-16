@@ -165,7 +165,8 @@ const BaseProperties = ({
       type: 'checkbox'
     },
     description: {
-      type: 'description'
+      type: 'description',
+      defaultValue: data.EntitlementDetails.description,
     }
   }
 
