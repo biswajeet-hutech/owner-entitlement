@@ -11,7 +11,7 @@ const Search = ({
   const [searchText, onSearchTextChange] = React.useState('');
   const handleSearchTextUpdate = (e) => {
     const val = e.target.value;
-
+    e.stopPropagation();
     if (val !== searchText) {
       onSearchTextChange(e.target.value);
       onChange(e.target.value);

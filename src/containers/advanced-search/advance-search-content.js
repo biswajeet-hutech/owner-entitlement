@@ -76,7 +76,6 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
   }
 
   const callSearchAPI = (APIUrl, formKey) => {
-    // console.log(formData.application);
     setLoading(true);
     const url = `EntitlementManagement/${APIUrl}`;
     if (formKey === 'application') {
@@ -143,7 +142,6 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
   }
 
   const handleAdvanceSearch = () => {
-    // console.log(formData);
     onSearch(formData);
     onClose();
   }

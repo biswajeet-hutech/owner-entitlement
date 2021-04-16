@@ -82,14 +82,14 @@ const RaiseDisputeForm = ({
           showSearch: true,
           style: { width: '100%' },
           type: 'search-dropdown',
-          onChange: ({value}) => onChange('owner', value)
+          onChange: (value) => onChange('owner', value)
       } : {})
     },
     {
       key: 'disputeStatement',
       label: 'Dispute Statement',
       value: disputeStatement,
-      required: (action?.includes("Dispute") || action?.includes("Others")),
+      required: !(action?.includes("Transfer Ownership")),
       type: 'textarea',
       maxLength: 250
     }
@@ -104,7 +104,7 @@ const RaiseDisputeForm = ({
     </div>
     <div className="form-section form-section-writable">
       {
-        writableformConfig.map(formElement => (
+        writableformConfig.filter(item => Object.keys(item).length).map(formElement => (
           <FormElement
             onChange={(value) => onChange(formElement.key, value)}
             {...formElement}

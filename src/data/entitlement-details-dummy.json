@@ -10,10 +10,10 @@
     "type": "group",
     "approverLevel3": null,
     "approverLevel2": [{
-      "name": "spadmin",
-      "workgroup": false,
-      "id": "0a000004719015ff817190f65de900e6",
-      "displayName": "The Administrator"
+      "displayName": "SelfRegistrationWorkGroup",
+      "id": "0a0000047190181b817190f9602f0013",
+      "name": "SelfRegistrationWorkGroup",
+      "workgroup": true
     }],
     "lastrefresh": "10-07-2020",
     "users": "5",
@@ -34,7 +34,7 @@
     "id": "8a40e5277503d9f6017503f39478013d",
     "attribute": "Permission Group",
     "requestable": "true",
-    "certifiable": null,
+    "certifiable": "yes",
     "value": "ACCOUNTING"
   },
   "Members": [

@@ -19,7 +19,6 @@ const RaiseDispute = ({
   const [allowedActions, setAllowedActions] = React.useState([]);
   const [error, setError] = React.useState({});
   const handleUpdate = (key, value) => {
-    console.log(key, value);
     setError({});
     setDisputeState({
       ...disputeState,
@@ -64,12 +63,17 @@ const RaiseDispute = ({
 
   const getErrors = () => {
     const errorObj = {};
-    const { disputeStatement, action } = disputeState;
-    if ((action.includes("Dispute") || action.includes("Others")) && !disputeStatement) {
-      errorObj.disputeStatement = 'Please provide some comment.';
-    }
+    const { disputeStatement, action, owner } = disputeState;
     if (!action) {
       errorObj.action = "Please select a reason";
+    }
+
+    if (action && !(action.includes("Transfer Ownership")) && !disputeStatement) {
+      errorObj.disputeStatement = 'Please provide some comment.';
+    }
+
+    if (action && action.includes("Transfer Ownership") && !owner) {
+      errorObj.owner = "Please select a owner";
     }
 
     return errorObj;

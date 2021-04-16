@@ -51,7 +51,7 @@
 		"extendedAttrName": "approverLevel2",
 		"name": "approverLevel2",
 		"named": "true",
-		"readOnly": true,
+		"readOnly": false,
 		"type": "sailpoint.object.Identity"
 	}, {
 		"APIName": "/EntitlementManagement/identities",

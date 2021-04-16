@@ -98,7 +98,6 @@ const EntitlementDetailsWrapper = ({
   }
 
   const handleOnMemberSearch = ({totalRecordsToFetch, start, attrVal}) => {
-    // console.log(searchVal);
     getEntitlementList({
       totalRecordsToFetch,
       start,

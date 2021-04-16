@@ -205,7 +205,6 @@ const OwnerEntitlement = () => {
   }
 
   const muiltipleExportAPI = (data, type) => {
-    // console.log(type);
     setLoadingEntitlement(true);
     API.post(`EntitlementManagement/export`, {
       ...data,

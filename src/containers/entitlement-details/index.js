@@ -9,6 +9,7 @@ import { messages } from "../../assets";
 const EntitlementDetails = ({
   editMode,
   data={},
+  extendedAttributes=[],
   standardAttributes=[],
   onClose = ()=> {},
   onSuccess = ()=> {}
@@ -52,6 +53,7 @@ const EntitlementDetails = ({
           onSave={handleSave}
           onCancel={onClose}
           standardAttributes={standardAttributes}
+          extendedAttributes={extendedAttributes}
         />
       )
     },

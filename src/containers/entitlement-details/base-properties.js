@@ -7,23 +7,60 @@ import FormElement from "../../components/form-element";
 import ExtendedProperties from "./extended-properties";
 import { messages } from "../../assets";
 
+
+const modifyEntitlementData = (data) => {
+  const res = JSON.parse(JSON.stringify(data));
+  if (data.approverLevel2) {
+    const key = 'approverLevel2';
+    if (Array.isArray(data[key])) {
+      if (data[key].length && typeof data[key][0] === "object") {
+        res[key] = data[key].map(item => item.id);
+      }
+    } else {
+      res[key] = [];
+    }
+  } else {
+    res.approverLevel2 = [];
+  }
+
+  if (data.approverLevel3) {
+    const key = 'approverLevel3';
+    if (Array.isArray(data[key])) {
+      if (data[key].length && typeof data[key][0] === "object") {
+        res[key] = data[key].map(item => item.id);
+      }
+    } else {
+      res[key] = [];
+    }
+  } else {
+    res.approverLevel3 = [];
+  }
+
+  return res;
+}
+
 const BaseProperties = ({
   data={
     EntitlementDetails: {},
     ExtentedAttributeProperties: []
   },
   standardAttributes = [],
+  extendedAttributes = [],
   readOnly,
   setActions=(ele)=>{},
   onSave=()=>{},
   onCancel=()=>{}
 }) => {
-  const [entitlementData, setEntitlementData] = React.useState(data.EntitlementDetails || {});
+  const [entitlementData, setEntitlementData] = React.useState(modifyEntitlementData(data.EntitlementDetails || {}));
   const [formData, setFormData] = React.useState({});
   const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
   const requiredProps = [];
+  const readOnlyConfig = extendedAttributes?.reduce((acc, item) => {
+    acc[item.name] = item.readOnly;
+    return acc;
+  }, {})
 
   const handleUpdate = (key, value) => {
     const updatedObj = {
@@ -40,15 +77,19 @@ const BaseProperties = ({
       }
     }
 
-    setFormData(stateData => ({
-      ...stateData,
-      ...updatedObj
-    }));
+    setFormData(stateData => (
+      modifyEntitlementData({
+        ...stateData,
+        ...updatedObj
+      })
+    ));
 
-    setEntitlementData(stateData => ({
-      ...stateData,
-      ...updatedObj
-    }));
+    setEntitlementData(stateData => (
+      modifyEntitlementData({
+        ...stateData,
+        ...updatedObj
+      })
+    ));
   }
 
   const getErrors = (formData) => {
@@ -60,10 +101,10 @@ const BaseProperties = ({
     })
 
     const approverKeys = [];
-    if (entitlementData.approvalLevels > "1") {
+    if (entitlementData.approvalLevels > "1" && !readOnlyConfig.approverLevel2) {
       approverKeys.push("approverLevel2");
     }
-    if (entitlementData.approvalLevels > "2") {
+    if (entitlementData.approvalLevels > "2" && !readOnlyConfig.approverLevel3) {
       approverKeys.push("approverLevel3")
     }
 
@@ -168,7 +209,7 @@ const BaseProperties = ({
   }, [formData]);
 
   React.useEffect(() => {
-    setEntitlementData(data.EntitlementDetails || {});
+    setEntitlementData(modifyEntitlementData(data.EntitlementDetails || {}));
     if(!readOnly) {
       setActions(
         (
@@ -198,7 +239,7 @@ const BaseProperties = ({
       <ExtendedProperties
         originalData={data.EntitlementDetails}
         entitlementData={entitlementData}
-        extendedProps={data.ExtentedAttributeProperties}
+        extendedProps={extendedAttributes}
         readOnly={readOnly}
         onChange={handleUpdate}
         errors={errors}

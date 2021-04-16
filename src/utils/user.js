@@ -1,43 +1,72 @@
 import API, { localMode } from "../api";
+import _ from "lodash";
 import IdentitiesJSON from "../data/approver-data.json";
 
-async function fetchUserList(username, showWorkgroup) {
+async function fetchUserList(username, showWorkgroup, defaultValue) {
   const baseURL = `EntitlementManagement/identities/search`;
   return API.post(baseURL, {
     param: username,
-    onlyUsers: true
+    // onlyUsers: true
   }).then(response => {
     if (showWorkgroup) {
-      return response.data.map(user => ({
-        label: user.displayName || user.name,
-        value: user.id,
-        id: user.id,
-        workgroup: user.workgroup === "true"
+      const res = [
+        ...response.data.map(user => ({
+          label: user.displayName || user.name,
+          value: user.id,
+          id: user.id,
+          name: user.name,
+          workgroup: user.workgroup === "true"
         }))
+      ];
+      if (!username && defaultValue) {
+        res.push(defaultValue);
+      }
+      return _.uniqBy(res, 'id');
     } else {
-      return response.data?.filter(item => item.workgroup !== "true").map(user => ({
-        label: user.displayName || user.name,
-        value: user.id,
-        id: user.id,
-        workgroup: user.workgroup === "true"
-        }))
+      const res = [
+        ...response.data?.filter(item => item.workgroup !== "true").map(user => ({
+          label: user.displayName || user.name,
+          value: user.id,
+          id: user.id,
+          name: user.name,
+          workgroup: user.workgroup === "true"
+          }))
+      ];
+      if (!username && defaultValue) {
+        res.push(defaultValue);
+      }
+      return _.uniqBy(res, 'id');
     }}
   ).catch(err => {
     if (localMode) {
       if (showWorkgroup) {
-        return IdentitiesJSON.map(user => ({
-          label: user.displayName || user.name,
-          value: user.id,
-          id: user.id,
-          workgroup: user.workgroup === "true"
+        const res = [
+          ...IdentitiesJSON.map(user => ({
+            label: user.displayName || user.name,
+            value: user.id,
+            id: user.id,
+            name: user.name,
+            workgroup: user.workgroup === "true"
           }))
+        ];
+        if (!username && defaultValue) {
+          res.push(defaultValue);
+        }
+        return _.uniqBy(res, 'id');
       } else {
-        return IdentitiesJSON?.filter(item => item.workgroup !== "true").map(user => ({
-          label: user.displayName || user.name,
-          value: user.id,
-          id: user.id,
-          workgroup: user.workgroup === "true"
-          }))
+        const res = [
+          ...IdentitiesJSON?.filter(item => item.workgroup !== "true").map(user => ({
+            label: user.displayName || user.name,
+            value: user.id,
+            id: user.id,
+            name: user.name,
+            workgroup: user.workgroup === "true"
+            }))
+        ];
+        if (!username && defaultValue) {
+          res.push(defaultValue);
+        }
+        return _.uniqBy(res, 'id');
       }
     } else {
       return [];
