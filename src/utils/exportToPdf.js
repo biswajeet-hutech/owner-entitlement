@@ -70,7 +70,7 @@ const printToPDF = ({
     doc.setFont('', 'bold', '500');
     const commonTableProps = {
       headStyles: {
-        fontSize: 6,
+        fontSize: 5,
         fontStyle: "bold",
         fillColor: "#037da1",
         textAlign: "center",
