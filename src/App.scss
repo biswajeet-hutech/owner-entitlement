@@ -3,13 +3,13 @@
 @import "./assets/colors.scss";
 
 .oe-app {
-  // margin-top: 100px;
+  // margin-top: 102px;
   padding: 0px 20px;
   background-color: #edeff3;
   background-repeat: no-repeat;
   background-size: 100%;
   font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  height: 100vh;
+  height: calc(100vh - 100px);
   overflow-y: hidden;
 }
 

@@ -32,4 +32,11 @@
     justify-content: center;
     align-items: center;
   }
+
+  & .demo-loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+  }
 }

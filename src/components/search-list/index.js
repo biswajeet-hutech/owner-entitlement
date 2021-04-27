@@ -1,11 +1,10 @@
 import { List, Spin, Tooltip } from "antd";
 import React from "react";
-import InfiniteScroll from 'react-infinite-scroller';
 import Button from "../button";
 import Search from "../search";
 import "./style.scss";
 
-const pageLimit = 10;
+// const pageLimit = 10;
 
 function SearchList(props) {
   const {
@@ -13,32 +12,11 @@ function SearchList(props) {
     action="add",
     onItemAdd=() => {},
     onItemRemove=()=>{},
+    onSearch=()=>{},
     loadingList
   } = props;
   const [listItems, setListItems] = React.useState([]);
-  const [pagination, setPagination] = React.useState({
-    page: 1
-  });
   const [loading, setLoading] = React.useState(false);
-  const [hasMore, setHasMore] = React.useState(true);
-  const [searchText, setSearchText] = React.useState("");
-
-  const getListData = ({ data: dataList, page }) => {
-    const limit = pageLimit;
-    const startIndex = limit * (page - 1);
-    const endIndex = limit * page;
-    const response = dataList.slice(startIndex, endIndex);
-    return response;
-  }
-
-  const filterSearch = (searchTxt, dataList = [...list]) => {
-    const filteredList = dataList.filter(item => ((item.searchString || '').toLowerCase()).includes(searchTxt.toLowerCase()));
-    const trimmedList = getListData({ data: [...(filteredList || [])], page: 1 });
-    setSearchText(searchTxt);
-    setListItems(JSON.parse(JSON.stringify(trimmedList)));
-    setLoading(false);
-    setHasMore(true);
-  }
 
   const handleIconClick = (id, actionType) => {
     if (actionType === "add") {
@@ -48,35 +26,9 @@ function SearchList(props) {
     }
   }
 
-  const handleInfiniteOnLoad = () => {
-    let data = [...listItems];
-    setLoading(true);
-    if (data.length >= list.length) {
-      setLoading(false);
-      setHasMore(false);
-      setPagination({ page: 1 });
-      return;
-    }
-    const newPageSize = pagination.page + 1;
-
-    const newData = [
-      ...data,
-      ...getListData({
-        data: JSON.parse(JSON.stringify(list)),
-        page: newPageSize
-      })
-    ];
-
-    setListItems(newData);
-    setLoading(false);
-    setPagination({
-      page: newPageSize
-    })
-  };
-
   React.useEffect(() => {
     if (list) {
-      filterSearch(searchText, [...list]);
+      setListItems(list);
     }
   }, [list]);
 
@@ -86,15 +38,13 @@ function SearchList(props) {
 
   return (
     <div className="oe-search-list">
-      <Search placeHolder="Search users" onSearch={val => filterSearch(val, [...list])} />
+      <Search placeHolder="Search users" onChange={val => onSearch(val)} />
         <div className="oe-infinite-container">
-          <InfiniteScroll
-            initialLoad={false}
-            pageStart={0}
-            loadMore={handleInfiniteOnLoad}
-            hasMore={!loading && hasMore}
-            useWindow={false}
-          >
+          {loading ? (
+              <div className="demo-loading-container">
+                <Spin />
+              </div>
+            ) : (
             <List
               dataSource={listItems}
               renderItem={item => (
@@ -118,13 +68,8 @@ function SearchList(props) {
                 </List.Item>
               )}
             >
-              {loading && hasMore && (
-                <div className="demo-loading-container">
-                  <Spin />
-                </div>
-              )}
             </List>
-          </InfiniteScroll>
+            )}
         </div>
     </div>
   );

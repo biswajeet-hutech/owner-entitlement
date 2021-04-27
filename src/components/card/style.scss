@@ -5,7 +5,7 @@
   width: 20%;
   min-width: 210px;
   // max-width: 228px;
-  height: 110px;
+  height: 80px;
   border-radius: 4px;
   box-shadow: 0 1px 1px 1px #ccc;
   background-color: $background-color;
@@ -15,23 +15,25 @@
   padding: 10px 0px;
   margin-right: 24px;
   & .oe-card-value {
-    font-size: 26px;
-    font-weight: 600;
-    width: 80px;
+    font-size: 20px;
+    font-weight: 500;
+    min-width: 50px;
+    height: 30px;
     font-stretch: normal;
     font-style: normal;
-    line-height: 37px;
+    line-height: 30px;
     letter-spacing: normal;
     color:#fff;
     background-color: #10a2ce;
-    padding: 0 0 0 11px;
+    padding: 0;
     margin: 4px 0;
+    text-align: center;
     border-radius: 0 18.5px 18.5px 0px;
   }
   & .oe-card-desc {
-    min-width: 190px;
+    width: 100%;
     font-size: 14px;
-    font-weight: normal;
+    font-weight: 500;
     font-stretch: normal;
     font-style: normal;
     line-height: 19px;
@@ -40,7 +42,7 @@
     display: -webkit-box;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;
-    padding: 0 0 0 11px;
+    padding: 0 0 0 10px;
     overflow: hidden;
   }
   &:last-child {
@@ -51,5 +53,6 @@
 @media screen and (max-width: 1280px) {
   .oe-card {
     padding: 10px 0px;
+    margin-right: 16px;
   }
 }

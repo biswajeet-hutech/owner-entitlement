@@ -24,7 +24,7 @@ function getCombinedCSVData({ data, membersHeader: memberHeaderDetails, detailsH
 
   const headerLength = Math.max(entitlementDetails?.headers?.length, entitleMembers?.headers?.length);
   let today = new Date();
-  const formattedDate = dateFormat(today, "dddd, mmmm dS, yyyy, h:MM TT");
+  const formattedDate = dateFormat(today, "dddd mmmm dS yyyy h:MM TT Z");
 
   const header = [`Export Date: ${formattedDate}`, ...Array(headerLength-1).fill("")];
 

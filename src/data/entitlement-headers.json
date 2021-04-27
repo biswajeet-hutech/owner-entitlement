@@ -15,34 +15,11 @@
 	"name": "requestable"
 }, {
 	"displayName": "Privileged",
-	"name": "privileged",
-	"className":"align_center",
-	"width":"100px"
+	"name": "privileged"
+}, {
+	"displayName": "Data Owner Certification",
+	"name": "dataOwnerCert"
 }, {
 	"displayName": "Member",
-	"name": "users",
-	"width":"110px"
-}, {
-	"displayName": "Birth Right",
-	"name": "birthright",
-	"className":"align_center",
-	"width":"150px"
-}, {
-	"displayName": "Certifiable",
-	"name": "certifiable",
-	"className":"align_center",
-	"width":"100px"
-}, {
-	"displayName": "Logical Application Name",
-	"width":"250px",
-	"name": "logiplex_app_name"
-}, {
-	"displayName": "Target Application Name",
-	"name": "target_app"
-}, {
-	"displayName": "Approver Level 2",
-	"name": "approverLevel2"
-}, {
-	"displayName": "Approver Level 3",
-	"name": "approverLevel3"
+	"name": "users"
 }]

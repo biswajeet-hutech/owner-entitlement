@@ -1,17 +1,17 @@
 [{
 	"APIName": null,
-	"allowedValues": null,
-	"displayName": "Target Application",
-	"extendedAttrName": "target_app",
-	"name": "target_app",
+	"allowedValues": ["1", "2", "3"],
+	"displayName": "Approval Levels",
+	"extendedAttrName": "approvalLevels",
+	"name": "approvalLevels",
 	"named": "true",
 	"type": "string"
 }, {
 	"APIName": null,
 	"allowedValues": null,
 	"displayName": "Logiplex Application Name",
-	"extendedAttrName": "logiplex_app_name",
-	"name": "logiplex_app_name",
+	"extendedAttrName": "logiplexAppName",
+	"name": "logiplexAppName",
 	"named": "true",
 	"type": "string"
 }, {
@@ -21,11 +21,11 @@
 	"extendedAttrName": "certifiable",
 	"name": "certifiable",
 	"named": "true",
-	"type": "string"
+	"type": "boolean"
 }, {
 	"APIName": null,
 	"allowedValues": ["Yes", "No"],
-	"displayName": "Birth Right",
+	"displayName": "Birthright",
 	"extendedAttrName": "birthright",
 	"name": "birthright",
 	"named": "true",
@@ -33,19 +33,11 @@
 }, {
 	"APIName": null,
 	"allowedValues": ["Yes", "No"],
-	"displayName": "Privileged",
+	"displayName": "att_privileged",
 	"extendedAttrName": "privileged",
 	"name": "privileged",
 	"named": "true",
 	"type": "boolean"
-}, {
-	"APIName": null,
-	"allowedValues": ["1", "2", "3"],
-	"displayName": "Approver Levels",
-	"extendedAttrName": "approvalLevels",
-	"name": "approvalLevels",
-	"named": "true",
-	"type": "string"
 }, {
 	"APIName": "/EntitlementManagement/identities",
 	"allowedValues": null,
@@ -62,4 +54,28 @@
 	"name": "approverLevel3",
 	"named": "true",
 	"type": "sailpoint.object.Identity"
+}, {
+	"APIName": null,
+	"allowedValues": null,
+	"displayName": "GEARR ID",
+	"extendedAttrName": "extended1",
+	"name": "app_Id",
+	"named": "false",
+	"type": "string"
+}, {
+	"APIName": null,
+	"allowedValues": ["Yes", "No"],
+	"displayName": "Bulk PII Access",
+	"extendedAttrName": "extended2",
+	"name": "provideBulkPII",
+	"named": "false",
+	"type": "boolean"
+}, {
+	"APIName": null,
+	"allowedValues": ["Yes", "No"],
+	"displayName": "Data Owner Certification",
+	"extendedAttrName": "extended3",
+	"name": "dataOwnerCert",
+	"named": "false",
+	"type": "boolean"
 }]

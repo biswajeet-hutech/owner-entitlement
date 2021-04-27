@@ -4,7 +4,7 @@ import { message, Spin } from "antd";
 import EntitlementDetails from "../entitlement-details";
 import EntitlementMembers from "../entitlement-members";
 import { API, localMode } from "../../api";
-import extendedAttributesDummyData from "../../data/extended-attributes.json";
+import advanceEditableAttrJSON from "../../data/advance-editable-attributes.json";
 import dummyData from "../../data/entitlement-details-dummy.json";
 import './style.scss';
 
@@ -32,6 +32,7 @@ const EntitlementDetailsWrapper = ({
   const [entitlementData, setEntitlementData] = React.useState({...defaultEntitlementList});
   const [entitlementMembersData, setEntitlementMembersData] = React.useState({...defaultEntitlementList});
   const [extendedAttributes, setExtendedAttributes] = React.useState([]);
+  const [standardAttributes, setStandardAttributes] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
 
   const entitlementDataWithExtProps = {
@@ -40,14 +41,17 @@ const EntitlementDetailsWrapper = ({
   };
 
   const getExtendedAttribures = () => {
-    const apiURL = !!editMode ? '/EntitlementManagement/editableattributes' : '/EntitlementManagement/viewableattributes';
+    const apiURL = !!editMode ? `/EntitlementManagement/advanceeditableattributes/${entitlementId}` : '/EntitlementManagement/viewableattributes';
     API.get(apiURL).then(response => {
       if (response.data) {
-        setExtendedAttributes(response.data);
+        setExtendedAttributes(response.data?.ExtendedAttributes || []);
+        setStandardAttributes(response.data?.StandardAttributes || []);
+        
       }
     }).catch(err => {
       if (localMode) {
-        setExtendedAttributes([...extendedAttributesDummyData]);
+        setExtendedAttributes(advanceEditableAttrJSON.ExtendedAttributes);
+        setStandardAttributes(advanceEditableAttrJSON.StandardAttributes);
       }
     })
   }
@@ -94,7 +98,6 @@ const EntitlementDetailsWrapper = ({
   }
 
   const handleOnMemberSearch = ({totalRecordsToFetch, start, attrVal}) => {
-    // console.log(searchVal);
     getEntitlementList({
       totalRecordsToFetch,
       start,
@@ -142,6 +145,7 @@ const EntitlementDetailsWrapper = ({
         <EntitlementDetails
           data={entitlementDataWithExtProps}
           extendedAttributes={extendedAttributes}
+          standardAttributes={standardAttributes}
           editMode={!!editMode}
           onSuccess={onSuccess}
           onClose={() => {onClose(); onEntitlementUpdate();}}

@@ -70,7 +70,7 @@ const printToPDF = ({
     doc.setFont('', 'bold', '500');
     const commonTableProps = {
       headStyles: {
-        fontSize: 6,
+        fontSize: 5,
         fontStyle: "bold",
         fillColor: "#037da1",
         textAlign: "center",
@@ -87,7 +87,7 @@ const printToPDF = ({
       let str = 'Page ' + res.pageCount;
       let height = doc.internal.pageSize.getHeight();
       var today = new Date();
-      var newdat = dateFormat(today, "dddd, mmmm dS, yyyy, h:MM TT");
+      var newdat = dateFormat(today, "dddd, mmmm dS, yyyy, h:MM TT Z");
 
       if (typeof doc.putTotalPages === 'function') {
           str = str + ' of ' + totalPagesExp + '';
@@ -112,6 +112,7 @@ const printToPDF = ({
     const entitlementMembersHead = !hideMembersHeader ? exportData?.Members?.headers?.map(item => memberHeaderMap[item] || titleCase(item)) : [];
     const entitlementMembersHeadToShow = [entitlementMembersHead.map(item => memberHeaderMap[item] || item)];
     const entitlementMembersBody = [];
+    const ownerName = exportData?.Entitlement?.OwnerDetails || '';
     
     if (!hideDetailsData) {
       if (Array.isArray(exportData?.Entitlement?.EntitlementDetails)) {
@@ -143,11 +144,14 @@ const printToPDF = ({
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.text(`Entitlement Details`, 15, finalY + 10);
+      doc.setFontSize(10);
+      doc.setFont('helvetica', 'normal');
+      doc.text(`Owner: ${ownerName}`, 15, finalY + 17);
       doc.autoTable({
         ...commonTableProps,
         head: !hideDetailsHeader && entitlementDetailsHeadToShow,
         body: entitlementDetailsBody,
-        startY: finalY + 15,
+        startY: finalY + 22,
         afterPageContent: footer,
         columnStyles: {
           0: {cellWidth: 15},

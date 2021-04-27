@@ -2,6 +2,10 @@
 @import "./../../assets/colors.scss";
 
 .oe-table {
+  & .ant-table.ant-table-small .ant-table-thead .ant-table-column-sorters {
+    padding: 0
+  }
+
   & .ant-table {
     font-size: $font-size-13;
     color: $typo-text-2;
@@ -97,7 +101,9 @@
     margin: 0 16px;
   }
   & .ant-table-pagination.ant-pagination {
-    margin-top: 32px;
+    padding: 20px 10px 16px;
+    background: #fff;
+    margin: 0;
   }
   & .ant-pagination.mini .ant-pagination-item {
     margin: 0 4px;
@@ -144,6 +150,11 @@
         }
       }
     }
+  }
+
+  &.oe-entitlement-list-table {
+    padding: 0px 20px;
+    background: #fff;
   }
 }
 

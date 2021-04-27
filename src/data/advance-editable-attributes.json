@@ -1,0 +1,121 @@
+{
+	"ExtendedAttributes": [{
+		"APIName": null,
+		"allowedValues": ["1", "2", "3"],
+		"displayName": "Approval Levels",
+		"extendedAttrName": "approvalLevels",
+		"name": "approvalLevels",
+		"named": "true",
+		"readOnly": true,
+		"type": "string"
+	}, {
+		"APIName": null,
+		"allowedValues": null,
+		"displayName": "Logiplex Application Name",
+		"extendedAttrName": "logiplexAppName",
+		"name": "logiplexAppName",
+		"named": "true",
+		"readOnly": true,
+		"type": "string"
+	}, {
+		"APIName": null,
+		"allowedValues": ["Yes", "No"],
+		"displayName": "Certifiable",
+		"extendedAttrName": "certifiable",
+		"name": "certifiable",
+		"named": "true",
+		"readOnly": true,
+		"type": "boolean"
+	}, {
+		"APIName": null,
+		"allowedValues": ["Yes", "No"],
+		"displayName": "Birthright",
+		"extendedAttrName": "birthright",
+		"name": "birthright",
+		"named": "true",
+		"readOnly": true,
+		"type": "boolean"
+	}, {
+		"APIName": null,
+		"allowedValues": ["Yes", "No"],
+		"displayName": "att_privileged",
+		"extendedAttrName": "privileged",
+		"name": "privileged",
+		"named": "true",
+		"readOnly": true,
+		"type": "boolean"
+	}, {
+		"APIName": "/EntitlementManagement/identities",
+		"allowedValues": null,
+		"displayName": "Approver Level 2",
+		"extendedAttrName": "approverLevel2",
+		"name": "approverLevel2",
+		"named": "true",
+		"readOnly": false,
+		"type": "sailpoint.object.Identity"
+	}, {
+		"APIName": "/EntitlementManagement/identities",
+		"allowedValues": null,
+		"displayName": "Approver Level 3",
+		"extendedAttrName": "approverLevel3",
+		"name": "approverLevel3",
+		"named": "true",
+		"readOnly": true,
+		"type": "sailpoint.object.Identity"
+	}, {
+		"APIName": null,
+		"allowedValues": null,
+		"displayName": "GEARR ID",
+		"extendedAttrName": "extended1",
+		"name": "app_Id",
+		"named": "false",
+		"readOnly": true,
+		"type": "string"
+	}, {
+		"APIName": null,
+		"allowedValues": ["Yes", "No"],
+		"displayName": "Bulk PII Access",
+		"extendedAttrName": "extended2",
+		"name": "provideBulkPII",
+		"named": "false",
+		"readOnly": true,
+		"type": "boolean"
+	}, {
+		"APIName": null,
+		"allowedValues": ["Yes", "No"],
+		"displayName": "Data Owner Certification",
+		"extendedAttrName": "extended3",
+		"name": "dataOwnerCert",
+		"named": "false",
+		"readOnly": true,
+		"type": "boolean"
+	}],
+	"StandardAttributes": [{
+		"APIName": null,
+		"allowedValues": null,
+		"displayName": "Display Name",
+		"extendedAttrName": null,
+		"name": "displayName",
+		"named": null,
+		"readOnly": true,
+		"type": "string"
+	}, {
+		"APIName": null,
+		"allowedValues": null,
+		"displayName": "Description",
+		"extendedAttrName": null,
+		"name": "description",
+		"named": null,
+		"readOnly": false,
+		"type": "string"
+	}, {
+		"APIName": null,
+		"allowedValues": null,
+		"displayName": "Requestable",
+		"extendedAttrName": null,
+		"name": "requestable",
+		"named": null,
+		"readOnly": true,
+		"type": "string"
+	}]
+}

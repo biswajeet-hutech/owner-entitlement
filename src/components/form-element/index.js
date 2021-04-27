@@ -11,6 +11,7 @@ import SearchList from "../search-list";
 import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
 import API, { localMode } from "../../api";
 import dummyWorkgroupMembers from "../../data/workgroup-members.json";
+import DebounceSelect from "../dropdown/search-dropdown";
 
 const { TextArea } = Input;
 
@@ -36,8 +37,8 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
 }
 
 const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
-  const handleOnChange = (value='') => {
-    const newValue = value?.replace(/^\<p\>/,"").replace(/\<\/p\>$/,"") || "";
+  const handleOnChange = (txt='') => {
+    const newValue = txt?.replace(/^\<p\>/,"").replace(/\<\/p\>$/,"") || "";
     onChange(newValue);
   }
   return (
@@ -76,27 +77,28 @@ const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10,
 }
 
 const CheckboxForm = ({value, readOnly, onChange, ...otherProps}) => {
+  const isChecked = typeof value === "boolean" ? !!value : ["true", "yes"].includes((value+'').toLowerCase());
+  const isUnchecked = typeof value === "boolean" ? !value : ["no", "false"].includes((value+'').toLowerCase());
   return (
     <>
       {
-        readOnly ? (value ? (
+        readOnly ? (isChecked ? (
         <CheckTrue
           className="checkIcon"
           style={{
             fontSize: 16
           }}
         />
-        ) : (
+        ) : (isUnchecked) ? (
         <CheckFalse
           className="checkIcon"
           style={{
             fontSize: 16
           }}
-        />
-        )) : (
+        />) : value) : (
           <Checkbox
-            checked={!!value}
-            onChange={(e) => onChange(e.target.checked)}
+            checked={!!isChecked}
+            onChange={(e) => onChange(e.target.checked+'')}
             {...otherProps}
           />
           )
@@ -128,12 +130,9 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
 
 const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, dataObject, optionFilterProp, ...otherProps }) => {
   const [workgroupMembers, setWorkgroupMembers] = React.useState([]);
+  const [originalWorkgroupMembers, setOriginalWorkgroupMembers] = React.useState([]);
   const [loadingWorkgroupMembers, setLoadingWorkgroupMembers] = React.useState(false);
-  const workgroupMembersDropList = workgroupMembers.map(item => ({
-    label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
-    id: item.name,
-    searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
-  }));
+  
   const [viewPopVisible, setViewPopVisible] = React.useState({});
 
   const getWorkgroupMembers = (workgroupId) => {
@@ -143,15 +142,23 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
         "id": workgroupId
       }).then(response => {
         if (Array.isArray(response.data)) {
-          setWorkgroupMembers(stateData => [...response.data]);
+          const output = [...response.data].map(item => ({
+            label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
+            id: item.name,
+            searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
+          }))
+          setWorkgroupMembers(stateData => output);
+          setOriginalWorkgroupMembers(stateData => output);
         }
       }).catch(err => {
         if (localMode) {
-          const result = []
-          setWorkgroupMembers(stateData => [
-            ...dummyWorkgroupMembers,
-            ...result
-          ]);
+          const result = [...dummyWorkgroupMembers].map(item => ({
+            label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
+            id: item.name,
+            searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
+          }));
+          setWorkgroupMembers(stateData => result);
+          setOriginalWorkgroupMembers(stateData => result);
         }
       }).finally(res => {
         setLoadingWorkgroupMembers(false);
@@ -169,6 +176,11 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
     });
   }
 
+  const filterSearch = (searchText) => {
+    const filteredList = originalWorkgroupMembers.filter(item => ((item.searchString || '').toLowerCase()).includes(searchText.toLowerCase()));
+    setWorkgroupMembers(filteredList);
+  }
+
   return (
     <>
       {
@@ -179,12 +191,13 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
               <Popover
                 content={
                 <SearchList
-                list={[...workgroupMembersDropList]}
+                list={[...workgroupMembers]}
                 labelProp="label"
                 action="view"
                 onItemAdd={() => {}}
                 onItemRemove={() => {}}
                 loadingList={loadingWorkgroupMembers}
+                onSearch={filterSearch}
                 />}
                 title=""
                 trigger="click"
@@ -202,11 +215,11 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
           </div>
         ): (
         <>
-          <ChipSelect
-            options={options}
+          <DebounceSelect
             value={value}
             onChange={onChange}
             overrideClass={`oe-form-dropdown ${otherProps.error && 'oe-form-error'}`}
+            dataObject={dataObject}
             {...otherProps}
           />
           { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
@@ -239,10 +252,12 @@ const FormElement = ({
       case 'dropdown':
       // case 'object':
         return <DropdownForm {...otherProps} />;
-      case 'chip_dropdown':
-        return <ChipDropdownForm {...otherProps} />;
+      // case 'chip_dropdown':
+      //   return <ChipDropdownForm {...otherProps} />;
       case 'workgroup':
         return <WorkGroupInput {...otherProps} />
+      case 'search-dropdown':
+        return <ChipDropdownForm {...otherProps} />
       default:
         return otherProps.value;
     }

@@ -27,10 +27,6 @@ const ChipSelect = ({
     );
   }
 
-  const handleFilter = function(inputValue, option) {
-    console.log(inputValue, option);
-  }
-
   return (
   <div className={`oe-dropdown-container ${overrideClass}`}>
     {label?<div className="oe-form-label">

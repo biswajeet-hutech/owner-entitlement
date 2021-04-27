@@ -10,9 +10,10 @@
     "type": "group",
     "approverLevel3": null,
     "approverLevel2": [{
-      "name": "NSF-Approver",
-      "workgroup": true,
-      "id": "0a0000047190181b817190f9602f0013"
+      "displayName": "SelfRegistrationWorkGroup",
+      "id": "0a0000047190181b817190f9602f001",
+      "name": "SelfRegistrationWorkGroup",
+      "workgroup": true
     }],
     "lastrefresh": "10-07-2020",
     "users": "5",
@@ -33,96 +34,9 @@
     "id": "8a40e5277503d9f6017503f39478013d",
     "attribute": "Permission Group",
     "requestable": "true",
-    "certifiable": null,
+    "certifiable": "yes",
     "value": "ACCOUNTING"
   },
-  "ExtentedAttributeProperties": [
-    {
-      "APIName": null,
-      "allowedValues": null,
-      "displayName": "Target Application",
-      "extendedAttrName": "target_app",
-      "name": "target_app",
-      "named": "true",
-      "type": "string"
-    },
-    {
-      "APIName": null,
-      "allowedValues": null,
-      "displayName": "Logiplex Application Name",
-      "extendedAttrName": "logiplex_app_name",
-      "name": "logiplex_app_name",
-      "named": "true",
-      "type": "string"
-    },
-    {
-      "APIName": null,
-      "allowedValues": [
-        "Yes",
-        "No"
-      ],
-      "displayName": "Certifiable",
-      "extendedAttrName": "certifiable",
-      "name": "certifiable",
-      "named": "true",
-      "type": "string"
-    },
-    {
-      "APIName": null,
-      "allowedValues": [
-        "Yes",
-        "No"
-      ],
-      "displayName": "Birth Right",
-      "extendedAttrName": "birthright",
-      "name": "birthright",
-      "named": "true",
-      "type": "string"
-    },
-    {
-      "APIName": null,
-      "allowedValues": [
-        "Yes",
-        "No"
-      ],
-      "displayName": "Privileged",
-      "extendedAttrName": "privileged",
-      "name": "privileged",
-      "named": "true",
-      "type": "string"
-    },
-    {
-      "APIName": null,
-      "allowedValues": [
-        "1",
-        "2",
-        "3"
-      ],
-      "displayName": "Approver Levels",
-      "extendedAttrName": "approvalLevels",
-      "name": "approvalLevels",
-      "named": "true",
-      "type": "string"
-    },
-    {
-      "APIName": "/EntitlementManagement/identities",
-      "allowedValues": null,
-      "displayName": "Approver Level 2",
-      "extendedAttrName": "approverLevel2",
-      "name": "approverLevel2",
-      "named": "true",
-      "type": "sailpoint.object.Identity"
-    },
-    {
-      "APIName": "/EntitlementManagement/identities",
-      "allowedValues": null,
-      "displayName": "Approver Level 3",
-      "extendedAttrName": "approverLevel3",
-      "name": "approverLevel3",
-      "named": "true",
-      "type": "sailpoint.object.Identity"
-    }
-  ],
   "Members": [
     {
       "total": "17",

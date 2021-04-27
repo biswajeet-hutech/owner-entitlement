@@ -33,7 +33,6 @@
   },
   {
     "displayName": "Certification Action Date",
-    "name": "certificationactiondate",
-    "width":"200px"
+    "name": "certificationactiondate"
   }
 ]
