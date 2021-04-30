@@ -8,6 +8,7 @@ export const messages = {
   "SAVE": "Save",
   "REMOVE": "Remove",
   "FILTER": "Filter",
+  "DISPUTE_HELP":"Click Here , you will be redirect to Document which need to follow",
   "WORKGROUP": {
     "TITLE": "Workgroup",
     "MEMBER_TITLE": "Members",
