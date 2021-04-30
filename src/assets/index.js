@@ -1,15 +1,24 @@
 import ImageUrls from './base64Images.json';
 import strings from './strings.json';
 import messages from "./messages";
+import { Tooltip } from 'antd';
 
-const Icon = ({ dataUrl, width, height, alt, className }) => {
-    return <img
-        src={dataUrl}
-        alt={alt ? alt : dataUrl}
-        width={width ? width : '22'}
-        height={height ? height : '22'}
-        className={className ? className : ''}
-    />
+const Icon = ({ dataUrl, width, height, alt, className, tooltip }) => {
+    const imageRender = (
+        <img
+            src={dataUrl}
+            alt={alt ? alt : dataUrl}
+            width={width ? width : '22'}
+            height={height ? height : '22'}
+            className={className ? className : ''}
+        />
+    )
+    return tooltip ? (
+        <Tooltip title={tooltip} placement="bottom">
+            { imageRender }
+        </Tooltip>
+    ) : imageRender;
+    
 }
 
 const CheckTrue = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.requestable.true} width={width} height={height} alt={alt ? alt : "True"} className={className} />
@@ -42,6 +51,8 @@ const HelpIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls
 const ViewModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.view_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "View"} className={className} />
 const EditModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.edit_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Edit"} className={className} />
 const DisputeModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.dispute_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Dispute"} className={className} />
+const SelfReviewApproved = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.self_review_approved} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Self Review"} className={className} tooltip={'Reviewed'} />
+const SelfReviewPending = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.self_review_pending} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Self Review"} className={className} tooltip={'Review Pending'} />
 const backgroundImage = `url(${ImageUrls.backgroundImage})`
 
 export {
@@ -72,6 +83,8 @@ export {
     ExportCertHoverIcon,
     ExportCertIcon,
     HelpIcon,
+    SelfReviewApproved,
+    SelfReviewPending,
     backgroundImage,
     strings,
     ViewModal,

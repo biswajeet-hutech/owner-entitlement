@@ -4,7 +4,7 @@ import './style.scss';
 import Accordion from "../../components/accordion";
 import BaseProperties from "./base-properties";
 import { API, localMode } from "../../api";
-import { messages } from "../../assets";
+import { messages, SelfReviewApproved, SelfReviewPending } from "../../assets";
 
 const EntitlementDetails = ({
   editMode,
@@ -42,9 +42,17 @@ const EntitlementDetails = ({
     updateEntitlementAPI(payload);
   }
 
+  const renderTitle = (
+    <div>
+      <span>
+        Entitlement Properties
+      </span>
+    </div>
+  )
+
   const panelData = [
     {
-      title: 'Entitlement Properties',
+      title: renderTitle,
       subTitle: `${editMode ? 'Edit' : 'View'} entitlement properties`,
       content: (
         <BaseProperties
@@ -52,6 +60,7 @@ const EntitlementDetails = ({
           readOnly={!editMode}
           onSave={handleSave}
           onCancel={onClose}
+          onSuccess={onSuccess}
           standardAttributes={standardAttributes}
           extendedAttributes={extendedAttributes}
         />

@@ -92,6 +92,7 @@
     background-repeat: no-repeat;
     flex-direction: row;
     align-items: center;
+    justify-content: flex-start;
     &:nth-child(3) {
       background-position: bottom 2px left 9px;
     }
@@ -154,6 +155,37 @@
   }
   .oe-card-wrapper {
     margin: 0 10px;
+  }
+}
+
+.oe-sr-container {
+  padding: 7px 16px;
+  background-image: linear-gradient(to bottom, #fffdd4, #fffdd4);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 16px;
+  border: 1px solid #f1eda5;
+  & .oe-sr-title {
+    color: #9a2f18;
+    font-size: 12px;
+    width: 130px;
+    font-weight: bold;
+    letter-spacing: normal;
+  }
+  & .oe-sr-progress {
+    width: 100%;
+    height: 16px;
+    border-radius: 4px;
+    background-color: #d8d8d8;
+
+    & .oe-sr-progress-bar {
+      width: 0px;
+      height: 100%;
+      border-radius: 4px;
+      background-color: #19bc9c;
+      transition: width 0.3s ease-in;
+    }
   }
 }
 

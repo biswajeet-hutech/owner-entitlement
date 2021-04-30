@@ -30,6 +30,16 @@
     color: $typo-text-1;
     margin-bottom: 24px;
   }
+
+  & .oe-review-checkbox {
+    font-size: 14px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: normal;
+    color: #10a2ce;
+  }
 }
 
 .oe-ed-wrapper {
@@ -108,6 +118,40 @@
   height: 70px;
   justify-content: center;
   align-items: center;
+}
+.oe-modal .ant-modal-body .oe-modal-content .ant-table {
+
+}
+.oe-review-table {
+  & tr th {
+    background-color: #d5eaf9;
+  }
+  & tr td, & tr th {
+    font-size: 13px;
+    padding: 10px 16px;
+  }
+}
+
+.oe-accordion {
+  & .oe-review-accordion {
+    border: none;
+    background: #f1f1f1;
+    & .ant-collapse-content {
+      margin-bottom: 0;
+    }
+    & .ant-collapse-header {
+      font-family: $primary-font-regular;
+      font-size: $font-size-13;
+      font-weight: $font-weight-bold;
+      font-stretch: normal;
+      font-style: $font-style-normal;
+      line-height: normal;
+      letter-spacing: normal;
+    }
+  }
+  & .ant-collapse-content > .ant-collapse-content-box {
+    padding: 16px 0;
+  }
 }
 
 

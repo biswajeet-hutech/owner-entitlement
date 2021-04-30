@@ -48,6 +48,12 @@ const ResponsiveActionIcons = ({
     }
   }
 
+  React.useEffect(() => {
+    if (openModal.action) {
+      onAction(openModal.action);
+    }
+  }, [openModal]);
+
   const smallScreenActions = (
     <EllipsisOutlined />
   );
@@ -90,7 +96,7 @@ const ResponsiveActionIcons = ({
           entitlementId={data.id}
           editMode={openModal.edit}
           onClose={() => { setOpenModal({ show: false, edit: false }) }}
-          onSuccess={() => { setOpenModal({ show: false, edit: false }); onAction('edit_success') }}
+          onSuccess={() => { setOpenModal({ show: false, edit: false, action: 'edit_success' })}}
         />
       </Modal>
       <Modal

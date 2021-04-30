@@ -1,12 +1,13 @@
 import React from "react";
-import { Row, Spin } from "antd";
+import { Row, Spin, message } from "antd";
 // import { getFormType } from "../../utils";
 import Button from "../../components/button";
 import './style.scss';
 import FormElement from "../../components/form-element";
 import ExtendedProperties from "./extended-properties";
 import { messages } from "../../assets";
-
+import API, { localMode } from "../../api";
+import SelfReview from "./self-review";
 
 const modifyEntitlementData = (data) => {
   const res = JSON.parse(JSON.stringify(data));
@@ -49,7 +50,8 @@ const BaseProperties = ({
   readOnly,
   setActions=(ele)=>{},
   onSave=()=>{},
-  onCancel=()=>{}
+  onCancel=()=>{},
+  onSuccess=()=>{},
 }) => {
   const [entitlementData, setEntitlementData] = React.useState(modifyEntitlementData(data.EntitlementDetails || {}));
   const [formData, setFormData] = React.useState({});
@@ -57,6 +59,7 @@ const BaseProperties = ({
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
   const requiredProps = [];
+  const isEntitlementReviewed = !!((data.EntitlementDetails || {}).ReviewStatus === "Complete");
   const readOnlyConfig = extendedAttributes?.reduce((acc, item) => {
     acc[item.name] = item.readOnly;
     return acc;
@@ -204,6 +207,29 @@ const BaseProperties = ({
     }
   }
 
+  const updateReviewState = ({ entitlementid, comment, status }) => {
+    const APIUrl = `/EntitlementManagement/review/update`;
+    API.post(APIUrl, {
+      entitlementid,
+      comment,
+      status
+    }).then(response => {
+      try {
+        if (response.data.status === "success") {
+          message.success('Review status updated.');
+          onSuccess();
+        }
+      } catch(e) {
+        message.error('Something went wrong, please try again.');
+      }
+    }).catch(e => {
+      message.error('Something went wrong, please try again.');
+      if(localMode) {
+        onSuccess();
+      }
+    })
+  }
+
   React.useEffect(() => {
     const errorObj = getErrors({ ...formData });
     setErrors(stateData => errorObj);
@@ -249,8 +275,18 @@ const BaseProperties = ({
       <div className="form-section form-section-readonly form-top-border">
         {
           userActionSectionData.map(formElement => <FormElement {...formElement} />)
-        } 
+        }
       </div>
+      {
+        readOnly && (
+          <SelfReview
+            isEntitlementReviewed={isEntitlementReviewed}
+            entitlementid={entitlementData?.id}
+            updateReviewState={updateReviewState}
+          />
+        )
+      }
+      
       {
         !readOnly && (
         <Spin spinning={!!loading}>
@@ -265,4 +301,4 @@ const BaseProperties = ({
   );
 }
 
-export default BaseProperties;
+export default React.memo(BaseProperties);

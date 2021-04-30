@@ -8,8 +8,7 @@ import ResponsiveActionIcons from './responsive-action-icons';
 import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
 import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
-import { CheckTrue } from './../../assets';
-import { CheckFalse } from './../../assets';
+import { CheckTrue, SelfReviewApproved, SelfReviewPending, CheckFalse } from './../../assets';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
@@ -18,7 +17,7 @@ import extendedAttributesJSON from "../../data/advance-editable-attributes.json"
 import entitlementHeadersData from "../../data/entitlement-headers.json";
 import helpDataJSON from "../../data/helpdata.json";
 import statisticsData from "../../data/entitlement-statistics-dummy.json";
-import { getExportMembersFileName, titleCase } from "../../utils";
+import { getExportMembersFileName } from "../../utils";
 import Button from "../../components/button";
 import { printToPDF } from "../../utils/exportToPdf";
 import { getCombinedCSVData } from "../../utils/multiple-csv";
@@ -42,9 +41,9 @@ const OwnerEntitlement = () => {
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [extendedAttributes, setExtendedAttributes] = React.useState({});
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
+  const [entitlementReviewStats, setEntitlementReviewStats] = React.useState([]);
   const [featureFlags, setFeatureFlags] = React.useState({});
   const [helpData, setHelpData] = React.useState('');
-  const [selectedRowKeys, setSelectedRowKeys] = React.useState([]);
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
   const [tableHeight, setTableHeight] = React.useState(window.screen.height - 600);
   const [tableConfig, setTableConfig] = React.useState({
@@ -129,6 +128,24 @@ const OwnerEntitlement = () => {
       message.error("Failed to load headers");
       if (localMode) {
         setEntitlementHeaders([...entitlementHeadersData]);
+      }
+    });
+  }
+
+  const getEntitlementReviewStats = () => {
+    const url = 'EntitlementManagement/review/Statistics';
+    API.get(url).then(res => {
+      if (Array.isArray(res.data)) {
+        setEntitlementReviewStats([...res.data]);
+      }
+    }).catch(err => {
+      message.error("Failed to load headers");
+      if (localMode) {
+        import("../../data/entitlement-review-stat.json").then(res => {
+          // console.log("response", res.default);
+          setEntitlementReviewStats([...res.default]);
+        })
+        
       }
     });
   }
@@ -245,22 +262,10 @@ const OwnerEntitlement = () => {
       start: 0
     });
     getEntitlementStatistics();
+    getEntitlementReviewStats();
     getFeatureFlagAPI();
     getHelpInfoData();
   }, []);
-
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      // console.log(`selectedRowKeys: ${selectedRowKeys}`, 'selectedRows: ', selectedRows);
-      setSelectedRowKeys(selectedRowKeys);
-    },
-    getCheckboxProps: (record) => ({
-      disabled: true,
-      // Column configuration not to be checked
-      name: record.name,
-    }),
-    fixed: true
-  };
 
   const handleSearchEntitlement = ({ searchVal = "", ...otherProps }) => {
     getEntitlementList({
@@ -281,6 +286,7 @@ const OwnerEntitlement = () => {
       case 'edit_success':
         getEntitlementList(tableConfig);
         getEntitlementStatistics();
+        getEntitlementReviewStats();
         return;
       default:
         return null;
@@ -290,6 +296,11 @@ const OwnerEntitlement = () => {
   const renderCheckboxColumn = (text) => ["true", "yes"].includes(text?.toLowerCase()) ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : (["false", "no"].includes(text?.toLowerCase()) ? <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} /> : text);
 
   const headerConfig = {
+    ReviewStatus: {
+      fixed: true,
+      width: "100px",
+      render: (text) => text === "Complete" ? <SelfReviewApproved /> : <SelfReviewPending />
+    },
     value: {
       fixed: true
     },
@@ -357,6 +368,7 @@ const OwnerEntitlement = () => {
             onExport={handleMultipleExport}
             onAction={handleAction}
             featureFlags={featureFlags}
+            reviewStats={entitlementReviewStats}
           />
           <Table
             dataSource={entitlementList.EntitlementDetails}

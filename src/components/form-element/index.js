@@ -6,7 +6,6 @@ import { CheckTrue, CheckFalse, messages } from './../../assets';
 import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
-import ChipSelect from "../chip-select";
 import SearchList from "../search-list";
 import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
 import API, { localMode } from "../../api";
@@ -252,8 +251,6 @@ const FormElement = ({
       case 'dropdown':
       // case 'object':
         return <DropdownForm {...otherProps} />;
-      // case 'chip_dropdown':
-      //   return <ChipDropdownForm {...otherProps} />;
       case 'workgroup':
         return <WorkGroupInput {...otherProps} />
       case 'search-dropdown':

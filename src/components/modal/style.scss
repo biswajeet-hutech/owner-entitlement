@@ -55,8 +55,8 @@
     height: 82%;
     overflow: auto;
     & .oe-modal-content {
-      .oe-table {
-        .ant-table-thead {
+      & .oe-members-table {
+        & .ant-table-thead {
           &::after {
             height: 4px;
             border-top: 2px solid $background-color;
@@ -67,13 +67,14 @@
             border-bottom: 1px solid $input-border;
           }
         }
+        & .ant-table {
+          padding: 0px 32px;
+        }
       }
       .ant-row-space-between {
         padding: 0px 32px;
       }
-      .ant-table {
-        padding: 0px 32px;
-      }
+      
       // & .ant-pagination {
       //   margin: 0px;
       //   position: absolute;
