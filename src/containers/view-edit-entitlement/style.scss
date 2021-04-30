@@ -14,10 +14,6 @@
   }
   &:last-of-type {
     margin-bottom: 0px;
-    // padding-bottom: 0px;
-  }
-  &.form-section-writable {
-    // background-color: #f6fdff;
   }
   & .extended-property-label {
     font-family: $primary-font-medium;
@@ -42,46 +38,11 @@
   }
 }
 
-.oe-ed-wrapper {
-  // max-height: 65vh;
-  // overflow-y: scroll;
-}
-// .edit {
-//   max-height: 65vh;
-// }
 .readOnly {
-  //max-height: 65vh;
   border-radius:  0 0 10px 10px;
   overflow-y: scroll;
-  &::-webkit-scrollbar-track {
-    background-clip: content-box;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: #b2b2b2;
-    display: hidden;
-    border-radius: 10px;
-  }
-  &::-webkit-scrollbar-track:hover {
-    display: block;
-    cursor: pointer;
-  }
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    background: #b2b2b2;
-    cursor: pointer;
-  }
-  .oe_scrollSection {
-    max-height: unset;
-  }
 }
 
-.oe_scrollSection {
-  max-height: 55vh;
-  margin-top: 50px;
-  margin-bottom: 20px;
-}
 .accordion_footer {
   position: absolute;
   width: 100%;
@@ -93,14 +54,6 @@
   background-color: #fff;
   border-radius: 0 0 10px 10px;
   border-top: 1px solid $border-variant-1;
-  // &::before {
-  //   position: absolute;
-  //   width: 100%;
-  //   content: "";
-  //   top: -1px;
-  //   height: 1px;
-  //   background-color: $border-variant-1;
-  // }
   button.save {
     &:last-child {
       margin-right: 32px;
@@ -119,9 +72,7 @@
   justify-content: center;
   align-items: center;
 }
-.oe-modal .ant-modal-body .oe-modal-content .ant-table {
 
-}
 .oe-review-table {
   & tr th {
     background-color: #d5eaf9;

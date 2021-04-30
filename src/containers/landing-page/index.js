@@ -5,10 +5,10 @@ import Table from '../../components/table';
 import Modal from '../../components/modal';
 import CardWrapper from './card-wrapper';
 import ResponsiveActionIcons from './responsive-action-icons';
-import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
+import EntitlementDetailsWrapper from "../view-edit-entitlement-wrapper";
 import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
-import { CheckTrue, SelfReviewApproved, SelfReviewPending, CheckFalse } from './../../assets';
+import { CheckTrue, SelfReviewApproved, SelfReviewPending, CheckFalse, EditModal, ViewModal } from '../../assets';
 
 import "./style.scss";
 import data from "../../data/entitlment-dummy.json";
@@ -22,6 +22,7 @@ import Button from "../../components/button";
 import { printToPDF } from "../../utils/exportToPdf";
 import { getCombinedCSVData } from "../../utils/multiple-csv";
 import featureFlagData from "../../data/feature-flag.json";
+import HelpButton from "../../components/help-button";
 
 const OwnerEntitlement = () => {
   const tablePaginationConfig = {
@@ -37,6 +38,7 @@ const OwnerEntitlement = () => {
   const { saveAsCsv } = useJsonToCsv();
   const [showMembersModal, setShowMembersModal] = React.useState({ show: false, data: {} });
   const [showDescrptionModal, setShowDescrptionModal] = React.useState({ show: false, data: {} });
+  const [viewEditModal, setViewEditModal] = React.useState({ show: false, data: {} });
   const [entitlementList, setEntitlementList] = React.useState({ ...defaultEntitlementList });
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [extendedAttributes, setExtendedAttributes] = React.useState({});
@@ -97,7 +99,6 @@ const OwnerEntitlement = () => {
         setFeatureFlags({...res.data});
       }
     }).catch(err => {
-      // message.error("Failed to load featu");
       if (localMode) {
         setFeatureFlags({...featureFlagData});
       }
@@ -217,7 +218,6 @@ const OwnerEntitlement = () => {
       })
       .then(() => {
         setLoadingEntitlement(false);
-        // always executed
       });
   }
 
@@ -299,14 +299,18 @@ const OwnerEntitlement = () => {
     ReviewStatus: {
       fixed: true,
       width: "100px",
-      render: (text) => text === "Complete" ? <SelfReviewApproved /> : <SelfReviewPending />
+      render: (text, record) => <div onClick={() => setViewEditModal({ show: true, data: { ...record } })}>{ text === "Complete" ? <SelfReviewApproved /> : <SelfReviewPending /> }</div>
     },
     value: {
-      fixed: true
+      fixed: true,
+      render: (text) => <div className="oe-td-wrap-text" title={text}>{text}</div>
+    },
+    displayName: {
+      render: (text) => <div className="oe-td-wrap-text" title={text}>{text}</div>
     },
     description: {
       render: (text, record) => text ?
-        (<div dangerouslySetInnerHTML={{ __html: text }} className={(text || '').length > 59 ? "oe-td-description-link" : "oe-td-description"} onClick={(text || '').length > 59 ? () => setShowDescrptionModal({ show: true, data: { ...record, descrption: text } }) : () => { }} />)
+        (<div dangerouslySetInnerHTML={{ __html: text }} className={(text || '').length > 59 ? "oe-td-description-link oe-td-wrap-text" : "oe-td-wrap-text"} onClick={(text || '').length > 59 ? () => setShowDescrptionModal({ show: true, data: { ...record, descrption: text } }) : () => { }} />)
         : ''
     },
     requestable: {
@@ -326,7 +330,7 @@ const OwnerEntitlement = () => {
       dataIndex: item.name,
       render: (text, record) => extendedAttributes[item.name] && extendedAttributes[item.name]['type'] === 'boolean' ? renderCheckboxColumn(text) : record[item.name],
       className: item.className ? item.className : '',
-      width: item.width ? item.width : '200px',
+      width: item.width ? item.width : (extendedAttributes[item.name] && extendedAttributes[item.name]['type'] === 'boolean' ? '100px' : '130px'),
       align: extendedAttributes[item.name] && extendedAttributes[item.name]['type'] === 'boolean' ? 'center' : '',
       ...(headerConfig[item.name] || {}),
     })),
@@ -336,7 +340,7 @@ const OwnerEntitlement = () => {
       width: '120px',
       align: 'center',
       fixed: 'right',
-      render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction} />
+      render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction} helpUrl={helpData} />
     } : {}
   ];
 
@@ -359,7 +363,7 @@ const OwnerEntitlement = () => {
 
   return (
     <>
-      <Button type="primary" onClick={() => window.open(helpData,"_blank")} className="oe-help-btn">Help</Button>
+      <HelpButton helpUrl={helpData} className="oe-help-btn" />
       <CardWrapper cardData={entitlementStatistics} />
       <Spin spinning={loadingEntitlement}>
         <div className="table-filter-wrapper oe-root-container">
@@ -369,6 +373,7 @@ const OwnerEntitlement = () => {
             onAction={handleAction}
             featureFlags={featureFlags}
             reviewStats={entitlementReviewStats}
+            helpUrl={helpData}
           />
           <Table
             dataSource={entitlementList.EntitlementDetails}
@@ -384,10 +389,7 @@ const OwnerEntitlement = () => {
                 position: ['none', 'bottomCenter'], pageSizeOptions: tablePaginationConfig.pageSizeOptions, defaultPageSize: tablePaginationConfig.defaultPageSize, showSizeChanger: true
               },
               className: "oe-table oe-entitlement-list-table",
-              rowKey: 'id',
-              // rowSelection: {
-              //   ...rowSelection,
-              // }
+              rowKey: 'id'
             }}
           />
         </div>
@@ -397,6 +399,7 @@ const OwnerEntitlement = () => {
         onHide={() => setShowMembersModal({ show: false, data: {} })}
         title={`Entitlement Members`}
         subTitle={showMembersModal.data.displayName || showMembersModal.data.value}
+        helpUrl={helpData}
       >
         <EntitlementDetailsWrapper
           defaultActiveKey="1"
@@ -417,8 +420,24 @@ const OwnerEntitlement = () => {
         onHide={() => setShowDescrptionModal({ show: false, data: {} })}
         title={`Entitlement Description`}
         subTitle={showDescrptionModal.data.displayName || showDescrptionModal.data.value}
+        helpUrl={helpData}
       >
         <div dangerouslySetInnerHTML={{ __html: showDescrptionModal.data.descrption }} className="description_modal_text"></div>
+      </Modal>
+      <Modal
+        open={viewEditModal.show}
+        onHide={() => setViewEditModal({ show: false, edit: false })}
+        footer={viewEditModal.edit ? undefined : null}
+        titleIcon={viewEditModal.edit ? (<EditModal />) : (<ViewModal />)}
+        helpUrl={helpData}
+        title={<span>{`${viewEditModal.edit ? 'Edit' : 'View'} Details`}</span>} subTitle={viewEditModal.data?.displayName || viewEditModal.data?.value}>
+        <EntitlementDetailsWrapper
+          defaultActiveKey="2"
+          entitlementId={viewEditModal.data?.id}
+          editMode={viewEditModal.edit}
+          onClose={() => { setViewEditModal({ show: false, edit: false }) }}
+          onSuccess={() => { setViewEditModal({ show: false, edit: false, action: 'edit_success' }); handleAction('edit_success')}}
+        />
       </Modal>
     </>
   );

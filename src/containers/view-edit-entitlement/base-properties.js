@@ -162,7 +162,7 @@ const BaseProperties = ({
     displayName: {
       type: 'textarea',
       maxLength: 450,
-      rows: 1
+      autoSize: true
     },
     requestable: {
       type: 'checkbox'
@@ -209,6 +209,7 @@ const BaseProperties = ({
 
   const updateReviewState = ({ entitlementid, comment, status }) => {
     const APIUrl = `/EntitlementManagement/review/update`;
+    setLoading(true);
     API.post(APIUrl, {
       entitlementid,
       comment,
@@ -227,6 +228,8 @@ const BaseProperties = ({
       if(localMode) {
         onSuccess();
       }
+    }).finally(() => {
+      setLoading(false);
     })
   }
 
@@ -278,7 +281,7 @@ const BaseProperties = ({
         }
       </div>
       {
-        readOnly && (
+        readOnly && entitlementData?.id && (
           <SelfReview
             isEntitlementReviewed={isEntitlementReviewed}
             entitlementid={entitlementData?.id}

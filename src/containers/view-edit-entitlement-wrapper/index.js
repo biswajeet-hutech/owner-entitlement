@@ -1,7 +1,7 @@
 import React from "react";
 import { message, Spin } from "antd";
 
-import EntitlementDetails from "../entitlement-details";
+import EntitlementDetails from "../view-edit-entitlement";
 import EntitlementMembers from "../entitlement-members";
 import { API, localMode } from "../../api";
 import advanceEditableAttrJSON from "../../data/advance-editable-attributes.json";

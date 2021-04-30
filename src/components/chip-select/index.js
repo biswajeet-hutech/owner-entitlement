@@ -17,7 +17,6 @@ const ChipSelect = ({
   value,
   renderOptions
 }) => {
-  // console.log(selectedValue, value);
   function tagRender(props) {
     const { label, closable, onClose } = props;
     return (

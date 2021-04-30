@@ -2,7 +2,6 @@ import React from "react";
 import { Form, Col, Input, DatePicker } from 'antd';
 import "./style.scss";
 import Dropdown from "../../components/dropdown";
-// import API from "../../api";
 
 const constructDropdown = (data = []) => {
   const result = Array.isArray(data) && data.map(item => ({
@@ -18,9 +17,6 @@ const ExtendedAttributes = ({
   updateFormData=()=>{},
   selectedValues={}
 }) => {
-  // const getDataFromAPI = () => {
-
-  // }
   
   const renderContent = () => {
     const {

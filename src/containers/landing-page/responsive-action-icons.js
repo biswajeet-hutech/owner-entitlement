@@ -14,17 +14,18 @@ import {
   DisputeModal,
   EditModal,
   ViewModal
-} from './../../assets';
+} from '../../assets';
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
 import "./style.scss";
-import EntitlementDetailsWrapper from "../entitlement-details-wrapper";
+import EntitlementDetailsWrapper from "../view-edit-entitlement-wrapper";
 import RaiseDispute from "../raise-dispute";
 
 const { useBreakpoint } = Grid;
 
 const ResponsiveActionIcons = ({
   data = {},
+  helpUrl = "",
   onAction = () => { }
 }) => {
   const [openModal, setOpenModal] = React.useState({ show: false, edit: false });
@@ -90,6 +91,7 @@ const ResponsiveActionIcons = ({
         onHide={() => setOpenModal({ show: false, edit: false })}
         footer={openModal.edit ? undefined : null}
         titleIcon={openModal.edit ? (<EditModal />) : (<ViewModal />)}
+        helpUrl={helpUrl}
         title={<span>{`${openModal.edit ? 'Edit' : 'View'} Details`}</span>} subTitle={data.displayName || data.value}>
         <EntitlementDetailsWrapper
           defaultActiveKey="2"
@@ -104,6 +106,7 @@ const ResponsiveActionIcons = ({
         onHide={() => setOpenDisputeModal(false)}
         titleIcon={<DisputeModal />}
         title='Raise Dispute'
+        helpUrl={helpUrl}
         subTitle={data.displayName || data.value}
       >
         <RaiseDispute

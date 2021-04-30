@@ -1,7 +1,7 @@
 import React from "react";
 import { Row, Col, Tooltip } from 'antd';
 import { ImportOutlined } from "@ant-design/icons";
-import { strings } from './../../assets'
+import { strings } from '../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
@@ -28,7 +28,8 @@ const SearchWithActionBar = ({
   onSearch = () => {},
   onExport = () => {},
   onAction = () => {},
-  featureFlags={}
+  featureFlags={},
+  helpUrl = "",
 }) => {
   const [openSecduledCertModal, setOpenSecduledCertModal] = React.useState(false);
   const [openImportDialog, setOpenImportModal] = React.useState(false);
@@ -84,7 +85,13 @@ const SearchWithActionBar = ({
           <ExportButton onClick={(type) => onExport(searchProps, type)} />
         </Col>
       </Row>
-      <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>
+      <Modal
+        helpUrl={helpUrl}
+        open={openSecduledCertModal}
+        onHide={() => setOpenSecduledCertModal(false)}
+        title="Schedule Cetrification"
+        config={{ className: "oe-modal oe-sceduled-cert-modal" }}
+      >
         <ScheduleCertification onHide={() => setOpenSecduledCertModal(false)} />
       </Modal>
       <Modal
@@ -97,6 +104,7 @@ const SearchWithActionBar = ({
         config={{ className: "oe-modal oe-import-entitlement-dialog" }}
         width={800}
         height={400}
+        helpUrl={helpUrl}
       >
         <ImportEntitlementDialog onHide={() => setOpenImportModal(false)} onSuccess={() => onAction('import')} />
       </Modal>

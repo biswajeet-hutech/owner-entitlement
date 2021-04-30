@@ -65,16 +65,7 @@ const EntitlementDetails = ({
           extendedAttributes={extendedAttributes}
         />
       )
-    },
-    // {
-    //   title: 'Object Attribute',
-    //   subTitle: ' ',
-    //   content: <ObjectAttributes data={data.EntitlementDetails} readOnly={!editMode} />
-    // }, {
-    //   title: 'Members',
-    //   subTitle: 'Add or remove members',
-    //   content: <MembersPanel readOnly={!editMode} />
-    // }
+    }
   ];
 
   return (
