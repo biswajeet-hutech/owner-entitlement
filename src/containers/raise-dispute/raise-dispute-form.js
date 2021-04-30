@@ -62,10 +62,11 @@ const RaiseDisputeForm = ({
       ...(
         allowedActions.length ? {
           key: 'action',
-          label: 'Dispute Reason',
+          label: 'Select Dispute/Transfer',
           options: allowedActions.map(item => ({ label: item, value: item })),
           value: action,
           required: true,
+       //   needHelp :'YES',
           type: 'dropdown'
       } : {})
     },
@@ -87,10 +88,11 @@ const RaiseDisputeForm = ({
     },
     {
       key: 'disputeStatement',
-      label: 'Dispute Statement',
+      label: 'Dispute/Transfer Statement',
       value: disputeStatement,
       required: !(action?.includes("Transfer Ownership")),
       type: 'textarea',
+      needHelp :'YES',
       maxLength: 250
     }
   ]
@@ -114,7 +116,7 @@ const RaiseDisputeForm = ({
       }
       <Row justify="end" className="dispute_Footer">
         <Button type="secondary" size="large" className="cancel"  onClick={onHide}>Cancel</Button>
-        <Button type="primary" size="large" className="dispute" onClick={onSubmit}>Raise Dispute</Button>
+        <Button type="primary" size="large" className="dispute" onClick={onSubmit}>Submit</Button>
       </Row>
     </div>
     </>

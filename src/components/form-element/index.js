@@ -11,6 +11,7 @@ import WorkGroupInput from "../../containers/entitlement-details/workgroupInput"
 import API, { localMode } from "../../api";
 import dummyWorkgroupMembers from "../../data/workgroup-members.json";
 import DebounceSelect from "../dropdown/search-dropdown";
+import { InfoHoverIcon } from './../../assets';
 
 const { TextArea } = Input;
 
@@ -54,23 +55,32 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
 }
 
 const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10, ...otherProps }) => {
+  // const handleOnChange = (value) => {
+    
+  //   var regrex=/^[a-zA-Z]+$/;
+  //   const newValue = regrex.test(value)?'Only Letters':value;
+  //   onChange(newValue);
+  // }
+
   return (
     <>
       {
         readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
           <>
-          <TextArea
-            showCount={!hideCount}
-            maxLength={maxLength}
-            value={value}
-            rows={rows}
-            onChange={(e) => onChange(e.target.value)}
-            {...otherProps}
-          />
-          { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+            <TextArea
+              showCount={!hideCount}
+              maxLength={maxLength}
+              value={value}
+              rows={rows}
+              onChange={(e) => onChange(e.target.value)}
+              // onChange={handleOnChange}
+              {...otherProps}
+            />
+            { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
           </>
         )
       }
+      
     </>
   )
 }
@@ -264,9 +274,18 @@ const FormElement = ({
       <div className="oe-form-label" style={{ marginBottom: props.fullWidth ? '8px' : '0' }}>
         {
           label
+          
         }
         {
           !props.readOnly && <span className="oe-astreak">{`${required ? '*' : ''}`}</span>
+        }
+        {   
+          props.needHelp ==='YES' ? 
+          <Tooltip title={messages.DISPUTE_HELP} placement="bottom" onClick={() => window.open("https://www.google.com/","_blank")}>
+            <span className="oe-icon-btn">
+              <InfoHoverIcon className="hover" width={20} height={17}/>
+            </span>
+          </Tooltip> : ''
         }
       </div>
       <div className="oe-form-value">

@@ -40,8 +40,8 @@ const ResponsiveActionIcons = ({
       case 'dispute':
         return {
           type: type,
-          title: type === 'success' ? 'Dispute Raised!' : 'Error',
-          subTitle: type === 'success' ? '' : (text || 'Unable to raise dispute.')
+          title: type === 'success' ? 'Request Submitted!' : 'Error',
+          subTitle: type === 'success' ? '' : (text || 'Error in submission.')
         };
       default:
         return {}

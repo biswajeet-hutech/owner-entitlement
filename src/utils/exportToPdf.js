@@ -4,7 +4,7 @@ import jsPDF from "jspdf";
 import "jspdf-autotable";
 import dateFormat from "dateformat";
 import { titleCase } from ".";
-
+import {expImage} from './../assets/base64Images.json';
 
 // import exportData from "../data/export-entitlement.json";
 
@@ -70,7 +70,7 @@ const printToPDF = ({
     doc.setFont('', 'bold', '500');
     const commonTableProps = {
       headStyles: {
-        fontSize: 5,
+        fontSize: 6,
         fontStyle: "bold",
         fillColor: "#037da1",
         textAlign: "center",
@@ -144,6 +144,7 @@ const printToPDF = ({
       doc.setFontSize(12);
       doc.setFont('helvetica', 'bold');
       doc.text(`Entitlement Details`, 15, finalY + 10);
+      doc.addImage(expImage,'JPEG', 250, 5, 30, 10);
       doc.setFontSize(10);
       doc.setFont('helvetica', 'normal');
       doc.text(`Owner: ${ownerName}`, 15, finalY + 17);
