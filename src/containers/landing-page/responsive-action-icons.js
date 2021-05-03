@@ -92,7 +92,13 @@ const ResponsiveActionIcons = ({
       </Tooltip>
       <div style={{ marginRight: 20 }}>
         <Tooltip title={`Members: ${data.users}`} placement="bottom" onClick={() => setShowMembersModal({show: true})}>
-          <Badge count={data.users} overflowCount={99} size="small" offset={data.users < 10 ? [4, 10] : [10, 10]}>
+          <Badge
+            count={data.users}
+            overflowCount={99}
+            size="small"
+            offset={data.users < 10 ? [4, 10] : [10, 10]}
+            showZero={true}
+          >
             <div className="oe-icon-btn">
               <GroupMemberIcon className="normal" width={18} height={18} />
               <GroupMemberHoverIcon className="hover" width={18} height={18} />
