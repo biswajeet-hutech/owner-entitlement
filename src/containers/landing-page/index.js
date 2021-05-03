@@ -8,20 +8,19 @@ import ResponsiveActionIcons from './responsive-action-icons';
 import EntitlementDetailsWrapper from "../view-edit-entitlement-wrapper";
 import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
-import { CheckTrue, SelfReviewApproved, SelfReviewPending, CheckFalse, EditModal, ViewModal } from '../../assets';
+import {
+  CheckTrue,
+  SelfReviewApproved,
+  SelfReviewPending,
+  CheckFalse,
+  EditModal,
+  ViewModal
+} from '../../assets';
 
 import "./style.scss";
-import data from "../../data/entitlment-dummy.json";
-import exportAllEntitlementData from "../../data/export-all-entitlement.json";
-import extendedAttributesJSON from "../../data/advance-editable-attributes.json";
-import entitlementHeadersData from "../../data/entitlement-headers.json";
-import helpDataJSON from "../../data/helpdata.json";
-import statisticsData from "../../data/entitlement-statistics-dummy.json";
 import { getExportMembersFileName } from "../../utils";
-import Button from "../../components/button";
 import { printToPDF } from "../../utils/exportToPdf";
 import { getCombinedCSVData } from "../../utils/multiple-csv";
-import featureFlagData from "../../data/feature-flag.json";
 import HelpButton from "../../components/help-button";
 
 const OwnerEntitlement = () => {
@@ -36,7 +35,6 @@ const OwnerEntitlement = () => {
   }
 
   const { saveAsCsv } = useJsonToCsv();
-  const [showMembersModal, setShowMembersModal] = React.useState({ show: false, data: {} });
   const [showDescrptionModal, setShowDescrptionModal] = React.useState({ show: false, data: {} });
   const [viewEditModal, setViewEditModal] = React.useState({ show: false, data: {} });
   const [entitlementList, setEntitlementList] = React.useState({ ...defaultEntitlementList });
@@ -71,7 +69,9 @@ const OwnerEntitlement = () => {
     }).catch(err => {
       message.error("Failed to load entitlement data");
       if (localMode) {
-        setEntitlementList({ ...data });
+        import("../../data/entitlment-dummy.json").then(res => {
+          setEntitlementList(res.default);
+        });
       }
     }).then(res => {
       setLoadingEntitlement(false);
@@ -87,7 +87,9 @@ const OwnerEntitlement = () => {
     }).catch(err => {
       message.error("Failed to load statistics");
       if (localMode) {
-        setEntitlementStatistics([...statisticsData]);
+        import("../../data/entitlement-statistics-dummy.json").then(res => {
+          setEntitlementStatistics(res.default);
+        });
       }
     });
   }
@@ -100,7 +102,9 @@ const OwnerEntitlement = () => {
       }
     }).catch(err => {
       if (localMode) {
-        setFeatureFlags({...featureFlagData});
+        import("../../data/feature-flag.json").then(res => {
+          setFeatureFlags(res.default);
+        });
       }
     });
   }
@@ -114,7 +118,9 @@ const OwnerEntitlement = () => {
     }).catch(err => {
       message.error("Failed to load help info");
       if (localMode) {
-        setHelpData(helpDataJSON);
+        import("../../data/helpdata.json").then(res => {
+          setHelpData(res.default);
+        });
       }
     });
   }
@@ -128,7 +134,9 @@ const OwnerEntitlement = () => {
     }).catch(err => {
       message.error("Failed to load headers");
       if (localMode) {
-        setEntitlementHeaders([...entitlementHeadersData]);
+        import("../../data/entitlement-headers.json").then(res => {
+          setEntitlementHeaders(res.default);
+        });
       }
     });
   }
@@ -143,10 +151,8 @@ const OwnerEntitlement = () => {
       message.error("Failed to load headers");
       if (localMode) {
         import("../../data/entitlement-review-stat.json").then(res => {
-          // console.log("response", res.default);
           setEntitlementReviewStats([...res.default]);
         })
-        
       }
     });
   }
@@ -163,10 +169,13 @@ const OwnerEntitlement = () => {
     }).catch(err => {
       // message.error("Failed to load statistics");
       if (localMode) {
-        setExtendedAttributes(extendedAttributesJSON.ExtendedAttributes.reduce((acc, item) => {
-          acc[item.name] = item;
-          return acc;
-        }, {}));
+        import("../../data/advance-editable-attributes.json").then(res => {
+          console.log(res);
+          setExtendedAttributes(res.default.ExtendedAttributes.reduce((acc, item) => {
+            acc[item.name] = item;
+            return acc;
+          }, {}));
+        });
       }
     })
   }
@@ -240,12 +249,14 @@ const OwnerEntitlement = () => {
         console.log(error);
         message.error("Something went wrong!");
         if (localMode) {
-          try {
-            const exportData = { Entitlement: {...exportAllEntitlementData} };
-            prepareToExportDocument(exportData, type);
-          } catch (e) {
-            message.error("Unable to export details at this moment");
-          }
+          import("../../data/export-all-entitlement.json").then(res => {
+            try {
+              const exportData = { Entitlement: {...res.default} };
+              prepareToExportDocument(exportData, type);
+            } catch (e) {
+              message.error("Unable to export details at this moment");
+            }
+          })
         }
       })
       .then(() => {
@@ -316,11 +327,7 @@ const OwnerEntitlement = () => {
     requestable: {
       align: 'center',
       render: (text) => renderCheckboxColumn(text)
-    },
-    users: {
-      align: 'center',
-      render: (text, record) => <a onClick={text > 0 ? () => setShowMembersModal({ show: true, data: { ...record } }) : () => { }} className={text > 0 ? "oe-link" : "oe-disabled-link"}>{text > 0 ? `${text}` : `0`}</a>
-    },
+    }
   }
 
   const columns = [
@@ -340,7 +347,7 @@ const OwnerEntitlement = () => {
       width: '120px',
       align: 'center',
       fixed: 'right',
-      render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction} helpUrl={helpData} />
+      render: (text, record) => <ResponsiveActionIcons data={record} onAction={handleAction} helpUrl={helpData} entitlementHeaders={entitlementHeaders} />
     } : {}
   ];
 
@@ -394,24 +401,6 @@ const OwnerEntitlement = () => {
           />
         </div>
       </Spin>
-      <Modal
-        open={showMembersModal.show}
-        onHide={() => setShowMembersModal({ show: false, data: {} })}
-        title={`Entitlement Members`}
-        subTitle={showMembersModal.data.displayName || showMembersModal.data.value}
-        helpUrl={helpData}
-      >
-        <EntitlementDetailsWrapper
-          defaultActiveKey="1"
-          entitlementDetailsHeader={entitlementHeaders}
-          entitlementId={showMembersModal.data.id}
-          entitlementName={showMembersModal.data.value || showMembersModal.data.displayName}
-          onClose={() => {
-            setShowMembersModal({ show: false, data: {} });
-          }}
-          onEntitlementUpdate={() => getEntitlementList(tableConfig)}
-        />
-      </Modal>
       <Modal
         open={showDescrptionModal.show}
         className="description_modal"

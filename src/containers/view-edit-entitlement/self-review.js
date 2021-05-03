@@ -5,8 +5,9 @@ import TextArea from "antd/lib/input/TextArea";
 import { messages } from "../../assets";
 import Button from "../../components/button";
 import API, { localMode } from "../../api";
-import FormElement from "../../components/form-element";
+
 const { Panel } = Collapse;
+
 const ReviewTable = ({data = []}) => {
   const columns = [
     {
@@ -15,7 +16,7 @@ const ReviewTable = ({data = []}) => {
       key: "reviewdate"
     },
     {
-      title: "ReviewComment",
+      title: "Review Comment",
       dataIndex: "comment",
       key: "comment"
     },
@@ -89,7 +90,7 @@ const SelfReview = ({
       </Row>
       { reviewState && !isEntitlementReviewed && (
         <div style={{ marginTop: 20, width: '70%' }} >
-          <p style={{ fontSize: 13, fontWeight: 600 }}>Type your Feedback *</p>
+          <p style={{ fontSize: 13, fontWeight: 600 }}>Review Comment *</p>
           <TextArea
             showCount={true}
             maxLength={250}

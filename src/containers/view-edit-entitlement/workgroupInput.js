@@ -8,7 +8,6 @@ import { EditWhiteIcon } from './../../assets';
 import Button from "../../components/button";
 import SearchList from "../../components/search-list";
 import API, { localMode } from '../../api';
-import dummyWorkgroupMembers from "../../data/workgroup-members.json";
 
 const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetchOptions, defaultSearchValue, ...otherProps }) => {
   const { allowedActions } = otherProps;
@@ -107,17 +106,19 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
         }
       }).catch(err => {
         if (localMode) {
-          const result = dummyWorkgroupMembers.map(item => ({
-            label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
-            id: item.id,
-            value: item.id,
-            name: item.name,
-            action: 'remove',
-            searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
-          }))
-          
-          setWorkgroupMembers(stateData => result);
-          setOriginalWorkgroupMembers(stateData => result);
+          import("../../data/workgroup-members.json").then(res => {
+            const result = res.default.map(item => ({
+              label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
+              id: item.id,
+              value: item.id,
+              name: item.name,
+              action: 'remove',
+              searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
+            }))
+            
+            setWorkgroupMembers(stateData => result);
+            setOriginalWorkgroupMembers(stateData => result);
+          })
         }
       })
     }

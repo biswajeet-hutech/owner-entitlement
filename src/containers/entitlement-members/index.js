@@ -1,29 +1,19 @@
 import React from "react";
-import { Col, Row, Popover, message, Spin, Popconfirm, Alert } from "antd";
-import { CloseOutlined } from "@ant-design/icons";
+import { Col, Row, message, Spin, Popconfirm, Alert } from "antd";
 
 import Button from "../../components/button";
 import Table from "../../components/table";
-import Typography from "../../components/typography";
 import Search from "../../components/search";
-import entitlementJSON from "../../data/entitlement-members-attribute.json";
-import exportJSON from "../../data/export-entitlement.json";
 import { API, localMode } from "../../api";
 import "./style.scss";
 import {
-  ExportsIcon,
-  ExportHoverIcon,
-  InfoIcon,
   ApprovedIcon,
   RevokedIcon,
   NotCertifiedIcon,
   OpenIcon,
   PendingIcon,
-  InfoHoverIcon,
   strings,
-  CloseIcon,
 } from "./../../assets";
-import { getExportMembersFileName } from "../../utils";
 import ExportButton from "../../components/button/export-btn";
 import { printToPDF } from "../../utils/exportToPdf";
 import { getCombinedCSVData } from "../../utils/multiple-csv";
@@ -201,7 +191,9 @@ const EntitlementMembers = ({
       .catch((err) => {
         message.error("Failed to load headers");
         if (localMode) {
-          setEntitlementHeaders([...entitlementJSON]);
+          import("../../data/entitlement-members-attribute.json").then(res => {
+            setEntitlementHeaders([...res.default]);
+          })
         }
       });
   };
@@ -238,11 +230,13 @@ const EntitlementMembers = ({
       console.log(error);
       message.error("Something went wrong!");
       if (localMode) {
-        try {
-          prepareExportData(exportJSON, type);
-        } catch(e) {
-          message.error("Unable to export at this moment");
-        }
+        import("../../data/export-entitlement.json").then(res => {
+          try {
+            prepareExportData(res.default, type);
+          } catch(e) {
+            message.error("Unable to export at this moment");
+          }
+        })
       }
     })
     .then(() => {

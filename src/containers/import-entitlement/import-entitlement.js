@@ -5,7 +5,6 @@ import { LoadingOutlined } from '@ant-design/icons';
 
 import Button from "../../components/button";
 import API, { localMode } from "../../api";
-import dummyResponse from "../../data/import-entitlement.json";
 import "./style.scss";
 import { ExportCertIcon } from "../../assets";
 import { exportCSVData } from "../../utils/multiple-csv";
@@ -74,12 +73,14 @@ class ImportEntitlements extends React.Component {
           // error
           // console.log(error);
           if (localMode) {
-            this.setState({
-              importDataList: dummyResponse || {},
-              uploadingFile: false,
-              uploadComplete: true
-            });
-            this.props.onSuccess();
+            import("../../data/import-entitlement.json").then(res => {
+              this.setState({
+                importDataList: res.default || {},
+                uploadingFile: false,
+                uploadComplete: true
+              });
+              this.props.onSuccess();
+            })
           } else {
             this.setState({
               uploadingFile: false,

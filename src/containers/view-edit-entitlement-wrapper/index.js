@@ -4,8 +4,6 @@ import { message, Spin } from "antd";
 import EntitlementDetails from "../view-edit-entitlement";
 import EntitlementMembers from "../entitlement-members";
 import { API, localMode } from "../../api";
-import advanceEditableAttrJSON from "../../data/advance-editable-attributes.json";
-import dummyData from "../../data/entitlement-details-dummy.json";
 import './style.scss';
 
 const EntitlementDetailsWrapper = ({
@@ -50,8 +48,10 @@ const EntitlementDetailsWrapper = ({
       }
     }).catch(err => {
       if (localMode) {
-        setExtendedAttributes(advanceEditableAttrJSON.ExtendedAttributes);
-        setStandardAttributes(advanceEditableAttrJSON.StandardAttributes);
+        import("../../data/advance-editable-attributes.json").then(res => {
+          setExtendedAttributes(res.default.ExtendedAttributes);
+          setStandardAttributes(res.default.StandardAttributes);
+        })
       }
     })
   }
@@ -73,7 +73,9 @@ const EntitlementDetailsWrapper = ({
     }).catch(err => {
       message.error("Failed to load entitlement data");
       if(localMode) {
-        setEntitlementMembersData({ ...dummyData });
+        import("../../data/entitlement-details-dummy.json").then(res => {
+          setEntitlementMembersData({ ...res.default });
+        })
       }
     }).then(res => {
       setLoadingEntitlement(false);
@@ -90,7 +92,9 @@ const EntitlementDetailsWrapper = ({
     }).catch(err => {
       message.error("Failed to load entitlement data");
       if(localMode) {
-        setEntitlementData({ ...dummyData });
+        import("../../data/entitlement-details-dummy.json").then(res => {
+          setEntitlementData({ ...res.default });
+        })
       }
     }).then(res => {
       setLoadingEntitlement(false);
