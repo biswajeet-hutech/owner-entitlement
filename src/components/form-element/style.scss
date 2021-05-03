@@ -3,7 +3,6 @@
 
 .oe-form-wrapper {
   display: flex;
-  // align-items: center;
   margin-bottom: 24px;
   &:last-child {
     margin-bottom: 0;
@@ -42,6 +41,7 @@
     color: #6a6a6a;
     width: 100%;
     line-height: 1.5;
+    word-break: break-word;
     & img {
       cursor: context-menu;
     }
@@ -52,6 +52,7 @@
     & .oe-form-error-text {
       margin-top: 4px;
       color: #de0808;
+      font-size: 13px;
     }
   }
   & .oe-form-input.ant-input {

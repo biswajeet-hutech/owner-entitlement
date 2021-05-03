@@ -1,11 +1,10 @@
 import React from "react";
 import { Row, Col, Tooltip } from 'antd';
 import { ImportOutlined } from "@ant-design/icons";
-import { ExportsIcon, ExportHoverIcon,strings, HelpIcon } from './../../assets'
+import { strings } from '../../assets'
 import Button from "../../components/button";
 import Search from '../../components/search';
 import Modal from '../../components/modal';
-// import InfoContent from './info-content';
 import AdvancedSearch from '../advanced-search';
 import ScheduleCertification from "../scheduled-certification";
 import ImportEntitlementDialog from "../import-entitlement";
@@ -13,22 +12,33 @@ import "./style.scss";
 
 import ExportButton from "../../components/button/export-btn";
 
+const SelfReviewContainer = ({ total, reviewed }) => (
+  <div className="oe-sr-container">
+    <div className="oe-sr-title">Review Status:</div>
+    <Tooltip title={`Total Reviewed: ${reviewed} out of ${total}`}>
+      <div className="oe-sr-progress">
+        <div className="oe-sr-progress-bar" style={{ width: `${(+reviewed/+total) * 100}%` }}></div>
+      </div>
+    </Tooltip>
+  </div>
+)
+
 const SearchWithActionBar = ({
+  reviewStats=[],
   onSearch = () => {},
   onExport = () => {},
   onAction = () => {},
-  featureFlags={}
+  featureFlags={},
+  helpUrl = "",
 }) => {
   const [openSecduledCertModal, setOpenSecduledCertModal] = React.useState(false);
   const [openImportDialog, setOpenImportModal] = React.useState(false);
   const [searchText, setSearchTextChange] = React.useState('');
   const [searchProps, setSearchProps] = React.useState({});
-  // const [popVisible, setPopVisible] = React.useState({
-  //   import: false,
-  //   export: false,
-  //   scheduledCert: false
-  // });
-
+  const reviewStatConfig = reviewStats.reduce((acc, item) => {
+    acc[item.statName] = item;
+    return acc;
+  }, {});
   const handleSearch = (data) => {
     const payload = {};
     for (const key in data) {
@@ -40,25 +50,10 @@ const SearchWithActionBar = ({
     setSearchProps(payload);
   }
 
-  // const hideInfoContent = (e) => {
-  //   e.stopPropagation();
-  //   setPopVisible({ ...popVisible, export: false, import: false });
-  // }
-
-  // const changeInfoContent = (v, type="export") => {
-  //   setPopVisible({ ...popVisible, [type]: v });
-  // }
-
-  // React.useEffect(() => {
-  //   if (!openImportDialog) {
-  //     onAction('import');
-  //   }
-  // }, [openImportDialog]);
-
   return (
     <>
       <Row justify="space-between" className="action-wrapper">
-        <Col xs={24} md={12}>
+        <Col xs={24} md={10}>
           <Row className="adv-search-wrapper">
             <Col xs={24} md={17}>
               <Search
@@ -74,7 +69,10 @@ const SearchWithActionBar = ({
             </Col>
           </Row>
         </Col>
-        <Col xs={24} md={12} className="action-wrapper-btn-group">
+        <Col xs={24} md={9}>
+          <SelfReviewContainer total={reviewStatConfig.total?.statVal} reviewed={reviewStatConfig.TotalReviewedEntitlements?.statVal} />
+        </Col>
+        <Col xs={24} md={5} className="action-wrapper-btn-group">
           {
             featureFlags?.allowed === "true" && (
             <Button className="oe-importBtn oe-btn-primary" onClick={() => setOpenImportModal(true)} type="text">
@@ -87,7 +85,13 @@ const SearchWithActionBar = ({
           <ExportButton onClick={(type) => onExport(searchProps, type)} />
         </Col>
       </Row>
-      <Modal open={openSecduledCertModal} onHide={() => setOpenSecduledCertModal(false)} title="Schedule Cetrification" config={{ className: "oe-modal oe-sceduled-cert-modal" }}>
+      <Modal
+        helpUrl={helpUrl}
+        open={openSecduledCertModal}
+        onHide={() => setOpenSecduledCertModal(false)}
+        title="Schedule Cetrification"
+        config={{ className: "oe-modal oe-sceduled-cert-modal" }}
+      >
         <ScheduleCertification onHide={() => setOpenSecduledCertModal(false)} />
       </Modal>
       <Modal
@@ -100,6 +104,7 @@ const SearchWithActionBar = ({
         config={{ className: "oe-modal oe-import-entitlement-dialog" }}
         width={800}
         height={400}
+        helpUrl={helpUrl}
       >
         <ImportEntitlementDialog onHide={() => setOpenImportModal(false)} onSuccess={() => onAction('import')} />
       </Modal>

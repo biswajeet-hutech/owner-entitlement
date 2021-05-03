@@ -1,0 +1,12 @@
+[
+  {
+    "statDescription": "Total Entitlements",
+    "statName": "total",
+    "statVal": "1500"
+  },
+  {
+    "statDescription": "Total Reviewed Entitlements",
+    "statName": "TotalReviewedEntitlements",
+    "statVal": "400"
+  }
+]

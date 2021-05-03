@@ -78,8 +78,6 @@ function getCombinedCSVData({ data, membersHeader: memberHeaderDetails, detailsH
 const exportCSVData = (header, data, filename="Entitlement-Details.csv") => {
 
   const result = [];
-  // const firstRow = [`Date: ${new Date()}`, ...Array(header.length-1).fill("")];
-  // const blankLineRow = [...Array(header.length).fill("")];
   const bodyRowData = [];
   
   data?.forEach(element => {

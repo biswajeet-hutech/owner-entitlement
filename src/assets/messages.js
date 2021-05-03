@@ -6,6 +6,7 @@ export const messages = {
   "PDF_EXPORT_BTN": "Export as PDF",
   "ADD": "Add",
   "SAVE": "Save",
+  "SUBMIT": "Submit",
   "REMOVE": "Remove",
   "FILTER": "Filter",
   "DISPUTE_HELP":"Click Here , you will be redirect to Document which need to follow",

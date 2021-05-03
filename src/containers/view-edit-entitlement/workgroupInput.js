@@ -181,7 +181,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
               {
                 showCreateWorkgroupForm ? (
                   <>
-                    <div style={{  margin: '10px 0' }}>
+                    <div style={{  padding: 10, border: '1px solid #ccc', 'border-radius': 4 }}>
                       <div style={{ width: '200px', fontSize: 13 }}>New Workgroup: </div>
                       <div style={{ display: 'flex', alignItems: 'center', margin: '4px 0' }}>
                         <Input value={workgroupInfo.name} onChange={e => changeWorkgroupInfo(e.target.value, 'name')} placeholder="Workgroup Name"></Input>
@@ -191,17 +191,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
                       { workgroupError && <div className="oe-form-error-text">{workgroupError}</div> }
                     </div>
                 </>
-                ) : (
-                  <>
-                  {
-                    (Array.isArray(approverData) && approverData.length > 1) && (
-                    <p>
-                      If you want to create a new workgroup with selected approvers, <a onClick={() => setShowCreateWorkgroupForm(true)}>click here</a>
-                    </p>
-                    )
-                  }
-                  </>
-                )
+                ) : null
               } 
               </>
             )}
@@ -268,7 +258,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
             )}
           />
           {
-            otherProps.error && <p style={{ color: 'red' }}> { otherProps.error }</p>
+            otherProps.error && <p className="oe-form-error-text"> { otherProps.error }</p>
           }
         </>
         )

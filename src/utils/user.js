@@ -5,8 +5,7 @@ import IdentitiesJSON from "../data/approver-data.json";
 async function fetchUserList(username, showWorkgroup, defaultValue) {
   const baseURL = `EntitlementManagement/identities/search`;
   return API.post(baseURL, {
-    param: username,
-    // onlyUsers: true
+    param: username
   }).then(response => {
     if (showWorkgroup) {
       const result = [];

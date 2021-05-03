@@ -56,13 +56,7 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=450, defaultVal
     BLOCK_TYPE_BUTTONS: [
       {label: 'UL', style: 'unordered-list-item'},
       {label: 'OL', style: 'ordered-list-item'}
-    ],
-    // BLOCK_ALIGNMENT_BUTTONS: [
-    //   {label: 'Align Left', style: 'ALIGN_LEFT'},
-    //   {label: 'Align Center', style: 'ALIGN_CENTER'},
-    //   {label: 'Align Right', style: 'ALIGN_RIGHT'},
-    //   {label: 'Align Justify', style: 'ALIGN_JUSTIFY'}
-    // ]
+    ]
   };
   return (
     <div className="oe-rte">

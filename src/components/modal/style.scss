@@ -10,6 +10,14 @@
   font-family: $primary-font-regular;
   transition-duration: 0s !important;
   animation-duration: 0s !important;
+  & .oe-btn.ant-btn.oe-btn-primary.oe-modal-help-button {
+    position: absolute;
+    right: 100px;
+    top: 20px;
+    background: transparent;
+    color: white;
+    border: solid 1px;
+  }
   & .ant-spin-nested-loading,
   & .ant-spin-container {
     position: static;
@@ -20,6 +28,10 @@
   }
   & .oe-modal-subtitle {
     font-size: 0.7em;
+    max-width: 580px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   & .ant-modal-header {
     padding: 10px 32px;
@@ -51,46 +63,27 @@
     letter-spacing: normal;
     color: #6a6a6a;
     padding: 0px 0px 0px 0px;
-    //max-height: 74vh;
     height: 82%;
     overflow: auto;
     & .oe-modal-content {
-      .oe-table {
-        .ant-table-thead {
+      & .oe-members-table {
+        & .ant-table-thead {
           &::after {
             height: 4px;
             border-top: 2px solid $background-color;
             width: 100%;
-            // left: 32px;
           }
           tr {
             border-bottom: 1px solid $input-border;
           }
         }
+        & .ant-table {
+          padding: 0px 32px;
+        }
       }
       .ant-row-space-between {
         padding: 0px 32px;
       }
-      .ant-table {
-        padding: 0px 32px;
-      }
-      // & .ant-pagination {
-      //   margin: 0px;
-      //   position: absolute;
-      //   align-content: center;
-      //   width: 100%;
-      //   right: 0px;
-      //   padding: 0px;
-      //   margin-top: 12px;
-      //   &::before {
-      //     content: "";
-      //     position: absolute;
-      //     height: 1px;
-      //     width: 100%;
-      //     margin-top: -10px;
-      //     background-color: $border-variant-1;
-      //   }
-      // }
     }
   }
   & .ant-modal-footer {
@@ -143,14 +136,6 @@
   }
   &.oe-modal .ant-modal-footer {
     display: none;
-  }
-}
-
-@media screen and (max-width: 1280px) {
-  .oe-modal {
-    & .ant-modal-body {
-      //max-height: 70vh;
-    }
   }
 }
 

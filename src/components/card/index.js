@@ -13,7 +13,7 @@ const Card = ({
 
   return (
    <div className="oe-card" style={{backgroundImage:backgroundImage}}>
-     <div className="oe-card-value">{value}</div>
+     <div className={`oe-card-value ${(value+'').length > 4 ? 'big-card-value' : ''}`}>{value}</div>
   <div className="oe-card-desc">{description.split(" ").slice(0,Math.ceil(description.split(" ").length/2)).join(" ")}<br/>{description.split(" ").slice(Math.ceil(description.split(" ").length/2)).join(" ")}</div>
    </div>
   );

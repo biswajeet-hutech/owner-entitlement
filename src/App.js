@@ -1,9 +1,7 @@
 import React from "react";
-// import '~antd/dist/antd.css';
 import './App.scss';
 import Tabs from './components/tab';
-// import Typography from './components/typography';
-import OwnerEntitlement from './containers/owner-entitlement-list';
+import OwnerEntitlement from './containers/landing-page';
 import {backgroundImage} from './assets';
 function App() {
   return (

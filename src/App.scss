@@ -13,42 +13,11 @@
   overflow-y: hidden;
 }
 
-// .oe-section {
-// }
 .oe-root-container {
   margin: 0 50px;
 }
 .oe-page-margin {
   margin: 0px;
-}
-
-body,
-div {
-  /* width */
-  &::-webkit-scrollbar {
-    width: 0.5em;
-    height: 0.5em;
-  }
-  /* Track */
-  &::-webkit-scrollbar-track {
-    background: transparent;
-    background-clip: content-box;
-  }
-
-  /* Handle */
-  &::-webkit-scrollbar-thumb {
-    background: #b2b2b2;
-    display: hidden;
-    border-radius: 0.3em;
-  }
-  &::-webkit-scrollbar-track:hover {
-    display: block;
-    cursor: pointer;
-  }
-  /* Handle on hover */
-  &::-webkit-scrollbar-thumb:hover {
-    cursor: pointer;
-  }
 }
 
 .home_tab {

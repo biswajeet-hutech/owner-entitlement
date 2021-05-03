@@ -1,5 +1,9 @@
 {
 	"total": "480",
+	"SelfReviewStatus": {
+		"completed": 300,
+		"pending": 180
+	},
 	"EntitlementDetails": [{
 		"owner": "The Administrator",
 		"displayName": "Group Policy Creator Owners",
@@ -23,7 +27,8 @@
 		"requestable": "true",
 		"certifiable": "Yes",
 		"value": "CN=Group Policy Creator Owners,CN=Users,DC=st,DC=com",
-		"app_Id": "GR001"
+		"app_Id": "GR001",
+		"ReviewStatus": "InComplete"
 	}, {
 		"owner": "The Administrator",
 		"displayName": "Key Admins",
@@ -47,7 +52,8 @@
 		"requestable": "true",
 		"certifiable": "Yes",
 		"value": "CN=Key Admins,CN=Users,DC=st,DC=com",
-		"app_Id": null
+		"app_Id": null,
+		"ReviewStatus": "Complete"
 	}, {
 		"owner": "The Administrator",
 		"displayName": "ST\\Schema Admins",
@@ -71,7 +77,8 @@
 		"requestable": "true",
 		"certifiable": "Yes",
 		"value": "CN=Schema Admins,CN=Users,DC=st,DC=com",
-		"app_Id": null
+		"app_Id": null,
+		"ReviewStatus": "Complete"
 	}, {
 		"owner": "The Administrator",
 		"displayName": "Administrator",
@@ -95,7 +102,8 @@
 		"requestable": "false",
 		"certifiable": null,
 		"value": "CN=Administrators,CN=Builtin,DC=st,DC=com",
-		"app_Id": null
+		"app_Id": null,
+		"ReviewStatus": "InComplete"
 	}, {
 		"owner": "The Administrator",
 		"displayName": "Enterprise Admins",
@@ -119,6 +127,7 @@
 		"requestable": "true",
 		"certifiable": "No",
 		"value": "CN=Enterprise Admins,CN=Users,DC=st,DC=com",
-		"app_Id": null
+		"app_Id": null,
+		"ReviewStatus": "Complete"
 	}]
 }

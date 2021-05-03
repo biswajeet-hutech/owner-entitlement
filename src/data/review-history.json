@@ -1,0 +1,26 @@
+{
+  "ReviewHistory": [
+    {
+      "reviewername": "The Administrator",
+      "reviewerid": "8a40f31f74fed8c30174fed93663010b",
+      "reviewdate": "2021-04-11 11:13:41.0",
+      "comment": "Test Entitlement Review feature.",
+      "entitlmentid": "8a40f5aa752cd12001752cfff944005f"
+    },
+    {
+      "reviewername": "The Administrator",
+      "reviewerid": "8a40f31f74fed8c30174fed93663010b",
+      "reviewdate": "2021-04-11 11:30:30.0",
+      "comment": "Testing!!!",
+      "entitlmentid": "8a40f5aa752cd12001752cfff944005f"
+    },
+    {
+      "reviewername": "The Administrator",
+      "reviewerid": "8a40f31f74fed8c30174fed93663010b",
+      "reviewdate": "2021-04-11 13:09:11.0",
+      "comment": "update from API",
+      "entitlmentid": "8a40f5aa752cd12001752cfff944005f"
+    }
+  ],
+  "ReviewStatus": "Complete"
+}

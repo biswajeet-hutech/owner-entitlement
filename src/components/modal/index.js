@@ -1,10 +1,11 @@
 import React from "react";
-import { Modal as AntModal } from "antd";
+import { Modal as AntModal, Tooltip } from "antd";
 import Draggable from "react-draggable";
 import { Resizable } from "re-resizable";
 import { CloseOutlined } from "@ant-design/icons";
 
 import "./style.scss";
+import HelpButton from "../help-button";
 
 const Modal = ({
   title,
@@ -18,6 +19,7 @@ const Modal = ({
   width,
   height,
   config,
+  helpUrl,
 }) => {
   const [localState, setLocalState] = React.useState({
     visible: false,
@@ -68,8 +70,13 @@ const Modal = ({
             <div>
               {title}
             </div>
-            <div className="oe-modal-subtitle">{subTitle}</div>
+            <Tooltip title={subTitle} placement={"bottom"}>
+              <div className="oe-modal-subtitle">{subTitle}</div>
+            </Tooltip>
           </div>
+          {
+            helpUrl && <HelpButton helpUrl={helpUrl} className="oe-modal-help-button" />
+          }
         </div>
       }
       className={`oe-modal ${className ? className : ""}`}

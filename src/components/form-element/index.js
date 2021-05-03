@@ -7,7 +7,7 @@ import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
 import SearchList from "../search-list";
-import WorkGroupInput from "../../containers/entitlement-details/workgroupInput";
+import WorkGroupInput from "../../containers/view-edit-entitlement/workgroupInput";
 import API, { localMode } from "../../api";
 import dummyWorkgroupMembers from "../../data/workgroup-members.json";
 import DebounceSelect from "../dropdown/search-dropdown";
@@ -55,13 +55,6 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
 }
 
 const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10, ...otherProps }) => {
-  // const handleOnChange = (value) => {
-    
-  //   var regrex=/^[a-zA-Z]+$/;
-  //   const newValue = regrex.test(value)?'Only Letters':value;
-  //   onChange(newValue);
-  // }
-
   return (
     <>
       {
@@ -73,7 +66,7 @@ const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10,
               value={value}
               rows={rows}
               onChange={(e) => onChange(e.target.value)}
-              // onChange={handleOnChange}
+              autoSize={true}
               {...otherProps}
             />
             { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
@@ -261,8 +254,6 @@ const FormElement = ({
       case 'dropdown':
       // case 'object':
         return <DropdownForm {...otherProps} />;
-      // case 'chip_dropdown':
-      //   return <ChipDropdownForm {...otherProps} />;
       case 'workgroup':
         return <WorkGroupInput {...otherProps} />
       case 'search-dropdown':

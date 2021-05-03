@@ -6,12 +6,9 @@ import './style.scss';
 import { getFormType } from "../../utils";
 import FormElement from "../../components/form-element";
 import API, { localMode } from "../../api";
-// import approverDummyData from "../../data/approver-data.json";
 import { messages } from "../../assets";
 import formConfig from "./form-config";
 import fetchUserList from "../../utils/user";
-
-// const { Option, OptGroup } = Select;
 
 const ExtendedProperties = (props) => {
   const {
@@ -48,7 +45,6 @@ const ExtendedProperties = (props) => {
           ...stateData,
           [name]: []
         }));
-        // handleWorkgroupChange(name, '')
       }
     } else {
       //set loader to true
@@ -63,30 +59,15 @@ const ExtendedProperties = (props) => {
           ...stateData,
           [name]: res.data
         }));
-        // handleWorkgroupChange(name, '')
       }).catch(err => {
         if (localMode) {
           const response = {
-            data: [
-              {
-                "id": "0a0000047190181b817190f9602f0013",
-                "name": "Approver Level1"
-              },
-              {
-                "id": "0a0000047190181b817190f9602f0013",
-                "name": "Approver Level2"
-              },
-              {
-                "id": "0a0000047190181b817190f9602f0013",
-                "name": "Approver Level3"
-              },
-            ]
+            data: []
           }
           setWorkgroupDetailsData(stateData => ({
             ...stateData,
             [name]: response.data
           }));
-          // handleWorkgroupChange(name, '')
         }
       }).finally(res => {
         setLoadingWorkgroupList(stateData => ({
@@ -135,9 +116,6 @@ const ExtendedProperties = (props) => {
         //If current selection is a workgroup
         if (selectedVal.id) {
           result.push(selectedVal.id);
-          // if (!approverData) {
-          //   onChange(key, selectedVal.id);
-          // }
         }
       } else {
         //If current selection is not a workgroup
@@ -147,7 +125,6 @@ const ExtendedProperties = (props) => {
           result = [...val];
         }
 
-        //reset workgroup and approverLevel2 selection
         handleWorkgroupChange(key, '');
       }
 
