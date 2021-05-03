@@ -3,8 +3,8 @@ import { message, Spin } from "antd";
 import './style.scss';
 import Accordion from "../../components/accordion";
 import BaseProperties from "./base-properties";
-import { API, localMode } from "../../api";
-import { messages, SelfReviewApproved, SelfReviewPending } from "../../assets";
+import { API } from "../../api";
+import { messages } from "../../assets";
 
 const EntitlementDetails = ({
   editMode,

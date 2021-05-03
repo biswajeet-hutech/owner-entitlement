@@ -6,8 +6,6 @@ import dateFormat from "dateformat";
 import { titleCase } from ".";
 import {expImage} from './../assets/base64Images.json';
 
-// import exportData from "../data/export-entitlement.json";
-
 /**
  * @param  {string} value
  */

@@ -9,7 +9,6 @@ import Dropdown from "../dropdown";
 import SearchList from "../search-list";
 import WorkGroupInput from "../../containers/view-edit-entitlement/workgroupInput";
 import API, { localMode } from "../../api";
-import dummyWorkgroupMembers from "../../data/workgroup-members.json";
 import DebounceSelect from "../dropdown/search-dropdown";
 import { InfoHoverIcon } from './../../assets';
 
@@ -154,13 +153,15 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
         }
       }).catch(err => {
         if (localMode) {
-          const result = [...dummyWorkgroupMembers].map(item => ({
-            label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
-            id: item.name,
-            searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
-          }));
-          setWorkgroupMembers(stateData => result);
-          setOriginalWorkgroupMembers(stateData => result);
+          import("../../data/workgroup-members.json").then(res => {
+            const result = [...res.default].map(item => ({
+              label: item.displayName || (item.firstname ? `${item.firstname} ${item.lastname}` : item.name),
+              id: item.name,
+              searchString: `${item.displayName || ''} ${item.firstname || ''} ${item.lastname || ''} ${item.name || ''}`
+            }));
+            setWorkgroupMembers(stateData => result);
+            setOriginalWorkgroupMembers(stateData => result);
+          })
         }
       }).finally(res => {
         setLoadingWorkgroupMembers(false);

@@ -1,6 +1,5 @@
 import API, { localMode } from "../api";
 import _ from "lodash";
-import IdentitiesJSON from "../data/approver-data.json";
 
 async function fetchUserList(username, showWorkgroup, defaultValue) {
   const baseURL = `EntitlementManagement/identities/search`;
@@ -40,37 +39,39 @@ async function fetchUserList(username, showWorkgroup, defaultValue) {
     }}
   ).catch(err => {
     if (localMode) {
-      if (showWorkgroup) {
-        const result = [];
-        const res = [
-          ...IdentitiesJSON.map(user => ({
-            label: user.displayName || user.name,
-            value: user.id,
-            id: user.id,
-            name: user.name,
-            workgroup: user.workgroup === "true"
-          }))
-        ];
-        if (!username && defaultValue) {
-          result.push(defaultValue);
-        }
-        return _.uniqBy([...res, ...result], 'id');
-      } else {
-        const result = [];
-        const res = [
-          ...IdentitiesJSON?.filter(item => item.workgroup !== "true").map(user => ({
-            label: user.displayName || user.name,
-            value: user.id,
-            id: user.id,
-            name: user.name,
-            workgroup: user.workgroup === "true"
+      import("../data/approver-data.json").then(jsonRes => {
+        if (showWorkgroup) {
+          const result = [];
+          const res = [
+            ...jsonRes.default.map(user => ({
+              label: user.displayName || user.name,
+              value: user.id,
+              id: user.id,
+              name: user.name,
+              workgroup: user.workgroup === "true"
             }))
-        ];
-        if (!username && defaultValue) {
-          result.push(defaultValue);
+          ];
+          if (!username && defaultValue) {
+            result.push(defaultValue);
+          }
+          return _.uniqBy([...res, ...result], 'id');
+        } else {
+          const result = [];
+          const res = [
+            ...jsonRes.default?.filter(item => item.workgroup !== "true").map(user => ({
+              label: user.displayName || user.name,
+              value: user.id,
+              id: user.id,
+              name: user.name,
+              workgroup: user.workgroup === "true"
+              }))
+          ];
+          if (!username && defaultValue) {
+            result.push(defaultValue);
+          }
+          return _.uniqBy([...res, ...result], 'id');
         }
-        return _.uniqBy([...res, ...result], 'id');
-      }
+      })
     } else {
       const res = [];
       if (!username && defaultValue) {

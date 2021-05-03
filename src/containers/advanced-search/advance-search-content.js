@@ -6,7 +6,6 @@ import "./style.scss";
 import Typography from "../../components/typography";
 import { API, localMode } from "../../api";
 import ExtendedAttributes from "./extended-attributes";
-import extendedAttributesJSON from "../../data/extended-attributes.json";
 import { messages } from "../../assets";
 
 const loadingIcon = <LoadingOutlined style={{ fontSize: 24 }} spin />;
@@ -124,7 +123,9 @@ const AdvancedSearchContent = ({ onClose, onSearch, searchData, onClear }) => {
     }).catch(err => {
       // message.error("Failed to load statistics");
       if (localMode) {
-        setExtendedAttributes(extendedAttributesJSON);
+        import("../../data/extended-attributes.json").then(res => {
+          setExtendedAttributes(res.default);
+        })
       }
     }).then(() => {
       setLoadingExtendedAttr(false);

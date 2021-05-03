@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Grid, Tooltip } from 'antd';
+import { Badge, Button, Grid, Tooltip } from 'antd';
 import { EllipsisOutlined } from '@ant-design/icons';
 
 import {
@@ -13,7 +13,9 @@ import {
   DisputeHoverIcon,
   DisputeModal,
   EditModal,
-  ViewModal
+  ViewModal,
+  GroupMemberIcon,
+  GroupMemberHoverIcon
 } from '../../assets';
 import Modal from '../../components/modal';
 import ActionDialog from '../../components/action-dialog';
@@ -26,9 +28,11 @@ const { useBreakpoint } = Grid;
 const ResponsiveActionIcons = ({
   data = {},
   helpUrl = "",
+  entitlementHeaders=[],
   onAction = () => { }
 }) => {
   const [openModal, setOpenModal] = React.useState({ show: false, edit: false });
+  const [showMembersModal, setShowMembersModal] = React.useState({ show: false, edit: false });
   const [openDisputeModal, setOpenDisputeModal] = React.useState(false);
   const [actionModalConfig, setActionModalConfig] = React.useState({
     show: false,
@@ -86,6 +90,16 @@ const ResponsiveActionIcons = ({
           <DisputeHoverIcon className="hover" />
         </div>
       </Tooltip>
+      <div style={{ marginRight: 20 }}>
+        <Tooltip title={`Members: ${data.users}`} placement="bottom" onClick={() => setShowMembersModal({show: true})}>
+          <Badge count={data.users} overflowCount={99} size="small" offset={data.users < 10 ? [4, 10] : [10, 10]}>
+            <div className="oe-icon-btn">
+              <GroupMemberIcon className="normal" width={18} height={18} />
+              <GroupMemberHoverIcon className="hover" width={18} height={18} />
+            </div>
+          </Badge>
+        </Tooltip>
+      </div>
       <Modal
         open={openModal.show}
         onHide={() => setOpenModal({ show: false, edit: false })}
@@ -114,6 +128,24 @@ const ResponsiveActionIcons = ({
           onHide={() => setOpenDisputeModal(false)}
           onSuccess={() => { setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'success', origin: 'dispute' }); }}
           onError={(errorMessage) => { setOpenDisputeModal(false); setActionModalConfig({ show: true, type: 'error', origin: 'dispute', text: errorMessage }) }}
+        />
+      </Modal>
+      <Modal
+        open={showMembersModal.show}
+        onHide={() => setShowMembersModal({ show: false, data: {} })}
+        title={`Entitlement Members`}
+        subTitle={data.displayName || data.value}
+        helpUrl={helpUrl}
+      >
+        <EntitlementDetailsWrapper
+          defaultActiveKey="1"
+          entitlementDetailsHeader={entitlementHeaders}
+          entitlementId={data.id}
+          entitlementName={data.value || data.displayName}
+          onClose={() => {
+            setShowMembersModal({ show: false, data: {} });
+          }}
+          onSuccess={() => { setShowMembersModal({ show: false, edit: false, action: 'edit_success' })}}
         />
       </Modal>
       <ActionDialog open={actionModalConfig.show} onHide={() => { setActionModalConfig({ show: false, type: '' }); onAction('dispute') }} {...getActionDialogConfig(actionModalConfig)} />
