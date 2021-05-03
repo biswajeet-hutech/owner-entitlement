@@ -49,8 +49,8 @@ function DebounceSelect({
   }, [dataObject]);
 
   const renderOptions = () => {
-    const workgroupOptionList = options.filter(item => item.workgroup);
-    const nonWorkgroupOptionList = options.filter(item => !item.workgroup);
+    const workgroupOptionList = (options?.filter(item => item.workgroup)) || [];
+    const nonWorkgroupOptionList = (options?.filter(item => !item.workgroup)) || [];
     return (
     <>
       <OptGroup label="Workgroup">

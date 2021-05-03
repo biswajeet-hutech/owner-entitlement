@@ -10,8 +10,6 @@ import SearchWithActionBar from "./search-with-action-bar";
 import { API, localMode } from "../../api";
 import {
   CheckTrue,
-  SelfReviewApproved,
-  SelfReviewPending,
   CheckFalse,
   EditModal,
   ViewModal
@@ -41,7 +39,6 @@ const OwnerEntitlement = () => {
   const [entitlementStatistics, setEntitlementStatistics] = React.useState([]);
   const [extendedAttributes, setExtendedAttributes] = React.useState({});
   const [entitlementHeaders, setEntitlementHeaders] = React.useState([]);
-  const [entitlementReviewStats, setEntitlementReviewStats] = React.useState([]);
   const [featureFlags, setFeatureFlags] = React.useState({});
   const [helpData, setHelpData] = React.useState('');
   const [loadingEntitlement, setLoadingEntitlement] = React.useState(false);
@@ -137,22 +134,6 @@ const OwnerEntitlement = () => {
         import("../../data/entitlement-headers.json").then(res => {
           setEntitlementHeaders(res.default);
         });
-      }
-    });
-  }
-
-  const getEntitlementReviewStats = () => {
-    const url = 'EntitlementManagement/review/Statistics';
-    API.get(url).then(res => {
-      if (Array.isArray(res.data)) {
-        setEntitlementReviewStats([...res.data]);
-      }
-    }).catch(err => {
-      message.error("Failed to load headers");
-      if (localMode) {
-        import("../../data/entitlement-review-stat.json").then(res => {
-          setEntitlementReviewStats([...res.default]);
-        })
       }
     });
   }
@@ -273,7 +254,6 @@ const OwnerEntitlement = () => {
       start: 0
     });
     getEntitlementStatistics();
-    getEntitlementReviewStats();
     getFeatureFlagAPI();
     getHelpInfoData();
   }, []);
@@ -297,7 +277,6 @@ const OwnerEntitlement = () => {
       case 'edit_success':
         getEntitlementList(tableConfig);
         getEntitlementStatistics();
-        getEntitlementReviewStats();
         return;
       default:
         return null;
@@ -307,11 +286,6 @@ const OwnerEntitlement = () => {
   const renderCheckboxColumn = (text) => ["true", "yes"].includes(text?.toLowerCase()) ? <CheckTrue style={{ fontSize: 16, color: '#37ae22' }} /> : (["false", "no"].includes(text?.toLowerCase()) ? <CheckFalse style={{ fontSize: 16, color: '#c1c1c1' }} /> : text);
 
   const headerConfig = {
-    ReviewStatus: {
-      fixed: true,
-      width: "100px",
-      render: (text, record) => <div onClick={() => setViewEditModal({ show: true, data: { ...record } })}>{ text === "Complete" ? <SelfReviewApproved /> : <SelfReviewPending /> }</div>
-    },
     value: {
       fixed: true,
       render: (text) => <div className="oe-td-wrap-text" title={text}>{text}</div>
@@ -379,7 +353,6 @@ const OwnerEntitlement = () => {
             onExport={handleMultipleExport}
             onAction={handleAction}
             featureFlags={featureFlags}
-            reviewStats={entitlementReviewStats}
             helpUrl={helpData}
           />
           <Table

@@ -1,13 +1,11 @@
 import React from "react";
-import { Row, Spin, message } from "antd";
+import { Row, Spin } from "antd";
 // import { getFormType } from "../../utils";
 import Button from "../../components/button";
 import './style.scss';
 import FormElement from "../../components/form-element";
 import ExtendedProperties from "./extended-properties";
 import { messages } from "../../assets";
-import API, { localMode } from "../../api";
-import SelfReview from "./self-review";
 
 const modifyEntitlementData = (data) => {
   const res = JSON.parse(JSON.stringify(data));
@@ -59,7 +57,6 @@ const BaseProperties = ({
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
   const requiredProps = [];
-  const isEntitlementReviewed = !!((data.EntitlementDetails || {}).ReviewStatus === "Complete");
   const readOnlyConfig = extendedAttributes?.reduce((acc, item) => {
     acc[item.name] = item.readOnly;
     return acc;
@@ -207,32 +204,6 @@ const BaseProperties = ({
     }
   }
 
-  const updateReviewState = ({ entitlementid, comment, status }) => {
-    const APIUrl = `/EntitlementManagement/review/update`;
-    setLoading(true);
-    API.post(APIUrl, {
-      entitlementid,
-      comment,
-      status
-    }).then(response => {
-      try {
-        if (response.data.status === "success") {
-          message.success('Review status updated.');
-          onSuccess();
-        }
-      } catch(e) {
-        message.error('Something went wrong, please try again.');
-      }
-    }).catch(e => {
-      message.error('Something went wrong, please try again.');
-      if(localMode) {
-        onSuccess();
-      }
-    }).finally(() => {
-      setLoading(false);
-    })
-  }
-
   React.useEffect(() => {
     const errorObj = getErrors({ ...formData });
     setErrors(stateData => errorObj);
@@ -280,16 +251,6 @@ const BaseProperties = ({
           userActionSectionData.map(formElement => <FormElement {...formElement} />)
         }
       </div>
-      {
-        readOnly && entitlementData?.id && (
-          <SelfReview
-            isEntitlementReviewed={isEntitlementReviewed}
-            entitlementid={entitlementData?.id}
-            updateReviewState={updateReviewState}
-          />
-        )
-      }
-      
       {
         !readOnly && (
         <Spin spinning={!!loading}>

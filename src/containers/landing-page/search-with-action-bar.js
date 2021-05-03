@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Tooltip } from 'antd';
+import { Row, Col } from 'antd';
 import { ImportOutlined } from "@ant-design/icons";
 import { strings } from '../../assets'
 import Button from "../../components/button";
@@ -12,19 +12,7 @@ import "./style.scss";
 
 import ExportButton from "../../components/button/export-btn";
 
-const SelfReviewContainer = ({ total, reviewed }) => (
-  <div className="oe-sr-container">
-    <div className="oe-sr-title">Review Status:</div>
-    <Tooltip title={`Total Reviewed: ${reviewed} out of ${total}`}>
-      <div className="oe-sr-progress">
-        <div className="oe-sr-progress-bar" style={{ width: `${(+reviewed/+total) * 100}%` }}></div>
-      </div>
-    </Tooltip>
-  </div>
-)
-
 const SearchWithActionBar = ({
-  reviewStats=[],
   onSearch = () => {},
   onExport = () => {},
   onAction = () => {},
@@ -35,10 +23,6 @@ const SearchWithActionBar = ({
   const [openImportDialog, setOpenImportModal] = React.useState(false);
   const [searchText, setSearchTextChange] = React.useState('');
   const [searchProps, setSearchProps] = React.useState({});
-  const reviewStatConfig = reviewStats.reduce((acc, item) => {
-    acc[item.statName] = item;
-    return acc;
-  }, {});
   const handleSearch = (data) => {
     const payload = {};
     for (const key in data) {
@@ -68,9 +52,6 @@ const SearchWithActionBar = ({
               />
             </Col>
           </Row>
-        </Col>
-        <Col xs={24} md={9}>
-          <SelfReviewContainer total={reviewStatConfig.total?.statVal} reviewed={reviewStatConfig.TotalReviewedEntitlements?.statVal} />
         </Col>
         <Col xs={24} md={5} className="action-wrapper-btn-group">
           {

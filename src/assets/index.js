@@ -51,8 +51,6 @@ const HelpIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls
 const ViewModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.view_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "View"} className={className} />
 const EditModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.edit_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Edit"} className={className} />
 const DisputeModal = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.dispute_modal} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Dispute"} className={className} />
-const SelfReviewApproved = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.self_review_approved} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Self Review"} className={className} tooltip={'Reviewed'} />
-const SelfReviewPending = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.self_review_pending} width={width ? width : 25} height={height ? height : 20} alt={alt ? alt : "Self Review"} className={className} tooltip={'Review Pending'} />
 const GroupMemberIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.group} width={width ? width : 20} height={height ? height : 20} alt={alt ? alt : "Members"} className={className} />
 const GroupMemberHoverIcon = ({ width, height, alt, className }) => <Icon dataUrl={ImageUrls.icons.group} width={width ? width : 20} height={height ? height : 20} alt={alt ? alt : "Members"} className={className} />
 const backgroundImage = `url(${ImageUrls.backgroundImage})`
@@ -85,8 +83,6 @@ export {
     ExportCertHoverIcon,
     ExportCertIcon,
     HelpIcon,
-    SelfReviewApproved,
-    SelfReviewPending,
     GroupMemberIcon,
     GroupMemberHoverIcon,
     backgroundImage,
