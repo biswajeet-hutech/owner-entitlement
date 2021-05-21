@@ -151,7 +151,6 @@ const OwnerEntitlement = () => {
       // message.error("Failed to load statistics");
       if (localMode) {
         import("../../data/advance-editable-attributes.json").then(res => {
-          console.log(res);
           setExtendedAttributes(res.default.ExtendedAttributes.reduce((acc, item) => {
             acc[item.name] = item;
             return acc;

@@ -103,7 +103,7 @@ function DebounceSelect({
       >
         {
           fetching ? <Option><div style={{ display: 'flex', justifyContent: 'center' }}><Spin size="small" /></div></Option> : 
-          (renderWorkgroupWithUsers ? renderOptions(options) : options.map(option => (
+          (renderWorkgroupWithUsers ? renderOptions(options) : options?.map(option => (
             <Option value={option.value} label={option.label} keyId={option.value} workgroup={false}>
               {
                 option.bold ? <b>{option.label}</b> : option.label

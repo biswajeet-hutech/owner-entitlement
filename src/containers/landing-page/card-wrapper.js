@@ -30,7 +30,7 @@ const CardWrapper = ({ cardData }) => {
       }} />
       <div className="card_carosel" id="cardWrapper">
         {cardData.map((card, index) => (
-          <Card value={card.statVal} description={card.statDescription} backGround={index + 1} />
+          <Card value={card.statVal} description={card.statDescription} backGround={index + 1} key={card.description} />
         ))}
       </div>
       <Button type="text" icon={<RightOutlined />} className={showRightShadow ? "caroselArrows" : "caroselArrows showShadowb"} onClick={() => {

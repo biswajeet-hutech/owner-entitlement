@@ -23,19 +23,21 @@
   }
 
   & .oe-rte-text-count {
-    padding: 8px 12px 0;
-    font-size: $font-size-14;
+    padding: 8px 0px 0;
     font-weight: normal;
     font-stretch: normal;
     font-style: $font-style-normal;
     line-height: normal;
     letter-spacing: normal;
-    color: $black;
+    text-align: right;
   }
 
   & .oe-rte-root {
     border-radius: 3px;
     border: solid 1px $input-border;
+    &.oe-form-error {
+      border: 1px solid #de0808;
+    }
 
     & .oe-rte-toolbar {
       background-color: $background-color;

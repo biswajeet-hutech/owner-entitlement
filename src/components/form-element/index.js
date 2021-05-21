@@ -7,6 +7,7 @@ import "./style.scss";
 import MyStatefulEditor from "../rich-text-editor";
 import Dropdown from "../dropdown";
 import SearchList from "../search-list";
+import SuggestiveInput from "./suggestive-input";
 import WorkGroupInput from "../../containers/view-edit-entitlement/workgroupInput";
 import API, { localMode } from "../../api";
 import DebounceSelect from "../dropdown/search-dropdown";
@@ -14,7 +15,13 @@ import { InfoHoverIcon } from './../../assets';
 
 const { TextArea } = Input;
 
-const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
+const InputForm = ({ value, readOnly, onChange, maxLength, ...otherProps }) => {
+
+  const showCount = (
+    <div style={{ textAlign: 'right' }}>
+      {`${value?.length || 0} / ${maxLength}`}
+    </div>
+  )
   return (
     <>
       {
@@ -27,7 +34,10 @@ const InputForm = ({ value, readOnly, onChange, ...otherProps }) => {
               onChange={(e) => onChange(e.target.value)}
               {...otherProps}
             />
-            { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+            <div className="flex-space form-footer-container">
+              { otherProps.error ? <div className="oe-form-error-text">{otherProps.error}</div> : <div/> }
+              { maxLength && showCount }
+            </div>
           </>
         )
       }
@@ -54,21 +64,29 @@ const DescriptionForm = ({value, readOnly, onChange, ...otherProps }) => {
 }
 
 const TextAreaForm = ({value, readOnly, onChange, maxLength, hideCount, rows=10, ...otherProps }) => {
+  const showCount = (
+    <div style={{ textAlign: 'right' }}>
+      {`${value?.length || 0} / ${maxLength}`}
+    </div>
+  )
   return (
     <>
       {
         readOnly ? <div dangerouslySetInnerHTML={{__html: value}} /> : (
           <>
             <TextArea
-              showCount={!hideCount}
               maxLength={maxLength}
               value={value}
               rows={rows}
               onChange={(e) => onChange(e.target.value)}
               autoSize={true}
+              className={`${otherProps.error && 'oe-form-error'}`}
               {...otherProps}
             />
-            { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+             <div className="flex-space form-footer-container">
+              { otherProps.error ? <div className="oe-form-error-text">{otherProps.error}</div> : <div/> }
+              { maxLength && showCount }
+            </div>
           </>
         )
       }
@@ -121,7 +139,9 @@ const DropdownForm = ({options, readOnly, onChange, value, ...otherProps}) => {
             overrideClass={`oe-form-dropdown ${otherProps.error && 'oe-form-error'}`}
             {...otherProps}
           />
-          { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+          <div className="form-footer-container">
+            { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+          </div>
         </>
         )
       }
@@ -225,8 +245,10 @@ const ChipDropdownForm = ({options, readOnly, onChange, value, isWorkgroup, data
             dataObject={dataObject}
             {...otherProps}
           />
-          { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
-          { value?.length > 1 && (<div style={{ margin: '4px 0 0' }}>{messages.WORKGROUP.HELPER_TXT}</div> )}
+          <div className="form-footer-container">
+            { otherProps.error && <div className="oe-form-error-text">{otherProps.error}</div> }
+            { value?.length > 1 && (<div style={{ margin: '4px 0 0' }}>{messages.WORKGROUP.HELPER_TXT}</div> )}
+          </div>
         </>
         )
       }
@@ -259,6 +281,8 @@ const FormElement = ({
         return <WorkGroupInput {...otherProps} />
       case 'search-dropdown':
         return <ChipDropdownForm {...otherProps} />
+      case 'suggestiveInput':
+        return <SuggestiveInput {...otherProps} />
       default:
         return otherProps.value;
     }

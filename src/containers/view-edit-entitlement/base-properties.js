@@ -6,6 +6,7 @@ import './style.scss';
 import FormElement from "../../components/form-element";
 import ExtendedProperties from "./extended-properties";
 import { messages } from "../../assets";
+import { getFormType } from "../../utils";
 
 const modifyEntitlementData = (data) => {
   const res = JSON.parse(JSON.stringify(data));
@@ -56,7 +57,15 @@ const BaseProperties = ({
   const [loading, setLoading] = React.useState(false);
   const [errors, setErrors] = React.useState({});
   const readOnlyProperties = ['application', 'value', 'lastrefresh', 'modified'];
-  const requiredProps = [];
+  const requiredProps = [
+    ...standardAttributes,
+    ...extendedAttributes
+  ].filter(item => (item.required === "true")).map(item => item.name);
+
+  const allAttributesWithKey = [...standardAttributes, ...extendedAttributes].reduce((acc, item) => {
+    acc[item.name] = item;
+    return acc;
+  }, {});
   const readOnlyConfig = extendedAttributes?.reduce((acc, item) => {
     acc[item.name] = item.readOnly;
     return acc;
@@ -92,8 +101,28 @@ const BaseProperties = ({
     ));
   }
 
-  const getErrors = (formData) => {
+  const getErrors = (formData, validationObj) => {
     const errorObj = {};
+    const keysToValidate = Object.keys(formData);
+    keysToValidate?.forEach(key => {
+      const formElem = validationObj[key] || {};
+      if (formElem.regExp) {
+        const regex = new RegExp(formElem.regExp);
+        if (!regex.test(entitlementData[key])) {
+          errorObj[key] = formElem.validationMessage;
+        }
+      }
+      if (formElem.maxLen && (entitlementData[key].length > +formElem.maxLen)) {
+        errorObj[key] = `${messages.FORM.MAX_LEN} ${formElem.maxLen}`;
+      }
+      if (formElem.required === "true" && !formData[key]) {
+        errorObj[key] = messages.FORM.REQUIRED;
+      }
+      if ((!formElem.required || formElem.required === "false") && !formData[key]) {
+        delete errorObj[key];
+      }
+    });
+
     requiredProps.forEach(item => {
       if (!entitlementData[item]) {
         errorObj[item] = messages.FORM.REQUIRED;
@@ -155,20 +184,26 @@ const BaseProperties = ({
     },
   ]
 
-  const getStandardFormConfig = {
-    displayName: {
-      type: 'textarea',
-      maxLength: 450,
-      autoSize: true
-    },
+  const defaultStandardProps = {
     requestable: {
       type: 'checkbox'
     },
     description: {
-      type: 'description',
-      defaultValue: data.EntitlementDetails.description,
+      type: 'description'
     }
   }
+
+  const getStandardFormConfig = standardAttributes.reduce((acc, item) => {
+    const propType = getFormType(item);
+    acc[item.name] = {
+      type: propType || item.type,
+      defaultValue: data.EntitlementDetails[item.name],
+      maxLength: item.maxLen,
+      autoSize: true,
+      required: item.required === "true"
+    }
+    return acc;
+  }, {});
 
   const standardFormConfig = standardAttributes.map(attr => ({
     ...getStandardFormConfig[attr.name],
@@ -183,7 +218,7 @@ const BaseProperties = ({
 
   const handleSaveData = () => {
     const finalFormData = {...formData};
-    const errors = getErrors(finalFormData);
+    const errors = getErrors(finalFormData, allAttributesWithKey);
     const inValidForm = Object.keys(errors).length;
     setErrors(errors);
 
@@ -205,7 +240,7 @@ const BaseProperties = ({
   }
 
   React.useEffect(() => {
-    const errorObj = getErrors({ ...formData });
+    const errorObj = getErrors({ ...formData }, allAttributesWithKey);
     setErrors(stateData => errorObj);
   }, [formData]);
 
