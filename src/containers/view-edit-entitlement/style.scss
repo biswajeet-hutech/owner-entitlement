@@ -83,6 +83,29 @@
   }
 }
 
+.form-input {
+  border-radius: 3px;
+  border: solid 1px $input-border;
+  height: 35px;
+  margin-right: 5px;
+  &:focus,
+  &:hover,
+  &:active {
+    box-shadow: none;
+    border: solid 1px $theme-primary;
+  }
+  &.oe-form-error {
+    border-radius: 3px;
+    border: 1px solid #de0808;
+  }
+}
+
+.form-input-btn {
+  height: 35px;
+  border-radius: 3px;
+  border: solid 1px $input-border;
+}
+
 .oe-accordion {
   & .oe-review-accordion {
     border: none;

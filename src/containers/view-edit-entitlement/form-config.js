@@ -6,7 +6,6 @@ export const formConfig = {
   },
   "logiplexAppName": {
     maxLength: 250,
-    type: "textarea",
     rows: 1
   }
 }

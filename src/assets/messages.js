@@ -22,6 +22,7 @@ export const messages = {
     "APPROVER_PLACEHOLDER": "Select a workgroup or list of members as approver",
     "WORKGROUP_LABEL": "Associated Workgroup for Approver Level",
     "REQUIRED": "This field is required",
+    "MAX_LEN": "Max allowed length is ",
     "SELECT_APPROVER": "Select an approver",
     "SELECT_WORKGROUP": "Select an associated workgroup or create one"
   },

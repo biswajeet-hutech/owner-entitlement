@@ -7,11 +7,6 @@
   &:last-child {
     margin-bottom: 0;
   }
-  & .oe-form-error {
-    color: red;
-    font-size: 1em;
-    margin: 4px 0;
-  }
   & .oe-form-label {
     font-family: $primary-font-regular;
     font-size: $font-size-13;
@@ -45,20 +40,29 @@
     & img {
       cursor: context-menu;
     }
-    & .oe-form-error {
-      color: inherit;
-      border: 1px solid #de0808;
-    }
     & .oe-form-error-text {
-      margin-top: 4px;
       color: #de0808;
       font-size: 13px;
     }
   }
-  & .oe-form-input.ant-input {
-    line-height: 32px;
+
+  & .oe-form-autocomplete {
+    &.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+      border-radius: 3px;
+      border: solid 1px $input-border;
+      height: 35px;
+    }
+    &.oe-form-error {
+      border: none;
+      &.ant-select-show-search.ant-select:not(.ant-select-customize-input) .ant-select-selector {
+        border: 1px solid #de0808;
+      }
+    }
+  }
+  & .oe-form-input.ant-input, & textarea.ant-input{
     border-radius: 3px;
     border: solid 1px $input-border;
+    height: 35px;
     &:focus,
     &:hover,
     &:active {
@@ -66,6 +70,7 @@
       border: solid 1px $theme-primary;
     }
     &.oe-form-error {
+      border-radius: 3px;
       border: 1px solid #de0808;
     }
   }
@@ -90,6 +95,12 @@
     }
     & .ant-select-arrow {
       color: $input-border;
+    }
+    &.oe-form-error {
+      border: none;
+      & .oe-dropdown {
+        border: 1px solid #de0808;
+      }
     }
   }
 
@@ -123,5 +134,15 @@
     & img {
       cursor: pointer;
     }
+  }
+
+  .flex-space {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .form-footer-container {
+    position: relative;
+    top: 6px;
   }
 }

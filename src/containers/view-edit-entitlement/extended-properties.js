@@ -3,12 +3,13 @@ import { message, Spin } from 'antd';
 import _ from "lodash";
 
 import './style.scss';
-import { getFormType } from "../../utils";
+import { formOptionsData, getFormType } from "../../utils";
 import FormElement from "../../components/form-element";
 import API, { localMode } from "../../api";
 import { messages } from "../../assets";
 import formConfig from "./form-config";
 import fetchUserList from "../../utils/user";
+import { suggestiveValues } from "./http-util";
 
 const ExtendedProperties = (props) => {
   const {
@@ -81,17 +82,31 @@ const ExtendedProperties = (props) => {
   const formGroupData = Array.isArray(extendedPropsWithoutApprover) ? extendedPropsWithoutApprover.map(props => {
     const formType = getFormType(props);
     const formValue = entitlementData[props.name];
+    const getOptionsData = (type) => {
+        return formOptionsData({
+          data: type === "dropdown"
+          ? props.allowedValues
+          : (type === "suggestiveInput")
+          ? props.suggestiveValues : null
+        })
+    }
+    const propsMap = {
+      suggestiveInput: {
+        fetchOptions: (userName) => suggestiveValues(userName, props.name)
+      }
+    }
     return {
       key: props.name,
       label: props.displayName,
       value: formValue,
       type: formType,
-      maxLength: formType === 'input' ? 100 : null,
-      options: formType === "dropdown" ? (Array.isArray(props.allowedValues) && props.allowedValues.map(item => ({ label: item, value: item }))) : null,
+      maxLength: props.maxLen,
+      options: ["dropdown", "suggestiveInput"].includes(formType) ? getOptionsData(formType) : null,
       onChange: (value) => onChange(props.name, value),
       readOnly: readOnly || readOnlyConfig[props.name],
       error: errors[props.name],
-      ...(formConfig[props.name] || {})
+      required: props.required === "true",
+      ...propsMap[formType]
     }
   }) : [];
 

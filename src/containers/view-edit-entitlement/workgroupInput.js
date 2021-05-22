@@ -1,11 +1,10 @@
 import React from 'react';
-import { Input, List, Popover } from 'antd';
+import { Button, Input, List, Popover } from 'antd';
 import { EyeFilled } from "@ant-design/icons";
 import debounce from 'lodash/debounce';
 import _ from "lodash";
 
 import { EditWhiteIcon } from './../../assets';
-import Button from "../../components/button";
 import SearchList from "../../components/search-list";
 import API, { localMode } from '../../api';
 
@@ -34,7 +33,7 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
     action: (workgroupMembersIdList.includes(item.id) || workgroupMembersNameList.includes(item.name)) ? 'remove' : 'add'
   }));
   
-  const combinedUsersList = workgroupSearchText ? [...AllUsersDropList] : _.uniqBy([...workgroupMembers, ...AllUsersDropList], 'id');
+  const combinedUsersList = workgroupSearchText ? [...(AllUsersDropList || [])] : _.uniqBy([...(workgroupMembers || []), ...(AllUsersDropList || [])], 'id');
 
   const handleCreateWorkgroup = () => {
     if (!workgroupInfo.name) {
@@ -185,15 +184,30 @@ const WorkGroupInput = ({ options, readOnly, onChange, value, approverData, fetc
                     <div style={{  padding: 10, border: '1px solid #ccc', 'border-radius': 4 }}>
                       <div style={{ width: '200px', fontSize: 13 }}>New Workgroup: </div>
                       <div style={{ display: 'flex', alignItems: 'center', margin: '4px 0' }}>
-                        <Input value={workgroupInfo.name} onChange={e => changeWorkgroupInfo(e.target.value, 'name')} placeholder="Workgroup Name"></Input>
-                        <Input value={workgroupInfo.description} onChange={e => changeWorkgroupInfo(e.target.value, 'description')} placeholder="Workgroup Description"></Input>
-                        <Button onClick={handleCreateWorkgroup}>Create</Button>
+                        <Input
+                          value={workgroupInfo.name}
+                          onChange={e => changeWorkgroupInfo(e.target.value, 'name')}
+                          placeholder="Workgroup Name"
+                          className="form-input"
+                        />
+                        <Input
+                          value={workgroupInfo.description}
+                          onChange={e => changeWorkgroupInfo(e.target.value, 'description')}
+                          placeholder="Workgroup Description"
+                          className="form-input"
+                        />
+                        <Button
+                          className="form-input-btn"
+                          onClick={handleCreateWorkgroup}
+                        >
+                          Create
+                        </Button>
                       </div>
                       { workgroupError && <div className="oe-form-error-text">{workgroupError}</div> }
                     </div>
                 </>
                 ) : null
-              } 
+              }
               </>
             )}
             dataSource={options}

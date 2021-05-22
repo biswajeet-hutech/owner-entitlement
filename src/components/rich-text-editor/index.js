@@ -68,7 +68,7 @@ const MyStatefulEditor = ({ value="", onChange=()=>{}, maxLength=450, defaultVal
         editorClassName="oe-rte-editor"
         className={`oe-rte-root ${!!error && 'oe-form-error'}`}
       />
-      <p className="oe-rte-text-count">{`${+(maxLength - editorTextLength)} characters remaining of ${maxLength} characters`}</p>
+      <p className="oe-rte-text-count">{`${+(maxLength - editorTextLength)} / ${maxLength}`}</p>
     </div>
   );
 }
