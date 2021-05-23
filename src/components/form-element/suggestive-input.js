@@ -38,10 +38,6 @@ const SuggestiveInput = ({
     return debounce(loadOptions, debounceTimeout);
   }, []);
 
-  React.useEffect(() => {
-    debounceFetcher('');
-  }, []);
-
   const showCount = (
     <div style={{ textAlign: 'right' }}>
       {`${value?.length || 0} / ${maxLength}`}
@@ -56,6 +52,7 @@ const SuggestiveInput = ({
             <AutoComplete
               style={{ width: '100%' }}
               options={options}
+              value={value}
               onSearch={debounceFetcher}
               onChange={onChange}
               placeholder={otherProps.placeholder || ""}
