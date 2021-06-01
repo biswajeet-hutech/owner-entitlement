@@ -62,7 +62,7 @@ const RaiseDisputeForm = ({
       ...(
         allowedActions.length ? {
           key: 'action',
-          label: 'Select Dispute/Transfer',
+          label: 'Dispute/Transfer',
           options: allowedActions.map(item => ({ label: item, value: item })),
           value: action,
           required: true,
@@ -88,11 +88,11 @@ const RaiseDisputeForm = ({
     },
     {
       key: 'disputeStatement',
-      label: 'Dispute/Transfer Statement',
+      label: 'Justification',
       value: disputeStatement,
       required: !(action?.includes("Transfer Ownership")),
       type: 'textarea',
-      needHelp :'YES',
+     // needHelp :'YES',
       maxLength: 250
     }
   ]

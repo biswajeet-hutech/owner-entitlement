@@ -1,7 +1,4 @@
 [ {
-	"displayName": "Self Review",
-	"name": "ReviewStatus"
-}, {
 	"displayName": "Entitlement Value",
 	"name": "value"
 }, {

@@ -5,8 +5,17 @@
 const getFormType = (prop) => {
   switch (prop.type) {
     case "string":
-      if (prop.allowedValues !== null) {
+      if (prop.suggestive === "true") {
+        return "suggestiveInput";
+      }
+      if (Array.isArray(prop.allowedValues)) {
         return "dropdown";
+      }
+      if (prop.name === "description") {
+        return "description";
+      }
+      if (prop.maxLen) {
+        return 'textarea';
       }
       return "input";
     case "date":
@@ -32,8 +41,20 @@ const getExportMembersFileName = (name="") => name.split("CN=").slice(0, 2).join
 
 const titleCase = (str="") => str.split("_").map(item => item.charAt(0).toUpperCase() + item.substring(1)).join(" ");
 
+const formOptionsData = ({ data, labelKey, valueKey }) => {
+  if (Array.isArray(data)) {
+    return data.map(item => ({
+      label: labelKey ? item[labelKey] : item,
+      value: valueKey ? item[valueKey] : item
+    }))
+  }
+
+  return [];
+}
+
 export {
   getFormType,
   getExportMembersFileName,
-  titleCase
+  titleCase,
+  formOptionsData
 }

@@ -36,7 +36,8 @@
     "requestable": "true",
     "certifiable": "yes",
     "value": "ACCOUNTING",
-    "ReviewStatus": "InComplete"
+    "ReviewStatus": "InComplete",
+    "logiplexAppName": "abcd"
   },
   "Members": [
     {
